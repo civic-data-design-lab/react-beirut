@@ -3,8 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "upload": "node scripts/upload.js"
+    "start": "next start"
   },
   "dependencies": {
     "mongoose": "^6.0.11",

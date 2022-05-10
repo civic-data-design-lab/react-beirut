@@ -20,14 +20,23 @@ if (args.length === 0) {
 
 // Check for the -h/--help flag
 if (args.includes('--help') || args.includes('-h')) {
-  console.log('Usage: npm run upload [--help|-h] <path> <type>');
+  console.log(
+    'Usage: npm run upload [--help|-h] [-o|--overwrite] <path> <type>',
+  );
+
   console.log('\nAvailable types:');
-  // console.log('\t--all\tUpload all images');
-  // console.log('\t--new\tUpload new images');
-  // console.log('\t--old\tUpload old images');
-  console.log('TODO');
+  UPLOAD_TYPES.forEach((type) => {
+    console.log(`  ${type}`);
+  });
+
+  console.log('\nOptions:');
+  console.log('\t-o, --overwrite\tOverwrite existing images');
+
   process.exit(0);
 }
+
+// Check for additional options
+const overwrite = args.includes('--overwrite') || args.includes('-o');
 
 // Validate the type argument
 const type = args.pop();
@@ -35,13 +44,12 @@ if (!UPLOAD_TYPES.includes(type)) {
   console.log('Invalid type. Run with --help for usage.');
   process.exit(0);
 }
-
 console.log(`You selected "${type}"`);
 
 // Validate the path argument
 const path = args.pop();
 if (!fs.existsSync(path)) {
-  console.log('Invalid path. Run with --help for usage.');
+  console.log(`Invalid path "${path}". Run with --help for usage.`);
   process.exit(0);
 }
 console.log(`Path ${path} found.`);
@@ -56,15 +64,12 @@ if (!MONGODB_URI) {
 }
 
 conn = mongoose.connect(MONGODB_URI);
-
 console.log('Successfully connected to database.');
 
 /**
  * Uploads the workshops given the JSON filepath.
- *
- * @param {string} path - The path to the JSON file.
  */
-async function uploadWorkshops(path) {
+const uploadWorkshops = async () => {
   let data;
   try {
     data = fs.readFileSync(path);
@@ -79,26 +84,35 @@ async function uploadWorkshops(path) {
 
   for (const workshop of jsonObj) {
     console.log(`> Uploading workshop ${workshop.ID}...`);
-    WorkshopSchema.findOne({ ID: workshop.ID }, (err, response) => {
-      if (response) {
-        console.log(`> Workshop ${workshop.ID} already exists in database`);
-        return;
+    const existingWorkshop = await WorkshopSchema.findOne({
+      ID: workshop.ID,
+    }).exec();
+    // console.log(result);
+    if (existingWorkshop) {
+      if (overwrite) {
+        console.log(`\t> Overwriting workshop ${workshop.ID}...`);
+        await WorkshopSchema.replaceOne({ ID: workshop.ID }, workshop).exec();
+        console.log(`\tSuccessfully overwrote workshop ${workshop.ID}.`);
+        continue;
       }
-      const newWorkshop = new WorkshopSchema(workshop);
-      newWorkshop.save();
       console.log(
-        `> Successfully uploaded workshop ${workshop.ID} to database!`,
+        `Workshop ${workshop.ID} already exists in database. Use -o/--overwrite to overwrite.`,
       );
-    });
+      continue;
+    }
+
+    const newWorkshop = new WorkshopSchema(workshop);
+    await newWorkshop.save();
+    console.log(`Successfully uploaded workshop ${workshop.ID} to database!`);
   }
-}
+  console.log('done');
+  process.exit(0);
+};
 
 /**
  * Uploads the image files to the database.
- *
- * @param {string} path - The path to the images directory
  */
-const uploadImages = async (path) => {
+const uploadImages = async () => {
   // https://stackoverflow.com/a/2727191
   fs.readdir(path, (err, files) => {
     files.forEach((filename) => {
@@ -123,19 +137,19 @@ const uploadImages = async (path) => {
   });
 };
 
-if (type === 'images') {
-  console.log('> Starting image upload...');
-  uploadImages(path);
-  console.log('Finished image upload.');
-  process.exit(0);
+switch (type) {
+  case 'images':
+    console.log('> Starting image upload...');
+    uploadImages(path);
+    break;
+  case 'workshops':
+    console.log('> Starting workshop upload...');
+    uploadWorkshops(path);
+    break;
+  case 'archive':
+    console.log('TODO');
+    break;
+  default:
+    console.log('Invalid type. Run with --help for usage.');
+    process.exit(0);
 }
-
-if (type === 'workshops') {
-  console.log('> Starting workshop upload...');
-  uploadWorkshops(path);
-}
-
-// TODO: In progress, upload all images and data from the data cleaning to
-// MongoDB
-
-// process.exit(0);
