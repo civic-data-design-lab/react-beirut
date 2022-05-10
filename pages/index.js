@@ -1,24 +1,24 @@
 import Link from 'next/link'
 import dbConnect from '../lib/dbConnect'
-import Pet from '../models/Pet'
+import Workshop from '../models/Workshop'
 
-const Index = ({ pets }) => (
+const Index = ({ workshops }) => (
   <>
     {/* Create a card for each pet */}
-    {pets.map((pet) => (
-      <div key={pet._id}>
+    {workshops.map((workshop) => (
+      <div key={workshop._id}>
         <div className="card">
-          <img src={pet.image_url} />
-          <h5 className="pet-name">{pet.name}</h5>
+          {/* <img src={workshop.image_url} /> */}
+          <h5 className="pet-name">{workshop.shop_name.content || workshop.shop_name.content_orig}</h5>
           <div className="main-content">
-            <p className="pet-name">{pet.name}</p>
-            <p className="owner">Owner: {pet.owner_name}</p>
+            <p className="pet-name">{workshop.shop_name.content || workshop.shop_name.content_orig}</p>
+            <p className="owner">Owner: {workshop.shop_owner_name}</p>
 
             {/* Extra Pet Info: Likes and Dislikes */}
             <div className="likes info">
               <p className="label">Likes</p>
               <ul>
-                {pet.likes.map((data, index) => (
+                {workshop.craft_discipline.map((data, index) => (
                   <li key={index}>{data} </li>
                 ))}
               </ul>
@@ -26,17 +26,17 @@ const Index = ({ pets }) => (
             <div className="dislikes info">
               <p className="label">Dislikes</p>
               <ul>
-                {pet.dislikes.map((data, index) => (
+                {workshop.images.map((data, index) => (
                   <li key={index}>{data} </li>
                 ))}
               </ul>
             </div>
 
             <div className="btn-container">
-              <Link href="/[id]/edit" as={`/${pet._id}/edit`}>
+              <Link href="/[id]/edit" as={`/${workshop._id}/edit`}>
                 <button className="btn edit">Edit</button>
               </Link>
-              <Link href="/[id]" as={`/${pet._id}`}>
+              <Link href="/[id]" as={`/${workshop._id}`}>
                 <button className="btn view">View</button>
               </Link>
             </div>
@@ -53,14 +53,14 @@ export async function getServerSideProps() {
   await dbConnect()
 
   /* find all the data in our database */
-  const result = await Pet.find({})
-  const pets = result.map((doc) => {
-    const pet = doc.toObject()
-    pet._id = pet._id.toString()
-    return pet
+  const result = await Workshop.find({})
+  const workshops = result.map((doc) => {
+    const workshop = doc.toObject()
+    workshop._id = workshop._id.toString()
+    return workshop
   })
 
-  return { props: { pets: pets } }
+  return { props: { workshops } }
 }
 
 export default Index
