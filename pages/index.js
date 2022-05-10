@@ -42,7 +42,6 @@ const Index = ({ workshops }) => (
             </div>
           </div>
         </div>
-        <img src="http://localhost:3000/api/images/github-logo.png" alt="" />
       </div>
     ))}
   </>
