@@ -12,6 +12,7 @@ const ImageMetaSchema = new mongoose.Schema({
   from_survey: String,
   is_thumbnail: Boolean,
   type: [String],
+  craft_type: [String],
   keywords: [String],
   is_series: Boolean,
   series_idx: Number,

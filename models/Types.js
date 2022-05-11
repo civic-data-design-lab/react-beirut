@@ -108,6 +108,7 @@
  * @property {string} from_survey
  * @property {boolean} is_thumbnail
  * @property {string[]} type
+ * @property {string[]} craft_type
  * @property {string[]} keywords
  * @property {boolean} is_series
  * @property {number} series_idx

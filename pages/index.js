@@ -8,7 +8,7 @@ const Index = ({ workshops }) => (
     {workshops.map((workshop) => (
       <div key={workshop._id}>
         <div className="card">
-          {/* <img src={workshop.image_url} /> */}
+          <img src={`/api/images/${workshop.thumb_img_id}.jpg`} alt=""/>
           <h5 className="pet-name">{workshop.shop_name.content || workshop.shop_name.content_orig}</h5>
           <div className="main-content">
             <p className="pet-name">{workshop.shop_name.content || workshop.shop_name.content_orig}</p>
