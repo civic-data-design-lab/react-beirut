@@ -7,7 +7,7 @@ const ImageMetaSchema = require('../models/ImageMeta');
 const ImageDataSchema = require('../models/ImageData');
 const WorkshopSchema = require('../models/Workshop');
 
-const UPLOAD_TYPES = ['images', 'workshops', 'archive'];
+const UPLOAD_TYPES = ['image-data', 'image-meta', 'workshops', 'archive'];
 
 console.log('> Upload script starting...');
 
@@ -149,14 +149,79 @@ const uploadImages = async () => {
   process.exit(0);
 };
 
+/**
+ * Uploads the image metadata files to the database.
+ */
+const uploadImageMeta = async () => {
+  let data;
+  try {
+    data = fs.readFileSync(path);
+  } catch (err) {
+    console.error(err);
+    console.error('Could not open the file at the specified path!');
+    process.exit(1);
+  }
+
+  const jsonObj = JSON.parse(data);
+  console.log(
+    `Loaded ${jsonObj.length} image metadata entries from the JSON file.`,
+  );
+
+  for (const imageMeta of jsonObj) {
+    // ----------------------------------------
+    // Prepare the image meta object for upload
+    // ----------------------------------------
+    // Convert the `path` field to the `src` field by appending the full URL
+    imageMeta.src = `https://cddl-beirut.herokuapp.com/api/images/${imageMeta.path}`;
+    // Delete the `path` field (and the name field)
+    delete imageMeta.path;
+    delete imageMeta.img_name;
+
+    console.log(`> Uploading image-meta ${imageMeta.img_id}...`);
+    const existingImageMeta = await ImageMetaSchema.findOne({
+      img_id: imageMeta.img_id,
+    }).exec();
+
+    if (existingImageMeta) {
+      if (overwrite) {
+        console.log(
+          `\t> Overwriting image-meta ${existingImageMeta.img_id}...`,
+        );
+        await ImageMetaSchema.replaceOne(
+          { img_id: imageMeta.img_id },
+          imageMeta,
+        ).exec();
+        console.log(`\tSuccessfully overwrote image-meta ${imageMeta.img_id}.`);
+        continue;
+      }
+      console.log(
+        `Image-meta ${imageMeta.img_id} already exists in database. Use -o/--overwrite to overwrite.`,
+      );
+      continue;
+    }
+
+    const newImageMeta = new ImageMetaSchema(imageMeta);
+    await newImageMeta.save();
+    console.log(
+      `Successfully uploaded image-meta ${imageMeta.img_id} to database!`,
+    );
+  }
+  console.log('done');
+  process.exit(0);
+};
+
 switch (type) {
-  case 'images':
+  case 'image-data':
     console.log('> Starting image upload...');
-    uploadImages(path);
+    uploadImages();
+    break;
+  case 'image-meta':
+    console.log('> Starting image metadata upload...');
+    uploadImageMeta();
     break;
   case 'workshops':
     console.log('> Starting workshop upload...');
-    uploadWorkshops(path);
+    uploadWorkshops();
     break;
   case 'archive':
     console.log('TODO');

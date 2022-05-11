@@ -17,6 +17,7 @@ const ImageMetaSchema = new mongoose.Schema({
   series_idx: Number,
   location: { lat: Number, lng: Number },
   year_taken: mongoose.Schema.Types.Mixed,
+  caption: String,
   src: String,
 });
 
