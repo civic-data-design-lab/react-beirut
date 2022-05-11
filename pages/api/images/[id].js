@@ -3,16 +3,6 @@ import ImageMeta from '../../../models/ImageMeta';
 import ImageData from '../../../models/ImageData';
 import { isImage } from '../../../lib/utils';
 
-const decodeIcons = (bookmarks) => {
-  return bookmarks.map((bookmark) => {
-    const decodedIcon = bookmark.customIcon
-      ? bookmark.customIcon.toString()
-      : null;
-    bookmark.customIcon = decodedIcon;
-    return bookmark;
-  });
-};
-
 export default async (req, res) => {
   await dbConnect();
 
@@ -31,7 +21,6 @@ export default async (req, res) => {
     }
 
     // Send the image
-    // res.setHeader('Content-Type', response.contentType);
     res.setHeader('Content-Type', 'image/jpg');
     res.send(response.data);
     return;
