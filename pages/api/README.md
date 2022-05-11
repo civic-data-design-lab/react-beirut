@@ -4,10 +4,10 @@
 
 ### Images
 
-#### `GET /api/images` ⇒ [`ImageMeta`](../../models/ImageMeta.js)`[]`
+#### `GET /api/images` ⇒ [`ImageMeta[]`](../../models/ImageMeta.js)
 <dd> Gets all of image metadata from the database.</dd>
 
-#### `GET /api/images/<ID>` ⇒ [`ImageMeta`](../../models/ImageMeta.js)`[]`
+#### `GET /api/images/<ID>` ⇒ [`ImageMeta[]`](../../models/ImageMeta.js)
 <dd> 
 Gets the image metadata.
 
@@ -18,7 +18,7 @@ of image metadata objects is returned.
 </dd>
 
 ### Workshops
-#### `GET /api/workshops` ⇒ [`Workshop`](../../models/Workshop.js)`[]`
+#### `GET /api/workshops` ⇒ [`Workshop[]`](../../models/Workshop.js)
 <dd>Gets all workshops from the database.</dd>
 
 #### `GET /api/workshops/<ID>` ⇒ [`Workshop`](../../models/Workshop.js)

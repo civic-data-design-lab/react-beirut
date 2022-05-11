@@ -83,4 +83,5 @@ for deployment. Make sure to add the MongoDB connection string to the config
 vars.
 
 ## API
-TODO
+API documentation can be found in the [`pages/api/`](pages/api/) directory. See
+the [`README`](pages/api/README.md).
