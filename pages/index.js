@@ -1,6 +1,5 @@
-import Link from 'next/link'
-import dbConnect from '../lib/dbConnect'
-import Workshop from '../models/Workshop'
+import Link from 'next/link';
+import { getAllWorkshops } from './api/workshops/utils';
 
 const Index = ({ workshops }) => (
   <>
@@ -8,10 +7,14 @@ const Index = ({ workshops }) => (
     {workshops.map((workshop) => (
       <div key={workshop._id}>
         <div className="card">
-          <img src={`/api/images/${workshop.thumb_img_id}.jpg`} alt=""/>
-          <h5 className="pet-name">{workshop.shop_name.content || workshop.shop_name.content_orig}</h5>
+          <img src={`/api/images/${workshop.thumb_img_id}.jpg`} alt="" />
+          <h5 className="pet-name">
+            {workshop.shop_name.content || workshop.shop_name.content_orig}
+          </h5>
           <div className="main-content">
-            <p className="pet-name">{workshop.shop_name.content || workshop.shop_name.content_orig}</p>
+            <p className="pet-name">
+              {workshop.shop_name.content || workshop.shop_name.content_orig}
+            </p>
             <p className="owner">Owner: {workshop.shop_owner_name}</p>
 
             {/* Extra Pet Info: Likes and Dislikes */}
@@ -45,21 +48,12 @@ const Index = ({ workshops }) => (
       </div>
     ))}
   </>
-)
+);
 
-/* Retrieves pet(s) data from mongodb database */
+/* Retrieves workshops data from mongodb database */
 export async function getServerSideProps() {
-  await dbConnect()
-
-  /* find all the data in our database */
-  const result = await Workshop.find({})
-  const workshops = result.map((doc) => {
-    const workshop = doc.toObject()
-    workshop._id = workshop._id.toString()
-    return workshop
-  })
-
-  return { props: { workshops } }
+  const workshops = await getAllWorkshops();
+  return { props: { workshops } };
 }
 
-export default Index
+export default Index;
