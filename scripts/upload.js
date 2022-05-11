@@ -6,6 +6,7 @@ require('dotenv').config(); // allows for access to dotenv file
 const ImageMetaSchema = require('../models/ImageMeta');
 const ImageDataSchema = require('../models/ImageData');
 const WorkshopSchema = require('../models/Workshop');
+const ArchiveSchema = require('../models/Archive');
 
 const UPLOAD_TYPES = ['image-data', 'image-meta', 'workshops', 'archive'];
 
@@ -88,7 +89,6 @@ const uploadWorkshops = async () => {
     const existingWorkshop = await WorkshopSchema.findOne({
       ID: workshop.ID,
     }).exec();
-    // console.log(result);
     if (existingWorkshop) {
       if (overwrite) {
         console.log(`\t> Overwriting workshop ${workshop.ID}...`);
@@ -105,6 +105,59 @@ const uploadWorkshops = async () => {
     const newWorkshop = new WorkshopSchema(workshop);
     await newWorkshop.save();
     console.log(`Successfully uploaded workshop ${workshop.ID} to database!`);
+  }
+  console.log('done');
+  process.exit(0);
+};
+
+/**
+ * Uploads the archive information given the JSON filepath.
+ */
+const uploadArchive = async () => {
+  let data;
+  try {
+    data = fs.readFileSync(path);
+  } catch (err) {
+    console.error(err);
+    console.error('Could not open the file at the specified path!');
+    process.exit(1);
+  }
+
+  const jsonObj = JSON.parse(data);
+  console.log(`Loaded ${jsonObj.length} archive objects from the JSON file.`);
+
+  for (const archiveObj of jsonObj) {
+    const archiveObjId = archiveObj.ID;
+
+    // -----------------------------------------------------
+    // Any updates to the archive object should be done here
+    // -----------------------------------------------------
+
+    console.log(`> Uploading archive response ${archiveObjId}...`);
+    const existingArchiveObj = await ArchiveSchema.findOne({
+      ID: archiveObjId,
+    }).exec();
+
+    if (existingArchiveObj) {
+      if (overwrite) {
+        console.log(
+          `\t> Overwriting archive response ${existingArchiveObj.ID}...`,
+        );
+        await ArchiveSchema.replaceOne({ ID: archiveObjId }, archiveObj).exec();
+        console.log(`\tSuccessfully overwrote workshop ${archiveObjId}.`);
+        continue;
+      }
+      console.log(
+        `Archive response ${existingArchiveObj.ID} already exists in database. Use -o/--overwrite to overwrite.`,
+      );
+      continue;
+    }
+
+    const newArchiveObj = new ArchiveSchema(archiveObj);
+    await newArchiveObj.save();
+    console.log(
+      `Successfully uploaded archive response ${archiveObjId} to database!`,
+    );
   }
   console.log('done');
   process.exit(0);
@@ -168,15 +221,16 @@ const uploadImageMeta = async () => {
   );
 
   for (const imageMeta of jsonObj) {
-    // ----------------------------------------
-    // Prepare the image meta object for upload
-    // ----------------------------------------
+    // --------------------------------------------------------------
+    // Any updates to the image meta object for upload should go here
+    // --------------------------------------------------------------
     // Convert the `path` field to the `src` field by appending the full URL
     imageMeta.src = `https://cddl-beirut.herokuapp.com/api/images/${imageMeta.path}`;
     // Delete the `path` field (and the name field)
     delete imageMeta.path;
     delete imageMeta.img_name;
 
+    // Upload the image meta to the database
     console.log(`> Uploading image-meta ${imageMeta.img_id}...`);
     const existingImageMeta = await ImageMetaSchema.findOne({
       img_id: imageMeta.img_id,
@@ -224,7 +278,8 @@ switch (type) {
     uploadWorkshops();
     break;
   case 'archive':
-    console.log('TODO');
+    console.log('> Starting archive upload...');
+    uploadArchive();
     break;
   default:
     console.log('Invalid type. Run with --help for usage.');

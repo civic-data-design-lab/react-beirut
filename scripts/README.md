@@ -3,6 +3,11 @@ TODO: In progress
 
 ## Database Upload Log
 
+### 5/11/2022
+* Updated archive info schema, changed `type` to `ref_type` to prevent conflicts
+  with MongoDB fields.
+* Uploaded all archive information objects to the database. 
+
 ### 5/10/2022
 * Uploaded all images from combined workshops and the image metadata.
 * Uploaded the combined workshops data. 

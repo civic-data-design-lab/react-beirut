@@ -26,7 +26,7 @@ const ArchiveSchema = new mongoose.Schema({
   reference: {
     // From the `ref_`-prefixed fields
     name: String,
-    type: String,
+    ref_type: String,
     type_other: String,
     location: String,
     catalog: String,
@@ -45,6 +45,7 @@ const ArchiveSchema = new mongoose.Schema({
     content_orig_lang: String,
     content_ar: String,
   },
+  primary_sector: String,
   primary_historic_map: String,
   thumb_img_id: String,
   images: [String],

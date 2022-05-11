@@ -23,7 +23,8 @@
  * that it was taken from a library or museum.
  *
  * @property {string} name - Name of reference source
- * @property {string} type - Type of reference source
+ * @property {string} ref_type - Type of reference source ('ref'-prefixed to
+ *    prevent conflicts with MongoDB)
  * @property {string} type_other - Other source type
  * @property {string} location - Where this reference was found
  * @property {string} catalog - Catalog ID used to find this reference if from a
@@ -92,6 +93,7 @@
  * @property {number | number[]} primary_year
  * @property {Location} primary_location
  * @property {Multilanguage} primary_address:
+ * @property {string} primary_sector
  * @property {string} primary_historic_map
  * @property {string} thumb_img_id
  * @property {string[]} images
