@@ -1,4 +1,4 @@
-import { getAllWorkshops } from './utils';
+import { getAllWorkshops } from '../../../lib/apiUtils';
 
 export default async (req, res) => {
   const workshops = await getAllWorkshops();

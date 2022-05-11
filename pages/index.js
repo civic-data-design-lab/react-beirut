@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllWorkshops } from './api/workshops/utils';
+import { getAllWorkshops } from '../lib/apiUtils';
 
 const Index = ({ workshops }) => (
   <>
