@@ -117,7 +117,11 @@
  * @property {boolean} is_series
  * @property {number} series_idx
  * @property {Location} location
+ * @property {Multilanguage} address
+ * @property {string} sector
  * @property {number | number[]} year_taken
+ * @property {string} historic_map
+ * @property {string} caption
  * @property {string} src - URL to the image
  */
 

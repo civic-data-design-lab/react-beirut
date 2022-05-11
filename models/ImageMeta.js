@@ -17,7 +17,15 @@ const ImageMetaSchema = new mongoose.Schema({
   is_series: Boolean,
   series_idx: Number,
   location: { lat: Number, lng: Number },
+  address: {
+    content: String, 
+    content_orig: String, 
+    content_orig_lang: String, 
+    content_ar: String, 
+  },
+  sector: String,
   year_taken: mongoose.Schema.Types.Mixed,
+  historic_map: String,
   caption: String,
   src: String,
 });

@@ -225,10 +225,10 @@ const uploadImageMeta = async () => {
     // Any updates to the image meta object for upload should go here
     // --------------------------------------------------------------
     // Convert the `path` field to the `src` field by appending the full URL
-    imageMeta.src = `https://cddl-beirut.herokuapp.com/api/images/${imageMeta.path}`;
+    // imageMeta.src = `https://cddl-beirut.herokuapp.com/api/images/${imageMeta.img_id}.jpg`;
     // Delete the `path` field (and the name field)
-    delete imageMeta.path;
-    delete imageMeta.img_name;
+    // delete imageMeta.path;
+    // delete imageMeta.img_name;
 
     // Upload the image meta to the database
     console.log(`> Uploading image-meta ${imageMeta.img_id}...`);

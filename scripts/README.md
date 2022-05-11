@@ -10,6 +10,14 @@ TODO: In progress
 * Reuploaded, added the craft_discipline_category field and arrayified space
   separated strings (updated schema to reflect this).
 
+---
+* Updated the `ImageMeta` schema to include `address` (a multilanguage field), `sector`, and `historic_map`.
+* Uploaded the image metadata from the archival information.
+* Uploaded the images from the archival information survey.
+* TODO: Update the craft types to reflect the new types and categories.
+* TODO: Reupload the workshops image metadata to fit this new schema.
+* TODO: Upload all of the reference scans to the database 
+
 ### 5/10/2022
 * Uploaded all images from combined workshops and the image metadata.
 * Uploaded the combined workshops data. 
