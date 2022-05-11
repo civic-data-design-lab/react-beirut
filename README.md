@@ -38,8 +38,10 @@ and folders are shown).
  * `📂models` contains the Mongoose schemas for each of the datatypes. It also
    contains [`Types.js`](models/Types.js) which defines the attributes of each
    model using [JSDoc](https://jsdoc.app/) formatting.
-* `📂pages` stores all of the primary files used for the fontend. The entry
-  point is [`_app.js`](pages/_app.js), and the root page is built from
+* `📂pages` stores all of the primary files used for the fontend. See the
+  [Next.js pages documentation](https://nextjs.org/docs/basic-features/pages)
+  for details on how to work with pages. The entry point is
+  [`_app.js`](pages/_app.js), and the root page is built from
   [`index.js`](pages/index.js). This folder also contains the
   [`📂api/`](pages/api/) folder which serves the API.
 * `📂public` just contains public files, such as icons and logos.
