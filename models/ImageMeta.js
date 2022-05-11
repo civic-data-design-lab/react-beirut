@@ -6,7 +6,7 @@ const { ImageMeta } = require('./Types');
  * 
  * @type {ImageMeta}
  */
-const ImageSchema = new mongoose.Schema({
+const ImageMetaSchema = new mongoose.Schema({
   img_id: String,
   response_id: String,
   from_survey: String,
@@ -17,7 +17,7 @@ const ImageSchema = new mongoose.Schema({
   series_idx: Number,
   location: { lat: Number, lng: Number },
   year_taken: mongoose.Schema.Types.Mixed,
-  src: Buffer,
+  src: String,
 });
 
-module.exports = mongoose.models.Image || mongoose.model('Image', ImageSchema);
+module.exports = mongoose.models.ImageMeta || mongoose.model('ImageMeta', ImageMetaSchema);

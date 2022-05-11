@@ -3,7 +3,8 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
 require('dotenv').config(); // allows for access to dotenv file
-const ImageSchema = require('../models/Image');
+const ImageMetaSchema = require('../models/ImageMeta');
+const ImageDataSchema = require('../models/ImageData');
 const WorkshopSchema = require('../models/Workshop');
 
 const UPLOAD_TYPES = ['images', 'workshops', 'archive'];
@@ -110,31 +111,42 @@ const uploadWorkshops = async () => {
 };
 
 /**
- * Uploads the image files to the database.
+ * Uploads the image files to the database. This simply uploads the image data
+ * to the database in the `src` field and does not include any metadata.
  */
 const uploadImages = async () => {
-  // https://stackoverflow.com/a/2727191
-  fs.readdir(path, (err, files) => {
-    files.forEach((filename) => {
-      console.log(`Uploading ${filename} to database...`);
-      fs.readFile(`${path}/${filename}`, (err, data) => {
-        // data = Buffer.from(file, 'utf-8');
-        // console.log(data);
-        ImageSchema.findOne({ img_id: filename }, (err, response) => {
-          if (response) {
-            console.log('> Image already exists in database');
-            return;
-          }
-          const image = new ImageSchema({
-            img_id: filename,
-            src: data,
-          });
-          image.save();
-          console.log(`> Successfully uploaded ${filename} to database`);
-        });
-      });
+  let filenames;
+  try {
+    // https://stackoverflow.com/a/2727191
+    filenames = fs.readdirSync(path);
+  } catch (err) {
+    console.log('Could not read the directory!');
+  }
+
+  for (const filename of filenames) {
+    console.log(`> Uploading ${filename} to database...`);
+    const data = fs.readFileSync(`${path}/${filename}`);
+
+    // Remove the extension from the filename to get the ID
+    const img_id = filename.split('.')[0];
+
+    const existingImage = await ImageDataSchema.findOne({
+      img_id,
+    }).exec();
+    if (existingImage) {
+      console.log('Image already exists in database');
+      continue;
+    }
+    const image = new ImageDataSchema({
+      img_id,
+      filename,
+      data,
     });
-  });
+    await image.save();
+    console.log(`Successfully uploaded ${filename} to database`);
+  }
+  console.log('done');
+  process.exit(0);
 };
 
 switch (type) {

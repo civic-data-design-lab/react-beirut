@@ -113,7 +113,19 @@
  * @property {number} series_idx
  * @property {Location} location
  * @property {number | number[]} year_taken
- * @property {Buffer} src
+ * @property {string} src - URL to the image
  */
 
-module.exports = {}
+/**
+ * @typedef {Object} ImageData
+ *
+ * Defines the image data object. An image data object simply contains the
+ * image data in the form of a binary buffer.
+ *
+ * @property {string} img_id - The image ID this image is associated with
+ * @property {string} filename - The full file name with the extension
+ * @property {Buffer} data
+ *
+ */
+
+module.exports = {};
