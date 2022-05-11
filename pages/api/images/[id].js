@@ -1,15 +1,16 @@
 import dbConnect from '../../../lib/dbConnect';
-import ImageMeta from '../../../models/ImageMeta';
 import ImageData from '../../../models/ImageData';
 import { isImage } from '../../../lib/utils';
+import { getImageMeta } from '../../../lib/apiUtils';
 
 export default async (req, res) => {
-  await dbConnect();
-
   const { id } = req.query;
-  console.log(id);
+
+  // Handle actual image data queries (ID ends with image extension)
   if (isImage(id)) {
-    // Return the actual image data
+    await dbConnect();
+
+    // Get the actual image data from the database
     const filename = id;
     const response = await ImageData.findOne({
       filename,
@@ -27,14 +28,6 @@ export default async (req, res) => {
   }
 
   // Otherwise return the image metadata
-  // The ID provided is the image id
-  const img_id = id;
-  const response = await ImageMeta.findOne({ img_id });
-
-  if (!response) {
-    res.status(404).send({ message: 'Image metadata not found' });
-    return;
-  }
-
+  const response = await getImageMeta(id);
   res.send(response);
 };
