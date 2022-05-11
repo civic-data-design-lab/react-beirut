@@ -6,7 +6,9 @@ TODO: In progress
 ### 5/11/2022
 * Updated archive info schema, changed `type` to `ref_type` to prevent conflicts
   with MongoDB fields.
-* Uploaded all archive information objects to the database. 
+* Uploaded all archive information objects to the database.
+* Reuploaded, added the craft_discipline_category field and arrayified space
+  separated strings (updated schema to reflect this).
 
 ### 5/10/2022
 * Uploaded all images from combined workshops and the image metadata.

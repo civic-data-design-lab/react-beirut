@@ -88,7 +88,9 @@
  * @property {boolean} is_series
  * @property {Multilanguage} shop_name
  * @property {Multilanguage} owner_name
+ * @property {string[]} craft_discipline_category
  * @property {string[]} craft_discipline
+ * @property {string} craft_discipline_other
  * @property {Reference} reference
  * @property {number | number[]} primary_year
  * @property {Location} primary_location

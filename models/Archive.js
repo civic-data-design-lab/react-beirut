@@ -22,7 +22,9 @@ const ArchiveSchema = new mongoose.Schema({
     content_orig_lang: String,
     content_ar: String,
   },
+  craft_discipline_category: [String],
   craft_discipline: [String],
+  craft_discipline_other: String,
   reference: {
     // From the `ref_`-prefixed fields
     name: String,
