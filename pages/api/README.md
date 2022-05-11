@@ -1,6 +1,10 @@
 # CDDL-Beirut API Documentation
 
 ## Endpoints
+All `GET` endpoints return a JSON-formatted string in the form `{"message":
+message, "response", response}`, where `response` contains the actual data. The
+`message` property is a message indicating success or failure, and may provide
+additional information. 
 
 ### Images
 
@@ -31,4 +35,8 @@ Gets all workshops from the database.
 Retrieves a workshop by its `ID` property from the database.
 
 ### Archive Information
-TODO
+#### `GET /api/archive` ⇒ [`Archive[]`](../../models/Archive.js)
+Gets all of the archive response objects from the database.
+
+#### `GET /api/archive/<ID>` ⇒ [`Archive`](../../models/Archive.js)
+Retrieves and archive object by its `ID` property from the database.
