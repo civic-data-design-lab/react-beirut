@@ -41,7 +41,7 @@
  */
 
 /**
- * @typedef {Object} LngLat
+ * @typedef {Object} LatLng
  *
  * Basic latitude (`lat`) and longitude (`lng`) coordinates.
  *
@@ -56,7 +56,7 @@
  * A location field contains the geolocation of a datapoint as well as an
  * address and additional location information.
  * 
- * @property {LngLat} geo - The actual lat/lng location
+ * @property {LatLng} geo - The actual lat/lng location
  * @property {Multilanguage} address - The address as a string,
  *    if available. This may be provided in mutliple languages.
  * @property {string} adm1 - The first administrative level, the
@@ -101,49 +101,71 @@
  * @typedef {Object} ArchiveObject
  *
  * Defines an archive information object.
- * TODO: Describe fields
+ * 
+ * Each archive information object contains information about a response from
+ * the archive survey. For responses with visual content, more information such
+ * as the image caption, type, and keywords are provided in the associated image
+ * metadata objects, given by the `images` field. See `ImageMeta` for more
+ * details on this. 
  *
- * @property {string} ID
- * @property {string} info_type
- * @property {boolean} is_series
- * @property {Multilanguage} shop_name
- * @property {Multilanguage} owner_name
- * @property {string[]} craft_discipline_category
- * @property {string[]} craft_discipline
- * @property {string} craft_discipline_other
- * @property {Reference} reference
- * @property {number} primary_year - Must be a single year
- * @property {number | number[]} primary_decade - The decade or range of decades
- *    this archive object is from
- * @property {Location} primary_location
- * @property {Multilanguage} primary_address:
- * @property {string} primary_historic_map
- * @property {string} thumb_img_id
- * @property {string[]} images
+ * @property {string} ID - The archive information ID (from the "archive" Kobo survey)
+ * @property {string} info_type - The type of information (e.g. "visual")
+ * @property {boolean} is_series - Whether or not this archive information is a
+ *    series piece. That is, if it contains either more than one image at different
+ *    locations or time.
+ * @property {Multilanguage} shop_name - The name of the associated workshop
+ * @property {Multilanguage} owner_name - The name of the owner of the workshop
+ * @property {string[]} craft_discipline_category - The overarching category/categories
+ * @property {string[]} craft_discipline - The specific craft discipline(s) for
+ *    the workshop or archive piece
+ * @property {string} craft_discipline_other - Other craft discipline
+ * @property {Reference} reference - The reference information for this archive
+ * @property {number} primary_year - The specific year for this info, must be a single year
+ * @property {number[]} primary_decade - The decade or range of decades
+ *    this archive object is from (a single decade `x` is represented by `(x, x)`)
+ * @property {Location} primary_location - The primary location of this archive.
+ *    Series information could have multiple locations but may want to be grouped
+ *    into a single point for the map
+ * @property {Multilanguage} primary_address - The primary address of this archive
+ * @property {string} primary_historic_map - The historic map associated with
+ *    the primary location of this archive. Stored as a link to the map on Kobo.
+ * @property {string} thumb_img_id - The ID of the image in `images` used as a thumbnail
+ * @property {string[]} images - The IDs of the images associated with this archive
  */
 
 /**
  * @typedef {Object} ImageMeta
  *
  * Defines an image metadata object.
- * TODO: Describe fields
+ * 
+ * Image metadata contains information about specific images from either
+ * workshops or archive information, or can be generic images. Image metadata is
+ * tied to images from a survey response by the `response_id` field. Survey
+ * response objects (`Workshop`, `ArchiveObject`) contain pointers to image
+ * metadata objects by the IDs (the `img_id` here) in `images` field. 
  *
- * @property {string} img_id
- * @property {string} response_id
- * @property {string} from_survey
- * @property {boolean} is_thumbnail
- * @property {string[]} type
- * @property {string[]} craft_category
- * @property {string[]} craft_type
- * @property {string[]} keywords
- * @property {boolean} is_series
- * @property {number} series_idx
- * @property {Location} location
+ * @property {string} img_id - The image ID
+ * @property {string} response_id - What response the image is tied to
+ * @property {string} from_survey - What survey the image is from (e.g. "archival_info")
+ * @property {boolean} is_thumbnail - Whether or not, among a set of other
+ *    images, this image can be considered a thumbnail. Usually true for the best
+ *    looking images.
+ * @property {string[]} type - The image type(s), what it is showing.
+ * @property {string[]} craft_category - The overarching craft
+ *    category/categories shown in this image
+ * @property {string[]} craft_type - The specific craft type(s) shown in this image
+ * @property {string[]} keywords - The keywords associated with this image
+ * @property {boolean} is_series - Whether or not this image is part of a series
+ * @property {number} series_idx - The index of this image in the series,
+ *    specifies the order among other images. Note that multiple images from one
+ *    response may have the same index. 
+ * @property {Location} location - The image location  
  * @property {number} year_taken - The specific year the image was taken
  * @property {number | number[]} decade_taken - The decade or range of decades
  *    this image was taken in
- * @property {string} historic_map
- * @property {string} caption
+ * @property {string} historic_map - The historic map associated with this
+ *    image, stored as a URL to the map on Kobo.
+ * @property {string} caption - The caption for this image
  * @property {string} src - URL to the image (e.g. `/api/images/<img_id>.jpg`)
  */
 

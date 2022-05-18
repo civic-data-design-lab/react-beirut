@@ -87,6 +87,11 @@ This application uses MongoDB as its primary database, with Mongoose for schema
 creation and support. Data was initially uploaded to this database using Node JS
 scripts. See [`scripts/`](scripts/) for more information on this, as well as for
 a database upload log. 
+
+Data is stored in the database as objects defined in Mongoose schemas, such as
+archival information objects or workshop objects. See the [`models/`](models/)
+directory for all relevant files, or check [`Types.js`](models/Types.js) for
+documentation on all these types.
 ## API
 API documentation can be found in the [`pages/api/`](pages/api/) directory. See
 its [`README`](pages/api/README.md).
