@@ -69,10 +69,21 @@
  */
 
 
+//------------
+// STORED DATA
+//------------
+
 /**
  * @typedef {Object} Workshop
  *
  * Defines a workshop object.
+ * 
+ * Primary API endpoint: https://cddl-beirut.herokuapp.com/api/workshops
+ * 
+ * Workshop objects contain information about craft workshops in Beirut. The
+ * primary attributes are the workshop/owner name (`shop_name`,
+ * `shop_owner_name`), the location (`location`), and the craft disciplines
+ * (`craft_discipline*`).
  *
  * @property {string} ID - The workshop ID (from the "workshops" Kobo survey)
  * @property {string} ID_craftspeople - The workshop ID (from "craftspeople"
@@ -80,6 +91,7 @@
  * @property {Multilanguage} shop_name - The name of the workshop
  * @property {string} shop_owner_name - The name of the workshop owner
  * @property {number} year_established - The year the workshop was established
+ *    TODO: don't know how to get this
  * @property {string[]} craft_discipline_category - The overarching
  *    category/categories of crafts this workshop produces
  * @property {string[]} craft_discipline - The specific craft discipline(s) for
@@ -101,6 +113,8 @@
  * @typedef {Object} ArchiveObject
  *
  * Defines an archive information object.
+ * 
+ * Primary API endpoint: https://cddl-beirut.herokuapp.com/api/archive
  * 
  * Each archive information object contains information about a response from
  * the archive survey. For responses with visual content, more information such
@@ -137,6 +151,8 @@
  * @typedef {Object} ImageMeta
  *
  * Defines an image metadata object.
+ * 
+ * Primary API endpoint: https://cddl-beirut.herokuapp.com/api/images
  * 
  * Image metadata contains information about specific images from either
  * workshops or archive information, or can be generic images. Image metadata is
