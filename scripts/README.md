@@ -13,6 +13,8 @@ TODO: In progress
   * Created a new location field based on the `Location` type in `Types.js`.
     Deleted all replaced fields.
   * Added a new `craft_category` field. 
+* Reuploaded the craft workshops data and workshops image metadata.
+
 ### 5/11/2022
 * Updated archive info schema, changed `type` to `ref_type` to prevent conflicts
   with MongoDB fields.

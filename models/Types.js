@@ -141,7 +141,7 @@
  * @property {number | number[]} year_taken
  * @property {string} historic_map
  * @property {string} caption
- * @property {string} src - URL to the image
+ * @property {string} src - URL to the image (e.g. `/api/images/<img_id>.jpg`)
  */
 
 /**
