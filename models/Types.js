@@ -84,6 +84,11 @@
  * primary attributes are the workshop/owner name (`shop_name`,
  * `shop_owner_name`), the location (`location`), and the craft disciplines
  * (`craft_discipline*`).
+ * 
+ * Workshops also have images associated with them with even more information such
+ * as image captions, image type, and keywords; these are given by the `images`
+ * field which is an array of image IDs that can be mapped to image metadata
+ * objects (see `ImageMeta`).
  *
  * @property {string} ID - The workshop ID (from the "workshops" Kobo survey)
  * @property {string} ID_craftspeople - The workshop ID (from "craftspeople"
