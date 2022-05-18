@@ -11,7 +11,10 @@ TODO: In progress
 * Reuploaded the archive image metadata with updated craft types and location. 
 
 ---
-* Uploaded the reference scans to the database (for textual information).
+* Uploaded the reference scans to the database (for textual information). NOTE:
+  some textual series data did not provide a scan of the reference source, so
+  some images may not exist (e.g. `146739591` from the archival information
+  survey). 
 * Created/updated the corresponding image metadata and archive response data.
 
 ### 5/17/2022
