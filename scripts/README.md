@@ -15,6 +15,11 @@ TODO: In progress
   * Added a new `craft_category` field. 
 * Reuploaded the craft workshops data and workshops image metadata.
 
+---
+* Updated the `Archive` information schema and reuploaded the data
+* TODO: Reupload archive image metadata
+* TODO: Add a "decade" field to the archive information
+
 ### 5/11/2022
 * Updated archive info schema, changed `type` to `ref_type` to prevent conflicts
   with MongoDB fields.
@@ -27,7 +32,7 @@ TODO: In progress
 * Uploaded the image metadata from the archival information.
 * Uploaded the images from the archival information survey.
 * TODO: Update the craft types to reflect the new types and categories.
-* TODO: Reupload the workshops image metadata to fit this new schema.
+* ~~TODO: Reupload the workshops image metadata to fit this new schema.~~
 * TODO: Upload all of the reference scans to the database 
 
 ### 5/10/2022

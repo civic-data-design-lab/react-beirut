@@ -56,7 +56,7 @@
  * A location field contains the geolocation of a datapoint as well as an
  * address and additional location information.
  * 
- * @property {LngLat} geolocation - The actual lat/lng location
+ * @property {LngLat} geo - The actual lat/lng location
  * @property {Multilanguage} address - The address as a string,
  *    if available. This may be provided in mutliple languages.
  * @property {string} adm1 - The first administrative level, the
@@ -115,7 +115,6 @@
  * @property {number | number[]} primary_year
  * @property {Location} primary_location
  * @property {Multilanguage} primary_address:
- * @property {string} primary_sector
  * @property {string} primary_historic_map
  * @property {string} thumb_img_id
  * @property {string[]} images

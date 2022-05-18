@@ -3,7 +3,7 @@ const { ArchiveObject } = require('./Types');
 
 /**
  * Mongoose schema defining the ArchiveObject model.
- * 
+ *
  * @type {ArchiveObject}
  */
 const ArchiveSchema = new mongoose.Schema({
@@ -40,14 +40,22 @@ const ArchiveSchema = new mongoose.Schema({
     scan: String,
   },
   primary_year: mongoose.Schema.Types.Mixed,
-  primary_location: { lat: Number, lng: Number },
-  primary_address: {
-    content: String,
-    content_orig: String,
-    content_orig_lang: String,
-    content_ar: String,
+  primary_location: {
+    geo: {
+      lat: Number,
+      lng: Number,
+    },
+    address: {
+      content: String,
+      content_orig: String,
+      content_orig_lang: String,
+      content_ar: String,
+    },
+    adm1: String,
+    adm2: String,
+    adm3: String,
+    adm4: String,
   },
-  primary_sector: String,
   primary_historic_map: String,
   thumb_img_id: String,
   images: [String],
