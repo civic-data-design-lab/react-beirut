@@ -3,6 +3,13 @@ TODO: In progress
 
 ## Database Upload Log
 
+### 5/18/2022
+* Updated the `Archive` and `ImageMeta` schema to use separate year and decade
+  fields: (`primary_year`, `primary_decade`) and (`year_taken`, `decade_taken`),
+  respectively. See `Types.js` for more specifics.
+* Reuploaded the archive info with the new year fields.
+* Reuploaded the archive image metadata with updated craft types and location. 
+
 ### 5/17/2022
 * Created a more comprehensive type, `Location`, which includes geolocation,
   address, and administrative regions 1-4.
@@ -17,8 +24,8 @@ TODO: In progress
 
 ---
 * Updated the `Archive` information schema and reuploaded the data
-* TODO: Reupload archive image metadata
-* TODO: Add a "decade" field to the archive information
+* ~~TODO: Reupload archive image metadata~~
+* ~~TODO: Add a "decade" field to the archive information~~
 
 ### 5/11/2022
 * Updated archive info schema, changed `type` to `ref_type` to prevent conflicts
@@ -31,7 +38,7 @@ TODO: In progress
 * Updated the `ImageMeta` schema to include `address` (a multilanguage field), `sector`, and `historic_map`.
 * Uploaded the image metadata from the archival information.
 * Uploaded the images from the archival information survey.
-* TODO: Update the craft types to reflect the new types and categories.
+* ~~TODO: Update the craft types to reflect the new types and categories.~~
 * ~~TODO: Reupload the workshops image metadata to fit this new schema.~~
 * TODO: Upload all of the reference scans to the database 
 

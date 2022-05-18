@@ -112,7 +112,9 @@
  * @property {string[]} craft_discipline
  * @property {string} craft_discipline_other
  * @property {Reference} reference
- * @property {number | number[]} primary_year
+ * @property {number} primary_year - Must be a single year
+ * @property {number | number[]} primary_decade - The decade or range of decades
+ *    this archive object is from
  * @property {Location} primary_location
  * @property {Multilanguage} primary_address:
  * @property {string} primary_historic_map
@@ -137,7 +139,9 @@
  * @property {boolean} is_series
  * @property {number} series_idx
  * @property {Location} location
- * @property {number | number[]} year_taken
+ * @property {number} year_taken - The specific year the image was taken
+ * @property {number | number[]} decade_taken - The decade or range of decades
+ *    this image was taken in
  * @property {string} historic_map
  * @property {string} caption
  * @property {string} src - URL to the image (e.g. `/api/images/<img_id>.jpg`)

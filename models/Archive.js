@@ -39,7 +39,8 @@ const ArchiveSchema = new mongoose.Schema({
     copyright: String,
     scan: String,
   },
-  primary_year: mongoose.Schema.Types.Mixed,
+  primary_year: Number,
+  primary_decade: mongoose.Schema.Types.Mixed,
   primary_location: {
     geo: {
       lat: Number,

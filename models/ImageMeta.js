@@ -30,7 +30,8 @@ const ImageMetaSchema = new mongoose.Schema({
     adm3: String,
     adm4: String,
   },
-  year_taken: mongoose.Schema.Types.Mixed,
+  year_taken: mongoose.Schema.Types.Mixed,  // Should be a single year
+  decade_taken: mongoose.Schema.Types.Mixed,
   historic_map: String,
   caption: String,
   src: String,
