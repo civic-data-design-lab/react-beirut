@@ -41,7 +41,7 @@
  */
 
 /**
- * @typedef {Object} Location
+ * @typedef {Object} LngLat
  *
  * Basic latitude (`lat`) and longitude (`lng`) coordinates.
  *
@@ -49,32 +49,52 @@
  * @property {number} lng
  */
 
+
+/**
+ * @typedef {Object} Location
+ * 
+ * A location field contains the geolocation of a datapoint as well as an
+ * address and additional location information.
+ * 
+ * @property {LngLat} geolocation - The actual lat/lng location
+ * @property {Multilanguage} address - The address as a string,
+ *    if available. This may be provided in mutliple languages.
+ * @property {string} adm1 - The first administrative level, the
+ *    governorate/Muhafazah (e.g. "Beirut" or "Mount Lebanon")
+ * @property {string} adm2 - The second administrative level, the
+ *    district/Qada’a (e.g. "Beirut" or "El Meten")
+ * @property {string} adm3 - The third administrative level, the quarter (e.g. "Ras Beyrouth")
+ * @property {string} adm4 - The fourth administrative level, the zone/sector
+ *    (e.g. Hamra)
+ */
+
+
 /**
  * @typedef {Object} Workshop
  *
  * Defines a workshop object.
- * TODO: Describe fields
  *
- * @property {string} ID
- * @property {string} ID_craftspeople
- * @property {Multilanguage}  shop_name
- * @property {string} shop_owner_name
- * @property {number} year_established
- * @property {string[]} shop_discipline_category
- * @property {string[]} shop_discipline
- * @property {string} shop_discipline_other
- * @property {string} shop_address
- * @property {Location} location
- * @property {string} shop_adm4
- * @property {string} shop_adm3
- * @property {string} shop_adm2
- * @property {string} shop_adm1
- * @property {string} shop_status
- * @property {Boolean} produced_here
- * @property {string} data_collection_comments
- * @property {string} survey_origin
- * @property {string} thumb_img_id
- * @property {string[]} images
+ * @property {string} ID - The workshop ID (from the "workshops" Kobo survey)
+ * @property {string} ID_craftspeople - The workshop ID (from "craftspeople"
+ *    Kobo survey)
+ * @property {Multilanguage} shop_name - The name of the workshop
+ * @property {string} shop_owner_name - The name of the workshop owner
+ * @property {number} year_established - The year the workshop was established
+ * @property {string[]} craft_discipline_category - The overarching
+ *    category/categories of crafts this workshop produces
+ * @property {string[]} craft_discipline - The specific craft discipline(s) for
+ *    this workshop
+ * @property {string} craft_discipline_other - Other craft discipline
+ * @property {Location} location - The location of the workshop
+ * @property {string} shop_status - The status of the workshop (e.g. "open")
+ * @property {Boolean} produced_here - Whether the workshop produces its crafts
+ *    at this location or not
+ * @property {string} data_collection_comments - Any additional comments about
+ *    the workshop from data collection
+ * @property {string} survey_origin - The original survey this workshop was
+ *    found in
+ * @property {string} thumb_img_id - The ID of the image used as a thumbnail
+ * @property {string[]} images - The IDs of the images associated with this workshop
  */
 
 /**
@@ -112,13 +132,12 @@
  * @property {string} from_survey
  * @property {boolean} is_thumbnail
  * @property {string[]} type
+ * @property {string[]} craft_category
  * @property {string[]} craft_type
  * @property {string[]} keywords
  * @property {boolean} is_series
  * @property {number} series_idx
  * @property {Location} location
- * @property {Multilanguage} address
- * @property {string} sector
  * @property {number | number[]} year_taken
  * @property {string} historic_map
  * @property {string} caption

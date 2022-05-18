@@ -3,6 +3,16 @@ TODO: In progress
 
 ## Database Upload Log
 
+### 5/17/2022
+* Created a more comprehensive type, `Location`, which includes geolocation,
+  address, and administrative regions 1-4.
+* Updated the `Workshops` schema: 
+  * Combined `location`, `shop_address`, and the administrative region fields
+    into a single `location` (object) field (the `Location` type in `Types.js`)
+* Updated the `ImageMeta` schema:
+  * Created a new location field based on the `Location` type in `Types.js`.
+    Deleted all replaced fields.
+  * Added a new `craft_category` field. 
 ### 5/11/2022
 * Updated archive info schema, changed `type` to `ref_type` to prevent conflicts
   with MongoDB fields.
