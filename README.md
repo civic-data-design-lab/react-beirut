@@ -82,6 +82,11 @@ Heroku](https://civic-data-design-lab.github.io/CDDL-Wiki/LCAU%20&%20CDDL%20Engi
 for deployment. Make sure to add the MongoDB connection string to the config
 vars.
 
+## Database
+This application uses MongoDB as its primary database, with Mongoose for schema
+creation and support. Data was initially uploaded to this database using Node JS
+scripts. See [`scripts/`](scripts/) for more information on this, as well as for
+a database upload log. 
 ## API
 API documentation can be found in the [`pages/api/`](pages/api/) directory. See
-the [`README`](pages/api/README.md).
+its [`README`](pages/api/README.md).
