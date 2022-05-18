@@ -144,7 +144,7 @@ const uploadArchive = async () => {
           `\t> Overwriting archive response ${existingArchiveObj.ID}...`,
         );
         await ArchiveSchema.replaceOne({ ID: archiveObjId }, archiveObj).exec();
-        console.log(`\tSuccessfully overwrote workshop ${archiveObjId}.`);
+        console.log(`\tSuccessfully overwrote archive ${archiveObjId}.`);
         continue;
       }
       console.log(

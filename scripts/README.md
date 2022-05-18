@@ -10,6 +10,10 @@ TODO: In progress
 * Reuploaded the archive info with the new year fields.
 * Reuploaded the archive image metadata with updated craft types and location. 
 
+---
+* Uploaded the reference scans to the database (for textual information).
+* Created/updated the corresponding image metadata and archive response data.
+
 ### 5/17/2022
 * Created a more comprehensive type, `Location`, which includes geolocation,
   address, and administrative regions 1-4.
@@ -40,7 +44,7 @@ TODO: In progress
 * Uploaded the images from the archival information survey.
 * ~~TODO: Update the craft types to reflect the new types and categories.~~
 * ~~TODO: Reupload the workshops image metadata to fit this new schema.~~
-* TODO: Upload all of the reference scans to the database 
+* ~~TODO: Upload all of the reference scans to the database~~ 
 
 ### 5/10/2022
 * Uploaded all images from combined workshops and the image metadata.
