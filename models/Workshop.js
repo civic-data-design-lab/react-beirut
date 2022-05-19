@@ -3,11 +3,14 @@ const { Workshop } = require('./Types');
 
 /**
  * Mongoose schema defining the Workshop model.
- * 
+ *
  * @type {Workshop}
  */
 const WorkshopSchema = new mongoose.Schema({
-  ID: String,
+  ID: {
+    type: String,
+    required: true,
+  },
   ID_craftspeople: String,
   shop_name: {
     content: String, // From `shop_name_en_translate`
@@ -24,7 +27,7 @@ const WorkshopSchema = new mongoose.Schema({
     geo: { lat: Number, lng: Number },
     address: {
       content: String, // From `shop_address`
-      content_orig: String, 
+      content_orig: String,
       content_orig_lang: String,
       content_ar: String,
     },

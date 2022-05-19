@@ -2,6 +2,7 @@ import dbConnect from '../../../lib/dbConnect';
 import ImageData from '../../../models/ImageData';
 import { isImage } from '../../../lib/utils';
 import { getImageMeta } from '../../../lib/apiUtils';
+import { StatusCodes } from 'http-status-codes';
 
 export default async (req, res) => {
   const { id } = req.query;
@@ -17,7 +18,7 @@ export default async (req, res) => {
     });
 
     if (!response) {
-      res.status(404).send({ message: 'Image not found' });
+      res.status(StatusCodes.NOT_FOUND).send({ message: 'Image not found' });
       return;
     }
 
