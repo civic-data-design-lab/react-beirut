@@ -7,9 +7,9 @@ const { ArchiveObject } = require('./Types');
  * @type {ArchiveObject}
  */
 const ArchiveSchema = new mongoose.Schema({
-  ID: String,
-  info_type: String,
-  is_series: Boolean,
+  ID: { type: String, required: true },
+  info_type: { type: String, default: 'generic' },
+  is_series: { type: Boolean, default: false },
   shop_name: {
     content: String,
     content_orig: String,
