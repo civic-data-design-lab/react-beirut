@@ -1,37 +1,26 @@
-import '../css/style.css'
-import '../css/form.css'
-import Head from 'next/head'
-import Link from 'next/link'
+import '../css/style.css';
+import '../css/form.css';
+import Head from 'next/head';
+import Link from 'next/link';
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Pet Care App</title>
+        <title>Project Title</title>
       </Head>
-
-      <div className="top-bar">
-        <div className="nav">
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-          <Link href="/new">
-            <a>Add Pet</a>
-          </Link>
-        </div>
-
-        <img
-          id="title"
-          src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Pet_logo_with_flowers.png"
-          alt="pet care logo"
-        ></img>
-        <img src="/api/images/github-logo.png" alt="" />
-      </div>
-      <div className="grid wrapper">
+      <div className="">
         <Component {...pageProps} />
+        <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
+          <Link href="/discover">Discover</Link>
+          <Link href="/trace">Trace</Link>
+          <Link href="/explore">Explore</Link>
+          <Link href="/contribute">Contribute</Link>
+          <Link href="/about">About</Link>
+        </div>
       </div>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
