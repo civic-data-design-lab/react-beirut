@@ -95,3 +95,10 @@ documentation on all these types.
 ## API
 API documentation can be found in the [`pages/api/`](pages/api/) directory. See
 its [`README`](pages/api/README.md).
+
+
+## Frontend Routes
+### `/explore` 
+Contains the map.
+
+### `/contribute/workshop?page=<page>`
