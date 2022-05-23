@@ -21,119 +21,107 @@ const Nav = () => {
     return pageLocation;
   };
 
+  const toggleMenu = (isMenu) => {
+    setIsMenu(isMenu);
+  };
+
   return (
     <>
-      {!isMenu ? (
-        <nav className='header'>
-          <div>
-            <div>
-              <Link href='/'>
-                <a
-                  onClick={() => {
-                    setIsMenu(false);
-                  }}
-                >
-                  <div className='container-logo'>
-                    <div className='logo-icon dark'></div>
-                    <img src='/logo.png' className='logo-text' />
-                  </div>
-                </a>
-              </Link>
-            </div>
-
-            <div className='page-location'>| {getPath()}</div>
-          </div>
-
-          <div>
-            <div className='container-lang'>
-              <button className='btn-language dark active'>
-                <small>En</small>
-              </button>
-              <button className='btn-language dark'>
-                <small>عربي</small>
-              </button>
-            </div>
-            <button className='btn-menu' onClick={() => setIsMenu(!isMenu)}>
-              !<FontAwesomeIcon icon={faBars} className='fa-2x' />
-            </button>
+      <header id='header'>
+        <nav className='nav'>
+          <Link href='/'>
+            <a
+              onClick={() => {
+                toggleMenu(false);
+              }}
+            >
+              <div className='container-logo'>
+                <div
+                  className={isMenu ? 'logo-icon light' : 'logo-icon dark'}
+                ></div>
+                <img
+                  src={isMenu ? '/logo-light.png' : '/logo.png'}
+                  className='logo-text'
+                />
+              </div>
+            </a>
+          </Link>
+          <div className='page-location'>| {getPath()}</div>
+          <button
+            className={isMenu ? 'toggle-menu active' : 'toggle-menu'}
+            onClick={() => toggleMenu(!isMenu)}
+          >
+            <span></span>
+          </button>
+          <div
+            className={isMenu ? 'container-lang light' : 'container-lang dark'}
+          >
+            <button className='btn-language active'>En</button>
+            <button className='btn-language'>عربي</button>
           </div>
         </nav>
-      ) : (
-        <div>
-          <div className='header dark'>
-            <Link href='/'>
-              <a
-                onClick={() => {
-                  setIsMenu(false);
-                }}
-              >
-                <div className='container-logo'>
-                  <div className='logo-icon light'></div>
-                  <img src='/logo-light.png' className='logo-text' />
-                </div>
-              </a>
-            </Link>
-            <div className='container-lang '>
-              <div>
-                <button className='btn-language light active'>
-                  <small>En</small>
-                </button>
-                <button className='btn-language light'>
-                  <small>عربي</small>
-                </button>
-              </div>
-            </div>
-            <button
-              className='container__right'
-              onClick={() => setIsMenu(!isMenu)}
+      </header>
+
+      <div id='menu' className={isMenu ? 'open' : ''}>
+        <nav className='main-nav'>
+          <ul>
+            <li
+              onClick={() => {
+                setIsMenu(false);
+              }}
             >
-              <FontAwesomeIcon
-                icon={faXmark}
-                className='fa-2x btn-menu btn-close'
-              />
-            </button>
-          </div>
-          <div className='nav'>
+              <Link href='/explore'>Explore</Link>
+            </li>
+            <li
+              onClick={() => {
+                setIsMenu(false);
+              }}
+            >
+              <Link href='/trace'>Trace</Link>
+            </li>
+            <li
+              onClick={() => {
+                setIsMenu(false);
+              }}
+            >
+              <Link href='/discover'>Discover</Link>
+            </li>
+            <li
+              onClick={() => {
+                setIsMenu(false);
+              }}
+            >
+              <Link href='/contribute'>Contribute</Link>
+            </li>
+            <li
+              onClick={() => {
+                setIsMenu(false);
+              }}
+            >
+              <Link href='/about'>About</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <footer className='menu-footer'>
+          <nav className='footer-nav'>
             <ul>
-              <li
-                onClick={() => {
-                  setIsMenu(false);
-                }}
-              >
-                <Link href='/explore'>Explore</Link>
+              <li>
+                <a href='#'>
+                  <i className='fa fa-twitter fa-fw'></i>
+                  Twitter
+                </a>
               </li>
-              <li
-                onClick={() => {
-                  setIsMenu(false);
-                }}
-              >
-                <Link href='/trace'>Trace</Link>
-              </li>
-              <li
-                onClick={() => {
-                  setIsMenu(false);
-                }}
-              >
-                <Link href='/discover'>Discover</Link>
-              </li>
-              <li
-                onClick={() => {
-                  setIsMenu(false);
-                }}
-              >
-                <Link href='/contribute'>Contribute</Link>
-              </li>
-              <li
-                onClick={() => {
-                  setIsMenu(false);
-                }}
-              >
-                <Link href='/about'>About</Link>
+              <li>
+                <a href='#'>
+                  <i className='fa fa-envelope fa-fw'></i>
+                  Subscribe
+                </a>
               </li>
             </ul>
-          </div>
-        </div>
-      )}
+          </nav>
+        </footer>
+      </div>
     </>
   );
 };

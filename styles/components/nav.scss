@@ -1,67 +1,17 @@
-.header {
-  // z-index: 10000;
-  position: sticky;
-  top: 0;
-  left: 0;
+@import '../setup/variables';
 
+#header {
   width: 100vw;
-  max-width: $content-width-pc;
-  height: $header-height;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  background: $c-white-off;
-
-  &.dark {
-    background-color: $c-primary-dark;
-  }
-
-  @media (max-width: 600px) {
-    width: 100%;
-    margin: 0;
-  }
+  padding: 2rem;
 }
 
-.nav {
-  height: 100%;
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: 100%;
-
-  background-color: $c-primary-dark;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  ul {
-    list-style-type: none;
-
-    li {
-      font-family: freight-sans-pro, sans-serif;
-      font-weight: 500;
-      font-style: normal;
-      font-size: 36px;
-
-      padding-bottom: 48px;
-    }
-  }
-
-  a {
-    text-decoration: none;
-    color: $c-primary-light;
-  }
-}
-
+// Left
 .container-logo {
+  transition: all 1s ease-in-out;
+  z-index: 100000;
   position: absolute;
   left: 30px;
-  top: 20px;
+  top: 35px;
 
   display: flex;
   flex-direction: row;
@@ -93,39 +43,8 @@
   }
 }
 
-.container-lang {
-  position: absolute;
-  right: 60px;
-  top: 24px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  .btn-language {
-    margin-right: 15px;
-
-    &.active small {
-      text-decoration: underline;
-    }
-
-    &.dark {
-      color: $c-primary-dark;
-    }
-
-    &.light {
-      color: $c-primary-light;
-    }
-
-    @media (max-width: 600px) {
-      small {
-        font-size: 20px;
-      }
-    }
-  }
-}
-
 .page-location {
+  transition: all 1s ease-in-out;
   font-family: FreightSans Pro;
   font-size: 24px;
   font-weight: 500;
@@ -133,22 +52,231 @@
 
   position: absolute;
   left: 120px;
-  top: 30px;
+  top: 45px;
   text-transform: capitalize;
 }
 
-button {
+// Right
+.container-lang {
+  z-index: 100000;
+  position: absolute;
+  right: 70px;
+  top: 45px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  &.dark {
+    button {
+      color: $c-primary-dark;
+    }
+  }
+
+  &.light {
+    button {
+      color: $c-primary-light;
+    }
+  }
+
+  .btn-language {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+
+    &.active {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+}
+
+$menu-bg: $c-primary-dark;
+$menu-color: $c-white;
+$menu-font-size: 2.5rem;
+$menu-zindex: 1100;
+$hamburger-color: $c-primary-dark;
+$hamburger-width: 50px;
+$hamburger-height: 50px;
+$hamburger-zindex: $menu-zindex + 10;
+
+#menu {
+  background: $menu-bg;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow: hidden;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  transition: all 0.7s ease-in-out;
+  // For some sweet fadez
+  visibility: hidden;
+  width: 100%;
+  z-index: $menu-zindex;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+
+    @for $i from 1 through 10 {
+      li:nth-child(#{$i}) {
+        animation-delay: $i * 0.1s;
+      }
+    }
+
+    li {
+      animation-duration: 1s;
+      animation-fill-mode: both;
+      animation-name: fadeInUp;
+    }
+  }
+
+  ul {
+    &:hover {
+      a {
+        opacity: 0.5;
+      }
+    }
+
+    a {
+      // Stops it being a twitchy mess in chrome :pray:
+      // https://www.binarymoon.co.uk/2014/02/fixing-css-transitions-in-google-chrome/
+      -webkit-transform: translateZ(0);
+      transition: opacity 0.3s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .main-nav {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      color: $menu-color;
+      display: block;
+      font-size: $menu-font-size;
+      font-weight: bold;
+      padding: 1rem 1rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      &:first {
+        padding-top: 0;
+      }
+    }
+  }
+
+  .menu-footer {
+    padding: 2rem;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+
+    ul {
+      display: inline-block;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline;
+        margin: 0 1rem;
+      }
+    }
+
+    a {
+      color: $menu-color;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// Hamburger menu toggler stuff below
+.toggle-menu {
   background-color: transparent;
   border: none;
   cursor: pointer;
-}
+  display: inline-block;
+  float: right;
+  height: $hamburger-height;
+  outline: none;
+  padding: 0;
+  pointer-events: initial;
+  position: relative;
+  vertical-align: middle;
+  width: $hamburger-width;
+  z-index: $hamburger-zindex;
 
-.btn-menu {
-  position: absolute;
-  right: 30px;
-  top: 24px;
-}
+  span {
+    background-color: $hamburger-color;
+    content: '';
+    display: block;
+    height: 2px;
+    left: calc(50% - 13px);
+    position: absolute;
+    top: calc(50% - 1px);
+    transform-origin: 50% 50%;
+    transition: background-color 0.2s ease-in-out, top 0.2s 0.2s ease-out,
+      transform 0.2s linear;
+    width: 26px;
 
-.btn-close {
-  color: $c-primary-light;
+    &:before,
+    &:after {
+      background-color: $hamburger-color;
+      content: '';
+      display: block;
+      height: 2px;
+      position: absolute;
+      transform-origin: 50% 50%;
+      transition: background-color 0.2s ease-in-out, top 0.2s 0.2s ease-out,
+        transform 0.2s linear;
+      width: 26px;
+    }
+
+    &:before {
+      top: 7px;
+    }
+
+    &:after {
+      top: -7px;
+    }
+  }
+
+  &.active {
+    span {
+      background-color: transparent;
+      transition: background 0.2s ease-out;
+
+      &:before,
+      &:after {
+        transition: top 0.2s ease-out, transform 0.2s 0.2s ease-out;
+        background-color: $c-primary-light;
+      }
+
+      &:before {
+        top: 0;
+        transform: rotate3d(0, 0, 1, -45deg);
+      }
+
+      &:after {
+        top: 0;
+        transform: rotate3d(0, 0, 1, 45deg);
+      }
+    }
+  }
 }
