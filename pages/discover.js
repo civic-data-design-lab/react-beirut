@@ -1,14 +1,14 @@
 import { getAllWorkshops } from '../lib/apiUtils';
 
-import ImageFeed from '../components/ImageFeed';
-import ImageFilter from '../components/ImageFilter';
+import ImageFeed from '../components/discover/ImageFeed';
+import ImageFilter from '../components/discover/ImageFilter';
 
 const Discover = ({ workshops }) => {
   return (
     <>
-      <div className='container'>
-        <div className='title-card'>
-          <div className='text-container'>
+      <div className="container">
+        <div className="title-card">
+          <div className="text-container">
             <h1>DISCOVER</h1>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc

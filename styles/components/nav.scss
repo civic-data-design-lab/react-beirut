@@ -2,7 +2,11 @@
 
 #header {
   width: 100vw;
+  height: $header-height;
   padding: 2rem;
+  position: sticky;
+  top: 0;
+  background-color: $c-white-off;
 }
 
 // Left
@@ -217,7 +221,8 @@ $hamburger-zindex: $menu-zindex + 10;
   outline: none;
   padding: 0;
   pointer-events: initial;
-  position: relative;
+  position: absolute;
+  right: 2rem;
   vertical-align: middle;
   width: $hamburger-width;
   z-index: $hamburger-zindex;

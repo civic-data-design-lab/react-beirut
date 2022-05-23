@@ -1,13 +1,8 @@
-.container-home {
-  // background-color: red;
-  margin-left: 90px;
-  // max-width: 800px;
-  width: 100vw;
-  justify-content: flex-start;
-  align-items: flex-start;
+.container__landing {
+  padding-left: 2rem;
 
-  .container-title {
-    padding-bottom: 40px;
+  .container__title {
+    padding: 4rem 0;
 
     .title {
       padding-bottom: 20px;
@@ -28,15 +23,15 @@
       font-weight: bold;
     }
   }
+}
 
-  .bubble-background {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
+.bubble-background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
 
-    background-color: $c-primary-dark;
-    border-radius: 50%;
-    filter: blur(300px);
-    z-index: -1;
-  }
+  background-color: $c-primary-dark;
+  border-radius: 50%;
+  filter: blur(300px);
+  z-index: -1;
 }

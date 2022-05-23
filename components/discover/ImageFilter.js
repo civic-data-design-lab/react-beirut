@@ -5,9 +5,7 @@ const ImageFilter = () => {
   //TODO: filter expand
   return (
     <>
-      <div>
-        Filter By <FontAwesomeIcon icon={faChevronDown} className='fa-x' />
-      </div>
+      <div>Filter By</div>
     </>
   );
 };

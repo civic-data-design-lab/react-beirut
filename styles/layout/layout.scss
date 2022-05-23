@@ -13,19 +13,18 @@ body {
 .main {
   min-height: 100%;
   // padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  // flex: 1;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: center;
+  // align-items: center;
 }
 
 .container {
+  max-width: $content-width-pc;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  // background-color: red;
-  width: 100%;
-  max-width: $content-width-pc;
   justify-content: flex-start;
 }
 
@@ -123,26 +122,5 @@ body {
     margin: 0;
     font-size: 1.25rem;
     line-height: 1.5;
-  }
-}
-
-.title-card {
-  // background-color: rgb(227, 141, 36);
-  width: 100%;
-  padding: 30px;
-  height: 240px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  .text-container {
-    max-width: 400px;
-    h1 {
-      margin-bottom: 48px;
-      font-family: FreightDisp Pro;
-      font-size: 48px;
-      font-weight: 600;
-    }
   }
 }
