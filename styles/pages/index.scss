@@ -1,0 +1,25 @@
+.container-home {
+  background-color: red;
+  margin-left: 40px;
+  // max-width: 800px;
+  width: 100vw;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .container-title {
+    padding-bottom: 40px;
+
+    .title {
+      padding-bottom: 20px;
+      text-align: left;
+      font-family: bely, serif;
+      font-weight: 700;
+      font-style: normal;
+      color: $c-primary-dark;
+    }
+  }
+
+  .container-text {
+    max-width: 400px;
+  }
+}

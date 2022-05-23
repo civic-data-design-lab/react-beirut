@@ -1,8 +1,6 @@
-import Head from 'next/head';
-
 const Contribute = () => {
   const saveNewArchive = () => {
-    const data = {};
+    const data = {}
     fetch('/api/archive', {
       method: 'POST',
       headers: {
@@ -12,14 +10,14 @@ const Contribute = () => {
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
-      .catch((err) => console.error(err));
-  };
+      .catch((err) => console.error(err))
+  }
 
   const saveNewWorkshop = () => {
     const data = {
       location: { adm1: 'hi' },
       survey_origin: 'ongoing_contribution',
-    };
+    }
 
     fetch('/api/workshops', {
       method: 'POST',
@@ -30,21 +28,18 @@ const Contribute = () => {
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
-      .catch((err) => console.error(err));
-  };
+      .catch((err) => console.error(err))
+  }
 
   return (
     <>
-      <Head>
-        <title>Contribute | Project Title</title>
-      </Head>
       <div>
         Contribute
         <button onClick={saveNewWorkshop}>Create new workshop</button>
         <button onClick={saveNewArchive}>Create new archive object</button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Contribute;
+export default Contribute

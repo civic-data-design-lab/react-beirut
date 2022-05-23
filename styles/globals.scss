@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// === SETUP ===
+@import 'setup/typography';
+@import 'setup/variables';
+
+// === COMPONENTS ===
+@import 'layout/layout';
+@import 'components/nav';
+
+// === PAGES ===
+@import 'pages/index';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::selection {
+  color: $c-white;
+  background-color: $c-primary-dark;
+}
+
+html,
+body,
+textarea,
+select,
+input,
+button {
+  font-family: $font-main;
+  line-height: 100%;
+}
+
+html {
+  overflow-x: hidden;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}

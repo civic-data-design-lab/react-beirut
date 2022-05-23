@@ -1,0 +1,91 @@
+// import variables
+@import 'variables';
+
+$font-title: freight-sans-pro, serif;
+$font-main: freight-sans-pro, sans-serif;
+
+// === MIXINS ===
+@mixin body-regular {
+  font-family: freight-sans-pro, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@mixin body-regular-ar {
+  font-family: bressay-display-arabic, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@mixin heading {
+  font-family: freight-sans-pro, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+// === WEB ===
+h1 {
+  @include heading;
+  font-size: 36px;
+  line-height: 40px;
+}
+
+h2 {
+  @include heading;
+  font-size: 24px;
+  line-height: auto;
+}
+
+h3 {
+  @include heading;
+  font-size: 20px;
+  line-height: auto;
+}
+
+p,
+pre {
+  @include body-regular;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+ul {
+  @include body-regular;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+ol {
+  @include body-regular;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+small {
+  @include body-regular;
+  font-size: 12px;
+  line-height: 19px;
+}
+
+span {
+  font-weight: bold;
+}
+
+// === MOBILE ===
+@media (max-width: 600px) {
+  h1 {
+    font-size: 18px;
+    line-height: 18px;
+  }
+  p,
+  pre {
+    @include body-regular;
+    font-size: 12px;
+    line-height: auto;
+  }
+  li {
+    @include body-regular;
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
