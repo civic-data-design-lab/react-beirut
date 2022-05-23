@@ -44,9 +44,7 @@ const Map = ({ workshops }) => {
 
       return el;
     });
-
-    // Remove markers from the map when the component unmounts
-    return () => markers.forEach((marker) => marker.remove());
+    
   }, [workshops]);
 
   return (
