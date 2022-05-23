@@ -31,7 +31,7 @@ the data should be formatted when running the upload script.
     given `ID` fields in the example file. Note that the entire objects are
     provided since they will replace the existing objects with the same `ID`.
 #### **Updating existing data:**
-  * Example file: [`update-workshop-nested.json`](example-data/example-data.json)
+  * Example file: [`update-workshop-nested.json`](example-data/update-workshop-nested.json)
   * Command: `node scripts/upload.js --update example-data/update-workshop-nested.json
     workshops`
   * Description: This will update the workshop with the ID `A040674864` with the data
