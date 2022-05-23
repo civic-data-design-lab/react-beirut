@@ -13,14 +13,13 @@ const Nav = () => {
     const path = router.pathname.substring(1)
 
     // TODO: Change the displayed name based on the path if necessary, e.g.
-    let pageLocation = path;
+    let pageLocation = path
     if (path === '') {
-      pageLocation = 'Home';
+      pageLocation = 'Home'
     }
 
-    return pageLocation;
+    return pageLocation
   }
-  
 
   return (
     <>
@@ -55,7 +54,7 @@ const Nav = () => {
               </button>
             </div>
             <button className='btn-menu' onClick={() => setIsMenu(!isMenu)}>
-              <FontAwesomeIcon icon={faBars} className='fa-2x' />
+              !<FontAwesomeIcon icon={faBars} className='fa-2x' />
             </button>
           </div>
         </nav>
