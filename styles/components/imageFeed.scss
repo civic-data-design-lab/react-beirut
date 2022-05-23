@@ -1,0 +1,19 @@
+.image-feed {
+  width: 100vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  .img-preview {
+    width: 200px;
+    height: 200px;
+    background-color: $c-primary-light;
+    margin: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

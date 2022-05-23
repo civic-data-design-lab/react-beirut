@@ -1,11 +1,11 @@
 import ImageCard from './ImageCard'
 
-const ImageFeed = (workshops) => {
+const ImageFeed = ({ workshops }) => {
   console.log(workshops)
   return (
     <div className='image-feed'>
       {workshops.map((workshop) => (
-        <ImageCard workshop={workshop} />
+        <ImageCard key={workshop.ID} workshop={workshop} />
       ))}
     </div>
   )
