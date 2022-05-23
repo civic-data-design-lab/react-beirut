@@ -6,19 +6,21 @@ import ImageFilter from '../components/ImageFilter'
 const Discover = ({ workshops }) => {
   return (
     <>
-      <div className='title-card'>
-        <div className='text-container'>
-          <h1>DISCOVER</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-            vulputate libero et velit interdum, ac aliquet odio mattis.
-          </p>
-        </div>
+      <div className='container'>
+        <div className='title-card'>
+          <div className='text-container'>
+            <h1>DISCOVER</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+              vulputate libero et velit interdum, ac aliquet odio mattis.
+            </p>
+          </div>
 
-        <ImageFilter />
+          <ImageFilter />
+        </div>
+        <hr />
+        <ImageFeed workshops={workshops} />
       </div>
-      <hr />
-      <ImageFeed workshops={workshops} />
     </>
   )
 }

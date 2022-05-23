@@ -1,14 +1,13 @@
 .header {
-  z-index: 10000;
+  // z-index: 10000;
   position: sticky;
   top: 0;
   left: 0;
 
-  max-width: $content-width-pc;
   width: 100vw;
+  max-width: $content-width-pc;
   height: $header-height;
 
-  margin: 0 30px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -22,14 +21,15 @@
 
   @media (max-width: 600px) {
     width: 100%;
+    margin: 0;
   }
 }
 
 .nav {
   height: 100%;
-  left: 0;
-  position: fixed;
+  position: sticky;
   top: 0;
+  left: 0;
   width: 100%;
 
   background-color: $c-primary-dark;
