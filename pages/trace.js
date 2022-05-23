@@ -3,7 +3,7 @@ const Trace = () => {
     <>
       <div>Trace</div>
     </>
-  )
-}
+  );
+};
 
-export default Trace
+export default Trace;

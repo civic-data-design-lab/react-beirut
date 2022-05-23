@@ -1,25 +1,25 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 // TODO: 1) complete language selection; 2) fix active link and page-location indication; 3) add hover text to the nav-expand on web
 const Nav = () => {
-  const router = useRouter()
-  const [isMenu, setIsMenu] = useState(false)
+  const router = useRouter();
+  const [isMenu, setIsMenu] = useState(false);
 
   const getPath = () => {
-    const path = router.pathname.substring(1)
+    const path = router.pathname.substring(1);
 
     // TODO: Change the displayed name based on the path if necessary, e.g.
-    let pageLocation = path
+    let pageLocation = path;
     if (path === '') {
-      pageLocation = 'Home'
+      pageLocation = 'Home';
     }
 
-    return pageLocation
-  }
+    return pageLocation;
+  };
 
   return (
     <>
@@ -30,7 +30,7 @@ const Nav = () => {
               <Link href='/'>
                 <a
                   onClick={() => {
-                    setIsMenu(false)
+                    setIsMenu(false);
                   }}
                 >
                   <div className='container-logo'>
@@ -64,7 +64,7 @@ const Nav = () => {
             <Link href='/'>
               <a
                 onClick={() => {
-                  setIsMenu(false)
+                  setIsMenu(false);
                 }}
               >
                 <div className='container-logo'>
@@ -97,35 +97,35 @@ const Nav = () => {
             <ul>
               <li
                 onClick={() => {
-                  setIsMenu(false)
+                  setIsMenu(false);
                 }}
               >
                 <Link href='/explore'>Explore</Link>
               </li>
               <li
                 onClick={() => {
-                  setIsMenu(false)
+                  setIsMenu(false);
                 }}
               >
                 <Link href='/trace'>Trace</Link>
               </li>
               <li
                 onClick={() => {
-                  setIsMenu(false)
+                  setIsMenu(false);
                 }}
               >
                 <Link href='/discover'>Discover</Link>
               </li>
               <li
                 onClick={() => {
-                  setIsMenu(false)
+                  setIsMenu(false);
                 }}
               >
                 <Link href='/contribute'>Contribute</Link>
               </li>
               <li
                 onClick={() => {
-                  setIsMenu(false)
+                  setIsMenu(false);
                 }}
               >
                 <Link href='/about'>About</Link>
@@ -135,7 +135,7 @@ const Nav = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;

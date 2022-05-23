@@ -1,11 +1,11 @@
-import Head from 'next/head'
-import dynamic from 'next/dynamic'
-import { getAllWorkshops } from '../lib/apiUtils'
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import { getAllWorkshops } from '../lib/apiUtils';
 
 const Map = dynamic(() => import('../components/Map'), {
   loading: () => 'Loading...',
   ssr: false,
-})
+});
 const Explore = ({ workshops }) => {
   return (
     <>
@@ -15,13 +15,13 @@ const Explore = ({ workshops }) => {
       <div style={{ position: 'absolute', top: 0, left: 0 }}>explore</div>
       <Map workshops={workshops} />
     </>
-  )
-}
+  );
+};
 
 /* Retrieves workshops data from mongodb database */
 export async function getServerSideProps() {
-  const workshops = await getAllWorkshops()
-  return { props: { workshops } }
+  const workshops = await getAllWorkshops();
+  return { props: { workshops } };
 }
 
-export default Explore
+export default Explore;

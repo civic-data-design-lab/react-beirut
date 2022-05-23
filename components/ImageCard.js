@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 const ImageCard = ({ workshop }) => {
   /* 
@@ -6,11 +6,11 @@ const ImageCard = ({ workshop }) => {
     TODO: 2) differentiate shops against image archives; 
     TODO: 3) catch missing data 
   */
-  const [isExpand, setIsExpand] = useState(false)
+  const [isExpand, setIsExpand] = useState(false);
 
   const handleClick = () => {
-    setIsExpand(true)
-  }
+    setIsExpand(true);
+  };
 
   return (
     <>
@@ -28,7 +28,7 @@ const ImageCard = ({ workshop }) => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ImageCard
+export default ImageCard;

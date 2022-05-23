@@ -9,16 +9,16 @@ const Layout = ({ children }) => {
         <Head>
           <title>Intangible Heritage Atlas</title>
           <meta
-            name="keywords"
-            content="intangible heritage, beirut, crafts, atlas"
+            name='keywords'
+            content='intangible heritage, beirut, crafts, atlas'
           />
           <link
-            href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
-            rel="stylesheet"
+            href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css'
+            rel='stylesheet'
           />
         </Head>
         <Nav />
-        <main className="main">{children}</main>
+        <main className='main'>{children}</main>
       </div>
     </>
   );

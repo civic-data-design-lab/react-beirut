@@ -1,4 +1,4 @@
-import ImageCard from './ImageCard'
+import ImageCard from './ImageCard';
 
 const ImageFeed = ({ workshops }) => {
   //TODO: Adjust css to fit the width of the page
@@ -10,7 +10,7 @@ const ImageFeed = ({ workshops }) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ImageFeed
+export default ImageFeed;

@@ -1,7 +1,7 @@
-import { getAllWorkshops } from '../lib/apiUtils'
+import { getAllWorkshops } from '../lib/apiUtils';
 
-import ImageFeed from '../components/ImageFeed'
-import ImageFilter from '../components/ImageFilter'
+import ImageFeed from '../components/ImageFeed';
+import ImageFilter from '../components/ImageFilter';
 
 const Discover = ({ workshops }) => {
   return (
@@ -22,13 +22,13 @@ const Discover = ({ workshops }) => {
         <ImageFeed workshops={workshops} />
       </div>
     </>
-  )
-}
+  );
+};
 
 /* Retrieves workshops data from mongodb database */
 export async function getServerSideProps() {
-  const workshops = await getAllWorkshops()
-  return { props: { workshops } }
+  const workshops = await getAllWorkshops();
+  return { props: { workshops } };
 }
 
-export default Discover
+export default Discover;

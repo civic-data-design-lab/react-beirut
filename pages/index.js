@@ -28,6 +28,6 @@ const Index = () => (
       <div class='bubble-background'></div>
     </div>
   </>
-)
+);
 
-export default Index
+export default Index;
