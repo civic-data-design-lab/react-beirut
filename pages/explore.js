@@ -10,7 +10,7 @@ const Explore = ({ workshops }) => {
   return (
     <>
       <Head>
-        <title>Explore | Project Title</title>
+        <title>Explore | Intangible Heritage Atlas</title>
       </Head>
       <div style={{ position: 'absolute', top: 0, left: 0 }}>explore</div>
       <Map workshops={workshops} />

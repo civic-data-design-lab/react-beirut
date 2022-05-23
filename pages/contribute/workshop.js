@@ -27,7 +27,7 @@ const WorkshopContribution = () => {
   return (
     <>
       <Head>
-        <title>Workshop Contribution | Project Title</title>
+        <title>Workshop Contribution | Intangible Heritage Atlas</title>
       </Head>
       <div>WorkshopContribution</div>
     </>

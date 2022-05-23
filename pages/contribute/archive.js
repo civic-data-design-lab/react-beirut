@@ -3,6 +3,7 @@ import ImageUploadForm from '../../components/contribution/ImageUploadForm';
 import LocationForm from '../../components/contribution/LocationForm';
 import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
+import Head from 'next/head';
 
 const CONTRIBUTION_FORM_NAME = 'archive_contribution';
 
@@ -49,18 +50,23 @@ const ArchiveContribution = () => {
   };
 
   return (
-    <div>
-      <p>ArchiveContribution</p>
-      <MultipageForm
-        onSubmit={onSubmit}
-        requiredFields={[[], ['street', 'municipality'], []]}
-        formData={form}
-      >
-        <ImageUploadForm onUpdate={updateForm} formData={form} />
-        <LocationForm onUpdate={updateForm} formData={form} />
-        <Preview />
-      </MultipageForm>
-    </div>
+    <>
+      <Head>
+        <title>Archive Contribution | Intangible Heritage Atlas</title>
+      </Head>
+      <div>
+        <p>ArchiveContribution</p>
+        <MultipageForm
+          onSubmit={onSubmit}
+          requiredFields={[[], ['street', 'municipality'], []]}
+          formData={form}
+        >
+          <ImageUploadForm onUpdate={updateForm} formData={form} />
+          <LocationForm onUpdate={updateForm} formData={form} />
+          <Preview />
+        </MultipageForm>
+      </div>
+    </>
   );
 };
 

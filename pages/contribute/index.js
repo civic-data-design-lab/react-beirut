@@ -5,7 +5,7 @@ const Contribute = () => {
   return (
     <>
       <Head>
-        <title>Contribute | Project Title</title>
+        <title>Contribute | Intangible Heritage Atlas</title>
       </Head>
       <div>contribute</div>
       <Link href="/contribute/archive">
