@@ -6,10 +6,21 @@ import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 // TODO: 1) complete language selection; 2) fix active link and page-location indication; 3) add hover text to the nav-expand on web
 const Nav = () => {
+  const router = useRouter()
   const [isMenu, setIsMenu] = useState(false)
-  const [pageLocation, setPageLocation] = useState(
-    useRouter().pathname.substring(1)
-  )
+
+  const getPath = () => {
+    const path = router.pathname.substring(1)
+
+    // TODO: Change the displayed name based on the path if necessary, e.g.
+    let pageLocation = path;
+    if (path === '') {
+      pageLocation = 'Home';
+    }
+
+    return pageLocation;
+  }
+  
 
   return (
     <>
@@ -21,7 +32,6 @@ const Nav = () => {
                 <a
                   onClick={() => {
                     setIsMenu(false)
-                    setPageLocation('')
                   }}
                 >
                   <div className='container-logo'>
@@ -32,7 +42,7 @@ const Nav = () => {
               </Link>
             </div>
 
-            <div className='page-location'>| {pageLocation}</div>
+            <div className='page-location'>| {getPath()}</div>
           </div>
 
           <div>
@@ -56,7 +66,6 @@ const Nav = () => {
               <a
                 onClick={() => {
                   setIsMenu(false)
-                  setPageLocation('')
                 }}
               >
                 <div className='container-logo'>
@@ -90,7 +99,6 @@ const Nav = () => {
               <li
                 onClick={() => {
                   setIsMenu(false)
-                  setPageLocation('Explore')
                 }}
               >
                 <Link href='/explore'>Explore</Link>
@@ -98,7 +106,6 @@ const Nav = () => {
               <li
                 onClick={() => {
                   setIsMenu(false)
-                  setPageLocation('Trace')
                 }}
               >
                 <Link href='/trace'>Trace</Link>
@@ -106,7 +113,6 @@ const Nav = () => {
               <li
                 onClick={() => {
                   setIsMenu(false)
-                  setPageLocation('Discover')
                 }}
               >
                 <Link href='/discover'>Discover</Link>
@@ -114,7 +120,6 @@ const Nav = () => {
               <li
                 onClick={() => {
                   setIsMenu(false)
-                  setPageLocation('Contribute')
                 }}
               >
                 <Link href='/contribute'>Contribute</Link>
@@ -122,7 +127,6 @@ const Nav = () => {
               <li
                 onClick={() => {
                   setIsMenu(false)
-                  setPageLocation('About')
                 }}
               >
                 <Link href='/about'>About</Link>
