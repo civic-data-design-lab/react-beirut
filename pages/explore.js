@@ -11,10 +11,6 @@ const Explore = ({ workshops }) => {
     <>
       <Head>
         <title>Explore | Project Title</title>
-        <link
-          href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css'
-          rel='stylesheet'
-        />
       </Head>
       <div style={{ position: 'absolute', top: 0, left: 0 }}>explore</div>
       <Map workshops={workshops} />
