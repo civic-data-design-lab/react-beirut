@@ -44,14 +44,11 @@ const Map = ({ workshops }) => {
 
       return el;
     });
-
-    // Remove markers from the map when the component unmounts
-    return () => markers.forEach((marker) => marker.remove());
   }, [workshops]);
 
   return (
     <div
-      id='map'
+      id="map"
       style={{
         position: 'absolute',
         top: 0,
