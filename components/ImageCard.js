@@ -11,6 +11,7 @@ const ImageCard = ({ workshop }) => {
   return (
     <>
       <div className='img-preview' onClick={handleClick}>
+        <img src={`/api/images/${workshop.thumb_img_id}.jpg`} alt='' />
         {workshop.shop_name ? workshop.shop_name.content_orig : 'unknown'}
       </div>
       {isExpand && (
