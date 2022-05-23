@@ -1,4 +1,5 @@
 import mapboxGl from 'mapbox-gl';
+import { MAPBOX_STYLE_URL } from '../lib/utils';
 import { useEffect, useRef } from 'react';
 
 //! MISSING TOKEN
@@ -11,7 +12,7 @@ const Map = ({ workshops }) => {
     mapboxGl.accessToken = ACCESS_TOKEN;
     map.current = new mapboxGl.Map({
       container: 'map', // container ID
-      style: 'mapbox://styles/casillasenrique/ckwarozh81rip14qkloft3opq', // style URL
+      style: MAPBOX_STYLE_URL, // style URL
       center: [35.5, 33.893894], // starting position [lng, lat]
       zoom: 12, // starting zoom
     });

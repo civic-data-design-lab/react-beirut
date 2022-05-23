@@ -1,5 +1,6 @@
 import mapboxGl from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
+import { MAPBOX_STYLE_URL } from '../../lib/utils';
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -8,7 +9,7 @@ const LocationSelect = ({ onUpdate }) => {
     mapboxGl.accessToken = ACCESS_TOKEN;
     const map = new mapboxGl.Map({
       container: 'map', // container ID
-      style: 'mapbox://styles/casillasenrique/ckwarozh81rip14qkloft3opq', // style URL
+      style: MAPBOX_STYLE_URL, // style URL
       center: [35.5, 33.893894], // starting position [lng, lat]
       zoom: 12, // starting zoom
     });
