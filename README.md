@@ -69,7 +69,9 @@ the repository using `git clone` into your local workspace.
    navigate to the CDDL-Beirut cluster in the MongoDB dashboard and click
    `Connect > Connect your application` and follow the instructions to get the
    correct string (replace `<URI>` with the string).
-4. Lastly, run the command `npm run dev` to start the app, which is served by
+4. For the maps to work, you must also add the Mapbox access token to the `.env`
+   file. Add the following line: `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=<TOKEN>`.
+5. Lastly, run the command `npm run dev` to start the app, which is served by
    default on http://localhost:3000.
 
 If everything works, you should be able to navigate to
