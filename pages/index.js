@@ -9,7 +9,7 @@ const Index = () => (
       </div>
 
       <div className='container-text'>
-        <p>Who are we?</p>
+        <p className='bold'>Who are we?</p>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
           turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec
@@ -24,6 +24,8 @@ const Index = () => (
           convallis diam sit amet lacinia. Aliquam in elementum tellus.
         </p>
       </div>
+
+      <div class='bubble-background'></div>
     </div>
   </>
 )
