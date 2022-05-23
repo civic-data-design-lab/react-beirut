@@ -1,5 +1,7 @@
 # CDDL-Beirut API Documentation
 
+Last updated: 5/19/2022
+
 ## Endpoints
 All `GET` endpoints return a JSON-formatted string in the form `{"message":
 message, "response", response}`, where `response` contains the actual data. The
@@ -34,9 +36,26 @@ Gets all workshops from the database.
 #### `GET /api/workshops/<ID>` ⇒ [`Workshop`](../../models/Workshop.js)
 Retrieves a workshop by its `ID` property from the database.
 
+#### `POST /api/workshops` ⇒ [`Workshop`](../../models/Workshop.js)
+Creates a new workshop and saves it to the database. Data is
+"`application/json`"-formatted and is sent in the POST request body. The
+endpoint returns the newly created workshop to confirm it was created.
+
+TODO: This endpoint will also create and save an image metadata object if a
+photo is provided. 
 ### Archive Information
 #### `GET /api/archive` ⇒ [`ArchiveObject[]`](../../models/Archive.js)
 Gets all of the archive response objects from the database.
 
 #### `GET /api/archive/<ID>` ⇒ [`ArchiveObject`](../../models/Archive.js)
 Retrieves and archive object by its `ID` property from the database.
+
+#### `POST /api/archive` ⇒ [`ArchiveObject`](../../models/Archive.js)
+
+Creates a new archive object and saves it to the database. Data is
+"`application/json`"-formatted and is sent in the POST request body. The
+endpoint returns the newly created archive information object to confirm it was
+created and saved.
+
+TODO: This endpoint will also create and save an image metadata object for data
+containing visual content. 
