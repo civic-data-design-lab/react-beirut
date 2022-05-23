@@ -1,4 +1,5 @@
 {
+  "name": "react-beirut",
   "private": true,
   "scripts": {
     "dev": "next dev",
