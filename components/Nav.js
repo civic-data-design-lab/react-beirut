@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
 
+// TODO: 1) complete language selection; 2) fix active link and page-location indication; 3) add hover text to the nav-expand on web
 const Nav = () => {
   const [isMenu, setIsMenu] = useState(false)
   const [pageLocation, setPageLocation] = useState(

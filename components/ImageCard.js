@@ -1,5 +1,6 @@
 const ImageCard = ({ workshop }) => {
   console.log(workshop)
+  // TODO: 1) add image card expand; 2) differentiate shops against image archives
   return (
     <>
       <div className='img-preview'>

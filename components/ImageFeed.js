@@ -1,7 +1,7 @@
 import ImageCard from './ImageCard'
 
 const ImageFeed = ({ workshops }) => {
-  console.log(workshops)
+  //TODO: Adjust css to fit the width of the page
   return (
     <div className='image-feed'>
       {workshops.map((workshop) => (

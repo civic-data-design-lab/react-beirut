@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Nav from './Nav'
 
 const Layout = ({ children }) => {
+  //? how to work on dual language css
   return (
     <>
       <div>
