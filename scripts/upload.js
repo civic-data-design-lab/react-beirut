@@ -10,8 +10,6 @@ const ArchiveSchema = require('../models/Archive');
 
 const UPLOAD_TYPES = ['image-data', 'image-meta', 'workshops', 'archive'];
 
-console.log('> Upload script starting...');
-
 const args = process.argv.slice(2);
 
 // Make sure at least one argument is provided
@@ -26,6 +24,18 @@ if (args.includes('--help') || args.includes('-h')) {
     'Usage: node scripts/upload.js [--help|-h] [-o|--overwrite] [-u|--update] <path> <type>'
   );
 
+  console.log(`
+    <path> - The path to the JSON file to upload. All JSON files
+             should contain a JSON array with objects following
+             the appropriate schema as defined in "types.js".
+             For example, if using the "workshop" type, the JSON
+             file should be an array of workshop objects (e.g.
+             {"ID":"138936398", "ID_craftspeople":null,...}).
+             If uploading images, you only need to provide the path
+             to the folder.
+    <type> - The type of upload to perform. Must be one of the available
+             types shown below.`);
+
   console.log('\nAvailable types:');
   UPLOAD_TYPES.forEach((type) => {
     console.log(`  ${type}`);
@@ -37,8 +47,7 @@ if (args.includes('--help') || args.includes('-h')) {
     '\t-u, --update\tUpdate existing objects by providing ID, {field:value} pairs.'
   );
 
-  console.log('\nNote:');
-  console.log(`
+  console.log(`\nNote:
     If using the -u/--update flag, nested object fields must be provided as
     dot-separated names, otherwise the entire object will be overwritten.
     For example, to update the geolocation of an object, instead of using
@@ -64,6 +73,11 @@ if (args.includes('--help') || args.includes('-h')) {
     \tFor example, [{"ID": "123", field1: "new value", field2: "new value"}] will update
     \tonly field1 and field2 on archive object 123.`
   );
+  console.log('\n$ node scripts/upload.js scripts/data/images image-data');
+  console.log(
+    `\tUploads the images in the folder "scripts/data/images" to the database.`
+  );
+
   process.exit(0);
 }
 
@@ -91,6 +105,12 @@ if (!fs.existsSync(path)) {
   process.exit(0);
 }
 console.log(`Path ${path} found.`);
+
+// -------------------------
+// RUN THE MAIN SCRIPT LOGIC
+// -------------------------
+
+console.log('> Upload script starting...');
 
 // Connect to the database
 console.log('> Connecting to database...');

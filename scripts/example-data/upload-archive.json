@@ -1,0 +1,58 @@
+[
+  {
+    "ID": "A040674864",
+    "info_type": "visual",
+    "is_series": false,
+    "shop_name": {
+      "content": "Charles Corm and co",
+      "content_orig": "شارل القرمر وشركاه",
+      "content_orig_lang": "ar",
+      "content_ar": "شارل القرمر وشركاه"
+    },
+    "owner_name": {
+      "content": null,
+      "content_orig": null,
+      "content_orig_lang": null,
+      "content_ar": null
+    },
+    "craft_discipline_category": ["functional"],
+    "craft_discipline": ["other"],
+    "craft_discipline_other": "Cars",
+    "ref_type": "other",
+    "primary_year": null,
+    "address": "gouraud street",
+    "primary_historic_map": null,
+    "images": ["153004944_1"],
+    "thumb_img_id": "153004944_1",
+    "primary_location": {
+      "geo": {
+        "lat": 33.89502,
+        "lng": 35.515068
+      },
+      "address": {
+        "content": "gouraud street",
+        "content_orig": "rue gouraud",
+        "content_orig_lang": "fr",
+        "content_ar": null
+      },
+      "adm1": "Beirut",
+      "adm2": "Beirut",
+      "adm3": "Medawar",
+      "adm4": "Remeil"
+    },
+    "reference": {
+      "name": "Charles Corm and Co",
+      "ref_type": "other",
+      "type_other": "Corm archives",
+      "location": null,
+      "catalog": null,
+      "link": null,
+      "keywords": null,
+      "citation": "Corm archives",
+      "year": null,
+      "copyright": null,
+      "scan": null
+    },
+    "primary_decade": null
+  }
+]

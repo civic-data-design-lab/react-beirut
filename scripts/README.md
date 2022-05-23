@@ -1,4 +1,43 @@
-TODO: In progress
+# Scripts and Database Upload
+This folder contains scripts used to upload data to the database. Click
+[here](#database-upload-log) to skip to the database upload log.
+
+## `upload.js`
+The main script is [`upload.js`](upload.js) and can be used as a command line
+tool.
+
+Use the following command to see the help page.
+```
+node scripts/upload.js --help
+```
+
+### Examples
+Some examples JSON files are provided in the `example-data` folder to show how
+the data should be formatted when running the upload script.
+
+#### **Uploading new data:**
+  * Example file: [`upload-archive.json`](example-data/upload-archive.json)
+  * Command: `node scripts/upload.js example-data/upload-archive.json
+    archive`
+  * Description: This command will upload the single archive object to the
+    database. The archive object has the same fields as outlined in
+    [`Types.js`](../models/Types.js).
+
+#### **Overwriting existing data:**
+  * Example file: [`override-image-meta.json`](example-data/override-image-meta.json)
+  * Command: `node scripts/upload.js --override example-data/override-image-meta.json
+    image-meta`
+  * Description: This command will override the two image meta objects with the
+    given `ID` fields in the example file. Note that the entire objects are
+    provided since they will replace the existing objects with the same `ID`.
+#### **Updating existing data:**
+  * Example file: [`update-workshop-nested.json`](example-data/example-data.json)
+  * Command: `node scripts/upload.js --update example-data/update-workshop-nested.json
+    workshops`
+  * Description: This will update the workshop with the ID `A040674864` with the data
+    in the file. All other fields will be left as they are. Note that since
+    `geo` is a nested field, it is provided as `location.geo` in order to
+    preserve the other fields in `location`.
 
 
 ## Database Upload Log
