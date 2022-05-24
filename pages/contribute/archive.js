@@ -54,7 +54,7 @@ const ArchiveContribution = () => {
       <Head>
         <title>Archive Contribution | Intangible Heritage Atlas</title>
       </Head>
-      <div>
+      <div className='container'>
         <p>ArchiveContribution</p>
         <MultipageForm
           onSubmit={onSubmit}
