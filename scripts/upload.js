@@ -21,7 +21,7 @@ if (args.length === 0) {
 // Check for the -h/--help flag
 if (args.includes('--help') || args.includes('-h')) {
   console.log(
-    'Usage: node scripts/upload.js [--help|-h] [-o|--overwrite] [-u|--update] <path> <type>'
+    'Usage: node scripts/upload.js [--help|-h] [-o|--overwrite] [-u|--update] [-v|--verbose] <path> <type>'
   );
 
   console.log(`
@@ -44,7 +44,8 @@ if (args.includes('--help') || args.includes('-h')) {
   console.log('\nOptions:');
   console.log(
     '\t-o, --overwrite\tCompletely overwrite existing objects.\n',
-    '\t-u, --update\tUpdate existing objects by providing ID, {field:value} pairs.'
+    '\t-u, --update\tUpdate existing objects by providing ID, {field:value} pairs.',
+    '\t-v, --verbose\tPrint additional information.'
   );
 
   console.log(`\nNote:
@@ -84,6 +85,7 @@ if (args.includes('--help') || args.includes('-h')) {
 // Check for additional options
 const overwrite = args.includes('--overwrite') || args.includes('-o');
 const update = args.includes('--update') || args.includes('-u');
+const verbose = args.includes('--verbose') || args.includes('-v');
 
 if (overwrite && update) {
   console.log('Cannot use both --overwrite and --update options.');
@@ -204,7 +206,7 @@ const uploadArchive = async () => {
     // Any updates to the archive object should be done here
     // -----------------------------------------------------
 
-    console.log(`> Uploading archive response ${archiveObjId}...`);
+    verbose && console.log(`> Uploading archive response ${archiveObjId}...`);
     const existingArchiveObj = await ArchiveSchema.findOne({
       ID: archiveObjId,
     }).exec();
@@ -212,23 +214,23 @@ const uploadArchive = async () => {
     if (existingArchiveObj) {
       // Handle the overwrite option
       if (overwrite) {
-        console.log(
+        verbose && console.log(
           `\t> Overwriting archive response ${existingArchiveObj.ID}...`
         );
         await ArchiveSchema.replaceOne({ ID: archiveObjId }, archiveObj).exec();
-        console.log(`\tSuccessfully overwrote archive ${archiveObjId}.`);
+        verbose && console.log(`\tSuccessfully overwrote archive ${archiveObjId}.`);
         continue;
       }
 
       // Handle the update option, this will only update the fields provided
       // and not touch the rest of the object
       if (update) {
-        console.log(`\t> Updating archive object ${archiveObj.ID}...`);
+        verbose && console.log(`\t> Updating archive object ${archiveObj.ID}...`);
         await ArchiveSchema.updateOne(
           { ID: archiveObj.ID },
           { $set: archiveObj }
         ).exec();
-        console.log(`\tSuccessfully updated archive object ${archiveObj.ID}.`);
+        verbose && console.log(`\tSuccessfully updated archive object ${archiveObj.ID}.`);
         continue;
       }
 
@@ -241,7 +243,7 @@ const uploadArchive = async () => {
 
     const newArchiveObj = new ArchiveSchema(archiveObj);
     await newArchiveObj.save();
-    console.log(
+    verbose && console.log(
       `Successfully uploaded archive response ${archiveObjId} to database!`
     );
   }
@@ -278,7 +280,7 @@ const uploadImageMeta = async () => {
     // delete imageMeta.img_name;
 
     // Upload the image meta to the database
-    console.log(`> Uploading image-meta ${imageMeta.img_id}...`);
+    verbose && console.log(`> Uploading image-meta ${imageMeta.img_id}...`);
     const existingImageMeta = await ImageMetaSchema.findOne({
       img_id: imageMeta.img_id,
     }).exec();
@@ -286,26 +288,26 @@ const uploadImageMeta = async () => {
     if (existingImageMeta) {
       // Handle the overwrite option (uses `replaceOne`)
       if (overwrite) {
-        console.log(
+        verbose && console.log(
           `\t> Overwriting image-meta ${existingImageMeta.img_id}...`
         );
         await ImageMetaSchema.replaceOne(
           { img_id: imageMeta.img_id },
           imageMeta
         ).exec();
-        console.log(`\tSuccessfully overwrote image-meta ${imageMeta.img_id}.`);
+        verbose && console.log(`\tSuccessfully overwrote image-meta ${imageMeta.img_id}.`);
         continue;
       }
 
       // Handle the update option, this will only update the fields provided
       // and not touch the rest of the object (uses `updateOne`)
       if (update) {
-        console.log(`\t> Updating image meta ${imageMeta.img_id}...`);
+        verbose && console.log(`\t> Updating image meta ${imageMeta.img_id}...`);
         await ImageMetaSchema.updateOne(
           { img_id: imageMeta.img_id },
           { $set: imageMeta }
         ).exec();
-        console.log(`\tSuccessfully updated image meta ${imageMeta.img_id}.`);
+        verbose && console.log(`\tSuccessfully updated image meta ${imageMeta.img_id}.`);
         continue;
       }
 
@@ -319,7 +321,7 @@ const uploadImageMeta = async () => {
     // Otherwise upload the image meta to the database
     const newImageMeta = new ImageMetaSchema(imageMeta);
     await newImageMeta.save();
-    console.log(
+    verbose && console.log(
       `Successfully uploaded image-meta ${imageMeta.img_id} to database!`
     );
   }
@@ -341,7 +343,7 @@ const uploadImages = async () => {
   }
 
   for (const filename of filenames) {
-    console.log(`> Uploading ${filename} to database...`);
+    verbose && console.log(`> Uploading ${filename} to database...`);
     const data = fs.readFileSync(`${path}/${filename}`);
 
     // Remove the extension from the filename to get the ID
@@ -360,7 +362,7 @@ const uploadImages = async () => {
       data,
     });
     await image.save();
-    console.log(`Successfully uploaded ${filename} to database`);
+    verbose && console.log(`Successfully uploaded ${filename} to database`);
   }
   console.log('done');
   process.exit(0);
