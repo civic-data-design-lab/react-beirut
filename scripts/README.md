@@ -4,7 +4,8 @@ This folder contains scripts used to upload data to the database. Click
 
 ## `archive_csv_to_json.py`
 This script is used to convert the shared Google Sheet where the archive
-information is stored and worked on to a JSON file.
+information is stored and worked on to a JSON file. Note that this script will
+also update the primary image metadata associated with the response.
 
 ### Usage:
 1. Download the Archive data from the Google Sheet as a CSV and save it to a known location, preferably within the [`scripts/data`](/scripts/data) folder.
@@ -16,8 +17,6 @@ information is stored and worked on to a JSON file.
 3. The script will create a JSON file in
    [`scripts/data/archive`](/scripts/data/archive), which can then be uploaded
    to the database using the [upload script](#uploadjs).
-    
-TODO: Note that this does not save the image metadata.
 
 ## `upload.js`
 The main script is [`upload.js`](upload.js) and can be used as a command line
@@ -60,6 +59,12 @@ the data should be formatted when running the upload script.
 
 
 ## Database Upload Log
+
+### 5/24/2022
+* Used the new upload method to update the archive information and archive image
+  metadata.
+  * Update the archive information to contain the thumbnail image ID (`thumb_img_id`)
+  * Updated the archive image metadata to contain the decade taken (`decade_taken`)
 
 ### 5/23/2022
 * Reuploaded the archive data to the database using the new scripts. The key
