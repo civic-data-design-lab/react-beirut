@@ -10,7 +10,7 @@ import os
 
 dotenv.load_dotenv()
 
-KOBO_API_KEY = os.getenv("KOBO_API_KEY")
+# KOBO_API_KEY = os.getenv("KOBO_API_KEY")
 
 
 def arrayify(

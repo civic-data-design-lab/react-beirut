@@ -78,6 +78,14 @@ If everything works, you should be able to navigate to
 http://localhost:3000/api/images/github-logo.png and see an image of the Github
 logo.
 
+**Note:** If you want to use the features in the `scripts/` directory, use the
+following additional steps to get set up. 
+
+6. Install the dependencies by running `pip install -r
+   scripts/requirements.txt`.  
+7. Read the README file in the [`scripts/`](scripts/) directory for more
+   information.
+
 ## Deployment
 See [Documentation for
 Heroku](https://civic-data-design-lab.github.io/CDDL-Wiki/LCAU%20&%20CDDL%20Engineering%20Wiki%20530f30eb6f734518bc2c11f9c67d9863/Documentation%20for%20Heroku%200c9064ea27b44e459ef9843b7414fa95.html)
