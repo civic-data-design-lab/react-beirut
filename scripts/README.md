@@ -61,6 +61,12 @@ the data should be formatted when running the upload script.
 
 ## Database Upload Log
 
+### 5/23/2022
+* Reuploaded the archive data to the database using the new scripts. The key
+  insight was that you can `"."`-separate field names (e.g. `a.b.c`) to create a
+  nested object `{a: {b: {c: ...}}}`.
+* Replaced shops with name/owner name `"unknown"` and `"-"` with null in the archive data.
+
 ### 5/18/2022
 * Updated the `Archive` and `ImageMeta` schema to use separate year and decade
   fields: (`primary_year`, `primary_decade`) and (`year_taken`, `decade_taken`),
