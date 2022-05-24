@@ -1,17 +1,22 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { getAllWorkshops } from '../lib/apiUtils';
+import Filter from "../components/Filter";
 
 const Map = dynamic(() => import('../components/Map'), {
   loading: () => 'Loading...',
   ssr: false,
 });
 const Explore = ({ workshops }) => {
+
+
+
   return (
     <>
       <Head>
         <title>Explore | Intangible Heritage Atlas</title>
       </Head>
+      <div><Filter></Filter></div>
       <div style={{ position: 'absolute', top: 0, left: 0 }}>explore</div>
       <Map workshops={workshops} />
     </>
