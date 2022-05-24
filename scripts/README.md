@@ -43,10 +43,10 @@ the data should be formatted when running the upload script.
     [`Types.js`](../models/Types.js).
 
 #### **Overwriting existing data:**
-  * Example file: [`override-image-meta.json`](example-data/override-image-meta.json)
-  * Command: `node scripts/upload.js --override example-data/override-image-meta.json
+  * Example file: [`overwrite-image-meta.json`](example-data/overwrite-image-meta.json)
+  * Command: `node scripts/upload.js --overwrite example-data/overwrite-image-meta.json
     image-meta`
-  * Description: This command will override the two image meta objects with the
+  * Description: This command will overwrite the two image meta objects with the
     given `ID` fields in the example file. Note that the entire objects are
     provided since they will replace the existing objects with the same `ID`.
 #### **Updating existing data:**
