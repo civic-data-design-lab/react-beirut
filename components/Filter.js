@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import { ToggleSlider }  from "react-toggle-slider";
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 
 
@@ -11,12 +13,9 @@ export default class Filter extends React.Component {
     state = {
         filteredCrafts : ["Architectural", "Cuisine", "Decorative", "Fashion", "Functional", "Furniture", "Textiles"],
         startYear : 1960,
-        endYear : 2020,
+        endYear : 2030,
         toggle : false,
-        value: {
-                start: 1960,
-                end: 2020
-            }
+
     };
 
 
@@ -58,7 +57,25 @@ export default class Filter extends React.Component {
     yearRange = () => {
 
         return (<div>
-
+                    <Slider range
+          marks={{
+            1960: `1960`,
+            1970: '1970',
+            1980: '1980',
+            1990: '1990',
+            2000: '2000',
+            2010: '2010',
+            2020: '2020',
+            2030: `2030`
+          }}
+          min={1960}
+          max={2030}
+          defaultValue={[this.state.startYear, this.state.endYear]}
+          step={10}
+          allowCross = {false}
+          onChange = {(value) => this.setState({startYear:value[0], endYear:value[1]})}
+          onAfterChange = {(value) => this.setState({startYear:value[0], endYear:value[1]})}
+        />
         </div>)
 
     }
