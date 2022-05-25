@@ -23,13 +23,15 @@ const ArchiveContribution = () => {
   }, []);
 
   const updateForm = (data) => {
-    console.log(data);
-    const updatedFormData = { ...form, ...data };
-    setForm(updatedFormData);
-    localStorage.setItem(
-      ARCHIVE_CONTRIBUTION_NAME,
-      JSON.stringify(updatedFormData)
-    );
+    setForm((prevForm) => {
+      const updatedFormData = { ...prevForm, ...data };
+      console.log('setting form data to ', updatedFormData);
+      localStorage.setItem(
+        ARCHIVE_CONTRIBUTION_NAME,
+        JSON.stringify(updatedFormData)
+      );
+      return updatedFormData;
+    });
   };
 
   const onSubmit = () => {
