@@ -5,7 +5,7 @@ const ImageFeed = ({ workshops }) => {
   return (
     <div className="container">
       <div className="image-feed">
-        {workshops.slice(0, 3).map((workshop) => (
+        {workshops.slice(0, 10).map((workshop) => (
           <ImageCard key={workshop.ID} workshop={workshop} />
         ))}
         {/* {workshops.map((workshop) => (

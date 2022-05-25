@@ -1,7 +1,8 @@
-import { getAllWorkshops } from '../lib/apiUtils';
+import { getAllWorkshops } from '../../lib/apiUtils';
+
 import Head from 'next/head';
-import ImageFeed from '../components/discover/ImageFeed';
-import ImageFilter from '../components/discover/ImageFilter';
+import ImageFeed from '../../components/discover/ImageFeed';
+import ImageFilter from '../../components/discover/ImageFilter';
 
 const Discover = ({ workshops }) => {
   return (
