@@ -2,7 +2,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-// TODO: 1) complete language selection; 2) fix active link and page-location indication; 3) add hover text to the nav-expand on web
+/***
+ * TODO: add hover text to the nav-expand on web
+ * TODO: update dual language
+ * TODO: add class to the #header for pages without background
+ * TODO: add drop shadow effect when triggered to a certain scroll point
+ */
+
 const Nav = () => {
   const router = useRouter();
   const [isMenu, setIsMenu] = useState(false);
