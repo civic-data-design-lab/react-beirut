@@ -7,17 +7,17 @@
   border-radius: 10px;
   background-color: $c-white-off;
 
-  position: relative;
+  position: absolute;
   transition: color 0.15s ease, border-color 0.15s ease;
 
   .card__cover {
     position: fixed;
-    z-index: 999;
+    z-index: 1000000;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
@@ -28,27 +28,36 @@
 
   .card__wrapper {
     z-index: 99999;
+    width: 80px;
     display: table-cell;
     vertical-align: middle;
     text-align: center;
+
+    .container__btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
   }
 
   .card__content {
-    width: 100vw;
-    min-height: 80vh;
-    padding: 30px 20px;
+    min-width: 99%;
+    min-height: 100vh;
+    padding: 5%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 10%;
 
-    text-align: center;
-    background-color: $c-white;
-    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1fr;
+    column-gap: 10px;
+    text-align: left;
+    background-color: $c-white-off;
+    border-radius: 20px;
     transition: all 0.3s ease;
     font-family: inherit;
-    z-index: 8;
   }
 
   &::hover,
