@@ -14,7 +14,7 @@ const Nav = () => {
   const [isMenu, setIsMenu] = useState(false);
 
   const getPath = () => {
-    const path = router.pathname.substring(1);
+    const path = router.pathname.split('/')[1];
 
     // TODO: Change the displayed name based on the path if necessary, e.g.
     let pageLocation = path;

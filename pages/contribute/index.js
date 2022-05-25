@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Link from 'next/link';
+import Card from '../../components/Card';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import {
@@ -119,8 +119,8 @@ const Contribute = () => {
         );
       case 'workshop':
         <>
-        <h2></h2>
-        </>
+          <h2></h2>
+        </>;
         break;
       case 'archive':
         break;
@@ -148,6 +148,20 @@ const Contribute = () => {
           </div>
         </div>
       )}
+      {/* {modal && (
+        <div className="card">
+          <div className="card__cover">
+            <div className="card__wrapper">
+              <div className="Contribute-modal">{showModal()}</div>
+              <div className="container__btn">
+                <button className="btn-close" onClick={() => setModal(null)}>
+                  <span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )} */}
       <div className="Contribute drop-shadow__black">
         <div className="Contribute-index">
           <h1>What would you like to contribute?</h1>
