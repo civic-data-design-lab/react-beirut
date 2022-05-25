@@ -1,70 +1,81 @@
-import mapboxGl from 'mapbox-gl';
-import { useEffect, useRef } from 'react';
+import React from 'react';
+import mapboxGl from "mapbox-gl";
 
-//! MISSING TOKEN
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-const Map = ({ workshops, filterData }) => {
-  const map = useRef(null);
 
-  useEffect(() => {
-    mapboxGl.accessToken = ACCESS_TOKEN;
-    map.current = new mapboxGl.Map({
-      container: 'map', // container ID
-      style: 'mapbox://styles/casillasenrique/ckwarozh81rip14qkloft3opq', // style URL
-      center: [35.5, 33.893894], // starting position [lng, lat]
-      zoom: 12, // starting zoom
-    });
-  }, []);
+export default class App extends React.PureComponent {
 
-  useEffect(() => {
-    if (!workshops) {
-      return;
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        }
+
+        this.mapContainer = React.createRef();
     }
 
+    componentDidMount() {
+        console.log('map.js ', this.props.filterData)
+        mapboxGl.accessToken = ACCESS_TOKEN;
+       let map = new mapboxGl.Map({
+           container: 'map',
+           style: 'mapbox://styles/casillasenrique/ckwarozh81rip14qkloft3opq', // style URL
+           center: [35.5, 33.893894], // starting position [lng, lat]
+           zoom: 12, // starting zoom
+       });
+
+
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("updated")
+        if (!this.props.workshops) {
+       return;}
+
     // Display workshops as markers on the map
-    const markers = workshops.map((workshop) => {
-      const el = document.createElement('div');
-      // el.style.backgroundImage = `url('/api/images/${workshop.thumb_img_id}.jpg')`;
-      // el.style.backgroundSize = 'cover';
-      el.style.width = '20px';
-      el.style.height = '20px';
-      el.style.backgroundColor = '#abe';
-      el.style.borderRadius = '50%';
 
-      if (!workshop.location.geo) {
-        console.warn(`${workshop.ID} has no geo location`);
-        return;
-      }
+        for (const workshop of this.props.workshops) {
+            const el = document.createElement('div');
+            el.className = 'marker';
+            el.style.width = '20px';
+            el.style.height = '20px';
+            el.style.backgroundColor = '#abe';
+            el.style.borderRadius = '50%';
 
-      const { lng, lat } = workshop.location.geo;
-      const craftType = workshop.craft_discipline_category;
-      let index = filterData.filteredCraftsParent.indexOf(craftType);
+            if (!workshop.location.geo) {
+                console.warn(`${workshop.ID} has no geo location`);
+                return;
+            }
 
-      const indices = craftType.map((craft)=>{return filterData.filteredCraftsParent.indexOf(craft)});
-      console.log(indices);
+            const {lng, lat} = workshop.location.geo;
+            const craftType = workshop.craft_discipline_category;
+            const indices = craftType.map((craft)=>{return this.props.filterData.filteredCraftsParent.indexOf(craft)});
+
+            if (lat && lng && indices[0]>-1) {
+                new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(this.map);
+                console.log("reached condition");
+            }
+
+        }
+    }
 
 
-      if (lng && lat) {
-        new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
-      }
-
-      return el;
-    });
-  }, [workshops]);
-
-  return (
-    <div
-      id="map"
-      style={{
+    render() {
+        return (
+            <div
+    ref={this.mapContainer}
+    id="map"
+    style={{
         position: 'absolute',
         top: 0,
         bottom: 0,
         width: '100%',
         zIndex: -1,
-      }}
-    ></div>
-  );
-};
+    }}
+    />
 
-export default Map;
+        );
+    }
+
+}
