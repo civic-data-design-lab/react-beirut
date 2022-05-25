@@ -26,45 +26,42 @@ const Nav = () => {
   };
 
   const toggleMenu = (isMenu) => {
-    console.log(isMenu);
     setIsMenu(isMenu);
   };
 
   return (
     <>
       <header id="header" className={isMenu ? 'hide-background' : ''}>
-        <nav className="nav">
-          <Link href="/">
-            <a
-              onClick={() => {
-                toggleMenu(false);
-              }}
-            >
-              <div className="container-logo">
-                <div
-                  className={isMenu ? 'logo-icon light' : 'logo-icon dark'}
-                ></div>
-                <img
-                  src={isMenu ? '/logo-light.png' : '/logo.png'}
-                  className="logo-text"
-                />
-              </div>
-            </a>
-          </Link>
-          <div className="page-location">| {getPath()}</div>
-          <div
-            className={isMenu ? 'container-lang light' : 'container-lang dark'}
+        <Link href="/">
+          <a
+            onClick={() => {
+              toggleMenu(false);
+            }}
           >
-            <button className="btn-language active">En</button>
-            <button className="btn-language">عربي</button>
-          </div>
-          <button
-            className={isMenu ? 'toggle-menu active' : 'toggle-menu'}
-            onClick={() => toggleMenu(!isMenu)}
-          >
-            <span></span>
-          </button>
-        </nav>
+            <div className="container-logo">
+              <div
+                className={isMenu ? 'logo-icon light' : 'logo-icon dark'}
+              ></div>
+              <img
+                src={isMenu ? '/logo-light.png' : '/logo.png'}
+                className="logo-text"
+              />
+            </div>
+          </a>
+        </Link>
+        <div className="page-location">| {getPath()}</div>
+        <div
+          className={isMenu ? 'container-lang light' : 'container-lang dark'}
+        >
+          <button className="btn-language active">En</button>
+          <button className="btn-language">عربي</button>
+        </div>
+        <button
+          className={isMenu ? 'toggle-menu active' : 'toggle-menu'}
+          onClick={() => toggleMenu(!isMenu)}
+        >
+          <span></span>
+        </button>
       </header>
 
       <div id="menu" className={isMenu ? 'open' : ''}>

@@ -29,52 +29,37 @@
   .card__wrapper {
     z-index: 99999;
     width: 80px;
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1fr;
+    column-gap: 10px;
 
     .container__btn {
       position: absolute;
       top: 20px;
       right: 30px;
     }
-  }
 
-  .card__content {
-    min-width: 100vw;
-    min-height: 100vh;
-    padding: 5%;
+    .card__content {
+      // min-width: 100vw;
+      min-height: 100vh;
+      padding: 100px;
 
-    position: absolute;
-    left: 0;
-    top: 10%;
+      position: absolute;
+      left: 0;
+      top: 10%;
 
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 1fr;
-    column-gap: 10px;
-    text-align: left;
-    background-color: $c-white-off;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    font-family: inherit;
-  }
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: 1fr;
+      column-gap: 20px;
 
-  &::hover,
-  &:focus,
-  &:active {
-    color: #0070f3;
-    border-color: #0070f3;
-  }
-
-  h2 {
-    margin: 0 0 1rem 0;
-    font-size: 1.5rem;
-  }
-
-  p {
-    margin: 0;
-    font-size: 1.25rem;
-    line-height: 1.5;
+      text-align: left;
+      background-color: $c-white-off;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
   }
 }

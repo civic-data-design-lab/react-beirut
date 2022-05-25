@@ -9,7 +9,7 @@ const Card = ({ cardContent, handleClose }) => {
             </button>
           </div>
 
-          <div className="card__content">{cardContent}</div>
+          <div>{cardContent}</div>
         </div>
       </div>
     </div>

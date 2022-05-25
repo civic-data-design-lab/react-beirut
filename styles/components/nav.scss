@@ -1,6 +1,7 @@
 @import '../setup/variables';
 
 #header {
+  position: relative;
   transition: all 0.5s ease-in-out;
   width: 100vw;
   height: $header-height;

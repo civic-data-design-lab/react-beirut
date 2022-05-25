@@ -1,33 +1,37 @@
-import Link from 'next/link';
-import { useState } from 'react';
-
 import { useRouter } from 'next/router';
 import Card from '../../../components/Card';
+import { getWorkshop, getAllWorkshops } from '../../../lib/apiUtils';
 
-const imageDetail = ({ article }) => {
+const imageDetail = ({ workshop }) => {
+  // Parse workshop info
+  const workshopParsed = JSON.parse(workshop);
+  const name = workshopParsed.shop_name.content_orig;
+  const craftCategory = workshopParsed.craft_discipline_category;
+  const imgIDList = workshopParsed.images;
+
+  // Close detail
   const router = useRouter();
-  //   const { id } = router.query
-  const [ifShowCard, setShowCard] = useState(false);
-
-  const handleClose = (ifShowCard) => {
+  const handleClose = () => {
     router.push('/discover');
   };
 
   const cardContent = () => {
     return (
-      <div>
-        <div className="container__item">
-          {/* <img
-            className="img__detail"
-            src={`/api/images/${workshop.thumb_img_id}.jpg`}
-            alt=""
-          /> */}
+      <div className="card__content">
+        <div className="card__item">
+          <div className="container__img">
+            <img
+              className="img__detail"
+              src={`/api/images/${imgIDList[0]}.jpg`}
+              alt=""
+            />
+          </div>
         </div>
-        <div className="container__item">
+        <div className="card__item">
           <div className="container__text">
             <div className="container__title">
-              <h1>Shop Name</h1>
-              <small>Since 1948 | Metal</small>
+              <h1>{name}</h1>
+              <small>{[...craftCategory]}</small>
             </div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et
@@ -61,35 +65,34 @@ const imageDetail = ({ article }) => {
   );
 };
 
-// // getStaticPaths -> dynamically generate url => much faster
-// // combine use with getStaticProps instead of getServerSideProps
-// export const getStaticProps = async (context) => {
-//   const res = await fetch(
-//     `http://jsonplaceholder.typicode.com/posts/${context.params.id}`
-//   );
+// export async function getStaticProps() {
+//   const workshop = await getWorkshop(id);
+//   return { props: { workshop } };
+// }
 
-//   const article = await res.json();
+// getStaticPaths -> dynamically generate url => much faster
+// combine use with getStaticProps instead of getServerSideProps
+export async function getStaticProps(context) {
+  const workshopRes = await getWorkshop(context.params.id);
+  const workshop = JSON.stringify(workshopRes);
+  return {
+    props: {
+      workshop,
+    },
+  };
+}
 
-//   return {
-//     props: {
-//       article,
-//     },
-//   };
-// };
+export const getStaticPaths = async () => {
+  const workshops = await getAllWorkshops();
 
-// export const getStaticPaths = async () => {
-//   const res = await fetch(`http://jsonplaceholder.typicode.com/posts`);
+  // format the res
+  const ids = workshops.map((workshops) => workshops.ID);
+  const paths = ids.map((id) => ({ params: { id: id.toString() } }));
 
-//   const articles = await res.json();
-
-//   // format the res
-//   const ids = articles.map((article) => article.id);
-//   const paths = ids.map((id) => ({ params: { id: id.toString() } }));
-
-//   return {
-//     paths,
-//     fallback: false, // if try to access non-existing, return 404
-//   };
-// };
+  return {
+    paths,
+    fallback: false, // if try to access non-existing, return 404
+  };
+};
 
 export default imageDetail;
