@@ -60,6 +60,12 @@ the data should be formatted when running the upload script.
 
 ## Database Upload Log
 
+### 5/25/2022
+* Update the workshops data by adding the following fields:
+  * `year_established`
+  * `decade_established`
+* Updated `Types.js` and the Mongoose schema to reflect this.
+* Updated the database by running the upload script (`node scripts/upload.js -u scripts/data/workshops/workshops_with_year_est.json workshops`) 
 ### 5/24/2022
 * Used the new upload method to update the archive information and archive image
   metadata.
