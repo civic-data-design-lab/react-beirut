@@ -27,7 +27,7 @@ const ArchiveContribution = () => {
     setForm(updatedFormData);
     localStorage.setItem(
       CONTRIBUTION_FORM_NAME,
-      JSON.stringify(updatedFormData),
+      JSON.stringify(updatedFormData)
     );
   };
 
@@ -54,8 +54,7 @@ const ArchiveContribution = () => {
       <Head>
         <title>Archive Contribution | Intangible Heritage Atlas</title>
       </Head>
-      <div className='container'>
-        <p>ArchiveContribution</p>
+      <div className="Contribute drop-shadow__black">
         <MultipageForm
           onSubmit={onSubmit}
           requiredFields={[[], ['street', 'municipality'], []]}

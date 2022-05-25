@@ -1,0 +1,18 @@
+.MultipageForm {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.MultipageForm-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.MultipageForm hr {
+  border: none;
+  height: 1px;
+  color: $c-grey-dark;
+  background-color: $c-grey-dark;
+}

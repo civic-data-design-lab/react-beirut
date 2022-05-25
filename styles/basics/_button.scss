@@ -56,3 +56,22 @@ $icon-zindex: 1000;
     }
   }
 }
+
+.btn-nav {
+  background-color: $c-accent-dark;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  color: $c-white-off;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.btn-nav:hover {
+  background-color: hsl(187, 48%, 55%);
+  cursor: pointer;
+}
+
+.btn-nav:disabled {
+  background-color: $c-grey-dark;
+  cursor: default;
+}

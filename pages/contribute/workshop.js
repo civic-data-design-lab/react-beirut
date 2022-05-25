@@ -29,7 +29,7 @@ const WorkshopContribution = () => {
       <Head>
         <title>Workshop Contribution | Intangible Heritage Atlas</title>
       </Head>
-      <div>WorkshopContribution</div>
+      <div className="Contribute container drop-shadow__black">WorkshopContribution</div>
     </>
   );
 };

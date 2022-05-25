@@ -2,15 +2,7 @@ import LocationSelect from './LocationSelect';
 
 const LocationForm = ({ onUpdate, formData }) => {
   return (
-    <form
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        margin: 0,
-        width: '100%',
-        maxWidth: '100%',
-      }}
-    >
+    <form>
       <div>
         <h3>Address Information</h3>
         <div style={{ display: 'flex' }}>
@@ -75,7 +67,7 @@ const LocationForm = ({ onUpdate, formData }) => {
       <div>
         <h3>Point Location</h3>
         <label htmlFor="">Add shop point</label>
-        <div style={{ width: '500px', height: '500px', marginBottom: '200px' }}>
+        <div style={{ width: '100%', height: '500px', marginBottom: '200px' }}>
           <LocationSelect onUpdate={onUpdate} />
         </div>
       </div>

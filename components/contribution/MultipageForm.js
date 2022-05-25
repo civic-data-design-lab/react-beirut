@@ -99,7 +99,7 @@ const MultipageForm = ({ onSubmit, requiredFields, formData, children }) => {
   };
 
   return (
-    <div>
+    <div className='MultipageForm'>
       {submitted ? (
         <div>
           <p>Thank you for your contribution!</p>
@@ -117,12 +117,13 @@ const MultipageForm = ({ onSubmit, requiredFields, formData, children }) => {
         </div>
       ) : (
         <>
-          <div> {children[page]}</div>
-          <span>
-            <button disabled={page === 0} onClick={onBack}>
+          <> {children[page]}</>
+          <hr/>
+          <span className='MultipageForm-nav'>
+            <button className='btn-nav' disabled={page === 0} onClick={onBack}>
               Back
             </button>
-            <button onClick={onNext}>
+            <button className='btn-nav' onClick={onNext}>
               {page === children.length - 1 ? 'Submit' : 'Next'}
             </button>
           </span>

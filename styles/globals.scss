@@ -19,9 +19,11 @@
 @import 'components/titleCard';
 @import 'components/imageFeed';
 @import 'components/imageUploadForm';
+@import 'components/multipageForm';
 
 // === PAGES ===
 @import 'pages/index';
+@import 'pages/contribute';
 
 *,
 *::before,
