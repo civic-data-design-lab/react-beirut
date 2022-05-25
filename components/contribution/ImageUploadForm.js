@@ -1,40 +1,31 @@
 import { useState } from 'react';
+import SingleImageUpload from './SingleImageUpload';
 
 const ImageUploadForm = ({ onUpdate, formData }) => {
-  const [image, setImage] = useState(formData.imageData);
-
-  const handleUploadImage = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const imageBuffer = e.target.result;
-      setImage(imageBuffer);
-      onUpdate({ imageData: imageBuffer });
-    };
-    reader.readAsDataURL(file);
-  };
-
   return (
-    <form action="">
-      <h3>Image Upload</h3>
-      <input
-        type="file"
-        name="image-upload"
-        id="image-upload"
-        accept="image/*"
-        onChange={handleUploadImage}
-      />
-      {(image || formData.imageData) && <img src={image || formData.imageData} alt="Uploaded image" />}
+    <form className="ImageUploadForm">
+      <h2>Image Upload</h2>
+      <span>
+        <div>
+          <label>Upload an image</label>
+          <SingleImageUpload
+            handleUpdateImage={(imageData) => onUpdate({ imageData })}
+            currentImage={formData.imageData}
+          />
+        </div>
 
-      <label htmlFor="">
-        Enter a caption or a story associated with this image.
-      </label>
-      <textarea
-        name="caption"
-        id="caption"
-        value={formData.caption || ''}
-        onChange={(e) => onUpdate({ caption: e.target.value })}
-      />
+        <div>
+          <label htmlFor="caption">
+            Enter a caption or a story associated with this image.
+          </label>
+          <textarea
+            name="caption"
+            id="caption"
+            value={formData.caption || ''}
+            onChange={(e) => onUpdate({ caption: e.target.value })}
+          />
+        </div>
+      </span>
     </form>
   );
 };

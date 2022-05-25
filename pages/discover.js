@@ -1,11 +1,14 @@
 import { getAllWorkshops } from '../lib/apiUtils';
-
+import Head from 'next/head';
 import ImageFeed from '../components/discover/ImageFeed';
 import ImageFilter from '../components/discover/ImageFilter';
 
 const Discover = ({ workshops }) => {
   return (
     <>
+      <Head>
+        <title>Discover | Intangible Heritage Atlas</title>
+      </Head>
       <div className="container">
         <div className="title-card">
           <div className="text-container">
