@@ -75,3 +75,29 @@ $icon-zindex: 1000;
   background-color: $c-grey-dark;
   cursor: default;
 }
+
+.btn-pill {
+  background-color: $c-primary-dark;
+  text-decoration: none;
+  border: 1px solid $c-primary-dark;
+  border-radius: 50px;
+  padding: 0.75rem 3rem;
+  color: $c-white-off;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.btn-pill:hover {
+  background-color: $c-primary-mid;
+  cursor: pointer;
+}
+
+.btn-pill:disabled {
+  background-color: $c-primary-light;
+  cursor: default;
+}
+
+.btn-pill.secondary {
+  background-color: $c-white-off;
+  color: $c-primary-dark;
+  border: 1px solid $c-primary-dark;
+}

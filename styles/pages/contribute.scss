@@ -15,6 +15,21 @@
   gap: 1.5rem;
 }
 
+.Contribute-modal {
+  min-width: 99%;
+  min-height: 100vh;
+  padding: 5%;
+
+  position: absolute;
+  left: 0;
+  top: 10%;
+
+  text-align: left;
+  background-color: $c-white-off;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
 .Contribute-types {
   display: flex;
   flex-direction: column;
@@ -84,6 +99,18 @@
   cursor: default;
 }
 
+.Contribute-modal-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  button {
+    width: 100%;
+  }
+}
+
 @media (min-width: 768px) {
   .Contribute-index {
     display: flex;
@@ -94,5 +121,13 @@
   .Contribute-types {
     flex-direction: row;
     max-width: 1000px;
+  }
+
+  .Contribute-modal-options {
+    justify-content: flex-start;
+
+    button {
+      width: inherit;
+    }
   }
 }

@@ -1,5 +1,7 @@
 .MultipageForm {
   padding: 1rem 0;
+  // width: max-content;
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -15,4 +17,9 @@
   height: 1px;
   color: $c-grey-dark;
   background-color: $c-grey-dark;
+}
+
+.MultipageForm h1 {
+  position: absolute;
+  top: 0;
 }

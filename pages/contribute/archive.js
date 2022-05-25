@@ -4,8 +4,7 @@ import LocationForm from '../../components/contribution/LocationForm';
 import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
 import Head from 'next/head';
-
-const CONTRIBUTION_FORM_NAME = 'archive_contribution';
+import { ARCHIVE_CONTRIBUTION_NAME } from '../../lib/utils';
 
 const ArchiveContribution = () => {
   const [form, setForm] = useState({
@@ -15,7 +14,9 @@ const ArchiveContribution = () => {
 
   useEffect(() => {
     // Load the form data from localstorage
-    const formData = JSON.parse(localStorage.getItem(CONTRIBUTION_FORM_NAME));
+    const formData = JSON.parse(
+      localStorage.getItem(ARCHIVE_CONTRIBUTION_NAME)
+    );
     if (formData) {
       setForm(formData);
     }
@@ -26,7 +27,7 @@ const ArchiveContribution = () => {
     const updatedFormData = { ...form, ...data };
     setForm(updatedFormData);
     localStorage.setItem(
-      CONTRIBUTION_FORM_NAME,
+      ARCHIVE_CONTRIBUTION_NAME,
       JSON.stringify(updatedFormData)
     );
   };
@@ -44,7 +45,7 @@ const ArchiveContribution = () => {
       .then((data) => {
         console.log(data);
         // Clear local storage
-        localStorage.removeItem(CONTRIBUTION_FORM_NAME);
+        localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
       })
       .catch((err) => console.error(err));
   };
@@ -60,9 +61,14 @@ const ArchiveContribution = () => {
           requiredFields={[[], ['street', 'municipality'], []]}
           formData={form}
         >
-          <ImageUploadForm onUpdate={updateForm} formData={form} />
+          <ImageUploadForm
+            onUpdate={updateForm}
+            formData={form}
+            title="Archive Image Upload"
+            label="Upload an image of the archival information"
+          />
           <LocationForm onUpdate={updateForm} formData={form} />
-          <Preview />
+          <Preview formData={form} />
         </MultipageForm>
       </div>
     </>

@@ -117,6 +117,8 @@ const MultipageForm = ({ onSubmit, requiredFields, formData, children }) => {
         </div>
       ) : (
         <>
+          {/* <h1>weoifwijefo aiwjeofi ajwoei fjaowief</h1> */}
+
           <> {children[page]}</>
           <hr/>
           <span className='MultipageForm-nav'>

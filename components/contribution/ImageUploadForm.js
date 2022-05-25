@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import SingleImageUpload from './SingleImageUpload';
 
-const ImageUploadForm = ({ onUpdate, formData }) => {
+const ImageUploadForm = ({ onUpdate, formData, title, label }) => {
   return (
     <form className="ImageUploadForm">
-      <h2>Image Upload</h2>
+      <h2>{title || 'Image Upload'}</h2>
       <span>
         <div>
-          <label>Upload an image</label>
+          <label>{label || 'Upload an image'}</label>
           <SingleImageUpload
             handleUpdateImage={(imageData) => onUpdate({ imageData })}
             currentImage={formData.imageData}

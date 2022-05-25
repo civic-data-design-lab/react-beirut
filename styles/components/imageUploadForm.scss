@@ -32,10 +32,12 @@
   position: relative;
   font-size: small;
   border-radius: 5px;
+
 }
 
 .SingleImageUpload img {
   width: 100%;
+  max-width: 300px;
   height: 100%;
   object-fit: cover;
 }
@@ -55,23 +57,33 @@
 
 .ImageUploadForm span {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1.5rem;
+  // height: min-content;
 }
-
-
 
 .ImageUploadForm div {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .ImageUploadForm textarea {
-  aspect-ratio: 2;
+  height: 5rem;
   padding: 0.4rem;
   background-color: $c-white-off;
   border-color: $c-grey-light;
   border-radius: 3px;
   resize: none;
+}
+
+@media (min-width: 768px) {
+  .ImageUploadForm div {
+    width: inherit;
+  }
+
+  .ImageUploadForm textarea {
+    height: 100%;
+  }
 }
