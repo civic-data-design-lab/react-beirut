@@ -7,6 +7,10 @@
 @import 'setup/typography';
 @import 'setup/variables';
 
+// === BASICS ===
+@import 'basics/card';
+@import 'basics/effects';
+
 // === COMPONENTS ===
 @import 'layout/layout';
 
