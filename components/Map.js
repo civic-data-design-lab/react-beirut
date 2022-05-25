@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 //! MISSING TOKEN
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-const Map = ({ workshops }) => {
+const Map = ({ workshops, filterData }) => {
   const map = useRef(null);
 
   useEffect(() => {
@@ -38,6 +38,13 @@ const Map = ({ workshops }) => {
       }
 
       const { lng, lat } = workshop.location.geo;
+      const craftType = workshop.craft_discipline_category;
+      let index = filterData.filteredCraftsParent.indexOf(craftType);
+
+      const indices = craftType.map((craft)=>{return filterData.filteredCraftsParent.indexOf(craft)});
+      console.log(indices);
+
+
       if (lng && lat) {
         new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
       }

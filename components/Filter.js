@@ -4,18 +4,13 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 
-
-
-
-
 export default class Filter extends React.Component {
 
     state = {
-        filteredCrafts : ["Architectural", "Cuisine", "Decorative", "Fashion", "Functional", "Furniture", "Textiles"],
+        filteredCrafts : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
         startYear : 1960,
         endYear : 2030,
-        toggle : false,
-
+        toggleStatus : false,
     };
 
 
@@ -28,28 +23,31 @@ export default class Filter extends React.Component {
         } else {
             craftsList.push(craftType)
         }
-        this.setState({filteredCrafts: craftsList})
+        this.setState({filteredCrafts: craftsList}, () => this.props.callBack(this.state))
     };
 
     CraftFilter = () => {
         return (<div>
             <h2>Craft Type</h2>
-            <button onClick={() => this.selectedCraft('Architectural')}>Architectural</button>
-            <button onClick={() => this.selectedCraft('Cuisine')}>Cuisine</button>
-            <button onClick={() => this.selectedCraft('Decorative')}>Decorative</button>
-            <button onClick={() => this.selectedCraft('Fashion')}>Fashion</button>
-            <button onClick={() => this.selectedCraft('Functional')}>Functional</button>
-            <button onClick={() => this.selectedCraft('Furniture')}>Furniture</button>
-            <button onClick={() => this.selectedCraft('Textiles')}>Textiles</button>
-
+            <button onClick={() => this.selectedCraft('architectural')}>Architectural</button>
+            <button onClick={() => this.selectedCraft('cuisine')}>Cuisine</button>
+            <button onClick={() => this.selectedCraft('decorative')}>Decorative</button>
+            <button onClick={() => this.selectedCraft('fashion')}>Fashion</button>
+            <button onClick={() => this.selectedCraft('functional')}>Functional</button>
+            <button onClick={() => this.selectedCraft('furniture')}>Furniture</button>
+            <button onClick={() => this.selectedCraft('textiles')}>Textiles</button>
         </div>);
     };
-    defaultCrafts = ["Architectural", "Cuisine", "Decorative", "Fashion", "Functional", "Furniture", "Textiles"]
 
+    defaultCrafts = ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]
+
+    onReset = () => {
+        this.setState({filteredCrafts:this.defaultCrafts, toggleStatus:false, startYear: 1960, endYear: 2030}, () => this.props.callBack(this.state))
+    }
 
     Reset = () => {
         return (<div>
-            <button onClick = {() => this.setState({filteredCrafts:this.defaultCrafts, toggleActive:false})}> Reset Filters </button>
+            <button onClick = {() => this.onReset()}> Reset Filters </button>
         </div>);
     }
 
@@ -73,19 +71,29 @@ export default class Filter extends React.Component {
           defaultValue={[this.state.startYear, this.state.endYear]}
           step={10}
           allowCross = {false}
-          onChange = {(value) => this.setState({startYear:value[0], endYear:value[1]})}
-          onAfterChange = {(value) => this.setState({startYear:value[0], endYear:value[1]})}
+          onChange = {(value) => this.onSliderUpdate(value)}
+          onAfterChange = {(value) => this.onSliderUpdate(value)}
         />
         </div>)
+    }
 
+    onSliderUpdate = (value) => {
+        this.setState({startYear:value[0], endYear:value[1]}, () => this.props.callBack(this.state))
     }
 
 
     toggleActive = () => {
         return (<div>
-            <ToggleSlider onToggle={state => this.setState({toggle:state})} draggable={false} barBackgroundColorActive={"#9C6340"}/>
+            <ToggleSlider onToggle={(state) => this.onToggle(state)} active={false} draggable={false} barBackgroundColorActive={"#9C6340"}/>
         </div>)
     }
+
+    onToggle = (state) => {
+        this.setState({toggleStatus:state}, () => this.props.callBack(this.state))
+
+    }
+
+
 
 
 
@@ -95,7 +103,8 @@ export default class Filter extends React.Component {
         const resetButton = this.Reset();
         const toggleButton = this.toggleActive();
 
-        console.log("printing state ", this.state)
+
+
         return (
             <div><h2>Filter</h2>
             {cf}{slider}{toggleButton}{resetButton}
