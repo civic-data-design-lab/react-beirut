@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import { ToggleSlider }  from "react-toggle-slider";
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+
 
 
 
@@ -51,7 +50,7 @@ export default class Filter extends React.Component {
 
     Reset = () => {
         return (<div>
-            <button onClick = {() => this.setState({filteredCrafts:this.defaultCrafts})}> Reset Filters </button>
+            <button onClick = {() => this.setState({filteredCrafts:this.defaultCrafts, toggleActive:false})}> Reset Filters </button>
         </div>);
     }
 
@@ -59,10 +58,9 @@ export default class Filter extends React.Component {
     yearRange = () => {
 
         return (<div>
-                <Slider range={[1960, 1970, 1980, 1990, 2000, 2010, 2020]} startPoint={1980} min={1960} max={2020}/>
 
+        </div>)
 
-        </div>);
     }
 
 
