@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -13,17 +13,22 @@ export default class App extends React.PureComponent {
         }
 
         this.mapContainer = React.createRef();
+
+        this.mappedMarkers = [];
+
     }
 
     componentDidMount() {
         console.log('map.js ', this.props.filterData)
         mapboxGl.accessToken = ACCESS_TOKEN;
-       let map = new mapboxGl.Map({
-           container: 'map',
+        map.current = new mapboxGl.Map({
+           container: this.mapContainer.current,
            style: 'mapbox://styles/casillasenrique/ckwarozh81rip14qkloft3opq', // style URL
            center: [35.5, 33.893894], // starting position [lng, lat]
            zoom: 12, // starting zoom
        });
+
+
 
 
     }
@@ -33,7 +38,9 @@ export default class App extends React.PureComponent {
         if (!this.props.workshops) {
        return;}
 
-    // Display workshops as markers on the map
+        if (this.mappedMarkers) {
+            this.mappedMarkers.forEach((marker) => marker.remove());
+        }
 
         for (const workshop of this.props.workshops) {
             const el = document.createElement('div');
@@ -53,8 +60,10 @@ export default class App extends React.PureComponent {
             const indices = craftType.map((craft)=>{return this.props.filterData.filteredCraftsParent.indexOf(craft)});
 
             if (lat && lng && indices[0]>-1) {
-                new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(this.map);
+                console.log(lat, lng);
+                let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                 console.log("reached condition");
+                this.mappedMarkers.push(marker)
             }
 
         }
