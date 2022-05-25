@@ -1,0 +1,86 @@
+[
+  {
+    "img_id": "A040674864_1",
+    "response_id": "A040674864",
+    "from_survey": "archival_info",
+    "is_thumbnail": false,
+    "type": ["indoor", "craft"],
+    "craft_type": ["glass"],
+    "keywords": [
+      "gallery",
+      "artisanal",
+      "glassware",
+      "shop",
+      "view",
+      "seems",
+      "like",
+      "colored",
+      "glass",
+      "indoor",
+      "handmade",
+      "craft"
+    ],
+    "is_series": false,
+    "series_idx": 0,
+    "location": {
+      "lat": 33.902301,
+      "lng": 35.491504
+    },
+    "historic_map": null,
+    "address": {
+      "name": "address",
+      "content": "beit al muhtaref in ain el mrayseh's seaside, beirut",
+      "content_orig": "beit al muhtaref in ain el mrayseh's seaside, beirut",
+      "content_orig_lang": "en",
+      "content_ar": null
+    },
+    "sector": null,
+    "year_taken": 1974,
+    "caption": "The once-famous Gallery \"Beit al-Muhtaref\" on Ain al-Mrayseh's beautiful seaside 1974 .",
+    "path": "https://kf.kobotoolbox.org/api/v2/assets/apb7U4URAwev8Ty7cS3GUa/data/144447476/attachments/55521188/",
+    "original_question_name": "img",
+    "original_image_name": "the_once_famous_Gallery_Beit_al-Muhtaref_on_Ain_al_Mraysehs_beautiful_seaside_1974-23_45_38.jpg"
+  },
+  {
+    "img_id": "A040674864_2",
+    "response_id": "A040674864",
+    "from_survey": "archival_info",
+    "is_thumbnail": false,
+    "type": ["indoor", "craft"],
+    "craft_type": ["glass"],
+    "keywords": [
+      "gallery",
+      "artisanal",
+      "glassware",
+      "shop",
+      "view",
+      "seems",
+      "like",
+      "colored",
+      "glass",
+      "indoor",
+      "handmade",
+      "craft"
+    ],
+    "is_series": false,
+    "series_idx": 0,
+    "location": {
+      "lat": 33.902301,
+      "lng": 35.491504
+    },
+    "historic_map": null,
+    "address": {
+      "name": "address",
+      "content": "beit al muhtaref in ain el mrayseh's seaside, beirut",
+      "content_orig": "beit al muhtaref in ain el mrayseh's seaside, beirut",
+      "content_orig_lang": "en",
+      "content_ar": null
+    },
+    "sector": null,
+    "year_taken": 1974,
+    "caption": "The once-famous Gallery \"Beit al-Muhtaref\" on Ain al-Mrayseh's beautiful seaside 1974 .",
+    "path": "https://kf.kobotoolbox.org/api/v2/assets/apb7U4URAwev8Ty7cS3GUa/data/144447476/attachments/55521188/",
+    "original_question_name": "img",
+    "original_image_name": "the_once_famous_Gallery_Beit_al-Muhtaref_on_Ain_al_Mraysehs_beautiful_seaside_1974-23_45_38.jpg"
+  }
+]

@@ -18,7 +18,7 @@ const Explore = ({ workshops }) => {
 };
 
 /* Retrieves workshops data from mongodb database */
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const workshops = await getAllWorkshops();
   return { props: { workshops } };
 }

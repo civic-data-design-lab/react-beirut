@@ -16,7 +16,6 @@ and folders are shown).
 ```
 📦cddl-beirut
  ┣ 📂components
- ┣ 📂css
  ┣ 📂lib
  ┣ 📂models
  ┣ 📂pages
@@ -25,14 +24,12 @@ and folders are shown).
  ┃ ┗ 📜_app.js
  ┣ 📂public
  ┣ 📂scripts
+ ┣ 📂styles
  ┣ 📜.env
  ┗ 📜package.json
  ```
 
  * `📂components` contains the React components for the frontend.
- * `📂css` contains the stylesheets. They must be imported in
-   [`_app.js`](pages/_app.js) so they can be used globally among all React
-   components.
  * `📂lib` stores helper files, such as [`dbConnect.js`](lib/dbConnect.js) which
    connects to the MongoDB database.
  * `📂models` contains the Mongoose schemas for each of the datatypes. It also
@@ -48,6 +45,9 @@ and folders are shown).
 * `📂scripts` contains scripts used separately from the main project, such as
   local file upload to the database ([visit the folder](scripts/) for more
   details).
+ * `📂styles` contains the SCSS stylesheets. They must be imported in
+   [`globals.scss`](styles/globals.scss) so they can be used globally among all
+   React components.
 * `📜.env` **(IMPORTANT)** contains the URI for connecting to the MongoDB
   database. It is not pushed to the remote repo so it will not appear here. See
   the [local development section](#local-development) for more information.
@@ -77,6 +77,14 @@ the repository using `git clone` into your local workspace.
 If everything works, you should be able to navigate to
 http://localhost:3000/api/images/github-logo.png and see an image of the Github
 logo.
+
+**Note:** If you want to use the features in the `scripts/` directory, use the
+following additional steps to get set up. 
+
+6. Install the dependencies by running `pip install -r
+   scripts/requirements.txt`.  
+7. Read the README file in the [`scripts/`](scripts/) directory for more
+   information.
 
 ## Deployment
 See [Documentation for

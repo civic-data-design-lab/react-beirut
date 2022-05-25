@@ -27,7 +27,7 @@ const Index = () => (
         </div>
       </div>
 
-      <div class="bubble-background"></div>
+      <div className="bubble-background"></div>
     </div>
   </>
 );
