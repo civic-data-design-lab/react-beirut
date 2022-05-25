@@ -32,13 +32,17 @@ const WorkshopContribution = () => {
   };
 
   const updateForm = (data) => {
-    console.log(data);
-    const updatedFormData = { ...form, ...data };
-    setForm(updatedFormData);
-    localStorage.setItem(
-      CONTRIBUTION_FORM_NAME,
-      JSON.stringify(updatedFormData)
-    );
+    setForm((prevForm) => {
+      // console.log(data);
+      // console.log('old form:', prevForm);
+      const updatedFormData = { ...prevForm, ...data };
+      console.log('setting form data to ', updatedFormData);
+      localStorage.setItem(
+        CONTRIBUTION_FORM_NAME,
+        JSON.stringify(updatedFormData)
+      );
+      return updatedFormData;
+    });
   };
 
   return (

@@ -118,12 +118,69 @@ const Contribute = () => {
           </>
         );
       case 'workshop':
-        <>
-          <h2></h2>
-        </>;
-        break;
+        return (
+          <>
+            {/* TODO: Update this */}
+            <h2>
+              <b>About</b> | Ongoing Workshop Data Collection
+            </h2>
+            <p>
+              The research team of the “Intangible Heritage Atlas | Crafts” has
+              conducted multiple data collections initiatives through
+              interviews, desk-research, archival research and surveys. Some
+              data gathering activities are still scheduled to happen during
+              participatory mapping workshops in late June and others will
+              continue throughout summer 2022 through our website “Contribute”
+              tab.
+            </p>
+            <br />
+            <p>
+              The overall goal of our data collection strategy and methodology
+              is to maximes the inclusiveness of our data gathering methods and
+              sources. More specifically, the data collected by our team
+              includes both oral stories, persona photos from craftspeople
+              workshops but also visual material collected from libraries and
+              private collections. In light of this unique patchwork of data,
+              our team strongly believe that the “Intangible Heritage Atlas |
+              Crafts” has the potential to enrich the narrative on craftsmanship
+              in the city of Beirut and shed light onto those cultural practices
+              that do not usually make it to relevant policy decisions and
+              documents.
+            </p>
+          </>
+        );
       case 'archive':
-        break;
+        return (
+          <>
+            {/* TODO: Update this */}
+            <h2>
+              <b>About</b> | Ongoing Archival Information Collection
+            </h2>
+            <p>
+              The research team of the “Intangible Heritage Atlas | Crafts” has
+              conducted multiple data collections initiatives through
+              interviews, desk-research, archival research and surveys. Some
+              data gathering activities are still scheduled to happen during
+              participatory mapping workshops in late June and others will
+              continue throughout summer 2022 through our website “Contribute”
+              tab.
+            </p>
+            <br />
+            <p>
+              The overall goal of our data collection strategy and methodology
+              is to maximes the inclusiveness of our data gathering methods and
+              sources. More specifically, the data collected by our team
+              includes both oral stories, persona photos from craftspeople
+              workshops but also visual material collected from libraries and
+              private collections. In light of this unique patchwork of data,
+              our team strongly believe that the “Intangible Heritage Atlas |
+              Crafts” has the potential to enrich the narrative on craftsmanship
+              in the city of Beirut and shed light onto those cultural practices
+              that do not usually make it to relevant policy decisions and
+              documents.
+            </p>
+          </>
+        );
       default:
         return <></>;
     }
@@ -174,7 +231,7 @@ const Contribute = () => {
               <h3>
                 Contribute to <b>Archive</b>
               </h3>
-              <a onClick={() => setModal('workshop')}>What is this?</a>
+              <a onClick={() => setModal('archive')}>What is this?</a>
             </button>
             <button
               className="Contribute-type-select"
