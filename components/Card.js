@@ -1,4 +1,4 @@
-const Card = ({ cardContent, handleClose }) => {
+const Card = ({ children, handleClose }) => {
   return (
     <div className="card">
       <div className="card__cover">
@@ -9,7 +9,7 @@ const Card = ({ cardContent, handleClose }) => {
             </button>
           </div>
 
-          <div>{cardContent}</div>
+          {children}
         </div>
       </div>
     </div>

@@ -55,13 +55,9 @@ const imageDetail = ({ workshop }) => {
   };
 
   return (
-    <>
-      <Card
-        cardContent={cardContent()}
-        ifShowCardOrg
-        handleClose={handleClose}
-      />
-    </>
+    <Card handleClose={handleClose} ifShowCardOrg>
+      {cardContent()}
+    </Card>
   );
 };
 
