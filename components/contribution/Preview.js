@@ -4,12 +4,12 @@ const Preview = ({ formData }) => {
   return (
     <div>
       <h2>Preview</h2>
-      <ImageCard
+      {/* <ImageCard
         workshop={{
           ID: 'temporary',
         }}
         thumbnailSrc={formData.imageData}
-      ></ImageCard>
+      ></ImageCard> */}
       <pre id="json">
         <code>
           {JSON.stringify(
