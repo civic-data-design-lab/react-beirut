@@ -32,10 +32,26 @@ import Link from 'next/link';
  * @param {object} formData - The form data to use.
  * @returns
  */
-const MultipageForm = ({ onSubmit, requiredFields, formData, children }) => {
+const MultipageForm = ({
+  name,
+  formData,
+  requiredFields,
+  onUpdate,
+  onSubmit,
+  children,
+}) => {
   const router = useRouter();
   const [page, setPage] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    // Get the form data from local storage when the component is mounted
+    console.log('Fetching existing form data from local storage');
+    const formData = JSON.parse(localStorage.getItem(name));
+    if (formData) {
+      onUpdate(formData);
+    }
+  }, []);
 
   useEffect(() => {
     const pageQuery = router.query.page;
@@ -71,7 +87,7 @@ const MultipageForm = ({ onSubmit, requiredFields, formData, children }) => {
       if (missingFields.length > 0) {
         // TODO: Show a more helpful error message if the user is missing fields
         alert(
-          `Please fill in the following fields: ${missingFields.join(', ')}`,
+          `Please fill in the following fields: ${missingFields.join(', ')}`
         );
         return;
       }
@@ -99,7 +115,7 @@ const MultipageForm = ({ onSubmit, requiredFields, formData, children }) => {
   };
 
   return (
-    <div className='MultipageForm'>
+    <div className="MultipageForm">
       {submitted ? (
         <div>
           <p>Thank you for your contribution!</p>
@@ -120,12 +136,12 @@ const MultipageForm = ({ onSubmit, requiredFields, formData, children }) => {
           {/* <h1>weoifwijefo aiwjeofi ajwoei fjaowief</h1> */}
 
           <> {children[page]}</>
-          <hr/>
-          <span className='MultipageForm-nav'>
-            <button className='btn-nav' disabled={page === 0} onClick={onBack}>
+          <hr />
+          <span className="MultipageForm-nav">
+            <button className="btn-nav" disabled={page === 0} onClick={onBack}>
               Back
             </button>
-            <button className='btn-nav' onClick={onNext}>
+            <button className="btn-nav" onClick={onNext}>
               {page === children.length - 1 ? 'Submit' : 'Next'}
             </button>
           </span>

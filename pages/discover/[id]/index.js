@@ -67,6 +67,7 @@ const imageDetail = ({ workshop }) => {
 
   return (
     <>
+      1
       <Card
         cardContent={cardContent()}
         ifShowCardOrg
@@ -75,11 +76,6 @@ const imageDetail = ({ workshop }) => {
     </>
   );
 };
-
-// export async function getStaticProps() {
-//   const workshop = await getWorkshop(id);
-//   return { props: { workshop } };
-// }
 
 // getStaticPaths -> dynamically generate url => much faster
 // combine use with getStaticProps instead of getServerSideProps

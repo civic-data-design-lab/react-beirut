@@ -5,22 +5,12 @@ import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
 import Head from 'next/head';
 import { ARCHIVE_CONTRIBUTION_NAME } from '../../lib/utils';
+import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
 
 const ArchiveContribution = () => {
   const [form, setForm] = useState({
-    location: { adm1: 'hi' },
-    survey_origin: 'ongoing_contribution',
+    survey_origin: ARCHIVE_CONTRIBUTION_NAME,
   });
-
-  useEffect(() => {
-    // Load the form data from localstorage
-    const formData = JSON.parse(
-      localStorage.getItem(ARCHIVE_CONTRIBUTION_NAME)
-    );
-    if (formData) {
-      setForm(formData);
-    }
-  }, []);
 
   const updateForm = (data) => {
     setForm((prevForm) => {
@@ -59,15 +49,21 @@ const ArchiveContribution = () => {
       </Head>
       <div className="Contribute drop-shadow__black">
         <MultipageForm
-          onSubmit={onSubmit}
-          requiredFields={[[], ['street', 'municipality'], []]}
+          name={ARCHIVE_CONTRIBUTION_NAME}
           formData={form}
+          requiredFields={[[], ['street', 'municipality'], []]}
+          onUpdate={updateForm}
+          onSubmit={onSubmit}
         >
           <ImageUploadForm
             onUpdate={updateForm}
             formData={form}
             title="Archive Image Upload"
             label="Upload an image of the archival information"
+          />
+          <ArchiveAboutForm
+            onUpdate={updateForm}
+            formData={form}
           />
           <LocationForm onUpdate={updateForm} formData={form} />
           <Preview formData={form} />
