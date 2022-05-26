@@ -4,6 +4,7 @@ import {getAllArchives, getAllWorkshops} from '../lib/apiUtils';
 import Filter from "../components/Filter";
 import React from "react";
 import SearchBar from "../components/SearchBar";
+import MapCard from "../components/MapCard";
 
 const Map = dynamic(() => import('../components/Map'), {
   loading: () => 'Loading...',
@@ -44,13 +45,12 @@ export default class Explore extends React.Component {
                 <Head>
                     <title> Explore | Intangible Heritage Atlas </title>
                 </Head>
-                <div><Filter callBack={this.updateMap}/></div>
-                <div style={{ position: 'absolute', top: 0, left: 0 }}>explore</div>
-                <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={this.state} />
 
-                <div>
-                    <SearchBar callBack={this.searchMap}/>
-                </div>
+                <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={this.state}/>
+                <Filter callBack={this.updateMap}/>
+                <SearchBar callBack={this.searchMap}/>
+
+
             </>
 
 

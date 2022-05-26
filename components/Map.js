@@ -1,5 +1,6 @@
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
+import MapCard from "../components/MapCard";
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -27,6 +28,10 @@ export default class App extends React.PureComponent {
 
     clickMarker = () => {
         console.log('clicked marker');
+        let shopCard = document.createElement('MapCard')
+        shopCard.className = "card"
+        let map = document.getElementById('map')
+        map.appendChild(shopCard)
     }
 
     componentDidMount() {

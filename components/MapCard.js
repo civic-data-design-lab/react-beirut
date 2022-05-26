@@ -8,6 +8,8 @@ export default class MapCard extends React.Component {
 
 
     render() {
-        return (<div></div>)
+        return (<div className={'card'}>
+            mapCard
+        </div>)
     }
 }

@@ -65,7 +65,7 @@ export default class Filter extends React.Component {
 
     render () {
         return (
-            <div className={'filterCard'}>
+            <div className={'card'}>
 
 
                 <div>
