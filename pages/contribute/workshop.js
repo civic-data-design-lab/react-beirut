@@ -61,7 +61,7 @@ const WorkshopContribution = () => {
       <div className="Contribute drop-shadow__black">
         <MultipageForm
           name={WORKSHOP_CONTRIBUTION_NAME}
-          requiredFields={[[], ['street', 'municipality'], []]}
+          requiredFields={[[], ['street', 'municipality'], [], []]}
           formData={form}
           onUpdate={updateForm}
           onSubmit={onSubmit}
