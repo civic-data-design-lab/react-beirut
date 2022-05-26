@@ -1,13 +1,21 @@
-import { getAllWorkshops } from '../lib/apiUtils';
+// import { } from '../../lib/apiUtils';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import ImageFeed from '../components/discover/ImageFeed';
-import ImageFilter from '../components/discover/ImageFilter';
+import ImageFeed from '../discover/ImageFeed';
+import ImageFilter from '../discover/ImageFilter';
 
-const Discover = ({ workshops }) => {
+const DiscoverLayout = ({ children }) => {
   const router = useRouter();
+  const [workshops, setWorkshops] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
+
+  useEffect(() => {
+    console.log('fetching')
+    fetch('/api/workshops')
+      .then((res) => res.json())
+      .then((data) => setWorkshops(data.response));
+  }, []);
 
   useEffect(() => {
     const { show } = router.query;
@@ -59,14 +67,16 @@ const Discover = ({ workshops }) => {
           onExpandCard={handleExpand}
         />
       </div>
+      {children}
     </>
   );
 };
 
-/* Retrieves workshops data from mongodb database */
-export async function getStaticProps() {
-  const workshops = await getAllWorkshops();
-  return { props: { workshops } };
-}
+// /* Retrieves workshops data from mongodb database */
+// export async function getStaticProps() {
+//   const workshops = await getAllWorkshops({ lean: true });
+//   const archive = await getAllArchives({ lean: true, visualOnly: true });
+//   return { props: { workshops, archive } };
+// }
 
-export default Discover;
+export default DiscoverLayout;

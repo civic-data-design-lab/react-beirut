@@ -9,7 +9,6 @@ import { CRAFT_DISCIPLINES } from '../../lib/utils';
 
 console.log(CRAFT_DISCIPLINES)
 
-const CONTRIBUTION_FORM_NAME = 'workshop_contribution';
 import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
 import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
 
@@ -19,6 +18,8 @@ const WorkshopContribution = () => {
   });
   
   const onSubmit = () => {
+    return; // FIXME: Temp disable submit
+
     const data = {
       location: { adm1: 'hi' },
       survey_origin: 'ongoing_contribution',
