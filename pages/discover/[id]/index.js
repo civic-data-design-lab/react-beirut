@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Card from '../../../components/Card';
+import ImageCard from '../../../components/discover/ImageCard';
 import { getWorkshop, getAllWorkshops } from '../../../lib/apiUtils';
 
 const imageDetail = ({ workshop }) => {
@@ -31,23 +32,33 @@ const imageDetail = ({ workshop }) => {
           <div className="container__text">
             <div className="container__title">
               <h1>{name}</h1>
-              <small>{[...craftCategory]}</small>
+              <p className="type">{[...craftCategory]}</p>
             </div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et
               velit interdum, ac aliquet odio mattis. Class aptent taciti
               sociosqu ad litora. onsectetur adipiscing elit. Nunc et velit
               interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad
-              ... Read More
+              ... <b>Read More</b>
             </p>
           </div>
           <div className="container__map">
             <p>See it on map</p>
-            <div className="map"></div>
+            <div className="img__map"></div>
           </div>
           <div className="container__suggestion">
             <p>Explore similar shops</p>
-            <div className="map"></div>
+            <div className="wrapper">
+              <div className="image-container">
+                <ImageCard workshop={workshopParsed} />
+              </div>
+              <div className="image-container">
+                <ImageCard workshop={workshopParsed} />
+              </div>
+              <div className="image-container">
+                <ImageCard workshop={workshopParsed} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

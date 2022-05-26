@@ -19,10 +19,16 @@ const Nav = () => {
     // TODO: Change the displayed name based on the path if necessary, e.g.
     let pageLocation = path;
     if (path === '') {
-      pageLocation = 'Home';
+      pageLocation = '';
     }
 
     return pageLocation;
+  };
+
+  const hideBg = () => {
+    const path = getPath();
+    if (path === '' || path === 'explore') return true;
+    return false;
   };
 
   const toggleMenu = (isMenu) => {
@@ -31,7 +37,10 @@ const Nav = () => {
 
   return (
     <>
-      <header id="header" className={isMenu ? 'hide-background' : ''}>
+      <header
+        id="header"
+        className={isMenu || hideBg() ? 'hide-background' : ''}
+      >
         <Link href="/">
           <a
             onClick={() => {
@@ -49,7 +58,9 @@ const Nav = () => {
             </div>
           </a>
         </Link>
-        <div className="page-location">| {getPath()}</div>
+        <div className="page-location">
+          {getPath() ? '|' : ''} {getPath()}
+        </div>
         <div
           className={isMenu ? 'container-lang light' : 'container-lang dark'}
         >

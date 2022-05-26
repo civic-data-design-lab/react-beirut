@@ -7,14 +7,20 @@ const ImageCard = ({ workshop }) => {
 
   return (
     <>
-      <div className="img-wrapper">
-        <div className="img-preview">
-          {imgSrc && (
+      <div className="img-preview">
+        {imgSrc && (
+          <>
             <Link href="/discover/[id]" as={`/discover/${workshop.ID}`}>
               <img src={imgSrc} alt="img" />
             </Link>
-          )}
-        </div>
+            <div className="overlay">
+              <div className="shop-info">
+                <p>{workshop.shop_name.content_orig}</p>
+              </div>
+            </div>
+            <div className="overlay fill"></div>
+          </>
+        )}
       </div>
     </>
   );
