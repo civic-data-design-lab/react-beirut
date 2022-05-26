@@ -1,7 +1,82 @@
-TODO: In progress
+# Scripts and Database Upload
+This folder contains scripts used to upload data to the database. Click
+[here](#database-upload-log) to skip to the database upload log.
+
+## `archive_csv_to_json.py`
+This script is used to convert the shared Google Sheet where the archive
+information is stored and worked on to a JSON file. Note that this script will
+also update the primary image metadata associated with the response.
+
+### Usage:
+1. Download the Archive data from the Google Sheet as a CSV and save it to a known location, preferably within the [`scripts/data`](/scripts/data) folder.
+2. Run the script with the following command:  
+    ```
+    python3 scripts/archive_csv_to_json.py <path>
+    ```
+  where `<path>` is the path to the CSV file.
+3. The script will create a JSON file in
+   [`scripts/data/archive`](/scripts/data/archive), which can then be uploaded
+   to the database using the [upload script](#uploadjs).
+
+## `upload.js`
+The main script is [`upload.js`](upload.js) and can be used as a command line
+tool.
+
+### Usage:
+
+Use the following command to see the help page.
+```
+node scripts/upload.js --help
+```
+
+### Examples
+Some examples JSON files are provided in the `example-data` folder to show how
+the data should be formatted when running the upload script.
+
+#### **Uploading new data:**
+  * Example file: [`upload-archive.json`](example-data/upload-archive.json)
+  * Command: `node scripts/upload.js example-data/upload-archive.json
+    archive`
+  * Description: This command will upload the single archive object to the
+    database. The archive object has the same fields as outlined in
+    [`Types.js`](../models/Types.js).
+
+#### **Overwriting existing data:**
+  * Example file: [`overwrite-image-meta.json`](example-data/overwrite-image-meta.json)
+  * Command: `node scripts/upload.js --overwrite example-data/overwrite-image-meta.json
+    image-meta`
+  * Description: This command will overwrite the two image meta objects with the
+    given `ID` fields in the example file. Note that the entire objects are
+    provided since they will replace the existing objects with the same `ID`.
+#### **Updating existing data:**
+  * Example file: [`update-workshop-nested.json`](example-data/update-workshop-nested.json)
+  * Command: `node scripts/upload.js --update example-data/update-workshop-nested.json
+    workshops`
+  * Description: This will update the workshop with the ID `A040674864` with the data
+    in the file. All other fields will be left as they are. Note that since
+    `geo` is a nested field, it is provided as `location.geo` in order to
+    preserve the other fields in `location`.
 
 
 ## Database Upload Log
+
+### 5/25/2022
+* Update the workshops data by adding the following fields:
+  * `year_established`
+  * `decade_established`
+* Updated `Types.js` and the Mongoose schema to reflect this.
+* Updated the database by running the upload script (`node scripts/upload.js -u scripts/data/workshops/workshops_with_year_est.json workshops`) 
+### 5/24/2022
+* Used the new upload method to update the archive information and archive image
+  metadata.
+  * Update the archive information to contain the thumbnail image ID (`thumb_img_id`)
+  * Updated the archive image metadata to contain the decade taken (`decade_taken`)
+
+### 5/23/2022
+* Reuploaded the archive data to the database using the new scripts. The key
+  insight was that you can `"."`-separate field names (e.g. `a.b.c`) to create a
+  nested object `{a: {b: {c: ...}}}`.
+* Replaced shops with name/owner name `"unknown"` and `"-"` with null in the archive data.
 
 ### 5/18/2022
 * Updated the `Archive` and `ImageMeta` schema to use separate year and decade

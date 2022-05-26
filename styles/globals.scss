@@ -7,13 +7,26 @@
 @import 'setup/typography';
 @import 'setup/variables';
 
+// === BASICS ===
+@import 'basics/button';
+@import 'basics/card';
+@import 'basics/effects';
+@import 'basics/input';
+
 // === COMPONENTS ===
 @import 'layout/layout';
+
 @import 'components/nav';
-@import 'components/imageFeed';
+@import 'components/titleCard';
+
+@import 'components/imageUploadForm';
+@import 'components/multipageForm';
+@import 'components/locationForm';
 
 // === PAGES ===
 @import 'pages/index';
+@import 'pages/contribute';
+@import 'pages/discover.scss';
 
 *,
 *::before,

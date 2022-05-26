@@ -1,8 +1,19 @@
 @import '../setup/variables';
 
 #header {
+  position: relative;
+  transition: all 0.5s ease-in-out;
   width: 100vw;
+  height: $header-height;
   padding: 2rem;
+  position: sticky;
+  top: 0;
+  background-color: $c-white-off;
+  z-index: 1000000;
+
+  &.hide-background {
+    background-color: transparent;
+  }
 }
 
 // Left
@@ -212,12 +223,12 @@ $hamburger-zindex: $menu-zindex + 10;
   border: none;
   cursor: pointer;
   display: inline-block;
-  float: right;
   height: $hamburger-height;
   outline: none;
   padding: 0;
   pointer-events: initial;
-  position: relative;
+  position: absolute;
+  right: 2rem;
   vertical-align: middle;
   width: $hamburger-width;
   z-index: $hamburger-zindex;

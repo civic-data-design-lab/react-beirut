@@ -96,7 +96,9 @@
  * @property {Multilanguage} shop_name - The name of the workshop
  * @property {string} shop_owner_name - The name of the workshop owner
  * @property {number} year_established - The year the workshop was established
- *    TODO: don't know how to get this
+ * @property {number[]} decade_established - The decade the range the workshop
+ *    was established in. If a single year is given in decade `x`, the decade
+ *    range is `[x, x]`
  * @property {string[]} craft_discipline_category - The overarching
  *    category/categories of crafts this workshop produces
  * @property {string[]} craft_discipline - The specific craft discipline(s) for

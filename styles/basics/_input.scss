@@ -1,0 +1,27 @@
+input[type='text'],
+input[type='date'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='tel'],
+input[type='url'] {
+  background-color: $c-white-off;
+  border: 1px solid $c-grey-light;
+  border-radius: 3px;
+  padding: 0.2rem;
+}
+
+textarea {
+  padding: 0.4rem;
+  background-color: $c-white-off;
+  border-color: $c-grey-light;
+  border-radius: 3px;
+  resize: vertical;
+}
+
+select {
+  background-color: $c-white-off;
+  border: 1px solid $c-grey-light;
+  border-radius: 3px;
+  padding: 0.2rem 0;
+}

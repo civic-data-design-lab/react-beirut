@@ -1,0 +1,249 @@
+$icon-color: $c-white;
+$icon-width: 50px;
+$icon-height: 50px;
+$icon-zindex: 1000;
+
+.btn-close {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  height: $icon-height;
+  outline: none;
+  padding: 0;
+  pointer-events: initial;
+  position: absolute;
+  right: 10px;
+  vertical-align: middle;
+  width: $icon-width;
+  z-index: $icon-zindex;
+
+  span {
+    background-color: transparent;
+    content: '';
+    display: block;
+    height: 2px;
+    left: calc(50% - 13px);
+    position: absolute;
+    top: calc(50% - 1px);
+    transform-origin: 50% 50%;
+    transition: background-color 0.2s ease-in-out, top 0.2s 0.2s ease-out,
+      transform 0.2s linear;
+    width: 26px;
+
+    &:before,
+    &:after {
+      background-color: $icon-color;
+      content: '';
+      display: block;
+      height: 2px;
+      position: absolute;
+      transform-origin: 50% 50%;
+      transition: background-color 0.2s ease-in-out, top 0.2s 0.2s ease-out,
+        transform 0.2s linear;
+      width: 26px;
+    }
+
+    &:before {
+      top: 0px;
+      transform: rotate3d(0, 0, 1, -45deg);
+    }
+
+    &:after {
+      transform: rotate3d(0, 0, 1, 45deg);
+      top: 0px;
+    }
+  }
+}
+
+.btn-nav {
+  background-color: $c-accent-dark;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  color: $c-white-off;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.btn-nav:hover {
+  background-color: hsl(187, 48%, 55%);
+  cursor: pointer;
+}
+
+.btn-nav:disabled {
+  background-color: $c-grey-dark;
+  cursor: default;
+}
+
+.btn-pill {
+  background-color: $c-primary-dark;
+  text-decoration: none;
+  border: 1px solid $c-primary-dark;
+  border-radius: 50px;
+  padding: 0.75rem 3rem;
+  color: $c-white-off;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.btn-pill:hover {
+  background-color: $c-primary-mid;
+  cursor: pointer;
+}
+
+.btn-pill:disabled {
+  background-color: $c-primary-light;
+  cursor: default;
+}
+
+.btn-pill.secondary {
+  background-color: $c-white-off;
+  color: $c-primary-dark;
+  border: 1px solid $c-primary-dark;
+
+  &:hover {
+    background-color: $c-primary-mid;
+    color: $c-white-off;
+  }
+}
+
+.hstg-btn-pill {
+
+  /* IsMobile=On, IsActive=Off */
+
+
+  /* Auto layout */
+  padding: 9px 19px;
+  margin: 1px;
+
+  /* white */
+
+  background: #FFFFFF;
+  /* Drop Shadow Black */
+
+  box-shadow: 4px 4px 10px 2px rgba(51, 51, 51, 0.1);
+  border-radius: 30px;
+  border-color: #FFFFFF; // For some reason, setting border color to white leaves a weird white line on the bottom edge.
+
+  // font-family: 'FreightSans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  /* identical to box height, or 112% */
+
+  text-align: center;
+
+  /* black */
+
+  color: #333333;
+
+}
+
+.hstg-btn-pill:hover, .hstg-btn-pill-selected {
+
+  color: #9C6340;
+  align-items: flex-start;
+  padding: 9px 18px;
+  margin: 1px;
+
+  /* white */
+
+  background: #FFFFFF;
+  /* orange */
+
+  border: 2px solid #9C6340;
+  box-shadow: inset 1px 1px 1px 2px rgba(156, 99, 64, 0.5);
+  border-radius: 30px;
+
+  // font-family: 'FreightSans Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.hstg-btn-pill-small {
+  /* IsMobile=Off, IsActive=Off */
+
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  padding: 1px 11px;
+  margin: 3px;
+
+  /* grey-mid */
+
+  border: 0.5px solid #CFCFCF;
+  border-radius: 10px;
+}
+
+.hstg-btn-pill-small:hover {
+
+  /* IsMobile=Off, IsActive=On */
+
+  color: #9C6340;
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  padding: 1px 11px;
+  margin: 3px;
+
+  /* white */
+
+  background: #FFFFFF;
+  /* orange */
+
+  border: 0.5px solid #9C6340;
+  /* Btn Shadow Red */
+
+  box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+  border-radius: 10px;
+}
+
+.hstg-btn-pill-small-selected {
+
+  /* IsMobile=Off, IsActive=On */
+
+  color: #9C6340;
+  font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
+
+  box-sizing: border-box;
+
+  /* Auto layout */
+
+  padding: 1px 11px;
+  margin: 3px;
+
+  /* white */
+
+  background: #FFFFFF;
+  /* orange */
+
+  border: 0.5px solid #9C6340;
+  /* Btn Shadow Red */
+
+  box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+  border-radius: 10px;
+}
+
+.other-button {
+  background-color: "#F00";
+  .additional-tag-tooltip {
+    background-color: "#333";
+    color: "white";
+    position: "absolute";
+    visibility: "hidden";
+  }
+  
+  .additional-tag-tooltip-shown {
+    background-color: "#333";
+    color: "white";
+    position: "absolute";
+    visibility: "visible";
+  }
+}

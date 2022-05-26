@@ -1,0 +1,111 @@
+.MultipageForm {
+  width: 100%;
+  position: relative;
+
+  label.required::after {
+    color: $color-error;
+    content: '*';
+  }
+
+  nav {
+    display: none;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 600px) {
+    nav {
+      display: flex;
+      justify-content: space-evenly;
+      border-radius: 5px;
+      padding: 1rem;
+      font-family: $font-title;
+
+      a {
+        color: $c-primary-light;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.1s ease-in-out;
+
+        .bubble {
+          display: grid;
+          place-items: center;
+          width: 2rem;
+          height: 2rem;
+          border-radius: 50%;
+          border: 1px solid $c-primary-light;
+          text-align: center;
+          transition: all 0.1s ease-in-out;
+        }
+
+        &:hover {
+          color: $c-primary-mid;
+          cursor: pointer;
+        }
+      }
+
+      a:hover .bubble {
+        background-color: $c-primary-mid; 
+        color: $c-white-off;
+      }
+
+      a.active {
+        color: $c-primary-dark;
+
+        .bubble {
+          background-color: $c-primary-dark;
+          border: 1px solid $c-primary-dark;
+          color: $c-white-off;
+        }
+      }
+    }
+  }
+}
+
+.MultipageForm-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.MultipageForm hr {
+  border: none;
+  height: 1px;
+  color: $c-grey-dark;
+  background-color: $c-grey-dark;
+}
+
+.MultipageForm h1 {
+  position: absolute;
+  top: 0;
+}
+
+.MultipageForm-missing-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  line-height: normal;
+
+  ul {
+    padding: 1rem;
+  }
+
+  span {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+
+  @media (min-width: 600px) {
+    span {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
+}

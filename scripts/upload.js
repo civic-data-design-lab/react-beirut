@@ -10,8 +10,6 @@ const ArchiveSchema = require('../models/Archive');
 
 const UPLOAD_TYPES = ['image-data', 'image-meta', 'workshops', 'archive'];
 
-console.log('> Upload script starting...');
-
 const args = process.argv.slice(2);
 
 // Make sure at least one argument is provided
@@ -23,8 +21,20 @@ if (args.length === 0) {
 // Check for the -h/--help flag
 if (args.includes('--help') || args.includes('-h')) {
   console.log(
-    'Usage: npm run upload [--help|-h] [-o|--overwrite] <path> <type>',
+    'Usage: node scripts/upload.js [--help|-h] [-o|--overwrite] [-u|--update] [-v|--verbose] <path> <type>'
   );
+
+  console.log(`
+    <path> - The path to the JSON file to upload. All JSON files
+             should contain a JSON array with objects following
+             the appropriate schema as defined in "types.js".
+             For example, if using the "workshop" type, the JSON
+             file should be an array of workshop objects (e.g.
+             {"ID":"138936398", "ID_craftspeople":null,...}).
+             If uploading images, you only need to provide the path
+             to the folder.
+    <type> - The type of upload to perform. Must be one of the available
+             types shown below.`);
 
   console.log('\nAvailable types:');
   UPLOAD_TYPES.forEach((type) => {
@@ -32,13 +42,55 @@ if (args.includes('--help') || args.includes('-h')) {
   });
 
   console.log('\nOptions:');
-  console.log('\t-o, --overwrite\tOverwrite existing images');
+  console.log(
+    '\t-o, --overwrite\tCompletely overwrite existing objects.\n',
+    '\t-u, --update\tUpdate existing objects by providing ID, {field:value} pairs.',
+    '\t-v, --verbose\tPrint additional information.'
+  );
+
+  console.log(`\nNote:
+    If using the -u/--update flag, nested object fields must be provided as
+    dot-separated names, otherwise the entire object will be overwritten.
+    For example, to update the geolocation of an object, instead of using
+    {"location": {"geo": <new>}}", you would pass {"location.geo": <new>}
+    to preserve the other fields in "location".
+  `);
+
+  console.log('\nExamples:');
+  console.log(
+    '$ node scripts/upload.js -o scrips/data/workshops.json workshops'
+  );
+  console.log(
+    `\tOverwrites the workshops in the database.
+    \t"workshops.json" contains a JSON array of workshop objects.
+    \tSee the schema for more information.`
+  );
+  console.log(
+    '\n$ node scripts/upload.js -u scripts/data/updated-fields.json archive'
+  );
+  console.log(
+    `\tUpdates the archive objects in the database.
+    \t"updated-fields.json" contains a JSON array containing objects with the fields to update.
+    \tFor example, [{"ID": "123", field1: "new value", field2: "new value"}] will update
+    \tonly field1 and field2 on archive object 123.`
+  );
+  console.log('\n$ node scripts/upload.js scripts/data/images image-data');
+  console.log(
+    `\tUploads the images in the folder "scripts/data/images" to the database.`
+  );
 
   process.exit(0);
 }
 
 // Check for additional options
 const overwrite = args.includes('--overwrite') || args.includes('-o');
+const update = args.includes('--update') || args.includes('-u');
+const verbose = args.includes('--verbose') || args.includes('-v');
+
+if (overwrite && update) {
+  console.log('Cannot use both --overwrite and --update options.');
+  process.exit(0);
+}
 
 // Validate the type argument
 const type = args.pop();
@@ -56,12 +108,18 @@ if (!fs.existsSync(path)) {
 }
 console.log(`Path ${path} found.`);
 
+// -------------------------
+// RUN THE MAIN SCRIPT LOGIC
+// -------------------------
+
+console.log('> Upload script starting...');
+
 // Connect to the database
 console.log('> Connecting to database...');
 const MONGODB_URI = process.env.MONGODB_URI;
 if (!MONGODB_URI) {
   throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env',
+    'Please define the MONGODB_URI environment variable inside .env'
   );
 }
 
@@ -90,14 +148,29 @@ const uploadWorkshops = async () => {
       ID: workshop.ID,
     }).exec();
     if (existingWorkshop) {
+      // Handle the overwrite option
       if (overwrite) {
         console.log(`\t> Overwriting workshop ${workshop.ID}...`);
         await WorkshopSchema.replaceOne({ ID: workshop.ID }, workshop).exec();
         console.log(`\tSuccessfully overwrote workshop ${workshop.ID}.`);
         continue;
       }
+
+      // Handle the update option, this will only update the fields provided
+      // and not touch the rest of the object
+      if (update) {
+        console.log(`\t> Updating workshop ${workshop.ID}...`);
+        await WorkshopSchema.updateOne(
+          { ID: workshop.ID },
+          { $set: workshop }
+        ).exec();
+        console.log(`\tSuccessfully updated workshop ${workshop.ID}.`);
+        continue;
+      }
+
+      // If neither overwrite or update is specified, raise a warning
       console.log(
-        `Workshop ${workshop.ID} already exists in database. Use -o/--overwrite to overwrite.`,
+        `Workshop ${workshop.ID} already exists in database. Use -o/--overwrite to overwrite.`
       );
       continue;
     }
@@ -133,70 +206,46 @@ const uploadArchive = async () => {
     // Any updates to the archive object should be done here
     // -----------------------------------------------------
 
-    console.log(`> Uploading archive response ${archiveObjId}...`);
+    verbose && console.log(`> Uploading archive response ${archiveObjId}...`);
     const existingArchiveObj = await ArchiveSchema.findOne({
       ID: archiveObjId,
     }).exec();
 
     if (existingArchiveObj) {
+      // Handle the overwrite option
       if (overwrite) {
-        console.log(
-          `\t> Overwriting archive response ${existingArchiveObj.ID}...`,
+        verbose && console.log(
+          `\t> Overwriting archive response ${existingArchiveObj.ID}...`
         );
         await ArchiveSchema.replaceOne({ ID: archiveObjId }, archiveObj).exec();
-        console.log(`\tSuccessfully overwrote archive ${archiveObjId}.`);
+        verbose && console.log(`\tSuccessfully overwrote archive ${archiveObjId}.`);
         continue;
       }
+
+      // Handle the update option, this will only update the fields provided
+      // and not touch the rest of the object
+      if (update) {
+        verbose && console.log(`\t> Updating archive object ${archiveObj.ID}...`);
+        await ArchiveSchema.updateOne(
+          { ID: archiveObj.ID },
+          { $set: archiveObj }
+        ).exec();
+        verbose && console.log(`\tSuccessfully updated archive object ${archiveObj.ID}.`);
+        continue;
+      }
+
+      // If neither overwrite or update is specified, raise a warning
       console.log(
-        `Archive response ${existingArchiveObj.ID} already exists in database. Use -o/--overwrite to overwrite.`,
+        `Archive response ${existingArchiveObj.ID} already exists in database. Use -o/--overwrite to overwrite.`
       );
       continue;
     }
 
     const newArchiveObj = new ArchiveSchema(archiveObj);
     await newArchiveObj.save();
-    console.log(
-      `Successfully uploaded archive response ${archiveObjId} to database!`,
+    verbose && console.log(
+      `Successfully uploaded archive response ${archiveObjId} to database!`
     );
-  }
-  console.log('done');
-  process.exit(0);
-};
-
-/**
- * Uploads the image files to the database. This simply uploads the image data
- * to the database in the `src` field and does not include any metadata.
- */
-const uploadImages = async () => {
-  let filenames;
-  try {
-    // https://stackoverflow.com/a/2727191
-    filenames = fs.readdirSync(path);
-  } catch (err) {
-    console.log('Could not read the directory!');
-  }
-
-  for (const filename of filenames) {
-    console.log(`> Uploading ${filename} to database...`);
-    const data = fs.readFileSync(`${path}/${filename}`);
-
-    // Remove the extension from the filename to get the ID
-    const img_id = filename.split('.')[0];
-
-    const existingImage = await ImageDataSchema.findOne({
-      img_id,
-    }).exec();
-    if (existingImage) {
-      console.log('Image already exists in database');
-      continue;
-    }
-    const image = new ImageDataSchema({
-      img_id,
-      filename,
-      data,
-    });
-    await image.save();
-    console.log(`Successfully uploaded ${filename} to database`);
   }
   console.log('done');
   process.exit(0);
@@ -217,7 +266,7 @@ const uploadImageMeta = async () => {
 
   const jsonObj = JSON.parse(data);
   console.log(
-    `Loaded ${jsonObj.length} image metadata entries from the JSON file.`,
+    `Loaded ${jsonObj.length} image metadata entries from the JSON file.`
   );
 
   for (const imageMeta of jsonObj) {
@@ -231,34 +280,89 @@ const uploadImageMeta = async () => {
     // delete imageMeta.img_name;
 
     // Upload the image meta to the database
-    console.log(`> Uploading image-meta ${imageMeta.img_id}...`);
+    verbose && console.log(`> Uploading image-meta ${imageMeta.img_id}...`);
     const existingImageMeta = await ImageMetaSchema.findOne({
       img_id: imageMeta.img_id,
     }).exec();
 
     if (existingImageMeta) {
+      // Handle the overwrite option (uses `replaceOne`)
       if (overwrite) {
-        console.log(
-          `\t> Overwriting image-meta ${existingImageMeta.img_id}...`,
+        verbose && console.log(
+          `\t> Overwriting image-meta ${existingImageMeta.img_id}...`
         );
         await ImageMetaSchema.replaceOne(
           { img_id: imageMeta.img_id },
-          imageMeta,
+          imageMeta
         ).exec();
-        console.log(`\tSuccessfully overwrote image-meta ${imageMeta.img_id}.`);
+        verbose && console.log(`\tSuccessfully overwrote image-meta ${imageMeta.img_id}.`);
         continue;
       }
+
+      // Handle the update option, this will only update the fields provided
+      // and not touch the rest of the object (uses `updateOne`)
+      if (update) {
+        verbose && console.log(`\t> Updating image meta ${imageMeta.img_id}...`);
+        await ImageMetaSchema.updateOne(
+          { img_id: imageMeta.img_id },
+          { $set: imageMeta }
+        ).exec();
+        verbose && console.log(`\tSuccessfully updated image meta ${imageMeta.img_id}.`);
+        continue;
+      }
+
+      // If neither overwrite or update is specified, raise a warning
       console.log(
-        `Image-meta ${imageMeta.img_id} already exists in database. Use -o/--overwrite to overwrite.`,
+        `Image-meta ${imageMeta.img_id} already exists in database. Use -o/--overwrite to overwrite.`
       );
       continue;
     }
 
+    // Otherwise upload the image meta to the database
     const newImageMeta = new ImageMetaSchema(imageMeta);
     await newImageMeta.save();
-    console.log(
-      `Successfully uploaded image-meta ${imageMeta.img_id} to database!`,
+    verbose && console.log(
+      `Successfully uploaded image-meta ${imageMeta.img_id} to database!`
     );
+  }
+  console.log('done');
+  process.exit(0);
+};
+
+/**
+ * Uploads the image files to the database. This simply uploads the image data
+ * to the database in the `src` field and does not include any metadata.
+ */
+const uploadImages = async () => {
+  let filenames;
+  try {
+    // https://stackoverflow.com/a/2727191
+    filenames = fs.readdirSync(path);
+  } catch (err) {
+    console.log('Could not read the directory!');
+  }
+
+  for (const filename of filenames) {
+    verbose && console.log(`> Uploading ${filename} to database...`);
+    const data = fs.readFileSync(`${path}/${filename}`);
+
+    // Remove the extension from the filename to get the ID
+    const img_id = filename.split('.')[0];
+
+    const existingImage = await ImageDataSchema.findOne({
+      img_id,
+    }).exec();
+    if (existingImage) {
+      console.log('Image already exists in database');
+      continue;
+    }
+    const image = new ImageDataSchema({
+      img_id,
+      filename,
+      data,
+    });
+    await image.save();
+    verbose && console.log(`Successfully uploaded ${filename} to database`);
   }
   console.log('done');
   process.exit(0);

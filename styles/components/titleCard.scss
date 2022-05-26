@@ -1,0 +1,20 @@
+.title-card {
+  padding: 2rem 2rem;
+  height: 240px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .text-container {
+    max-width: 400px;
+
+    h1 {
+      margin-bottom: 48px;
+      font-family: FreightDisp Pro;
+      font-size: 48px;
+      font-weight: 600;
+    }
+  }
+}

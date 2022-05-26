@@ -4,34 +4,39 @@ import LocationForm from '../../components/contribution/LocationForm';
 import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
 import Head from 'next/head';
+import { ARCHIVE_CONTRIBUTION_NAME } from '../../lib/utils';
+import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
 
-const CONTRIBUTION_FORM_NAME = 'archive_contribution';
+// Required fields for each page
+// 0: Image Upload
+// 1: About
+// 2: Location
+const REQUIRED_FIELDS = [
+  ['imageData'],
+  ['imageType', 'referenceName'],
+  ['municipality', 'lat', 'lng'],
+];
 
 const ArchiveContribution = () => {
   const [form, setForm] = useState({
-    location: { adm1: 'hi' },
-    survey_origin: 'ongoing_contribution',
+    survey_origin: ARCHIVE_CONTRIBUTION_NAME,
   });
 
-  useEffect(() => {
-    // Load the form data from localstorage
-    const formData = JSON.parse(localStorage.getItem(CONTRIBUTION_FORM_NAME));
-    if (formData) {
-      setForm(formData);
-    }
-  }, []);
-
   const updateForm = (data) => {
-    console.log(data);
-    const updatedFormData = { ...form, ...data };
-    setForm(updatedFormData);
-    localStorage.setItem(
-      CONTRIBUTION_FORM_NAME,
-      JSON.stringify(updatedFormData),
-    );
+    setForm((prevForm) => {
+      const updatedFormData = { ...prevForm, ...data };
+      console.log('setting form data to ', updatedFormData);
+      localStorage.setItem(
+        ARCHIVE_CONTRIBUTION_NAME,
+        JSON.stringify(updatedFormData)
+      );
+      return updatedFormData;
+    });
   };
 
   const onSubmit = () => {
+    return; // FIXME: Temp disable submit
+
     const data = {};
     fetch('/api/archive', {
       method: 'POST',
@@ -44,7 +49,7 @@ const ArchiveContribution = () => {
       .then((data) => {
         console.log(data);
         // Clear local storage
-        localStorage.removeItem(CONTRIBUTION_FORM_NAME);
+        localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
       })
       .catch((err) => console.error(err));
   };
@@ -54,16 +59,38 @@ const ArchiveContribution = () => {
       <Head>
         <title>Archive Contribution | Intangible Heritage Atlas</title>
       </Head>
-      <div>
-        <p>ArchiveContribution</p>
+      <div className="Contribute drop-shadow__black">
         <MultipageForm
-          onSubmit={onSubmit}
-          requiredFields={[[], ['street', 'municipality'], []]}
+          name={ARCHIVE_CONTRIBUTION_NAME}
+          pageTitles={[
+            'Archive Upload',
+            'About',
+            'Location Information',
+            'Preview',
+          ]}
           formData={form}
+          requiredFields={REQUIRED_FIELDS}
+          onUpdate={updateForm}
+          onSubmit={onSubmit}
         >
-          <ImageUploadForm onUpdate={updateForm} formData={form} />
-          <LocationForm onUpdate={updateForm} formData={form} />
-          <Preview />
+          <ImageUploadForm
+            onUpdate={updateForm}
+            formData={form}
+            title="Archive Image Upload"
+            label="Upload an image of the archival information"
+            requiredFields={REQUIRED_FIELDS[0]}
+          />
+          <ArchiveAboutForm
+            onUpdate={updateForm}
+            formData={form}
+            requiredFields={REQUIRED_FIELDS[1]}
+          />
+          <LocationForm
+            onUpdate={updateForm}
+            formData={form}
+            requiredFields={REQUIRED_FIELDS[2]}
+          />
+          <Preview formData={form} />
         </MultipageForm>
       </div>
     </>
