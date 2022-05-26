@@ -18,13 +18,17 @@ const ImagePreview = ({ workshop }) => {
             alt={`Workshop ${workshop.ID} image`}
           /> */}
           {imgSrc && (
-            <Link
-              href="/discover/[id]"
-              as={`/discover/${workshop.ID}`}
-              scroll={false}
-            >
-              <img src={imgSrc} alt="img" />
-            </Link>
+            <>
+              <Link href="/discover/[id]" as={`/discover/${workshop.ID}`}>
+                <img src={imgSrc} alt="img" />
+              </Link>
+              <div className="overlay">
+                <div className="shop-info">
+                  <p>{workshop.shop_name.content_orig}</p>
+                </div>
+              </div>
+              <div className="overlay fill"></div>
+            </>
           )}
         </div>
       </div>
