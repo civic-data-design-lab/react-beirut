@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Card from '../Card';
 
-const ImagePreview = ({ workshop }) => {
+const ImagePreview = ({ workshop, thumbnailSrc }) => {
   const imgSrc = workshop.thumb_img_id
     ? `/api/images/${workshop.thumb_img_id}.jpg`
     : thumbnailSrc || null;
