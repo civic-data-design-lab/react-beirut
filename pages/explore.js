@@ -28,9 +28,7 @@ export default class Explore extends React.Component {
         endYearParent : 2030,
         toggleParent : false,
     }
-
     }
-
 
 
     render () {
@@ -53,8 +51,8 @@ export default class Explore extends React.Component {
 
 export async function getServerSideProps() {
   const workshops = await getAllWorkshops();
-  const archive = await getAllArchives();
-  return { props: { workshops, archive } };
+  const archives = await getAllArchives();
+  return { props: { workshops, archives } };
 }
 
 
