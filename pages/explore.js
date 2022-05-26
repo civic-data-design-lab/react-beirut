@@ -24,7 +24,7 @@ export default class Explore extends React.Component {
         this.updateMap = this.updateMap.bind(this);
         this.state = {
         filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-        startYearParent : 1960,
+        startYearParent : 1950,
         endYearParent : 2030,
         toggleParent : false,
     }
