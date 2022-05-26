@@ -101,6 +101,8 @@ export default class App extends React.PureComponent {
                 }
             }
 
+            console.log(workshop.year_established);
+            console.log(withinInterval);
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
                 if (this.props.filterData.toggleParent && workshop.shop_status!=="open") {

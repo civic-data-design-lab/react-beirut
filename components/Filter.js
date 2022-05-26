@@ -119,7 +119,7 @@ export default class Filter extends React.Component {
 
 
         return (
-            <>
+            <div className={'filterCard'}>
 
 
                 <div>
@@ -157,7 +157,7 @@ export default class Filter extends React.Component {
                 <ToggleSlider state={this.state.toggleStatus} onToggle={(state) => this.onToggle(state)} active={false} draggable={true} barBackgroundColorActive={"#9C6340"}/>
                 <button onClick = {() => this.onReset()}> Reset Filters </button>
 
-            </>
+            </div>
 
 
         );

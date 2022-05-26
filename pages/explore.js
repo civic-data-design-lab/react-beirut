@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import { getAllWorkshops } from '../lib/apiUtils';
+import {getAllArchives, getAllWorkshops, getArchive} from '../lib/apiUtils';
 import Filter from "../components/Filter";
 import React from "react";
 
@@ -50,9 +50,11 @@ export default class Explore extends React.Component {
 
 
 /* Retrieves workshops data from mongodb database */
+
 export async function getServerSideProps() {
   const workshops = await getAllWorkshops();
-  return { props: { workshops } };
+  const archive = await getAllArchives();
+  return { props: { workshops, archive } };
 }
 
 
