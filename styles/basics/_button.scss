@@ -100,6 +100,11 @@ $icon-zindex: 1000;
   background-color: $c-white-off;
   color: $c-primary-dark;
   border: 1px solid $c-primary-dark;
+
+  &:hover {
+    background-color: $c-primary-mid;
+    color: $c-white-off;
+  }
 }
 
 .hstg-btn-pill {

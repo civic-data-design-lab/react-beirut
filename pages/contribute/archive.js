@@ -7,6 +7,16 @@ import Head from 'next/head';
 import { ARCHIVE_CONTRIBUTION_NAME } from '../../lib/utils';
 import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
 
+// Required fields for each page
+// 0: Image Upload
+// 1: About
+// 2: Location
+const REQUIRED_FIELDS = [
+  ['imageData'],
+  ['imageType', 'referenceName'],
+  ['municipality', 'lat', 'lng'],
+];
+
 const ArchiveContribution = () => {
   const [form, setForm] = useState({
     survey_origin: ARCHIVE_CONTRIBUTION_NAME,
@@ -52,8 +62,14 @@ const ArchiveContribution = () => {
       <div className="Contribute drop-shadow__black">
         <MultipageForm
           name={ARCHIVE_CONTRIBUTION_NAME}
+          pageTitles={[
+            'Archive Upload',
+            'About',
+            'Location Information',
+            'Preview',
+          ]}
           formData={form}
-          requiredFields={[[], ['street', 'municipality'], []]}
+          requiredFields={REQUIRED_FIELDS}
           onUpdate={updateForm}
           onSubmit={onSubmit}
         >
@@ -62,12 +78,18 @@ const ArchiveContribution = () => {
             formData={form}
             title="Archive Image Upload"
             label="Upload an image of the archival information"
+            requiredFields={REQUIRED_FIELDS[0]}
           />
           <ArchiveAboutForm
             onUpdate={updateForm}
             formData={form}
+            requiredFields={REQUIRED_FIELDS[1]}
           />
-          <LocationForm onUpdate={updateForm} formData={form} />
+          <LocationForm
+            onUpdate={updateForm}
+            formData={form}
+            requiredFields={REQUIRED_FIELDS[2]}
+          />
           <Preview formData={form} />
         </MultipageForm>
       </div>

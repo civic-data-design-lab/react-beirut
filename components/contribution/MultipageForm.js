@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Card from '../Card';
 
 /**
  * Component handling mulitpage forms.
@@ -34,6 +35,7 @@ import Link from 'next/link';
  */
 const MultipageForm = ({
   name,
+  pageTitles,
   formData,
   requiredFields,
   onUpdate,
@@ -41,6 +43,7 @@ const MultipageForm = ({
   children,
 }) => {
   const router = useRouter();
+  const [dialog, setDialog] = useState(null);
   const [page, setPage] = useState(0);
   const [submitted, setSubmitted] = useState(false);
 
@@ -75,9 +78,29 @@ const MultipageForm = ({
     });
   };
 
+  const getMissingFields = (pageIdx) => {
+    if (pageIdx === undefined) {
+      // If no page index is provided, get all the missing fields across all
+      // pages
+      const allRequiredFields = requiredFields.flat();
+      const missingFields = allRequiredFields.filter(
+        (field) => !formData[field]
+      );
+      return missingFields;
+    }
+
+    // Get the missing fields for the given page
+    const requiredFieldsForPage = requiredFields[pageIdx];
+    const missingFields = requiredFieldsForPage.filter(
+      (field) => !formData[field]
+    );
+    return missingFields;
+  };
+
   const onNext = () => {
     if (page >= children.length - 1) {
-      // User is on the last page, so "next page" means submit
+      // SUBMIT THE FORM
+      // (User is on the last page, so "next page" means submit)
 
       // Make sure all required fields are filled out
       const allRequiredFields = requiredFields.flat();
@@ -102,52 +125,123 @@ const MultipageForm = ({
     }
 
     // Check the required fields
-    const requiredFieldsForPage = requiredFields[page];
-    requiredFieldsForPage.forEach((field) => {
-      if (!formData[field]) {
-        console.warn(`Field ${field} is required`);
-      }
-    });
+    const missingFields = getMissingFields(page);
+
+    if (missingFields.length > 0) {
+      setDialog('missing-fields');
+      return;
+    }
 
     router.push(`${router.basePath}?page=${page + 1}`, undefined, {
       shallow: true,
     });
   };
 
-  return (
-    <div className="MultipageForm">
-      {submitted ? (
-        <div>
-          <p>Thank you for your contribution!</p>
-          <p>
-            Click{' '}
-            <Link href="/contribute">
-              <a>here</a>
-            </Link>{' '}
-            to contribute again, or click{' '}
-            <Link href="/">
-              <a>here</a>
-            </Link>{' '}
-            to return to the main site.
-          </p>
-        </div>
-      ) : (
-        <>
-          {/* <h1>weoifwijefo aiwjeofi ajwoei fjaowief</h1> */}
+  const handleCloseDialog = () => {
+    setDialog(null);
+  };
 
-          <> {children[page]}</>
-          <hr />
-          <span className="MultipageForm-nav">
-            <button className="btn-nav" disabled={page === 0} onClick={onBack}>
-              Back
+  const showDialogContent = () => {
+    if (!dialog) {
+      return <></>;
+    }
+
+    if (dialog === 'missing-fields') {
+      const missingFields = getMissingFields(page);
+      return (
+        <div className="MultipageForm-missing-fields">
+          <h2>Missing Required Fields</h2>
+          <div>
+            <h3>You are missing the following fields (marked with *):</h3>
+            <ul>
+              {missingFields.map((field) => (
+                <li key={field}>{field}</li>
+              ))}
+            </ul>
+          </div>
+          <span>
+            <button
+              className="btn-pill secondary"
+              onClick={() => {
+                router.push(`${router.basePath}?page=${page + 1}`, undefined, {
+                  shallow: true,
+                });
+                handleCloseDialog();
+              }}
+            >
+              Continue Anyways
             </button>
-            <button className="btn-nav" onClick={onNext}>
-              {page === children.length - 1 ? 'Submit' : 'Next'}
+            <button className="btn-pill" onClick={handleCloseDialog}>
+              Go Back
             </button>
           </span>
-        </>
+        </div>
+      );
+    }
+
+    return <div>Hello!</div>;
+    // switch (dialog) {
+    //   case 'submit':
+    //     return div
+
+    //     }
+  };
+
+  return (
+    <>
+      {dialog && (
+        <Card handleClose={handleCloseDialog}>
+          <div className="card__content">{showDialogContent()}</div>
+        </Card>
       )}
-    </div>
+      <div className="MultipageForm">
+        <nav className="header drop-shadow__black">
+          {pageTitles?.map((title, idx) => (
+            <Link href={`${router.basePath}?page=${idx}`} key={idx}>
+              <a className={idx === page ? 'active' : ''}>
+                <div className="bubble">{idx + 1}</div>
+                <div> {title}</div>
+              </a>
+            </Link>
+          ))}
+        </nav>
+        {submitted ? (
+          <div>
+            <p>Thank you for your contribution!</p>
+            <p>
+              Click{' '}
+              <Link href="/contribute">
+                <a>here</a>
+              </Link>{' '}
+              to contribute again, or click{' '}
+              <Link href="/">
+                <a>here</a>
+              </Link>{' '}
+              to return to the main site.
+            </p>
+          </div>
+        ) : (
+          <div className="content">
+            {/* <h1>weoifwijefo aiwjeofi ajwoei fjaowief</h1> */}
+
+            <> {children[page]}</>
+            <hr />
+            <span className="MultipageForm-nav">
+              <button
+                className="btn-nav"
+                disabled={page === 0}
+                onClick={onBack}
+              >
+                Back
+              </button>
+              <button className="btn-nav" onClick={onNext}>
+                {page === children.length - 1 ? 'Submit' : 'Next'}
+              </button>
+            </span>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

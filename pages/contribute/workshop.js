@@ -7,16 +7,23 @@ import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
 import { CRAFT_DISCIPLINES } from '../../lib/utils';
 
-console.log(CRAFT_DISCIPLINES)
+console.log(CRAFT_DISCIPLINES);
 
 import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
 import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
+
+// Array of arrays of required fields for each page
+// 0: About the Workshop
+// 1: Craft Disciplines
+// 2: Image Upload
+// 3: Preview
+const REQUIRED_FIELDS = [['shopName', 'status'], [], [], []];
 
 const WorkshopContribution = () => {
   const [form, setForm] = useState({
     survey_origin: WORKSHOP_CONTRIBUTION_NAME,
   });
-  
+
   const onSubmit = () => {
     return; // FIXME: Temp disable submit
 
@@ -53,7 +60,6 @@ const WorkshopContribution = () => {
     });
   };
 
-
   return (
     <>
       <Head>
@@ -62,11 +68,23 @@ const WorkshopContribution = () => {
       <div className="Contribute drop-shadow__black">
         <MultipageForm
           name={WORKSHOP_CONTRIBUTION_NAME}
-          requiredFields={[[], ['street', 'municipality'], [], []]}
+          pageTitles={[
+            'About the Workshop',
+            'Craft Disciplines',
+            'Image Upload',
+            'Preview',
+          ]}
+          requiredFields={REQUIRED_FIELDS}
           formData={form}
           onUpdate={updateForm}
           onSubmit={onSubmit}
         >
+          <WorkshopAboutForm
+            onUpdate={updateForm}
+            formData={form}
+            title="About the Workshop"
+            requiredFields={REQUIRED_FIELDS[0]}
+          />
           {/* Gatlen's Type Selector START */}
           <BooleanLabelForm
             onUpdate={updateForm}
@@ -75,20 +93,17 @@ const WorkshopContribution = () => {
             title="Craft Discipline"
             label="What catogories does the craftshop produce?"
             buttonNames={CRAFT_DISCIPLINES}
+            requiredFields={REQUIRED_FIELDS[1]}
             hasOtherField={true}
           />
           {/* Gatlen's Type Selector END */}
-          <WorkshopAboutForm
-            onUpdate={updateForm}
-            formData={form}
-            title="About the Workshop"
-          />
           <LocationForm onUpdate={updateForm} formData={form} />
           <ImageUploadForm
             onUpdate={updateForm}
             formData={form}
             title="Workshop Image Upload"
             label="Upload an image of the workshop"
+            requiredFields={REQUIRED_FIELDS[2]}
           />
           <Preview formData={form} />
         </MultipageForm>

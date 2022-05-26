@@ -1,30 +1,30 @@
 import { IMAGE_TYPES, VALID_DECADES } from '../../lib/utils';
+import InputField from './InputField';
 
-const ArchiveAboutForm = ({ onUpdate, formData }) => {
+const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
   return (
     <form className="ArchiveAboutForm">
       <h2>About the Archive</h2>
       <div className="sections">
         <div className="section">
           <h3>Image Information</h3>
-          <div>
-            <label htmlFor="image-type">What is the image showing?</label>
-            <select
-              name="Image Type"
-              id="image-type"
-              value={formData.imageType || ''}
-              onChange={(e) => onUpdate({ imageType: e.target.value })}
-            >
-              <option disabled value="">
-                --Select a type--
+          <InputField
+            title="What is the image showing?"
+            fieldName="imageType"
+            type="select"
+            value={formData.imageType}
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('imageType')}
+          >
+            <option disabled value="">
+              --Select a type--
+            </option>
+            {IMAGE_TYPES.map((type) => (
+              <option key={type.value} value={type.value}>
+                {type.name}
               </option>
-              {IMAGE_TYPES.map((type) => (
-                <option key={type.value} value={type.value}>
-                  {type.name}
-                </option>
-              ))}
-            </select>
-          </div>
+            ))}
+          </InputField>
           <div>
             <label htmlFor="date-taken">When was the image taken?</label>
             <input
@@ -104,39 +104,33 @@ const ArchiveAboutForm = ({ onUpdate, formData }) => {
         </div>
         <div className="section">
           <h3>Reference Information</h3>
-          <div>
-            <label htmlFor="reference-name">Name of reference</label>
-            <input
-              id="reference-name"
-              type="text"
-              value={formData.referenceName || ''}
-              onChange={(e) => onUpdate({ referenceName: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="reference-url">
-              URL for reference <small>(if applicable)</small>
-            </label>
-            <input
-              id="reference-url"
-              type="url"
-              value={formData.referenceUrl || ''}
-              onChange={(e) => onUpdate({ referenceUrl: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="reference-copyright">
-              Any additional copyright information?
-            </label>
-            <textarea
-              id="reference-copyright"
-              type="text"
-              value={formData.referenceCopyright || ''}
-              onChange={(e) => onUpdate({ referenceCopyright: e.target.value })}
-            />
-          </div>
+          <InputField
+            title="Name of reference"
+            fieldName="referenceName"
+            value={formData.referenceName}
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('referenceName')}
+          />
+          <InputField
+            title={
+              <>
+                URL for reference <small>(if applicable)</small>
+              </>
+            }
+            fieldName="referenceUrl"
+            type="url"
+            value={formData.referenceUrl}
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('referenceUrl')}
+          />
+          <InputField
+            title="Any additional copyright information?"
+            type="textarea"
+            fieldName="referenceCopyright"
+            value={formData.referenceCopyright}
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('referenceCopyright')}
+          />
         </div>
       </div>
     </form>

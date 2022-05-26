@@ -1,6 +1,7 @@
+import InputField from './InputField';
 import LocationSelect from './LocationSelect';
 
-const LocationForm = ({ onUpdate, formData, title }) => {
+const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
   const handleUpdate = (data) => {
     const newLocation = { lat: data.lat, lng: data.lng };
     onUpdate(newLocation);
@@ -9,7 +10,17 @@ const LocationForm = ({ onUpdate, formData, title }) => {
 
   const showLatLng = () => {
     if (!formData.lat || !formData.lng) {
-      return <label>Add shop point</label>;
+      return (
+        <label
+          className={
+            requiredFields.includes('lat') || requiredFields.includes('lng')
+              ? 'required'
+              : ''
+          }
+        >
+          Add shop point
+        </label>
+      );
     }
 
     return (
@@ -27,37 +38,28 @@ const LocationForm = ({ onUpdate, formData, title }) => {
           <h3>Address Information</h3>
           <small>(English Preferred)</small>
           <div className="address-form-inputs">
-            <div>
-              <label htmlFor="building-number">Building number</label>
-              <input
-                type="text"
-                name="building-number"
-                id="building-number"
-                value={formData.buildingNumber || ''}
-                onChange={(e) => onUpdate({ buildingNumber: e.target.value })}
-              />
-            </div>
-            <div>
-              <label htmlFor="street">Street name/number</label>
-              <input
-                type="text"
-                name="street name/number"
-                id="street"
-                value={formData.street || ''}
-                onChange={(e) => onUpdate({ street: e.target.value })}
-              />
-            </div>
-            <div>
-              <label htmlFor="municipality">Municipality</label>
-              <input
-                type="text"
-                name="municipality"
-                id="municipality"
-                value={formData.municipality || ''}
-                onChange={(e) => onUpdate({ municipality: e.target.value })}
-              />
-            </div>
+            <InputField
+              title="Building number"
+              fieldName="buildingNumber"
+              value={formData.buildingNumber}
+              onUpdate={onUpdate}
+              required={requiredFields?.includes('buildingNumber')}
+            />
+            <InputField
+              title="Street name/number"
+              fieldName="street"
+              value={formData.street}
+              onUpdate={onUpdate}
+              required={requiredFields?.includes('street')}
+            />
 
+            <InputField
+              title="Municipality"
+              fieldName="municipality"
+              value={formData.municipality}
+              onUpdate={onUpdate}
+              required={requiredFields?.includes('municipality')}
+            />
             {/* <div>
             <label htmlFor="building-number-ar">
               Arabic House/Building number
@@ -94,7 +96,9 @@ const LocationForm = ({ onUpdate, formData, title }) => {
           {showLatLng()}
 
           <LocationSelect onUpdate={handleUpdate} />
-          <p className='location-select-hint'>Drag marker to change the location</p>
+          <p className="location-select-hint">
+            Drag marker to change the location
+          </p>
         </div>
       </div>
     </form>
