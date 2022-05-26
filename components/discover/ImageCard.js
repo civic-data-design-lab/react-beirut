@@ -14,23 +14,40 @@ const ImageCard = ({
     : thumbnailSrc || null;
 
   return (
-    <>
-      <div className="img-preview">
-        {imgSrc && (
-          <>
-            <Link href="/discover/[id]" as={`/discover/${workshop.ID}`}>
-              <img src={imgSrc} alt="img" />
-            </Link>
-            <div className="overlay">
-              <div className="shop-info">
-                <p>{workshop.shop_name.content_orig}</p>
-              </div>
+    <Card handleClose={onClose}>
+      <div className="card__content">
+        <div className="card__item">
+          <div className="container__img">
+            <img className="img__detail" src={imgSrc} alt="" />
+          </div>
+        </div>
+        <div className="card__item">
+          <div className="container__text">
+            <div className="container__title">
+              <h1>
+                {workshop.shop_name.content || workshop.shop_name.content_orig}
+              </h1>
+              <small>{[...workshop.craft_discipline_category]}</small>
             </div>
-            <div className="overlay fill"></div>
-          </>
-        )}
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et
+              velit interdum, ac aliquet odio mattis. Class aptent taciti
+              sociosqu ad litora. onsectetur adipiscing elit. Nunc et velit
+              interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad
+              ... Read More
+            </p>
+          </div>
+          <div className="container__map">
+            <p>See it on map</p>
+            <div className="map"></div>
+          </div>
+          <div className="container__suggestion">
+            <p>Explore similar shops</p>
+            <div className="map"></div>
+          </div>
+        </div>
       </div>
-    </>
+    </Card>
   );
 };
 

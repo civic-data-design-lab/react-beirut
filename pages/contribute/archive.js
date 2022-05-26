@@ -25,6 +25,8 @@ const ArchiveContribution = () => {
   };
 
   const onSubmit = () => {
+    return; // FIXME: Temp disable submit
+
     const data = {};
     fetch('/api/archive', {
       method: 'POST',
