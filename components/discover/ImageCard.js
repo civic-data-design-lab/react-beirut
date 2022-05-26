@@ -2,11 +2,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Card from '../Card';
 
-const ImageCard = ({ workshop, isExpanded, onExpand, onClose }) => {
+const ImageCard = ({ workshop, isExpanded, onExpand, onClose, thumbnailSrc }) => {
 
   const imgSrc = workshop.thumb_img_id
     ? `/api/images/${workshop.thumb_img_id}.jpg`
-    : null;
+    : thumbnailSrc || null;
 
   return (
     <>

@@ -7,6 +7,7 @@ const Preview = ({ formData }) => {
         workshop={{
           ID: 'temporary',
         }}
+        thumbnailSrc={formData.imageData}
       ></ImageCard>
     </div>
   );
