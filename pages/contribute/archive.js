@@ -5,6 +5,7 @@ import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
 import Head from 'next/head';
 import { ARCHIVE_CONTRIBUTION_NAME } from '../../lib/utils';
+import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
 
 const ArchiveContribution = () => {
   const [form, setForm] = useState({
@@ -59,6 +60,10 @@ const ArchiveContribution = () => {
             formData={form}
             title="Archive Image Upload"
             label="Upload an image of the archival information"
+          />
+          <ArchiveAboutForm
+            onUpdate={updateForm}
+            formData={form}
           />
           <LocationForm onUpdate={updateForm} formData={form} />
           <Preview formData={form} />

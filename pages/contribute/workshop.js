@@ -10,6 +10,7 @@ import { CRAFT_DISCIPLINES } from '../../lib/utils';
 console.log(CRAFT_DISCIPLINES)
 
 const CONTRIBUTION_FORM_NAME = 'workshop_contribution';
+import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
 import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
 
 const WorkshopContribution = () => {
@@ -76,13 +77,18 @@ const WorkshopContribution = () => {
             hasOtherField={true}
           />
           {/* Gatlen's Type Selector END */}
+          <WorkshopAboutForm
+            onUpdate={updateForm}
+            formData={form}
+            title="About the Workshop"
+          />
+          <LocationForm onUpdate={updateForm} formData={form} />
           <ImageUploadForm
             onUpdate={updateForm}
             formData={form}
             title="Workshop Image Upload"
             label="Upload an image of the workshop"
           />
-          <LocationForm onUpdate={updateForm} formData={form} />
           <Preview formData={form} />
         </MultipageForm>
       </div>

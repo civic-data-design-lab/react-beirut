@@ -129,6 +129,33 @@
   }
 }
 
+.WorkshopAboutForm, .ArchiveAboutForm {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin-bottom: 2rem;
+  }
+
+  .sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    }
+  }
+}
+
 @media (min-width: 768px) {
   .Contribute-index {
     display: flex;
@@ -148,4 +175,21 @@
       width: inherit;
     }
   }
+
+  .WorkshopAboutForm, .ArchiveAboutForm {
+    // min-width: 60vw;
+
+    .sections {
+      width: 100%;
+      flex-direction: row;
+      gap: 3rem;
+
+      input {
+        min-width: 200px;
+      }
+    }
+  }
 }
+
+
+

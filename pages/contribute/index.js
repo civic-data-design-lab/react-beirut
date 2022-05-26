@@ -40,7 +40,16 @@ const Contribute = () => {
     e.preventDefault();
     const action = e.nativeEvent.submitter.name;
     if (action === 'discard') {
-      localStorage.removeItem(selection);
+      switch (selection) {
+        case 'workshop':
+          localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+          break;
+        case 'archive':
+          localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
+          break;
+        default:
+          localStorage.removeItem(selection);
+      }
     }
     setModal(null);
     router.push(`/contribute/${selection}`);
