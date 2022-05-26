@@ -6,6 +6,7 @@ import 'rc-slider/assets/index.css';
 
 export default class Filter extends React.Component {
 
+    // default filter parameters
     state = {
         filteredCrafts : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
         startYear : 1950,
@@ -13,7 +14,7 @@ export default class Filter extends React.Component {
         toggleStatus : false,
     };
 
-
+    // function for handling when a craft button is selected, updates state accprdingly
     selectedCraft = (craftType) => {
         let craftsList = this.state.filteredCrafts;
         let selectedAlready = craftsList.indexOf(craftType)
@@ -22,22 +23,26 @@ export default class Filter extends React.Component {
         } else {
             craftsList.push(craftType)
         }
+
+        // callback passed as a prop from explore.js that passes state back up everytime a craft button is pressed
         this.setState({filteredCrafts: craftsList}, () => this.props.callBack(this.state))
     };
 
     defaultCrafts = ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]
 
+    // function to handle when the reset filter button is pressed
     onReset = () => {
         this.resetSlider();
         this.resetToggle();
         this.setState({filteredCrafts:this.defaultCrafts, toggleStatus:false, startYear: 1950, endYear: 2030}, () => this.props.callBack(this.state))
     }
 
-
+    // function that updates state based on slider changes
     onSliderUpdate = (value) => {
         this.setState({startYear:value[0], endYear:value[1]}, () => this.props.callBack(this.state))
     }
 
+    // function resets slider to default position
     resetSlider() {
         this.setState({
             startYear: 1950,
@@ -45,11 +50,12 @@ export default class Filter extends React.Component {
         });
     }
 
-
+    // function changes state to match toggle
     onToggle = (state) => {
         this.setState({toggleStatus:state}, () => this.props.callBack(this.state))
     }
 
+    // function tries to reset toggle to default state (WORK IN PROGRESS)
     resetToggle() {
         this.setState({
             toggleStatus: false,
@@ -58,11 +64,6 @@ export default class Filter extends React.Component {
 
 
     render () {
-
-
-
-
-
         return (
             <div className={'filterCard'}>
 
@@ -99,7 +100,7 @@ export default class Filter extends React.Component {
                         onAfterChange = {(value) => this.onSliderUpdate(value)}
                 />
 
-                <ToggleSlider state={this.state.toggleStatus} onToggle={(state) => this.onToggle(state)} active={false} draggable={true} barBackgroundColorActive={"#9C6340"}/>
+                <ToggleSlider state={this.state.toggleStatus} onToggle={(state) => this.onToggle(state)} active={false} draggable={false} barBackgroundColorActive={"#9C6340"}/>
                 <button onClick = {() => this.onReset()}> Reset Filters </button>
 
             </div>

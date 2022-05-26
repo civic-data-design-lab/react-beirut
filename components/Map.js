@@ -30,7 +30,8 @@ export default class App extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log('map.js ', this.props.filterData)
+        console.log('map.js ', this.props.filterSearchData)
+        console.log('archive', this.props.archives)
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
@@ -73,7 +74,6 @@ export default class App extends React.PureComponent {
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
 
-            console.log(archive);
             if (archive.ID === "A397612231") {
                 console.warn(`${archive.ID} is ignored`);
                 return;
@@ -119,9 +119,9 @@ export default class App extends React.PureComponent {
 
             const craftType = workshop.craft_discipline_category;
             const {lng, lat} = workshop.location.geo;
-            const indices = craftType.map((craft)=>{return this.props.filterData.filteredCraftsParent.indexOf(craft)});
-            const start = this.props.filterData.startYearParent;
-            const end = this.props.filterData.endYearParent;
+            const indices = craftType.map((craft)=>{return this.props.filterSearchData.filteredCraftsParent.indexOf(craft)});
+            const start = this.props.filterSearchData.startYearParent;
+            const end = this.props.filterSearchData.endYearParent;
             let withinInterval = null;
 
             if (workshop.year_established == null) {
@@ -139,11 +139,22 @@ export default class App extends React.PureComponent {
             }
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
-                if (this.props.filterData.toggleParent && workshop.shop_status!=="open") {
+                if (this.props.filterSearchData.toggleParent && workshop.shop_status!=="open") {
                     continue;
                 }
-                let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
-                this.mappedMarkers.push(marker);
+
+                let lookup = this.props.filterSearchData.search
+                let shopName = workshop.shop_name['content']
+                let shopOrig = workshop.shop_name['content_orig']
+
+
+
+                if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
+                    let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
+                    this.mappedMarkers.push(marker);
+                    console.log(shopName, shopOrig)
+                }
+
             }
         }
 
@@ -168,9 +179,9 @@ export default class App extends React.PureComponent {
 
             const craftType = archive.craft_discipline_category;
             const {lng, lat} = archive.primary_location["geo"];
-            const indices = craftType.map((craft)=>{return this.props.filterData.filteredCraftsParent.indexOf(craft)});
-            const start = this.props.filterData.startYearParent;
-            const end = this.props.filterData.endYearParent;
+            const indices = craftType.map((craft)=>{return this.props.filterSearchData.filteredCraftsParent.indexOf(craft)});
+            const start = this.props.filterSearchData.startYearParent;
+            const end = this.props.filterSearchData.endYearParent;
             let withinInterval = null;
 
             if (start <= archive.primary_year && archive.primary_year <= end) {
@@ -181,11 +192,22 @@ export default class App extends React.PureComponent {
 
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
-                if (this.props.filterData.toggleParent) {
+                if (this.props.filterSearchData.toggleParent) {
                     continue;
                 }
-                let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
-                this.mappedMarkers.push(marker);
+
+                let lookup = this.props.filterSearchData.search
+                let shopName = archive.shop_name['content']
+                let shopOrig = archive.shop_name['content_orig']
+
+
+
+                if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
+                    let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
+                    this.mappedMarkers.push(marker);
+                    console.log(shopName, shopOrig)
+                }
+
             }
         }
 

@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import {getAllArchives, getAllWorkshops} from '../lib/apiUtils';
 import Filter from "../components/Filter";
 import React from "react";
+import SearchBar from "../components/SearchBar";
 
 const Map = dynamic(() => import('../components/Map'), {
   loading: () => 'Loading...',
@@ -19,14 +20,20 @@ export default class Explore extends React.Component {
             () => console.log(this.state))
     }
 
+    searchMap = (searchQuery) => {
+        this.setState({search:searchQuery}, () => console.log(this.state.search))
+    }
+
     constructor(props) {
         super(props);
         this.updateMap = this.updateMap.bind(this);
+        this.searchMap = this.searchMap.bind(this);
         this.state = {
         filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
         startYearParent : 1950,
         endYearParent : 2030,
         toggleParent : false,
+        search: '',
     }
     }
 
@@ -39,8 +46,14 @@ export default class Explore extends React.Component {
                 </Head>
                 <div><Filter callBack={this.updateMap}/></div>
                 <div style={{ position: 'absolute', top: 0, left: 0 }}>explore</div>
-                <Map workshops={this.props.workshops} archives={this.props.archives} filterData={this.state} />
+                <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={this.state} />
+
+                <div>
+                    <SearchBar callBack={this.searchMap}/>
+                </div>
             </>
+
+
         )
     }
 }
