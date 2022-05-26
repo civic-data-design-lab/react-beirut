@@ -10,11 +10,11 @@ import { CRAFT_DISCIPLINES } from '../../lib/utils';
 console.log(CRAFT_DISCIPLINES)
 
 const CONTRIBUTION_FORM_NAME = 'workshop_contribution';
+import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
 
 const WorkshopContribution = () => {
   const [form, setForm] = useState({
-    location: { adm1: 'hi' },
-    survey_origin: 'ongoing_contribution',
+    survey_origin: WORKSHOP_CONTRIBUTION_NAME,
   });
   
   const onSubmit = () => {
@@ -41,8 +41,10 @@ const WorkshopContribution = () => {
       // console.log('old form:', prevForm);
       const updatedFormData = { ...prevForm, ...data };
       console.log('setting form data to ', updatedFormData);
+
+      // Update the local storage as well
       localStorage.setItem(
-        CONTRIBUTION_FORM_NAME,
+        WORKSHOP_CONTRIBUTION_NAME,
         JSON.stringify(updatedFormData)
       );
       return updatedFormData;
@@ -57,9 +59,11 @@ const WorkshopContribution = () => {
       </Head>
       <div className="Contribute drop-shadow__black">
         <MultipageForm
-          onSubmit={onSubmit}
+          name={WORKSHOP_CONTRIBUTION_NAME}
           requiredFields={[[], ['street', 'municipality'], []]}
           formData={form}
+          onUpdate={updateForm}
+          onSubmit={onSubmit}
         >
           {/* Gatlen's Type Selector START */}
           <BooleanLabelForm
