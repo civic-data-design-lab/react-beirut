@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import {getAllArchives, getAllWorkshops, getArchive} from '../lib/apiUtils';
+import {getAllArchives, getAllWorkshops} from '../lib/apiUtils';
 import Filter from "../components/Filter";
 import React from "react";
 
@@ -37,9 +37,9 @@ export default class Explore extends React.Component {
                 <Head>
                     <title> Explore | Intangible Heritage Atlas </title>
                 </Head>
-                <div><Filter callBack={this.updateMap}></Filter></div>
+                <div><Filter callBack={this.updateMap}/></div>
                 <div style={{ position: 'absolute', top: 0, left: 0 }}>explore</div>
-                <Map workshops={this.props.workshops} filterData={this.state} />
+                <Map workshops={this.props.workshops} archives={this.props.archives} filterData={this.state} />
             </>
         )
     }

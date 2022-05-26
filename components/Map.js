@@ -13,9 +13,16 @@ export default class App extends React.PureComponent {
         }
 
         this.mapContainer = React.createRef();
-
         this.mappedMarkers = [];
-
+        this.colorMap = {
+            "architectural": '#66816c',
+            "cuisine": '#b68c66',
+            "decorative": '#ab6d6d' ,
+            "fashion": "#608f96",
+            "functional": "#a98199",
+            "furniture": "#72475f",
+            "textiles": "#eebc71"
+        }
     }
 
     clickMarker = () => {
@@ -27,7 +34,7 @@ export default class App extends React.PureComponent {
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
-           style: 'mapbox://styles/casillasenrique/ckwarozh81rip14qkloft3opq', // style URL
+           style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
            center: [35.5, 33.893894], // starting position [lng, lat]
            zoom: 12, // starting zoom
        });
@@ -37,10 +44,11 @@ export default class App extends React.PureComponent {
 
        for (const workshop of this.props.workshops) {
             const el = document.createElement('div');
+            const craft = workshop.craft_discipline_category[0]
             el.className = 'marker';
-            el.style.width = '20px';
-            el.style.height = '20px';
-            el.style.backgroundColor = '#abe';
+            el.style.width = '15px';
+            el.style.height = '15px';
+            el.style.backgroundColor = this.colorMap[craft];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
 
@@ -55,10 +63,39 @@ export default class App extends React.PureComponent {
                 this.mappedMarkers.push(marker)
             }
         }
+
+       for (const archive of this.props.archives) {
+            const el = document.createElement('div');
+            el.className = 'marker';
+            el.style.width = '15px';
+            el.style.height = '15px';
+            el.style.backgroundColor = '#eeb4aa';
+            el.style.borderRadius = '50%';
+            el.onclick = this.clickMarker;
+
+            console.log(archive);
+            if (archive.ID === "A397612231") {
+                console.warn(`${archive.ID} is ignored`);
+                return;
+            }
+            if (!archive.primary_location['geo']) {
+                console.warn(`${archive.ID} has no geo location`);
+                return;
+            }
+
+
+            const {lng, lat} = archive.primary_location['geo'];
+            if (lat && lng) {
+                let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
+                this.mappedMarkers.push(marker)
+            }
+        }
+
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("updated")
+         // load workshop markers
         if (!this.props.workshops) {
             return;}
 
@@ -69,19 +106,19 @@ export default class App extends React.PureComponent {
         for (const workshop of this.props.workshops) {
             const el = document.createElement('div');
             el.className = 'marker';
-            el.style.width = '20px';
-            el.style.height = '20px';
-            el.style.backgroundColor = '#abe';
+            el.style.width = '15px';
+            el.style.height = '15px';
+            el.style.backgroundColor = this.colorMap[workshop.craft_discipline_category[0]];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
-                return;
+                continue;
             }
 
-            const {lng, lat} = workshop.location.geo;
             const craftType = workshop.craft_discipline_category;
+            const {lng, lat} = workshop.location.geo;
             const indices = craftType.map((craft)=>{return this.props.filterData.filteredCraftsParent.indexOf(craft)});
             const start = this.props.filterData.startYearParent;
             const end = this.props.filterData.endYearParent;
@@ -101,9 +138,6 @@ export default class App extends React.PureComponent {
                 }
             }
 
-            console.log(workshop.year_established);
-            console.log(withinInterval);
-
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
                 if (this.props.filterData.toggleParent && workshop.shop_status!=="open") {
                     continue;
@@ -111,12 +145,56 @@ export default class App extends React.PureComponent {
                 let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                 this.mappedMarkers.push(marker);
             }
-
         }
+
+        for (const archive of this.props.archives) {
+            const el = document.createElement('div');
+            el.className = 'marker';
+            el.style.width = '15px';
+            el.style.height = '15px';
+            el.style.backgroundColor = '#eeb4aa';
+            el.style.borderRadius = '50%';
+            el.onclick = this.clickMarker;
+
+
+            if (archive.ID === "A397612231") {
+                console.warn(`${archive.ID} is ignored`);
+                return;
+            }
+            if (!archive.primary_location['geo']) {
+                console.warn(`${archive.ID} has no geo location`);
+                return;
+            }
+
+            const craftType = archive.craft_discipline_category;
+            const {lng, lat} = archive.primary_location["geo"];
+            const indices = craftType.map((craft)=>{return this.props.filterData.filteredCraftsParent.indexOf(craft)});
+            const start = this.props.filterData.startYearParent;
+            const end = this.props.filterData.endYearParent;
+            let withinInterval = null;
+
+            if (start <= archive.primary_year && archive.primary_year <= end) {
+                    withinInterval = true;
+            } else {
+                    withinInterval = false;
+                    }
+
+
+            if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
+                if (this.props.filterData.toggleParent) {
+                    continue;
+                }
+                let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
+                this.mappedMarkers.push(marker);
+            }
+        }
+
+
     }
 
 
     render() {
+
         return (
             <div
     ref={this.mapContainer}
