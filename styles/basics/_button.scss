@@ -111,7 +111,6 @@ $icon-zindex: 1000;
 
   /* IsMobile=On, IsActive=Off */
 
-
   /* Auto layout */
   padding: 9px 19px;
   margin: 1px;
@@ -231,19 +230,124 @@ $icon-zindex: 1000;
   border-radius: 10px;
 }
 
-.other-button {
-  background-color: "#F00";
+.other-btn {
   .additional-tag-tooltip {
-    background-color: "#333";
-    color: "white";
-    position: "absolute";
-    visibility: "hidden";
+    background-color: #333;
+    color: white;
+    position: absolute;
+    visibility: hidden;
   }
   
   .additional-tag-tooltip-shown {
-    background-color: "#333";
-    color: "white";
-    position: "absolute";
-    visibility: "visible";
+    background-color: #333;
+    color: white;
+    position: absolute;
+    visibility: visible;
   }
+}
+
+.other-btn-selected {
+  .additional-tag-tooltip {
+    background-color: #333;
+    color: white;
+    position: absolute;
+    visibility: visible;
+    border-radius: 5px;
+    // margin-left: auto;
+    // margin-right: auto;
+    margin: 5px auto;
+    padding: 0;
+    left: 0;
+    right: 0;
+    width: 150px;
+    text-align: center;
+    z-index: 1;
+    .additional-tag-txtbox {
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(0,0,0,0);
+      margin: 0 2px;
+    }
+    .submit-new-tag-btn {
+      border-radius: 10px;
+      margin: 0;
+      /* IsMobile=Off, IsActive=On */
+
+      color: #333;
+
+      box-sizing: border-box;
+
+      /* white */
+
+      background: #FFFFFF;
+      /* orange */
+
+      border: 0.5px solid #333;
+      /* Btn Shadow Red */
+
+      box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+      border-radius: 10px;
+      display: inline-block;
+    }
+    /* IsMobile=Off, IsActive=On */
+
+    color: #9C6340;
+
+    box-sizing: border-box;
+
+
+    /* white */
+
+    background: #FFFFFF;
+    /* orange */
+
+    border: 0.5px solid #9C6340;
+    /* Btn Shadow Red */
+
+    box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+    border-radius: 10px;
+  }
+  
+  .additional-tag-tooltip-shown {
+    background-color: #333;
+    color: white;
+    position: absolute;
+    visibility: visible;
+  }
+}
+
+.remove-tag-btn {
+  border-radius: 10px;
+  height: 1em;
+  width: 1em;
+  
+  margin: 0;
+  /* IsMobile=Off, IsActive=On */
+
+  color: #333;
+
+  box-sizing: border-box;
+
+  /* white */
+
+  background: #FFFFFF;
+  /* orange */
+
+  border: 0.5px solid #333;
+  /* Btn Shadow Red */
+
+  box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+  border-radius: 10px;
+  display: inline-block;
+
+  text-align: center;
+
+}
+
+.remove-tag-btn:only-child {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  border: 0.5px solid #9C6340;
+  color: #9C6340;
 }

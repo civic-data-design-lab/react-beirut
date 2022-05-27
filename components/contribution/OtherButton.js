@@ -1,23 +1,135 @@
-// I'm not sure how to build this just yet.
+import { sendError } from 'next/dist/server/api-utils';
+import { useEffect } from 'react';
+
+// TODO: Fix black add button from not working on mobile.
+// TODO: P
 
 /**
  * Button that allows you to enter in custom tags
  *
  */
-const OtherButton = ({ onUpdate, formData }) => {
+const OtherButton = ({ onUpdate, sendErrorMessage, formData, dataLocation }) => {
+
+    // TODO: Fix this clicking off function from overwriting the previous label for some reason.
+    // This might break things if there are multiple of this form on a page
+    // const onClickOffTxtbox = (e) => {
+    //     if (!e.target.classList.contains("other-btn") &&
+    //         !e.target.classList.contains("other-btn-selected") &&
+    //         !e.target.parentElement.classList.contains("additional-tag-tooltip")) {
+            
+    //             let otherButton = window.document.getElementsByClassName("other-btn-selected")[0];
+    //             if (otherButton == undefined) return;
+    //             console.log(otherButton);
+    //             submitNewTag(otherButton);
+    //             disableButton(otherButton);
+    //     }
+    // }
+
+    useEffect(() => {
+        // window.document.body.addEventListener("click", onClickOffTxtbox, true);
+        window.document.body.addEventListener("keypress", onKeyPress, true);
+    }, []);
+    
+
+    const enableButton = (otherButton) => {
+        otherButton.classList.remove("other-btn");
+        otherButton.classList.add("other-btn-selected");
+        otherButton.classList.remove("hstg-btn-pill-small");
+        otherButton.classList.add("hstg-btn-pill-small-selected");
+    }
+
+    const disableButton = (otherButton) => {
+        otherButton.classList.remove("other-btn-selected");
+        otherButton.classList.add("other-btn");
+        otherButton.classList.remove("hstg-btn-pill-small-selected");
+        otherButton.classList.add("hstg-btn-pill-small");
+    }
+
+    const validateData = (string) => {
+        if (!(/^[A-Za-z]*$/.test(string))) {
+            sendErrorMessage("Your custom tag was invalid.\nPlease enter a tag that contains only letters.")
+            return false
+        }
+        if (string == "") {
+            return false
+        }
+        if (Object.keys(formData[dataLocation]['customTags']).includes(string)) {
+            return false
+        }
+        if (Object.keys(formData[dataLocation]['defaultTags']).includes(string)) {
+            sendErrorMessage("Your custom tag is already in the set of default tags.")
+            return false
+        }
+        if (string.length >= 50) {
+            sendErrorMessage("Your custom tag was invalid.\nPlease enter a tag that is less than 50 characters.")
+            return false
+        }
+
+        return true
+    }
+
+    const submitNewTag = (otherButton) => {
+        let txtbox = otherButton.getElementsByClassName("additional-tag-txtbox")[0]
+        let string = txtbox.value;
+        txtbox.value = ""
+
+        if (!validateData(string)) return
+        
+        let bbfData = JSON.parse(JSON.stringify(formData))
+        bbfData[dataLocation]['customTags'][string] = true;
+        onUpdate(bbfData)
+    }
+
     const onClick = (e) => {
-        console.log("This additional tags button does not work yet.")
-        // console.log(typeof(e.target))
-        // var element = window.document.getElementById(e.target.id)
-        // console.log(e.target.querySelector(".additional-tag-tooltip"));
+        if (e.target.classList.contains("other-btn")) {
+            enableButton(e.target);
+        }
+        else if (e.target.classList.contains("other-btn-selected")) {
+            disableButton(e.target);
+            submitNewTag(e.target);
+        }
+        else if (e.target.classList.contains("submit-new-tag-btn")) {
+            let otherButton = e.target.parentElement.parentElement;
+            submitNewTag(otherButton);
+            disableButton(otherButton);
+        }
+    }
+
+    const onBlur = (e) => {
+        let otherButton = e.target.parentElement.parentElement;
+        submitNewTag(otherButton);
+        disableButton(otherButton);
+    }
+
+    // Todo: Add the new tag upon pressing "Enter"
+    const onKeyPress = (e) => {
+        // e.key
+        if (e.keyCode != 32) return
+
+        // Again, this may break if there are multiple of these on the screen at once.
+        let otherButton = window.document.getElementsByClassName("other-btn-selected")[0]
+        console.log("otherButton =", otherButton)
+        if (otherButton == undefined) return
+
+        submitNewTag(otherButton);
+        disableButton(otherButton);
+    }
+
+    const onChange = (e) => {
+        let otherButton = e.target.parentElement.parentElement;
+        console.assert(otherButton == undefined, "otherButton is undefined");
+        if (e.target.value.includes(" ")) {
+            sendErrorMessage("Spaces are not allowed in custom tag.")
+        }
     }
 
     return (
-    <button type="button" onClick={onClick} class="hstg-btn-pill-small other-button">＋
-        {/* <div 
-        class="additional-tag-tooltip">
-            Hello there
-        </div> */}
+    <button type="button" onClick={onClick} onkeypress={(e)=>{console.log("test"); e.preventDefault()}} className="hstg-btn-pill-small other-btn">＋
+        <div 
+        className="additional-tag-tooltip">
+            <input onkeypress={onKeyPress} onBlur={onBlur} onChange={onChange} type="text" className="additional-tag-txtbox"></input>
+            <div className="submit-new-tag-btn">＋</div>
+        </div>
     </button>
     )
 };

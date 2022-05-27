@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import ImageUploadForm from '../../components/contribution/ImageUploadForm';
 import LocationForm from '../../components/contribution/LocationForm';
-import BooleanLabelForm from '../../components/contribution/BooleanButtonForm';
+import BooleanButtonForm from '../../components/contribution/BooleanButtonForm';
 import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
 import { CRAFT_DISCIPLINES, prepareWorkshopContribution } from '../../lib/utils';
@@ -62,7 +62,7 @@ const WorkshopContribution = () => {
       localStorage.setItem(
         WORKSHOP_CONTRIBUTION_NAME,
         JSON.stringify(updatedFormData)
-      );
+      ); // This errors if cookies are disabled.
       return updatedFormData;
     });
   };
@@ -76,10 +76,10 @@ const WorkshopContribution = () => {
         <MultipageForm
           name={WORKSHOP_CONTRIBUTION_NAME}
           pageTitles={[
-            'About the Workshop',
-            'Craft Disciplines',
+            'About the Shop',
+            'Location Information',
+            'About the Craft',
             'Image Upload',
-            'Preview',
           ]}
           requiredFields={REQUIRED_FIELDS}
           formData={form}
@@ -92,22 +92,20 @@ const WorkshopContribution = () => {
             title="About the Workshop"
             requiredFields={REQUIRED_FIELDS[0]}
           />
-          {/* Gatlen's Type Selector START */}
-          <BooleanLabelForm
+          <LocationForm
+            onUpdate={updateForm}
+            formData={form}
+            requiredFields={REQUIRED_FIELDS[2]}
+          />
+          <BooleanButtonForm
             onUpdate={updateForm}
             formData={form}
             dataLocation="craft_discipline"
             title="Craft Discipline"
             label="What catogories does the craftshop produce?"
-            buttonNames={CRAFT_DISCIPLINES}
+            defaultTags={CRAFT_DISCIPLINES}
             requiredFields={REQUIRED_FIELDS[1]}
             hasOtherField={true}
-          />
-          {/* Gatlen's Type Selector END */}
-          <LocationForm
-            onUpdate={updateForm}
-            formData={form}
-            requiredFields={REQUIRED_FIELDS[2]}
           />
           <ImageUploadForm
             onUpdate={updateForm}
