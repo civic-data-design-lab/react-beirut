@@ -55,7 +55,7 @@ export default class Slider extends React.Component {
           className={`btn next ${this.state.nextDisable ? 'disable' : ''}`}
           disabled={this.state.nextDisable}
           onClick={() => {
-            this.refs.scrollLeft += offsetWidthValue / 3;
+            this.refs.scrollLeft += offsetWidthValue / 2;
             this.checkChildren(offsetWidthValue, scrollWidthValue);
           }}
         >

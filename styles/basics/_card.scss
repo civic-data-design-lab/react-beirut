@@ -25,11 +25,6 @@
   .card__wrapper {
     z-index: 10000000;
     width: 80px;
-
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 1fr;
-    column-gap: 10px;
   }
 
   .container__btn {
@@ -48,25 +43,13 @@
     left: 0;
     top: 10%;
 
-    display: grid;
-    // grid-template-columns: 50% 50%;
-    // grid-template-rows: 1fr;
-    // column-gap: 20px;
-    grid-auto-rows: 100vh;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-    justify-content: center;
-    align-items: flex-start;
-
-    @media (min-width: 600px) and (max-width: 820px) {
-      height: 180vh;
-      grid-template-columns: 1fr;
-    }
-
-    @media (max-width: 600px) {
-      padding: 30px;
-      grid-template-columns: 1fr;
+    @media (max-width: 820px) {
+      height: auto;
     }
 
     text-align: left;
@@ -74,27 +57,14 @@
     border-radius: 20px 20px 0px 0px;
     transition: all 0.3s ease;
     font-family: inherit;
-
-    // @keyframes slide-up {
-    //   0% {
-    //     transform: translateY(100%);
-    //   }
-    //   100% {
-    //     transform: translateY(0);
-    //   }
-    // }
   }
 }
 
 .card__item {
-  // background-color: red;
+  margin: 10px;
   position: relative;
   height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  @media (max-width: 600px) {
-    height: 50vh;
-  }
 }
