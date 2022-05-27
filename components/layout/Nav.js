@@ -90,8 +90,15 @@ const Nav = () => {
                 setIsMenu(false);
               }}
             >
-              <Link href="/trace">Trace</Link>
+              <Link href="/work">Work</Link>
             </li>
+            {/* <li
+              onClick={() => {
+                setIsMenu(false);
+              }}
+            >
+              <Link href="/trace">Trace</Link>
+            </li> */}
             <li
               onClick={() => {
                 setIsMenu(false);

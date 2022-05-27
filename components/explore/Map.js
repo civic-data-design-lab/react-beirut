@@ -11,6 +11,8 @@ export default class App extends React.PureComponent {
         super(props);
         this.state = {
 
+            showMapCard: false
+
         }
 
         this.mapContainer = React.createRef();
@@ -24,19 +26,20 @@ export default class App extends React.PureComponent {
             "furniture": "#72475f",
             "textiles": "#eebc71"
         }
+
+        this.clickMarker = this.clickMarker.bind(this)
     }
 
-    clickMarker = () => {
-        console.log('clicked marker');
-        let shopCard = document.createElement('MapCard')
-        shopCard.className = "card"
-        let map = document.getElementById('map')
-        map.appendChild(shopCard)
+    clickMarker = (e) => {
+        let el = e.target;
+        console.log(e);
+        console.log("id hmm", el.id);
     }
 
     componentDidMount() {
         //console.log('map.js ', this.props.filterSearchData)
         //console.log('archive', this.props.archives)
+        console.log(this.props.workshops[0]);
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
@@ -56,7 +59,11 @@ export default class App extends React.PureComponent {
             el.style.height = '15px';
             el.style.backgroundColor = this.colorMap[craft];
             el.style.borderRadius = '50%';
-            el.onclick = this.clickMarker;
+            el.id = workshop.ID;
+            el.onClick=()=>this.clickMarker(el);
+
+
+
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
@@ -78,6 +85,8 @@ export default class App extends React.PureComponent {
             el.style.backgroundColor = '#eeb4aa';
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
+            el.id = archive.ID;
+            el.onClick=()=>this.clickMarker(el);
 
             if (archive.ID === "A397612231") {
                 console.warn(`${archive.ID} is ignored`);
@@ -116,6 +125,8 @@ export default class App extends React.PureComponent {
             el.style.backgroundColor = this.colorMap[workshop.craft_discipline_category[0]];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
+            el.id = workshop.id;
+            el.onClick=()=>this.clickMarker(el);
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
@@ -171,6 +182,8 @@ export default class App extends React.PureComponent {
             el.style.backgroundColor = '#eeb4aa';
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
+            el.id = archive.ID;
+            el.onClick=()=>this.clickMarker(el);
 
 
             if (archive.ID === "A397612231") {

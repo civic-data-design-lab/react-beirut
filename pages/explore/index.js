@@ -40,6 +40,10 @@ export default class Explore extends React.Component {
         this.setState({on: !this.state.on})
     }
 
+    closeFilter = () => {
+        this.setState({on: false})
+    }
+
     constructor(props) {
         super(props);
         this.updateMap = this.updateMap.bind(this);
@@ -65,11 +69,11 @@ export default class Explore extends React.Component {
         return (
                 <>
                     <Head>
-                        <title>Discover | Intangible Heritage Atlas</title>
+                        <title>Explore | Intangible Heritage Atlas</title>
                     </Head>
                     <div>
                         <Map workshops={this.props.workshops} archives={this.props.archives} filterData={this.state.filterData} searchData={this.state.search}/>
-                        { this.state.on ? <Filter settings={this.state.filterData} callBack={this.updateMap}/> : null }
+                        { this.state.on ? <Filter settings={this.state.filterData} callBack={this.updateMap} closeFilter={this.closeFilter}/>  : null }
                         <SearchBar callBack={this.searchMap}/>
 
                         <div className={'filterSection'}>

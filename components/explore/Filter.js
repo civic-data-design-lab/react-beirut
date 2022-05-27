@@ -39,6 +39,17 @@ export default class Filter extends React.Component {
         this.setState({filteredCrafts: craftsList}, () => this.props.callBack(this.state))
     };
 
+    determineCraftButtonClass = (craftName) => {
+        let index = this.state.filteredCrafts.indexOf(craftName);
+        if (index >-1) {
+            return ('hstg-btn-pill-small-selected')
+        } else {
+            return ('hstg-btn-pill-small')
+        }
+
+    }
+
+
 
 
     // function to handle when the reset filter button is pressed
@@ -88,19 +99,20 @@ export default class Filter extends React.Component {
 
                     <div className={'searchby-section'}>
                         <p>Search By</p>
-                        <button className={'close-filter-btn'}>X</button>
+                        <button className={'close-filter-btn'} onClick={this.props.closeFilter}>X</button>
                     </div>
 
                     <hr/>
 
                     <div>
                         <p>Craft Type</p>
-                        <button id={'cuisine-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('cuisine')}>Cuisine</button>
-                        <button id={'decorative-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('decorative')}>Decorative</button>
-                        <button id={'fashion-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('fashion')}>Fashion</button>
-                        <button id={'functional-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('functional')}>Functional</button>
-                        <button id={'furniture-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('furniture')}>Furniture</button>
-                        <button id={'textiles-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('textiles')}>Textiles</button>
+                        <button id={'architectural-btn'} className={this.determineCraftButtonClass('architectural')} onClick={() => this.selectedCraft('architectural')}>Cuisine</button>
+                        <button id={'cuisine-btn'} className={this.determineCraftButtonClass('cuisine')} onClick={() => this.selectedCraft('cuisine')}>Cuisine</button>
+                        <button id={'decorative-btn'} className={this.determineCraftButtonClass('decorative')} onClick={() => this.selectedCraft('decorative')}>Decorative</button>
+                        <button id={'fashion-btn'} className={this.determineCraftButtonClass('fashion')} onClick={() => this.selectedCraft('fashion')}>Fashion</button>
+                        <button id={'functional-btn'} className={this.determineCraftButtonClass('functional')} onClick={() => this.selectedCraft('functional')}>Functional</button>
+                        <button id={'furniture-btn'} className={this.determineCraftButtonClass('furniture')} onClick={() => this.selectedCraft('furniture')}>Furniture</button>
+                        <button id={'textiles-btn'} className={this.determineCraftButtonClass('textiles')} onClick={() => this.selectedCraft('textiles')}>Textiles</button>
                     </div>
 
                     <hr/>

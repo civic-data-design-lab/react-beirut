@@ -53,7 +53,7 @@ const MultipageForm = ({
   useEffect(() => {
     // Get the form data from local storage when the component is mounted
     console.log('Fetching existing form data from local storage');
-    const formData = JSON.parse(localStorage.getItem(name));
+    const formData = JSON.parse(localStorage.getItem(name)); // If cookies are disabled, this throws an error "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
     if (formData) {
       onUpdate(formData);
     }
