@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
-import MapCard from "../components/MapCard";
+import MapCard from "./MapCard";
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -35,8 +35,8 @@ export default class App extends React.PureComponent {
     }
 
     componentDidMount() {
-        console.log('map.js ', this.props.filterSearchData)
-        console.log('archive', this.props.archives)
+        //console.log('map.js ', this.props.filterSearchData)
+        //console.log('archive', this.props.archives)
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
@@ -157,7 +157,7 @@ export default class App extends React.PureComponent {
                 if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
-                    console.log(shopName, shopOrig)
+                    //console.log(shopName, shopOrig)
                 }
 
             }
@@ -210,7 +210,7 @@ export default class App extends React.PureComponent {
                 if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
-                    console.log(shopName, shopOrig)
+                    //console.log(shopName, shopOrig)
                 }
 
             }
@@ -231,6 +231,7 @@ export default class App extends React.PureComponent {
         top: 0,
         bottom: 0,
         width: '100%',
+        height: '100%',
         zIndex: -1,
     }}
     />

@@ -7,6 +7,15 @@ body {
   // margin-top: $header-height;
   // margin-bottom: $footer-height;
   background-color: $c-white-off;
+
+}
+
+#__next {
+  height : 100%;
+}
+
+#root {
+  height : 100%;
 }
 
 .main {
