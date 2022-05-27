@@ -1,64 +1,74 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import {getAllArchives, getAllWorkshops} from '../lib/apiUtils';
-import Filter from "../components/Filter";
-import React from "react";
-import SearchBar from "../components/SearchBar";
-import MapCard from "../components/MapCard";
+import { getAllArchives, getAllWorkshops } from '../lib/apiUtils';
+import Filter from '../components/Filter';
+import React from 'react';
+import SearchBar from '../components/SearchBar';
+import MapCard from '../components/MapCard';
 
 const Map = dynamic(() => import('../components/Map'), {
   loading: () => 'Loading...',
   ssr: false,
 });
 
-
 export default class Explore extends React.Component {
+  updateMap = (filterData) => {
+    this.setState(
+      {
+        filteredCraftsParent: filterData.filteredCrafts,
+        startYearParent: filterData.startYear,
+        endYearParent: filterData.endYear,
+        toggleParent: filterData.toggleStatus,
+      },
+      () => console.log(this.state)
+    );
+  };
 
+  searchMap = (searchQuery) => {
+    this.setState({ search: searchQuery }, () =>
+      console.log(this.state.search)
+    );
+  };
 
-    updateMap = (filterData) => {
-        this.setState({filteredCraftsParent:filterData.filteredCrafts, startYearParent:filterData.startYear,
-            endYearParent:filterData.endYear, toggleParent:filterData.toggleStatus},
-            () => console.log(this.state))
-    }
+  constructor(props) {
+    super(props);
+    this.updateMap = this.updateMap.bind(this);
+    this.searchMap = this.searchMap.bind(this);
+    this.state = {
+      filteredCraftsParent: [
+        'architectural',
+        'cuisine',
+        'decorative',
+        'fashion',
+        'functional',
+        'furniture',
+        'textiles',
+      ],
+      startYearParent: 1950,
+      endYearParent: 2030,
+      toggleParent: false,
+      search: '',
+    };
+  }
 
-    searchMap = (searchQuery) => {
-        this.setState({search:searchQuery}, () => console.log(this.state.search))
-    }
+  render() {
+    return (
+      <>
+        <Head>
+          <title> Explore | Intangible Heritage Atlas </title>
+        </Head>
 
-    constructor(props) {
-        super(props);
-        this.updateMap = this.updateMap.bind(this);
-        this.searchMap = this.searchMap.bind(this);
-        this.state = {
-        filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-        startYearParent : 1950,
-        endYearParent : 2030,
-        toggleParent : false,
-        search: '',
-    }
-    }
-
-
-    render () {
-        return (
-            <>
-                <Head>
-                    <title> Explore | Intangible Heritage Atlas </title>
-                </Head>
-
-                <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={this.state}/>
-                <Filter callBack={this.updateMap}/>
-                <SearchBar callBack={this.searchMap}/>
-
-
-            </>
-
-
-        )
-    }
+        <Map
+          workshops={this.props.workshops}
+          archives={this.props.archives}
+          filterSearchData={this.state}
+        />
+        <Filter callBack={this.updateMap} />
+        <SearchBar callBack={this.searchMap} />
+      </>
+    );
+  }
 }
-
-
 
 /* Retrieves workshops data from mongodb database */
 
@@ -67,5 +77,3 @@ export async function getServerSideProps() {
   const archives = await getAllArchives();
   return { props: { workshops, archives } };
 }
-
-
