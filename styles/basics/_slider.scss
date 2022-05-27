@@ -22,6 +22,7 @@
 }
 
 .btn {
+  z-index: 10000000;
   position: absolute;
   cursor: pointer;
   width: 40px;
@@ -43,8 +44,7 @@
   }
 
   &.disable {
-    opacity: 0.5;
-    // background-color: red;
+    display: none;
     pointer-events: none;
   }
 }
