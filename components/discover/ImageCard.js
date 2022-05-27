@@ -56,24 +56,11 @@ export default class ImageCard extends React.Component {
                 <p>Explore similar shops</p>
                 <div className="parent">
                   <Slider>
-                    <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
-                    </div>
+                    {this.props.similarWorkshops?.map((shop) => (
+                      <div className="container__img">
+                        <ImagePreview workshop={shop} />
+                      </div>
+                    ))}
                   </Slider>
                 </div>
               </div>
