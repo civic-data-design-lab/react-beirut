@@ -10,6 +10,7 @@ const ArchiveSchema = new mongoose.Schema({
   ID: { type: String, required: true },
   info_type: { type: String, default: 'generic' },
   is_series: { type: Boolean, default: false },
+  is_duplicate_of: String,
   shop_name: {
     content: String,
     content_orig: String,
