@@ -83,7 +83,7 @@ export default class Filter extends React.Component {
         return (
             <>
 
-
+                <div className={'filterCard'}>
                 <div>
                     <button id={'architectural-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('architectural')}>Architectural</button>
                     <button id={'cuisine-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('cuisine')}>Cuisine</button>
@@ -93,6 +93,7 @@ export default class Filter extends React.Component {
                     <button id={'furniture-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('furniture')}>Furniture</button>
                     <button id={'textiles-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('textiles')}>Textiles</button>
                 </div>
+
 
                 <Slider range
                         value={[this.state.startYear, this.state.endYear]}
@@ -118,6 +119,7 @@ export default class Filter extends React.Component {
 
                 <ToggleSlider state={this.state.toggleStatus} onToggle={(state) => this.onToggle(state)} active={false} draggable={false} barBackgroundColorActive={"#9C6340"}/>
                 <button onClick = {() => this.onReset()}> Reset Filters </button>
+                </div>
 
 
 

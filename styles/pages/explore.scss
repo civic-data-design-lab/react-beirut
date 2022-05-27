@@ -1,5 +1,24 @@
 .mapCard {
-  background-color: #000;
-  height: 300px;
-  wodth: 200px;
+  background-color: #abc;
+  height: 50%;
+  width: 30%;
+  position: fixed;
+  right: 25%;
+
 }
+
+.filterCard {
+  background-color: #abc;
+  height: 50%;
+  width: 30%;
+  position: fixed;
+  bottom: 20%;
+  left: 10%;
+
+}
+
+.__next {
+  height: 100%;
+
+}
+
