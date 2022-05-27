@@ -1,4 +1,3 @@
-import ImageCard from './ImageCard';
 import ImagePreview from './ImagePreview';
 
 const ImageFeed = ({ workshops }) => {
@@ -6,16 +5,14 @@ const ImageFeed = ({ workshops }) => {
   return (
     <div className="container">
       <div className="image-feed">
-        {workshops.map((workshop) => (
-          <ImagePreview key={workshop.ID} workshop={workshop}></ImagePreview>
-          // <ImageCard
-          //   key={workshop.ID}
-          //   workshop={workshop}
-          //   isExpanded={workshop.ID === selectedCard}
-          //   onClose={onCloseCard}
-          //   onExpand={onExpandCard}
-          // />
-        ))}
+        {workshops.map(
+          (workshop) =>
+            workshop.thumb_img_id && (
+              <div className="image-container" key={workshop.ID}>
+                <ImagePreview workshop={workshop}></ImagePreview>
+              </div>
+            )
+        )}
       </div>
     </div>
   );

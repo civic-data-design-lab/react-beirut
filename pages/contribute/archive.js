@@ -4,7 +4,10 @@ import LocationForm from '../../components/contribution/LocationForm';
 import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
 import Head from 'next/head';
-import { ARCHIVE_CONTRIBUTION_NAME } from '../../lib/utils';
+import {
+  ARCHIVE_CONTRIBUTION_NAME,
+  prepareArchiveContribution,
+} from '../../lib/utils';
 import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
 
 // Required fields for each page
@@ -35,6 +38,11 @@ const ArchiveContribution = () => {
   };
 
   const onSubmit = () => {
+    // Prepare the form data for submission
+    const { archive, imageMeta, imageData } = prepareArchiveContribution(form);
+    console.log(archive);
+    console.log(imageMeta);
+    console.log(imageData);
     return; // FIXME: Temp disable submit
 
     const data = {};

@@ -60,6 +60,11 @@ the data should be formatted when running the upload script.
 
 ## Database Upload Log
 
+### 5/26/2022
+* Added an `is_duplicate_of` field to archive objects in case there are
+  duplicate shops being referenced in different records.
+  * Updated Archive schema and typedef.
+  * Uploaded updated archive data to database.
 ### 5/25/2022
 * Update the workshops data by adding the following fields:
   * `year_established`

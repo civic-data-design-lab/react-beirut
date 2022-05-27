@@ -8,13 +8,14 @@ import MapCard from "../../components/explore/MapCard";
 import Layout from '../../components/layout/Layout';
 
 
+
 const Map = dynamic(() => import('../../components/explore/Map'), {
   loading: () => 'Loading...',
   ssr: false,
 });
 
-
 export default class Explore extends React.Component {
+
 
 
     updateMap = (filterData) => {
@@ -61,9 +62,8 @@ export default class Explore extends React.Component {
 
         )
     }
+
 }
-
-
 
 /* Retrieves workshops data from mongodb database */
 
@@ -72,5 +72,3 @@ export async function getServerSideProps() {
   const archives = await getAllArchives();
   return { props: { workshops, archives } };
 }
-
-

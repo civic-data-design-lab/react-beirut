@@ -134,6 +134,9 @@
  * @property {boolean} is_series - Whether or not this archive information is a
  *    series piece. That is, if it contains either more than one image at different
  *    locations or time.
+ * @property {string} is_duplicate_of - The ID of the archive information object
+ *    this entry is a duplicate of. Some archive information objects are
+ *    referencing the exact same shop name, but in different records.
  * @property {Multilanguage} shop_name - The name of the associated workshop
  * @property {Multilanguage} owner_name - The name of the owner of the workshop
  * @property {string[]} craft_discipline_category - The overarching category/categories
