@@ -27,6 +27,7 @@ const InputField = (props) => {
           <input
             id={fieldName}
             type={inputType}
+            required={required}
             value={value || ''}
             onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
             {...rest}

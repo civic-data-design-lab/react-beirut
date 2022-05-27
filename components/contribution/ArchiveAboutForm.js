@@ -1,6 +1,24 @@
 import { IMAGE_TYPES, VALID_DECADES } from '../../lib/utils';
 import InputField from './InputField';
 
+/**
+ * The Archive about form updates the following fields:
+ * - `imageType`
+ * - `dateTaken` (e.g. `'2022-05-04'`)
+ * - `startDecade` (e.g. `'1930'`)
+ * - `endDecade`
+ * - `workshopName`
+ * - `ownerName`
+ * - `referenceName`
+ * - `referenceUrl`
+ * - `referenceCopyright`
+ *
+ * @param {function} onUpdate - Function to call when the form is updated.
+ * @param {object} formData - The form data to use.
+ * @param {string[]} requiredFields - List of required fields for this form. See
+ *    applicable fields above.
+ * @returns {React.Component}
+ */
 const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
   return (
     <form className="ArchiveAboutForm">
@@ -25,15 +43,14 @@ const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
               </option>
             ))}
           </InputField>
-          <div>
-            <label htmlFor="date-taken">When was the image taken?</label>
-            <input
-              id="date-taken"
-              type="date"
-              value={formData.dateTaken || ''}
-              onChange={(e) => onUpdate({ dateTaken: e.target.value })}
-            />
-          </div>
+          <InputField
+            title="When was the image taken?"
+            fieldName="dateTaken"
+            type="date"
+            value={formData.dateTaken}
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('dateTaken')}
+          />
           <div>
             <label>
               If exact year is unknown, please provide a decade range
@@ -79,28 +96,28 @@ const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
         </div>
         <div className="section">
           <h3>General Information</h3>
-          <div>
-            <label htmlFor="workshop-name">
-              Associated craft workshop name <small>(if applicable)</small>
-            </label>
-            <input
-              id="workshop-name"
-              type="text"
-              value={formData.workshopName || ''}
-              onChange={(e) => onUpdate({ workshopName: e.target.value })}
-            />
-          </div>
-          <div>
-            <label htmlFor="owner-name">
-              Associated workshop owner name <small>(if applicable)</small>
-            </label>
-            <input
-              id="owner-name"
-              type="text"
-              value={formData.ownerName || ''}
-              onChange={(e) => onUpdate({ ownerName: e.target.value })}
-            />
-          </div>
+          <InputField
+            title={
+              <>
+                Associated craft workshop name <small>(if applicable)</small>
+              </>
+            }
+            fieldName="workshopName"
+            value={formData.workshopName}
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('workshopName')}
+          />
+          <InputField
+            title={
+              <>
+                Associated workshop owner name <small>(if applicable)</small>
+              </>
+            }
+            fieldName="ownerName"
+            value={formData.ownerName}
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('ownerName')}
+          />
         </div>
         <div className="section">
           <h3>Reference Information</h3>

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import Card from '../Card';
 
@@ -40,12 +42,13 @@ const MultipageForm = ({
   requiredFields,
   onUpdate,
   onSubmit,
+  submitted,
   children,
 }) => {
   const router = useRouter();
   const [dialog, setDialog] = useState(null);
   const [page, setPage] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     // Get the form data from local storage when the component is mounted
@@ -116,11 +119,11 @@ const MultipageForm = ({
       }
 
       // Submit the form
+      setSubmitting(true);
       onSubmit();
       router.push(`${router.basePath}`, undefined, {
         shallow: true,
       });
-      setSubmitted(true);
       return;
     }
 
@@ -195,51 +198,66 @@ const MultipageForm = ({
         </Card>
       )}
       <div className="MultipageForm">
-        <nav className="header drop-shadow__black">
-          {pageTitles?.map((title, idx) => (
-            <Link href={`${router.basePath}?page=${idx}`} key={idx}>
-              <a className={idx === page ? 'active' : ''}>
-                <div className="bubble">{idx + 1}</div>
-                <div> {title}</div>
-              </a>
-            </Link>
-          ))}
-        </nav>
-        {submitted ? (
-          <div>
-            <p>Thank you for your contribution!</p>
-            <p>
-              Click{' '}
-              <Link href="/contribute">
-                <a>here</a>
-              </Link>{' '}
-              to contribute again, or click{' '}
-              <Link href="/">
-                <a>here</a>
-              </Link>{' '}
-              to return to the main site.
-            </p>
-          </div>
-        ) : (
-          <div className="content">
-            {/* <h1>weoifwijefo aiwjeofi ajwoei fjaowief</h1> */}
-
-            <> {children[page]}</>
-            <hr />
-            <span className="MultipageForm-nav">
-              <button
-                className="btn-nav"
-                disabled={page === 0}
-                onClick={onBack}
-              >
-                Back
-              </button>
-              <button className="btn-nav" onClick={onNext}>
-                {page === children.length - 1 ? 'Submit' : 'Next'}
-              </button>
-            </span>
-          </div>
+        {!(submitted || submitting) && (
+          <nav className="header drop-shadow__black">
+            {pageTitles?.map((title, idx) => (
+              <Link href={`${router.basePath}?page=${idx}`} key={idx}>
+                <a className={idx === page ? 'active' : ''}>
+                  <div className="bubble">{idx + 1}</div>
+                  <div> {title}</div>
+                </a>
+              </Link>
+            ))}
+          </nav>
         )}
+        <div className="content">
+          {submitted || submitting ? (
+            <div className="submit">
+              {submitting ? (
+                <div className="loading">
+                  <h2>Submitting...</h2>
+                  <div className="spinner" />
+                </div>
+              ) : (
+                <div className="success">
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  <h1>Upload success!</h1>
+                  <h2>Your response has been recorded.</h2>
+                  <p>
+                    Click{' '}
+                    <Link href="/contribute">
+                      <a className='link'>here</a>
+                    </Link>{' '}
+                    to make another contribution, or click{' '}
+                    <Link href="/">
+                      <a className='link'>here</a>
+                    </Link>{' '}
+                    to return to the main site.
+                  </p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <>
+              {/* <h1>weoifwijefo aiwjeofi ajwoei fjaowief</h1> */}
+
+              <> {children[page]}</>
+              <hr />
+              <span className="MultipageForm-nav">
+                <button
+                  className="btn-nav"
+                  disabled={page === 0}
+                  onClick={onBack}
+                >
+                  Back
+                </button>
+                <button className="btn-nav" onClick={onNext}>
+                  {page === children.length - 1 ? 'Submit' : 'Next'}
+                </button>
+              </span>
+            </>
+          )}
+        </div>
       </div>
     </>
   );

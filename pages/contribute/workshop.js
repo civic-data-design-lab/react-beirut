@@ -5,7 +5,7 @@ import LocationForm from '../../components/contribution/LocationForm';
 import BooleanLabelForm from '../../components/contribution/BooleanButtonForm';
 import MultipageForm from '../../components/contribution/MultipageForm';
 import Preview from '../../components/contribution/Preview';
-import { CRAFT_DISCIPLINES } from '../../lib/utils';
+import { CRAFT_DISCIPLINES, prepareWorkshopContribution } from '../../lib/utils';
 
 console.log(CRAFT_DISCIPLINES);
 
@@ -23,8 +23,15 @@ const WorkshopContribution = () => {
   const [form, setForm] = useState({
     survey_origin: WORKSHOP_CONTRIBUTION_NAME,
   });
-
+  const [submitted, setSubmitted] = useState(false);
+  
   const onSubmit = () => {
+    // Prepare the form data for submission
+    const {workshop, imageMeta, imageData} = prepareWorkshopContribution(form);
+
+    console.log(workshop);
+    console.log(imageMeta);
+    console.log(imageData);
     return; // FIXME: Temp disable submit
 
     const data = {
@@ -97,13 +104,17 @@ const WorkshopContribution = () => {
             hasOtherField={true}
           />
           {/* Gatlen's Type Selector END */}
-          <LocationForm onUpdate={updateForm} formData={form} />
+          <LocationForm
+            onUpdate={updateForm}
+            formData={form}
+            requiredFields={REQUIRED_FIELDS[2]}
+          />
           <ImageUploadForm
             onUpdate={updateForm}
             formData={form}
             title="Workshop Image Upload"
             label="Upload an image of the workshop"
-            requiredFields={REQUIRED_FIELDS[2]}
+            requiredFields={REQUIRED_FIELDS[3]}
           />
           <Preview formData={form} />
         </MultipageForm>
