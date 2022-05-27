@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import { ToggleSlider }  from "react-toggle-slider";
-import Card from "../Card";
+import imageCard from "../discover/ImageCard";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import ImageCard from "../discover/ImageCard";
 
 
 export default class Filter extends React.Component {
@@ -11,10 +12,10 @@ export default class Filter extends React.Component {
         super(props);
         // default filter parameters
         this.state = {
-            filteredCrafts : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYear : 1950,
-            endYear : 2030,
-            toggleStatus : false,
+            filteredCrafts : this.props.settings['filteredCraftsParent'],
+            startYear : this.props.settings['startYearParent'],
+            endYear : this.props.settings['endYearParent'],
+            toggleStatus : this.props.settings['toggleParent'],
             };
 
     }
@@ -84,48 +85,68 @@ export default class Filter extends React.Component {
             <>
 
                 <div className={'filterCard'}>
-                <div>
-                    <button id={'architectural-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('architectural')}>Architectural</button>
-                    <button id={'cuisine-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('cuisine')}>Cuisine</button>
-                    <button id={'decorative-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('decorative')}>Decorative</button>
-                    <button id={'fashion-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('fashion')}>Fashion</button>
-                    <button id={'functional-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('functional')}>Functional</button>
-                    <button id={'furniture-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('furniture')}>Furniture</button>
-                    <button id={'textiles-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('textiles')}>Textiles</button>
+
+                    <div className={'searchby-section'}>
+                        <p>Search By</p>
+                        <button className={'close-filter-btn'}>X</button>
+                    </div>
+
+                    <hr/>
+
+                    <div>
+                        <p>Craft Type</p>
+                        <button id={'cuisine-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('cuisine')}>Cuisine</button>
+                        <button id={'decorative-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('decorative')}>Decorative</button>
+                        <button id={'fashion-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('fashion')}>Fashion</button>
+                        <button id={'functional-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('functional')}>Functional</button>
+                        <button id={'furniture-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('furniture')}>Furniture</button>
+                        <button id={'textiles-btn'} className={'hstg-btn-pill-small-selected'} onClick={() => this.selectedCraft('textiles')}>Textiles</button>
+                    </div>
+
+                    <hr/>
+
+                    <div>
+                        <p>Time Range</p>
+                        <Slider range
+                                value={[this.state.startYear, this.state.endYear]}
+                                marks={{
+                                    1950: '1950',
+                                    1960: `1960`,
+                                    1970: '1970',
+                                    1980: '1980',
+                                    1990: '1990',
+                                    2000: '2000',
+                                    2010: '2010',
+                                    2020: '2020',
+                                    2030: `2030`
+                        }}
+                                min={1950}
+                                max={2030}
+                                defaultValue={[this.state.startYear, this.state.endYear]}
+                                step={10}
+                                allowCross = {false}
+                                onChange = {(value) => this.onSliderUpdate(value)}
+                                onAfterChange = {(value) => this.onSliderUpdate(value)}
+                        />
+                    </div>
+
+                    <hr/>
+
+                    <div className={'toggle-section'}>
+                        <p>Only show active businesses</p>
+                        <ToggleSlider state={this.state.toggleStatus} onToggle={(state) => this.onToggle(state)} active={this.state.toggleStatus} draggable={false} barBackgroundColorActive={"#9C6340"}/>
+                    </div>
+
+                    <hr/>
+
+                    <div className={'reset-section'}>
+                        <button className={'reset-btn'} onClick = {() => this.onReset()}> Reset Filters </button>
+                    </div>
+
+
+
                 </div>
-
-
-                <Slider range
-                        value={[this.state.startYear, this.state.endYear]}
-                        marks={{
-                            1950: '1950',
-                            1960: `1960`,
-                            1970: '1970',
-                            1980: '1980',
-                            1990: '1990',
-                            2000: '2000',
-                            2010: '2010',
-                            2020: '2020',
-                            2030: `2030`
-                }}
-                        min={1950}
-                        max={2030}
-                        defaultValue={[this.state.startYear, this.state.endYear]}
-                        step={10}
-                        allowCross = {false}
-                        onChange = {(value) => this.onSliderUpdate(value)}
-                        onAfterChange = {(value) => this.onSliderUpdate(value)}
-                />
-
-                <ToggleSlider state={this.state.toggleStatus} onToggle={(state) => this.onToggle(state)} active={false} draggable={false} barBackgroundColorActive={"#9C6340"}/>
-                <button onClick = {() => this.onReset()}> Reset Filters </button>
-                </div>
-
-
-
-
-
-
+                <div className={'arrow-down'}></div>
 
             </>
 

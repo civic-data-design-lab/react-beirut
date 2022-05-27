@@ -23,12 +23,9 @@ export default class SearchBar extends React.Component {
 
 
 
-
-
-
     render () {
         return (
-            <div>
+            <div className={'searchbar'}>
 
                 <span>
                 <input id="mapSearch" type="search" placeholder="Enter Shop Name" onChange={this.inputUpdate}/>

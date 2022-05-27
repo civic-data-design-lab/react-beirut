@@ -19,8 +19,16 @@ export default class Explore extends React.Component {
 
 
     updateMap = (filterData) => {
-        this.setState({filteredCraftsParent:filterData.filteredCrafts, startYearParent:filterData.startYear,
-            endYearParent:filterData.endYear, toggleParent:filterData.toggleStatus},
+        this.setState({
+                filterData : {
+                    'filteredCraftsParent' : filterData.filteredCrafts,
+                    'startYearParent' : filterData.startYear,
+                    'endYearParent' : filterData.endYear,
+                    'toggleParent' : filterData.toggleStatus,
+                    'search': ''
+                }
+
+            },
             () => console.log(this.state))
     }
 
@@ -28,16 +36,27 @@ export default class Explore extends React.Component {
         this.setState({search:searchQuery}, () => console.log(this.state.search))
     }
 
+    toggleFilterPanel = () => {
+        this.setState({on: !this.state.on})
+    }
+
     constructor(props) {
         super(props);
         this.updateMap = this.updateMap.bind(this);
         this.searchMap = this.searchMap.bind(this);
         this.state = {
-        filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-        startYearParent : 1950,
-        endYearParent : 2030,
-        toggleParent : false,
+
+        filterData : {
+            'filteredCraftsParent' : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
+            'startYearParent' : 1950,
+            'endYearParent' : 2030,
+            'toggleParent' : false,
+
+        },
         search: '',
+        on: false,
+
+
     }
     }
 
@@ -48,13 +67,19 @@ export default class Explore extends React.Component {
                     <Head>
                         <title>Discover | Intangible Heritage Atlas</title>
                     </Head>
-                    <div className="container">
-                        <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={this.state}/>
-                        <Filter callBack={this.updateMap}/>
+                    <div>
+                        <Map workshops={this.props.workshops} archives={this.props.archives} filterData={this.state.filterData} searchData={this.state.search}/>
+                        { this.state.on ? <Filter settings={this.state.filterData} callBack={this.updateMap}/> : null }
                         <SearchBar callBack={this.searchMap}/>
+
+                        <div className={'filterSection'}>
+                            <button className={'filterButton'} onClick={this.toggleFilterPanel}>filter</button>
+                            <button className={'filterButton'}>layers</button>
+                        </div>
+
                     </div>
 
-                    <MapCard></MapCard>
+
 
 
 

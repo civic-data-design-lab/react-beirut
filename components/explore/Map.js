@@ -124,9 +124,9 @@ export default class App extends React.PureComponent {
 
             const craftType = workshop.craft_discipline_category;
             const {lng, lat} = workshop.location.geo;
-            const indices = craftType.map((craft)=>{return this.props.filterSearchData.filteredCraftsParent.indexOf(craft)});
-            const start = this.props.filterSearchData.startYearParent;
-            const end = this.props.filterSearchData.endYearParent;
+            const indices = craftType.map((craft)=>{return this.props.filterData['filteredCraftsParent'].indexOf(craft)});
+            const start = this.props.filterData['startYearParent'];
+            const end = this.props.filterData['endYearParent'];
             let withinInterval = null;
 
             if (workshop.year_established == null) {
@@ -144,11 +144,11 @@ export default class App extends React.PureComponent {
             }
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
-                if (this.props.filterSearchData.toggleParent && workshop.shop_status!=="open") {
+                if (this.props.filterData['toggleParent'] && workshop.shop_status!=="open") {
                     continue;
                 }
 
-                let lookup = this.props.filterSearchData.search
+                let lookup = this.props.searchData
                 let shopName = workshop.shop_name['content']
                 let shopOrig = workshop.shop_name['content_orig']
 
@@ -184,9 +184,9 @@ export default class App extends React.PureComponent {
 
             const craftType = archive.craft_discipline_category;
             const {lng, lat} = archive.primary_location["geo"];
-            const indices = craftType.map((craft)=>{return this.props.filterSearchData.filteredCraftsParent.indexOf(craft)});
-            const start = this.props.filterSearchData.startYearParent;
-            const end = this.props.filterSearchData.endYearParent;
+            const indices = craftType.map((craft)=>{return this.props.filterData['filteredCraftsParent'].indexOf(craft)});
+            const start = this.props.filterData['startYearParent'];
+            const end = this.props.filterData['endYearParent'];
             let withinInterval = null;
 
             if (start <= archive.primary_year && archive.primary_year <= end) {
@@ -197,11 +197,11 @@ export default class App extends React.PureComponent {
 
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
-                if (this.props.filterSearchData.toggleParent) {
+                if (this.props.filterData['toggleParent']) {
                     continue;
                 }
 
-                let lookup = this.props.filterSearchData.search
+                let lookup = this.props.searchData
                 let shopName = archive.shop_name['content']
                 let shopOrig = archive.shop_name['content_orig']
 
