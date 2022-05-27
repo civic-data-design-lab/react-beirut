@@ -1,10 +1,23 @@
 import Card from '../Card';
 import ImagePreview from './ImagePreview';
+import Slider from '../../components/Slider';
+import { data } from 'autoprefixer';
 
 const ImageCard = ({ workshop, onClose, thumbnailSrc }) => {
   const imgSrc = workshop.thumb_img_id
     ? `/api/images/${workshop.thumb_img_id}.jpg`
     : thumbnailSrc || null;
+
+  // TODO: dynamically fetching suggestion shops
+  // let suggetion = () => {
+  //   return <></>;
+  // };
+
+  const updatePosition = () => {};
+
+  const moveToNext = () => {};
+
+  const moveToPrevious = () => {};
 
   return (
     <Card handleClose={onClose}>
@@ -40,16 +53,27 @@ const ImageCard = ({ workshop, onClose, thumbnailSrc }) => {
             </div>
             <div className="container__suggestion">
               <p>Explore similar shops</p>
-              <div className="wrapper">
-                <div className="image-container">
-                  <ImagePreview workshop={workshop} />
-                </div>
-                <div className="image-container">
-                  <ImagePreview workshop={workshop} />
-                </div>
-                <div className="image-container">
-                  <ImagePreview workshop={workshop} />
-                </div>
+              <div className="parent">
+                <Slider>
+                  <div className="container__img">
+                    <ImagePreview workshop={workshop} />
+                  </div>
+                  <div className="container__img">
+                    <ImagePreview workshop={workshop} />
+                  </div>
+                  <div className="container__img">
+                    <ImagePreview workshop={workshop} />
+                  </div>
+                  <div className="container__img">
+                    <ImagePreview workshop={workshop} />
+                  </div>
+                  <div className="container__img">
+                    <ImagePreview workshop={workshop} />
+                  </div>
+                  <div className="container__img">
+                    <ImagePreview workshop={workshop} />
+                  </div>
+                </Slider>
               </div>
             </div>
           </div>
