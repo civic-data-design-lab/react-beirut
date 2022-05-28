@@ -57,7 +57,7 @@ export default class ImageCard extends React.Component {
                 <div className="parent">
                   <Slider>
                     {this.props.similarWorkshops?.map((shop) => (
-                      <div className="container__img">
+                      <div key={shop.ID} className="container__img">
                         <ImagePreview workshop={shop} />
                       </div>
                     ))}
