@@ -1,12 +1,9 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import {getAllArchives, getAllWorkshops} from '../../lib/apiUtils';
-import Filter from "../../components/explore/Filter";
+import MapFilter from "../../components/explore/MapFilter";
 import React from "react";
 import SearchBar from "../../components/explore/SearchBar";
-import MapCard from "../../components/explore/MapCard";
-import Layout from '../../components/layout/Layout';
-
 
 
 const Map = dynamic(() => import('../../components/explore/Map'), {
@@ -16,21 +13,43 @@ const Map = dynamic(() => import('../../components/explore/Map'), {
 
 export default class Explore extends React.Component {
 
+        constructor(props) {
+        super(props);
+        this.searchMap = this.searchMap.bind(this);
+        this.updateCrafts = this.updateCrafts.bind(this);
+        this.updateYears = this.updateYears.bind(this);
+        this.updateToggle = this.updateToggle.bind(this);
 
-
-    updateMap = (filterData) => {
-        this.setState({
-                filterData : {
-                    'filteredCraftsParent' : filterData.filteredCrafts,
-                    'startYearParent' : filterData.startYear,
-                    'endYearParent' : filterData.endYear,
-                    'toggleParent' : filterData.toggleStatus,
-                    'search': ''
-                }
-
-            },
-            () => console.log(this.state))
+        this.state = {
+            filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
+            startYearParent : 1950,
+            endYearParent : 2030,
+            toggleParent : false,
+            search: '',
+            on: false,
+        }
     }
+
+
+    updateCrafts = (craftData) => {
+        console.log('craftData ', craftData)
+        this.setState({
+            filteredCraftsParent : craftData
+            }, () => console.log("index.js", this.state.filteredCraftsParent))}
+
+    updateYears = (yearData) => {
+        this.setState({
+            startYearParent: yearData[0],
+            endYearParent: yearData[1]
+        }, () => console.log("index.js", this.state))}
+
+    updateToggle = (toggleData) => {
+        this.setState({
+            toggleParent: toggleData
+        }, () => console.log("index.js", this.state))
+    }
+
+
 
     searchMap = (searchQuery) => {
         this.setState({search:searchQuery}, () => console.log(this.state.search))
@@ -44,36 +63,39 @@ export default class Explore extends React.Component {
         this.setState({on: false})
     }
 
-    constructor(props) {
-        super(props);
-        this.updateMap = this.updateMap.bind(this);
-        this.searchMap = this.searchMap.bind(this);
-        this.state = {
-
-        filterData : {
-            'filteredCraftsParent' : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            'startYearParent' : 1950,
-            'endYearParent' : 2030,
-            'toggleParent' : false,
-
-        },
-        search: '',
-        on: false,
-
+    triggerReset = () => {
+        this.setState({
+            filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
+            startYearParent : 1950,
+            endYearParent : 2030,
+            toggleParent : false
+        })
 
     }
-    }
+
+
 
 
     render () {
+
+            const filterSearchData = {
+                'filteredCraftsParent' : this.state.filteredCraftsParent,
+                'startYearParent' : this.state.startYearParent,
+                'endYearParent' : this.state.endYearParent,
+                'toggleStatusParent' : this.state.toggleParent,
+                'search': this.state.search
+            }
+
         return (
                 <>
                     <Head>
                         <title>Explore | Intangible Heritage Atlas</title>
                     </Head>
                     <div>
-                        <Map workshops={this.props.workshops} archives={this.props.archives} filterData={this.state.filterData} searchData={this.state.search}/>
-                        { this.state.on ? <Filter settings={this.state.filterData} callBack={this.updateMap} closeFilter={this.closeFilter}/>  : null }
+                        <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} />
+                        { this.state.on ? <MapFilter
+                            filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
+                            updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset}/>  : null }
                         <SearchBar callBack={this.searchMap}/>
 
                         <div className={'filterSection'}>
@@ -82,11 +104,6 @@ export default class Explore extends React.Component {
                         </div>
 
                     </div>
-
-
-
-
-
     </>
 
         )

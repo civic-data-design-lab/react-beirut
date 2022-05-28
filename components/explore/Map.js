@@ -1,6 +1,5 @@
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
-import MapCard from "./MapCard";
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -36,10 +35,11 @@ export default class App extends React.PureComponent {
         console.log("id hmm", el.id);
     }
 
+
+
     componentDidMount() {
         //console.log('map.js ', this.props.filterSearchData)
         //console.log('archive', this.props.archives)
-        console.log(this.props.workshops[0]);
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
@@ -61,9 +61,6 @@ export default class App extends React.PureComponent {
             el.style.borderRadius = '50%';
             el.id = workshop.ID;
             el.onClick=()=>this.clickMarker(el);
-
-
-
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
@@ -97,7 +94,6 @@ export default class App extends React.PureComponent {
                 return;
             }
 
-
             const {lng, lat} = archive.primary_location['geo'];
             if (lat && lng) {
                 let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
@@ -110,6 +106,7 @@ export default class App extends React.PureComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
          // load workshop markers
+        console.log(this.props);
         if (!this.props.workshops) {
             return;}
 
@@ -135,9 +132,9 @@ export default class App extends React.PureComponent {
 
             const craftType = workshop.craft_discipline_category;
             const {lng, lat} = workshop.location.geo;
-            const indices = craftType.map((craft)=>{return this.props.filterData['filteredCraftsParent'].indexOf(craft)});
-            const start = this.props.filterData['startYearParent'];
-            const end = this.props.filterData['endYearParent'];
+            const indices = craftType.map((craft)=>{return this.props.filterSearchData['filteredCraftsParent'].indexOf(craft)});
+            const start = this.props.filterSearchData['startYearParent'];
+            const end = this.props.filterSearchData['endYearParent'];
             let withinInterval = null;
 
             if (workshop.year_established == null) {
@@ -155,11 +152,11 @@ export default class App extends React.PureComponent {
             }
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
-                if (this.props.filterData['toggleParent'] && workshop.shop_status!=="open") {
+                if (this.props.filterSearchData['toggleStatusParent'] && workshop.shop_status!=="open") {
                     continue;
                 }
 
-                let lookup = this.props.searchData
+                let lookup = this.props.filterSearchData['search']
                 let shopName = workshop.shop_name['content']
                 let shopOrig = workshop.shop_name['content_orig']
 
@@ -197,9 +194,9 @@ export default class App extends React.PureComponent {
 
             const craftType = archive.craft_discipline_category;
             const {lng, lat} = archive.primary_location["geo"];
-            const indices = craftType.map((craft)=>{return this.props.filterData['filteredCraftsParent'].indexOf(craft)});
-            const start = this.props.filterData['startYearParent'];
-            const end = this.props.filterData['endYearParent'];
+            const indices = craftType.map((craft)=>{return this.props.filterSearchData['filteredCraftsParent'].indexOf(craft)});
+            const start = this.props.filterSearchData['startYearParent'];
+            const end = this.props.filterSearchData['endYearParent'];
             let withinInterval = null;
 
             if (start <= archive.primary_year && archive.primary_year <= end) {
@@ -210,11 +207,11 @@ export default class App extends React.PureComponent {
 
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
-                if (this.props.filterData['toggleParent']) {
+                if (this.props.filterSearchData['toggleStatusParent']) {
                     continue;
                 }
 
-                let lookup = this.props.searchData
+                let lookup = this.props.filterSearchData['search']
                 let shopName = archive.shop_name['content']
                 let shopOrig = archive.shop_name['content_orig']
 
@@ -234,6 +231,7 @@ export default class App extends React.PureComponent {
 
 
     render() {
+        console.log("Map.js ", this.props)
 
         return (
             <div
