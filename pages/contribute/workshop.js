@@ -1,15 +1,16 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import ImageUploadForm from '../../components/contribution/ImageUploadForm';
+// import ImageUploadForm from '../../components/contribution/ImageUploadForm';
 import LocationForm from '../../components/contribution/LocationForm';
-import BooleanButtonForm from '../../components/contribution/BooleanButtonForm';
+import CraftDisciplineForm from '../../components/contribution/CraftDisciplineForm';
 import MultipageForm from '../../components/contribution/MultipageForm';
+import WorkshopImageForm from '../../components/contribution/WorkshopImageForm';
+import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
 import Preview from '../../components/contribution/Preview';
 import { CRAFT_DISCIPLINES, prepareWorkshopContribution } from '../../lib/utils';
 
 console.log(CRAFT_DISCIPLINES);
 
-import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
 import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
 
 // Array of arrays of required fields for each page
@@ -17,7 +18,7 @@ import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
 // 1: Craft Disciplines
 // 2: Image Upload
 // 3: Preview
-const REQUIRED_FIELDS = [['shopName', 'status'], [], [], []];
+const REQUIRED_FIELDS = [['shopName', 'status'], ['quarter', 'sector'], [], []];
 
 const WorkshopContribution = () => {
   const [form, setForm] = useState({
@@ -89,29 +90,39 @@ const WorkshopContribution = () => {
           <WorkshopAboutForm
             onUpdate={updateForm}
             formData={form}
-            title="About the Workshop"
+            title="About the Craft Workshop"
             requiredFields={REQUIRED_FIELDS[0]}
           />
           <LocationForm
             onUpdate={updateForm}
             formData={form}
-            requiredFields={REQUIRED_FIELDS[2]}
+            requiredFields={REQUIRED_FIELDS[1]}
           />
-          <BooleanButtonForm
+          <CraftDisciplineForm
             onUpdate={updateForm}
             formData={form}
             dataLocation="craft_discipline"
             title="Craft Discipline"
-            label="What catogories does the craftshop produce?"
+            label="What type of crafts are produced in this workshop?"
             defaultTags={CRAFT_DISCIPLINES}
-            requiredFields={REQUIRED_FIELDS[1]}
+            requiredFields={REQUIRED_FIELDS[2]}
             hasOtherField={true}
           />
-          <ImageUploadForm
+          {/* <BooleanButtonForm
             onUpdate={updateForm}
             formData={form}
-            title="Workshop Image Upload"
-            label="Upload an image of the workshop"
+            dataLocation="craft_discipline"
+            title="Craft Discipline"
+            label="What type of crafts are produced in this workshop?"
+            defaultTags={CRAFT_DISCIPLINES}
+            requiredFields={REQUIRED_FIELDS[2]}
+            hasOtherField={true}
+          /> */}
+          <WorkshopImageForm
+            onUpdate={updateForm}
+            formData={form}
+            title="Craft Workshop Image Upload"
+            label="Upload an image of the craft workshop"
             requiredFields={REQUIRED_FIELDS[3]}
           />
           <Preview formData={form} />

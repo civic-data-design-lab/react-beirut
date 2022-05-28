@@ -230,7 +230,7 @@ const Contribute = () => {
       )} */}
       <div className="Contribute drop-shadow__black">
         <div className="Contribute-index">
-          <h1>What would you like to contribute?</h1>
+          <h1>Contribute to the Living Heritage Atlas! <br/> Add a current craft workshop or upload an archival image to the database.</h1>
           <div className="Contribute-types">
             <button
               className="Contribute-type-select "
@@ -238,7 +238,7 @@ const Contribute = () => {
               disabled={selection === 'archive'}
             >
               <h3>
-                Contribute to <b>Archive</b>
+                Add an <b>Archival Image</b>
               </h3>
               <a onClick={() => setModal('archive')}>What is this?</a>
             </button>
@@ -248,7 +248,7 @@ const Contribute = () => {
               disabled={selection === 'workshop'}
             >
               <h3>
-                Contribute to <b>Workshops</b>
+              Add a <b>Craft Workshop</b>
               </h3>
               <a onClick={() => setModal('workshop')}>What is this?</a>
             </button>

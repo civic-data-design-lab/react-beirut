@@ -65,7 +65,7 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, title, label, def
   }
 
   return (
-    <div onKeyDown={onKeyDown} className="BooleanButtonForm">
+    <div onKeyDown={onKeyDown} className="boolean-button-form">
         <h2>{title || 'Select Buttons'}</h2>
         {/* Not sure why these are so close together. Put many line breaks */}
         <br />

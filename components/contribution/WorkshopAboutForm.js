@@ -12,7 +12,7 @@ const WorkshopAboutForm = ({
       <h2>{title || 'About the Workshop'}</h2>
       <div className="sections">
         <div className="section">
-          <h3>Shop Information</h3>
+          <h3>Craft Workshop Information</h3>
           <InputField
             title="Shop Name"
             fieldName="shopName"
@@ -21,14 +21,16 @@ const WorkshopAboutForm = ({
             required={requiredFields?.includes('shopName')}
             highlight={highlightedFields?.includes('shopName')}
           />
+          {/* This input was changed from a date to numerical year. Check that data still works here. */}
           <InputField
-            title="Date Established"
-            fieldName="dateEstablished"
-            value={formData.dateEstablished}
-            type="date"
+            title="Year Established"
+            fieldName="yearEstablished"
+            value={formData.yearEstablished}
+            type="number"
+            min="0"
             onUpdate={onUpdate}
-            required={requiredFields?.includes('dateEstablished')}
-            highlight={highlightedFields?.includes('dateEstablished')}
+            required={requiredFields?.includes('yearEstablished')}
+            highlight={highlightedFields?.includes('yearEstablished')}
           />
           <InputField
             title="Shop Status"
@@ -49,7 +51,8 @@ const WorkshopAboutForm = ({
           </InputField>
         </div>
         <div className="section">
-          <h3>Shop Contact Information</h3>
+          <h3>Business Contact Information</h3>
+          {/* Removed per Ashley.
           <InputField
             title="Owner Name"
             fieldName="ownerName"
@@ -58,16 +61,27 @@ const WorkshopAboutForm = ({
             onUpdate={onUpdate}
             required={requiredFields?.includes('ownerName')}
             highlight={highlightedFields?.includes('ownerName')}
-          />
+          /> */}
+          <p>This information will be publicly available on the <br />Living Heritage Atlas | Beirut database and website.</p>
+          {/* TODO: Make this into an info "i" note. */}
           <InputField
             title="Phone Number"
             fieldName="phoneNumber"
             type="tel"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  This will only work if it is a US number
             value={formData.phoneNumber}
             onUpdate={onUpdate}
             required={requiredFields?.includes('phoneNumber')}
             highlight={highlightedFields?.includes('phoneNumber')}
+          />
+          <InputField
+            title="Email"
+            fieldName="email"
+            type="email"
+            value={formData.email}
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('email')}
+            highlight={highlightedFields?.includes('email')}
           />
           <InputField
             title="Website"
