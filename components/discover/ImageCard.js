@@ -11,21 +11,41 @@ export default class ImageCard extends React.Component {
   //     ? `/api/images/${workshop.thumb_img_id}.jpg`
   //     : thumbnailSrc || null;
 
+  // TODO: Need to fix slider styling
+  showImages() {
+    const imageMeta = this.props.imageMeta;
+    const workshop = this.props.workshop;
+    const thumbImage = imageMeta.filter(
+      (image) => image.img_id === workshop.thumb_img_id
+    );
+    const remainingImages = imageMeta.filter(
+      (image) => image.img_id !== workshop.thumb_img_id
+    );
+    const images = [...thumbImage, ...remainingImages];
+    return images.map((image) => {
+      return (
+        <img
+          // className="img__detail"
+          style={{
+            width: '100%',
+            height: '100%',
+            marginRight: '10px',
+            objectFit: 'cover',
+          }}
+          src={image.src}
+          alt=""
+        />
+      );
+    });
+  }
+
   render() {
     return (
       <Card handleClose={this.props.onClose}>
         <div className="card__content">
           <div className="card__item">
             <div className="container__preview-content">
-              <img
-                className="img__detail"
-                src={
-                  this.props.workshop.thumb_img_id
-                    ? `/api/images/${this.props.workshop.thumb_img_id}.jpg`
-                    : thumbnailSrc || null
-                }
-                alt=""
-              />
+              <Slider>{this.showImages()}</Slider>
             </div>
           </div>
           <div className="card__item">
