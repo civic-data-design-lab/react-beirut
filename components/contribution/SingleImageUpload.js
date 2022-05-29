@@ -4,15 +4,17 @@ import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
   const handleUploadImage = (e) => {
     const file = e.target.files[0];
+
     const reader = new FileReader();
     reader.onload = (e) => {
       const imageBuffer = e.target.result;
-      handleUpdateImage(imageBuffer);
+      const extension = file.name.split('.').pop();
+      handleUpdateImage(imageBuffer, extension);
     };
     try {
       reader.readAsDataURL(file);
     } catch (err) {
-      handleUpdateImage(null);
+      handleUpdateImage(null, null);
     }
   };
 

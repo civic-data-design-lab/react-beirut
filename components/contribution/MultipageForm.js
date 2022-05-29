@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, cloneElement } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -81,6 +81,11 @@ const MultipageForm = ({
     });
   };
 
+  /**
+   *
+   * @param {number} pageIdx
+   * @returns {string[]}
+   */
   const getMissingFields = (pageIdx) => {
     if (pageIdx === undefined) {
       // If no page index is provided, get all the missing fields across all
@@ -213,7 +218,7 @@ const MultipageForm = ({
         <div className="content">
           {submitted || submitting ? (
             <div className="submit">
-              {submitting ? (
+              {!submitted ? (
                 <div className="loading">
                   <h2>Submitting...</h2>
                   <div className="spinner" />
@@ -226,11 +231,11 @@ const MultipageForm = ({
                   <p>
                     Click{' '}
                     <Link href="/contribute">
-                      <a className='link'>here</a>
+                      <a className="link">here</a>
                     </Link>{' '}
                     to make another contribution, or click{' '}
                     <Link href="/">
-                      <a className='link'>here</a>
+                      <a className="link">here</a>
                     </Link>{' '}
                     to return to the main site.
                   </p>
@@ -241,7 +246,13 @@ const MultipageForm = ({
             <>
               {/* <h1>weoifwijefo aiwjeofi ajwoei fjaowief</h1> */}
 
-              <> {children[page]}</>
+              <>
+                {cloneElement(children[page], {
+                  formData: formData,
+                  onUpdate: onUpdate,
+                  missingFields: getMissingFields(),
+                })}
+              </>
               <hr />
               <span className="MultipageForm-nav">
                 <button
@@ -251,7 +262,14 @@ const MultipageForm = ({
                 >
                   Back
                 </button>
-                <button className="btn-nav" onClick={onNext}>
+                <button
+                  className="btn-nav"
+                  onClick={onNext}
+                  disabled={
+                    page === children.length - 1 &&
+                    getMissingFields().length > 0
+                  }
+                >
                   {page === children.length - 1 ? 'Submit' : 'Next'}
                 </button>
               </span>
