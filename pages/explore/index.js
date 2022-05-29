@@ -4,6 +4,7 @@ import {getAllArchives, getAllWorkshops} from '../../lib/apiUtils';
 import MapFilter from "../../components/explore/MapFilter";
 import React from "react";
 import SearchBar from "../../components/explore/SearchBar";
+import MapCard from "../../components/explore/MapCard";
 
 
 const Map = dynamic(() => import('../../components/explore/Map'), {
@@ -22,11 +23,14 @@ export default class Explore extends React.Component {
 
         this.state = {
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYearParent : 1950,
+            startYearParent : 1900,
             endYearParent : 2030,
             toggleParent : false,
             search: '',
             on: false,
+            showMapCard: false,
+            id: null,
+            workshop:null
         }
     }
 
@@ -66,12 +70,47 @@ export default class Explore extends React.Component {
     triggerReset = () => {
         this.setState({
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYearParent : 1950,
+            startYearParent : 1920,
             endYearParent : 2030,
-            toggleParent : false
+            toggleParent : false,
+            id: null,
+            workshop: null
         })
 
     }
+
+    openMapCard = (id) => {
+            console.log('openMapCard')
+            if (this.state.showMapCard) {
+                if (this.state.id === id) {
+                    this.setState({showMapCard:false, id:null})
+                } else {
+                    this.setState({showMapCard:true, id:id}, () => {
+                    fetch(`/api/workshops/${this.state.id}`)
+                    .then((res) => res.json())
+                    .then((res) => this.setState({workshop:res['response']}))
+                    .then(() => console.log(this.state.workshop))
+                });
+                }
+            } else {
+                console.log("here");
+                this.setState({showMapCard:true, id:id}, () => {
+
+                    fetch(`/api/workshops/${this.state.id}`)
+                    .then((res) => res.json())
+                    .then((res) => this.setState({workshop:res['response']}))
+                    .then(() => console.log(this.state.workshop))
+                });
+
+            }
+        }
+
+    closeMapCard = () => {
+            this.setState({showMapCard:false, id:null})
+    }
+
+
+
 
 
 
@@ -92,10 +131,10 @@ export default class Explore extends React.Component {
                         <title>Explore | Intangible Heritage Atlas</title>
                     </Head>
                     <div>
-                        <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} />
+                        <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
-                            updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset}/>  : null }
+                            updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} />  : null }
                         <SearchBar callBack={this.searchMap}/>
 
                         <div className={'filterSection'}>
@@ -103,7 +142,12 @@ export default class Explore extends React.Component {
                             <button className={'filterButton'}>layers</button>
                         </div>
 
+                        { this.state.showMapCard ? <MapCard id={this.state.id} workshop={this.state.workshop} closeMapCard={this.closeMapCard}/> : null}
+
+
+
                     </div>
+
     </>
 
         )

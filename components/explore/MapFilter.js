@@ -4,6 +4,7 @@ import YearFilter from "./filterparts/YearFilter";
 import ActiveFilter from "./filterparts/ActiveFilter";
 
 
+
 export default class MapFilter extends React.Component {
 
     constructor(props) {

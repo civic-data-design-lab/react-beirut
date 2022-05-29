@@ -25,6 +25,11 @@ export default class YearFilter extends React.Component {
                 <Slider range
                                 value={[this.state.startYear, this.state.endYear]}
                                 marks={{
+                                    //1900: '1900',
+                                    //1910: '1910',
+                                    1920: '1920',
+                                    1930: '1930',
+                                    1940: '1940',
                                     1950: '1950',
                                     1960: `1960`,
                                     1970: '1970',
@@ -35,7 +40,7 @@ export default class YearFilter extends React.Component {
                                     2020: '2020',
                                     2030: `2030`
                         }}
-                                min={1950}
+                                min={1920}
                                 max={2030}
                                 defaultValue={[this.state.startYear, this.state.endYear]}
                                 step={10}

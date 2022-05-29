@@ -29,10 +29,19 @@ export default class App extends React.PureComponent {
         this.clickMarker = this.clickMarker.bind(this)
     }
 
-    clickMarker = (e) => {
+    clickMarker (e) {
         let el = e.target;
-        console.log(e);
-        console.log("id hmm", el.id);
+        map.current.flyTo({
+            center:[el.lng, el.lat],
+            zoom: 16,
+            bearing: 0,
+            speed: 0.5, // make the flying slow
+            curve: 1, // change the speed at which it zooms out
+            essential: true
+        })
+
+        this.props.openMapCard(el.id);
+
     }
 
 
@@ -53,14 +62,14 @@ export default class App extends React.PureComponent {
 
        for (const workshop of this.props.workshops) {
             const el = document.createElement('div');
-            const craft = workshop.craft_discipline_category[0]
+            const craft = workshop.craft_discipline_category[0];
             el.className = 'marker';
             el.style.width = '15px';
             el.style.height = '15px';
             el.style.backgroundColor = this.colorMap[craft];
             el.style.borderRadius = '50%';
             el.id = workshop.ID;
-            el.onClick=()=>this.clickMarker(el);
+            el.onclick = this.clickMarker;
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
@@ -69,8 +78,10 @@ export default class App extends React.PureComponent {
 
             const {lng, lat} = workshop.location.geo;
             if (lat && lng) {
+                el.lng = lng;
+                el.lat = lat;
                 let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
-                this.mappedMarkers.push(marker)
+                this.mappedMarkers.push(marker);
             }
         }
 
@@ -96,6 +107,8 @@ export default class App extends React.PureComponent {
 
             const {lng, lat} = archive.primary_location['geo'];
             if (lat && lng) {
+                el.lng = lng;
+                el.lat = lat;
                 let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                 this.mappedMarkers.push(marker)
             }
@@ -122,8 +135,8 @@ export default class App extends React.PureComponent {
             el.style.backgroundColor = this.colorMap[workshop.craft_discipline_category[0]];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
-            el.id = workshop.id;
-            el.onClick=()=>this.clickMarker(el);
+            el.id = workshop.ID;
+
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
@@ -163,6 +176,8 @@ export default class App extends React.PureComponent {
 
 
                 if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
+                    el.lng = lng;
+                    el.lat = lat;
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
                     //console.log(shopName, shopOrig)
@@ -180,7 +195,7 @@ export default class App extends React.PureComponent {
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = archive.ID;
-            el.onClick=()=>this.clickMarker(el);
+
 
 
             if (archive.ID === "A397612231") {
@@ -218,6 +233,8 @@ export default class App extends React.PureComponent {
 
 
                 if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
+                    el.lng = lng;
+                    el.lat = lat;
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
                     //console.log(shopName, shopOrig)
@@ -231,7 +248,6 @@ export default class App extends React.PureComponent {
 
 
     render() {
-        console.log("Map.js ", this.props)
 
         return (
             <div
