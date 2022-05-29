@@ -20,7 +20,7 @@
   font-size: 64px;
   //font-weight: lighter;
   color: $c-white;
-  opacity: 0.8;
+  opacity: 0.7;
   z-index: 2000;
 }
 
@@ -54,7 +54,7 @@
   overflow-x: scroll;
   scroll-behavior: smooth;
   white-space: nowrap;
-  height: 90%;
+  height: 100%;
   width: 100%;
   scroll-snap-type: x mandatory;
   scrollbar-width: none; /* Firefox */
@@ -87,7 +87,7 @@
 
 .mapSlider-container {
   overflow: hidden;
-  height: 80%;
+  height: 1000%;
   display: flex;
   flex-direction: row;
   margin: auto;

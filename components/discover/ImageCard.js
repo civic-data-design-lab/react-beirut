@@ -3,10 +3,20 @@ import Card from '../Card';
 import ImagePreview from './ImagePreview';
 import Slider from '../../components/Slider';
 import { data } from 'autoprefixer';
+import MapCardSlider from "../explore/MapCardSlider";
 
 export default class ImageCard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      mainSliderStyle : {
+            'sliderContainer': 'mapSlider-container',
+            'buttonLabel': 'slider-btn-label',
+            'prevButton': 'btn-prev',
+            'nextButton': 'btn-next',
+            'wrapperContainer': 'mapSlider-wrapper'
+            }
+    }
   } //   const imgSrc = workshop.thumb_img_id
   //     ? `/api/images/${workshop.thumb_img_id}.jpg`
   //     : thumbnailSrc || null;
@@ -25,12 +35,13 @@ export default class ImageCard extends React.Component {
     return images.map((image) => {
       return (
         <img
-          // className="img__detail"
+          className="mapCard-img"
           style={{
             width: '100%',
             height: '100%',
             marginRight: '10px',
             objectFit: 'cover',
+            scrollSnapAlign: 'center'
           }}
           src={image.src}
           alt=""
@@ -45,7 +56,7 @@ export default class ImageCard extends React.Component {
         <div className="card__content">
           <div className="card__item">
             <div className="container__preview-content">
-              <Slider>{this.showImages()}</Slider>
+              <MapCardSlider children={this.showImages()} sliderStyle={this.state.mainSliderStyle}/>
             </div>
           </div>
           <div className="card__item">

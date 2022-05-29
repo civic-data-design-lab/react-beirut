@@ -242,7 +242,7 @@ export default class App extends React.PureComponent {
                     el.type = 'archive';
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
-                    //console.log(shopName, shopOrig)
+                    console.log(archive)
                 }
 
             }

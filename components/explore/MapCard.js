@@ -95,8 +95,13 @@ export default class MapCard extends React.Component {
 
                         <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle}/>
 
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et velit interdum, ac aliquet
+                            odio mattis. Class aptent taciti sociosqu ad litora torquent per. Lorem</p>
+
                         <hr/>
                         <p>Explore Similar Shops</p>
+
+
 
 
 
