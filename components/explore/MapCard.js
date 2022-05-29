@@ -1,4 +1,6 @@
-import React, { useEffect } from "react"
+import React, { useEffect } from "react";
+import Slider from "../Slider";
+import ImagePreview from "../discover/ImagePreview";
 
 
 // assumes workshop or archive is passed in as a prop
@@ -25,34 +27,34 @@ export default class MapCard extends React.Component {
     }
 
     getDecadeEstablished = () => {
-        if (!this.props.workshop) {
-            return
+        if (!this.props.workshop.decade_established) {
+            return 'EST ???? '
         }
         if (this.props.workshop.decade_established[0]) {
-            console.log(this.props.workshop.decade_established[0])
             return `EST ${this.props.workshop.decade_established[0]} `}
         else {
             return 'EST ???? '
         }
     }
 
+    getImages = () => {
+
+        console.log('getting images')
+
+        if (!this.props.workshop.images) {
+            return
+        }
+
+        let images = this.props.workshop.images.map((image) => (
+            <img className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" />))
+        return images
+    }
 
 
-    render() {
-        console.log(this.props.workshop)
-
-
-
-
-
-
-        const yearEST = 1950
-        const specificCategory = 'Metal'
-
-        return (
-            <>
-                {this.props.workshop &&
-                    <div className={'mapCard'} id={`mapCard${this.props.id}`}>
+    createMapCardContent = () => {
+        if (this.props.type === "workshop") {
+            return (
+                <div className={'mapCard'} id={`mapCard${this.props.id}`}>
 
                         <button onClick = {this.props.closeMapCard}> close mapCard </button>
 
@@ -66,15 +68,34 @@ export default class MapCard extends React.Component {
                                 return "| " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase() + " ";
                             }
                         })} </p>
-                        <p>insert image</p>
+
+                        <div className={'slider-section'}><Slider children={this.getImages()}/></div>
+
                         <hr/>
+                </div>
+            )
+        } else {
+            return (
+                <div className={'mapCard'} id={`mapCard${this.props.id}`}>
+                    <button onClick = {this.props.closeMapCard}> close mapCard </button>
+                    archive type </div>
+            )
+        }
+    }
 
 
 
+    render() {
+        console.log("mapcard images ", this.props.workshop)
 
 
+        const yearEST = 1950
+        const specificCategory = 'Metal'
 
-                </div>}
+        return (
+            <>
+                {this.props.workshop && this.createMapCardContent()}
+
             </>
         )
     }

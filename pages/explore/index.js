@@ -30,13 +30,13 @@ export default class Explore extends React.Component {
             on: false,
             showMapCard: false,
             id: null,
+            type: null,
             workshop:null
         }
     }
 
 
     updateCrafts = (craftData) => {
-        console.log('craftData ', craftData)
         this.setState({
             filteredCraftsParent : craftData
             }, () => console.log("index.js", this.state.filteredCraftsParent))}
@@ -73,33 +73,47 @@ export default class Explore extends React.Component {
             startYearParent : 1920,
             endYearParent : 2030,
             toggleParent : false,
-            id: null,
-            workshop: null
         })
 
     }
 
-    openMapCard = (id) => {
-            console.log('openMapCard')
+    openMapCard = (id, type) => {
             if (this.state.showMapCard) {
                 if (this.state.id === id) {
-                    this.setState({showMapCard:false, id:null})
+                    this.setState({showMapCard:false, id:null, type: null})
                 } else {
-                    this.setState({showMapCard:true, id:id}, () => {
-                    fetch(`/api/workshops/${this.state.id}`)
-                    .then((res) => res.json())
-                    .then((res) => this.setState({workshop:res['response']}))
-                    .then(() => console.log(this.state.workshop))
+                    this.setState({showMapCard:true, id:id, type:type}, () => {
+
+                        if (this.state.type === 'workshop') {
+                            fetch(`/api/workshops/${this.state.id}`)
+                            .then((res) => res.json())
+                            .then((res) => this.setState({workshop:res['response']}))
+                            .then(() => console.log(this.state.workshop))
+                        } else {
+                            fetch(`/api/archive/${this.state.id}`)
+                            .then((res) => res.json())
+                            .then((res) => this.setState({workshop:res['response']}))
+                            .then(() => console.log(this.state.workshop))
+                        }
+
+
                 });
                 }
             } else {
-                console.log("here");
-                this.setState({showMapCard:true, id:id}, () => {
+                this.setState({showMapCard:true, id:id, type:type}, () => {
 
-                    fetch(`/api/workshops/${this.state.id}`)
-                    .then((res) => res.json())
-                    .then((res) => this.setState({workshop:res['response']}))
-                    .then(() => console.log(this.state.workshop))
+                        if (this.state.type === 'workshop') {
+                            fetch(`/api/workshops/${this.state.id}`)
+                            .then((res) => res.json())
+                            .then((res) => this.setState({workshop:res['response']}))
+                            .then(() => console.log(this.state.workshop))
+                        } else {
+                            fetch(`/api/archive/${this.state.id}`)
+                            .then((res) => res.json())
+                            .then((res) => this.setState({workshop:res['response']}))
+                            .then(() => console.log(this.state.workshop))
+                        }
+
                 });
 
             }
@@ -142,7 +156,7 @@ export default class Explore extends React.Component {
                             <button className={'filterButton'}>layers</button>
                         </div>
 
-                        { this.state.showMapCard ? <MapCard id={this.state.id} workshop={this.state.workshop} closeMapCard={this.closeMapCard}/> : null}
+                        { this.state.showMapCard ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard}/> : null}
 
 
 

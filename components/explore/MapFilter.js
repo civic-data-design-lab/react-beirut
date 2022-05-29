@@ -24,7 +24,6 @@ export default class MapFilter extends React.Component {
         for (const craft of defaultCrafts) {
             let button = document.getElementById(`${craft}-btn`)
             button.className='hstg-btn-pill-small-selected'
-            console.log('reset')
         }
 
         this.setState({

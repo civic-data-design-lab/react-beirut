@@ -10,6 +10,7 @@ export default class App extends React.PureComponent {
         super(props);
         this.state = {
 
+
             showMapCard: false
 
         }
@@ -40,7 +41,7 @@ export default class App extends React.PureComponent {
             essential: true
         })
 
-        this.props.openMapCard(el.id);
+        this.props.openMapCard(el.id, el.type);
 
     }
 
@@ -48,7 +49,7 @@ export default class App extends React.PureComponent {
 
     componentDidMount() {
         //console.log('map.js ', this.props.filterSearchData)
-        //console.log('archive', this.props.archives)
+        console.log('archive', this.props.archives[0])
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
@@ -80,6 +81,7 @@ export default class App extends React.PureComponent {
             if (lat && lng) {
                 el.lng = lng;
                 el.lat = lat;
+                el.type = 'workshop';
                 let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                 this.mappedMarkers.push(marker);
             }
@@ -109,6 +111,7 @@ export default class App extends React.PureComponent {
             if (lat && lng) {
                 el.lng = lng;
                 el.lat = lat;
+                el.type = 'archive'
                 let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                 this.mappedMarkers.push(marker)
             }
@@ -178,6 +181,7 @@ export default class App extends React.PureComponent {
                 if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
                     el.lng = lng;
                     el.lat = lat;
+                    el.type = 'workshop';
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
                     //console.log(shopName, shopOrig)
@@ -235,6 +239,7 @@ export default class App extends React.PureComponent {
                 if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
                     el.lng = lng;
                     el.lat = lat;
+                    el.type = 'archive';
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
                     //console.log(shopName, shopOrig)
