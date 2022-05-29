@@ -7,7 +7,10 @@ import MultipageForm from '../../components/contribution/MultipageForm';
 import WorkshopImageForm from '../../components/contribution/WorkshopImageForm';
 import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
 import Preview from '../../components/contribution/Preview';
-import { CRAFT_DISCIPLINES, prepareWorkshopContribution } from '../../lib/utils';
+import {
+  convertWorkshopContributionToSchema,
+  CRAFT_DISCIPLINES,
+} from '../../lib/utils';
 
 console.log(CRAFT_DISCIPLINES);
 
@@ -25,10 +28,11 @@ const WorkshopContribution = () => {
     survey_origin: WORKSHOP_CONTRIBUTION_NAME,
   });
   const [submitted, setSubmitted] = useState(false);
-  
+
   const onSubmit = () => {
     // Prepare the form data for submission
-    const {workshop, imageMeta, imageData} = prepareWorkshopContribution(form);
+    const { workshop, imageMeta, imageData } =
+      convertWorkshopContributionToSchema(form);
 
     console.log(workshop);
     console.log(imageMeta);
