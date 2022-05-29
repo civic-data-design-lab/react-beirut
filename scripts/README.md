@@ -66,6 +66,11 @@ the data should be formatted when running the upload script.
 
 ## Database Upload Log
 
+### 5/29/2022
+* Changed "Najmeh" to "Nejmeh" in the archive responses.
+* Made slight edits to the duplicate archive responses based on the FHL
+  comments.
+
 ### 5/27/2022
 * Uploaded sticker data to the database.
   * Created a new sticker model in [`Sticker.js`](../models/Sticker.js)
