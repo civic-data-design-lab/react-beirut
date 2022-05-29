@@ -67,6 +67,17 @@
  *    (e.g. Hamra)
  */
 
+/**
+ * @typedef {Object} ContactInfo
+ *
+ * A contact info field contains a workshop's contact information.
+ *
+ * @property {string} phone - The workshop's phone number
+ * @property {string} email - The workshop's email address
+ * @property {string} website - The workshop's website address
+ * @property {string} social_media - The workshop's social media page
+ */
+
 //------------
 // STORED DATA
 //------------
@@ -93,6 +104,7 @@
  *    Kobo survey)
  * @property {Multilanguage} shop_name - The name of the workshop
  * @property {string} shop_owner_name - The name of the workshop owner
+ * @property {ContactInfo} contact_info - Contact information for the workshop
  * @property {number} year_established - The year the workshop was established
  * @property {number[]} decade_established - The decade the range the workshop
  *    was established in. If a single year is given in decade `x`, the decade
