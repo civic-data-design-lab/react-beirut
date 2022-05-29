@@ -1,15 +1,28 @@
+import { useRouter } from 'next/router';
 import ImageCard from '../../components/discover/ImageCard';
 import DiscoverLayout from '../../components/layout/DiscoverLayout';
 import Layout from '../../components/layout/Layout';
-import { getWorkshop } from '../../lib/apiUtils';
+import {
+  getSimilarWorkshops,
+  getWorkshop,
+  getImageMeta,
+} from '../../lib/apiUtils';
 
-const CardPage = ({ workshop }) => {
+const CardPage = ({ workshop, similarWorkshops, imageMeta }) => {
+  const router = useRouter();
+
   const handleClose = () => {
-    window.history.back();
+    router.push('/discover', undefined, { shallow: true });
   };
 
   return (
-    <ImageCard workshop={workshop} isExpanded={true} onClose={handleClose} />
+    <ImageCard
+      workshop={workshop}
+      similarWorkshops={similarWorkshops}
+      isExpanded={true}
+      onClose={handleClose}
+      imageMeta={imageMeta}
+    />
   );
 };
 
@@ -23,7 +36,9 @@ CardPage.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ params }) {
   const workshop = await getWorkshop(params.id);
-  return { props: { workshop } };
+  const similarWorkshops = await getSimilarWorkshops(workshop);
+  const imageMeta = await getImageMeta(workshop.ID);
+  return { props: { workshop, similarWorkshops, imageMeta } };
 }
 
 export default CardPage;

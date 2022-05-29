@@ -2,21 +2,27 @@
 This folder contains scripts used to upload data to the database. Click
 [here](#database-upload-log) to skip to the database upload log.
 
-## `archive_csv_to_json.py`
-This script is used to convert the shared Google Sheet where the archive
-information is stored and worked on to a JSON file. Note that this script will
-also update the primary image metadata associated with the response.
+## `csv_to_json.py`
+This script is used to convert CSV files to JSON for database upload. For
+example, it can be used to convert the shared Google Sheet where the archive
+information is stored and worked on to a JSON file. 
+
+The script accepts the path to the CSV file and the CSV type as arguments.
+Currently the script supports `archive` or `sticker` CSVs from the shared google
+sheets.
+
+Note that if `archive` is provided script will also update the primary image
+metadata associated with the response.
 
 ### Usage:
-1. Download the Archive data from the Google Sheet as a CSV and save it to a known location, preferably within the [`scripts/data`](/scripts/data) folder.
+1. Download the CSV data from the Google Sheet as a CSV and save it to a known location, preferably within the [`scripts/data`](/scripts/data) folder.
 2. Run the script with the following command:  
     ```
-    python3 scripts/archive_csv_to_json.py <path>
+    python3 scripts/archive_csv_to_json.py <path> <type>
     ```
-  where `<path>` is the path to the CSV file.
-3. The script will create a JSON file in
-   [`scripts/data/archive`](/scripts/data/archive), which can then be uploaded
-   to the database using the [upload script](#uploadjs).
+   where `<path>` is the path to the CSV file and type is either `archive` or `sticker`.
+3. The script will create appropriate JSON files in `scripts/data/tmp`, which
+   can then be uploaded to the database using the [upload script](#uploadjs).
 
 ## `upload.js`
 The main script is [`upload.js`](upload.js) and can be used as a command line
@@ -60,6 +66,12 @@ the data should be formatted when running the upload script.
 
 ## Database Upload Log
 
+### 5/27/2022
+* Uploaded sticker data to the database.
+  * Created a new sticker model in [`Sticker.js`](../models/Sticker.js)
+  * Created a sticker typedef in [`Types.js`](../models/Types.js)
+  * Uploaded sticker data to the database by giving them codes. See the shared
+    Google Sheet, under the "Stickers" tab. 
 ### 5/26/2022
 * Added an `is_duplicate_of` field to archive objects in case there are
   duplicate shops being referenced in different records.

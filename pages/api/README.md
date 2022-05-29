@@ -1,6 +1,6 @@
 # CDDL-Beirut API Documentation
 
-Last updated: 5/19/2022
+Last updated: 5/28/2022
 
 ## Endpoints
 All `GET` endpoints return a JSON-formatted string in the form `{"message":
@@ -59,3 +59,10 @@ created and saved.
 
 TODO: This endpoint will also create and save an image metadata object for data
 containing visual content. 
+
+### Stickers
+#### `POST /api/whatsapp` ⇒ `TwiMLResponse`
+Webhook for the WhatsApp API. Send a code to the number provided in WhatsApp,
+and the endpoint will return a TwiML response that contains the oldest image
+associated with that sticker and a description in the form of a WhatsApp
+message.

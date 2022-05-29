@@ -25,3 +25,7 @@ select {
   border-radius: 3px;
   padding: 0.2rem 0;
 }
+
+.input-error {
+  color: $color-error;
+}
