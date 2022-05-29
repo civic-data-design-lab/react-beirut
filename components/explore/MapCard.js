@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import Slider from "../Slider";
-import ImagePreview from "../discover/ImagePreview";
+import MapCardSlider from "./MapCardSlider";
+
+
 
 
 // assumes workshop or archive is passed in as a prop
@@ -9,9 +11,19 @@ export default class MapCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            workshop : null
+            workshop : null,
+            similarWorkshops: null,
+            mainSliderStyle : {
+            'sliderContainer': 'mapSlider-container',
+            'buttonLabel': 'slider-btn-label',
+            'prevButton': 'btn-prev',
+            'nextButton': 'btn-next',
+            'wrapperContainer': 'mapSlider-wrapper'
+            }
         }
+
     }
+
 
     getShopName = () => {
 
@@ -39,19 +51,31 @@ export default class MapCard extends React.Component {
 
     getImages = () => {
 
-        console.log('getting images')
-
         if (!this.props.workshop.images) {
             return
         }
+        console.log('getting images ', this.props.workshop.images)
+       //let slider = document.getElementsByClassName()
 
         let images = this.props.workshop.images.map((image) => (
-            <img className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" />))
+            <img key={image} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" />))
         return images
+    }
+
+    getThumbnails = () => {
+        if (!this.state.similarWorkshops) {
+            return
+        }
+
+        let thumbNails = this.state.similarWorkshops.map((simWorks) => (
+            <img key={simWorks.thumb_img_id} className={'mapCard-img'} src={`/api/images/${simWorks.thumb_img_id}.jpg`} alt="img" />
+        ))
+        return thumbNails
     }
 
 
     createMapCardContent = () => {
+
         if (this.props.type === "workshop") {
             return (
                 <div className={'mapCard'} id={`mapCard${this.props.id}`}>
@@ -69,9 +93,13 @@ export default class MapCard extends React.Component {
                             }
                         })} </p>
 
-                        <div className={'slider-section'}><Slider children={this.getImages()}/></div>
+                        <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle}/>
 
                         <hr/>
+                        <p>Explore Similar Shops</p>
+
+
+
                 </div>
             )
         } else {
