@@ -1,9 +1,7 @@
 import React from 'react';
 import Card from '../Card';
-import ImagePreview from './ImagePreview';
-import Slider from '../../components/Slider';
-import { data } from 'autoprefixer';
-import MapCardSlider from '../explore/MapCardSlider';
+import Workshop from '../Workshop';
+import Archive from '../Archive';
 
 export default class ImageCard extends React.Component {
   constructor(props) {
@@ -50,58 +48,26 @@ export default class ImageCard extends React.Component {
   }
 
   render() {
-    const { workshop, onClose, thumbnailSrc } = this.props;
+    const { object, onClose, type, imageMetas, similarWorkshops } = this.props;
 
     return (
       <Card handleClose={onClose}>
         <div className="card__content">
-          <div className="card__item">
-            <div className="container__preview-content">
-              <MapCardSlider
-                getImageData={null}
-                children={this.showImages()}
-                sliderStyle={this.state.mainSliderStyle}
-              />
-            </div>
-          </div>
-          <div className="card__item">
-            <div className="container__preview-content">
-              <div className="container__text">
-                <div className="container__title">
-                  <h1>
-                    {workshop.shop_name.content ||
-                      workshop.shop_name.content_orig}
-                  </h1>
-                  <p className="type">
-                    {workshop.craft_discipline_category.join(' | ')}
-                  </p>
-                </div>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                  et velit interdum, ac aliquet odio mattis. Class aptent taciti
-                  sociosqu ad lr adipiscing elit. Nunc et velit interdum, ac
-                  aliquet odio mattis. Class aptent taciti sociosqu ad ...{' '}
-                  <b>Read More</b>
-                </p>
-              </div>
-              <div className="container__map">
-                <p>See it on map</p>
-                <div className="map"></div>
-              </div>
-              <div className="container__suggestion">
-                <p>Explore similar shops</p>
-                <div className="parent">
-                  <Slider>
-                    {this.props.similarWorkshops?.map((shop) => (
-                      <div key={shop.ID} className="container__img">
-                        <ImagePreview workshop={shop} />
-                      </div>
-                    ))}
-                  </Slider>
-                </div>
-              </div>
-            </div>
-          </div>
+          {type === 'workshop' ? (
+            <Workshop
+              workshop={object}
+              imageMetas={imageMetas}
+              // imageSrc={null}
+              similarWorkshops={similarWorkshops}
+            />
+          ) : (
+            <Archive
+              archive={object}
+              imageMetas={this.props.imageMetas}
+              imageSrc={thumbnailSrc}
+              similarImages={this.props.similarImages}
+            />
+          )}
         </div>
       </Card>
     );

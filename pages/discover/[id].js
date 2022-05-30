@@ -8,7 +8,7 @@ import {
   getImageMeta,
 } from '../../lib/apiUtils';
 
-const CardPage = ({ workshop, similarWorkshops, imageMeta }) => {
+const CardPage = ({ workshop, similarWorkshops, imageMetas }) => {
   const router = useRouter();
 
   const handleClose = () => {
@@ -17,11 +17,12 @@ const CardPage = ({ workshop, similarWorkshops, imageMeta }) => {
 
   return (
     <ImageCard
-      workshop={workshop}
+      object={workshop}
+      type="workshop"
       similarWorkshops={similarWorkshops}
       isExpanded={true}
       onClose={handleClose}
-      imageMeta={imageMeta}
+      imageMetas={imageMetas}
     />
   );
 };
@@ -37,8 +38,8 @@ CardPage.getLayout = function getLayout(page) {
 export async function getServerSideProps({ params }) {
   const workshop = await getWorkshop(params.id);
   const similarWorkshops = await getSimilarWorkshops(workshop);
-  const imageMeta = await getImageMeta(workshop.ID);
-  return { props: { workshop, similarWorkshops, imageMeta } };
+  const imageMetas = await getImageMeta(workshop.ID);
+  return { props: { workshop, similarWorkshops, imageMetas } };
 }
 
 export default CardPage;

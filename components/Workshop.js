@@ -1,3 +1,4 @@
+import ImagePreview from './discover/ImagePreview';
 import MapCardSlider from './explore/MapCardSlider';
 import Slider from './Slider';
 
