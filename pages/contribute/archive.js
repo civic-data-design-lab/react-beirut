@@ -1,3 +1,34 @@
+/**
+ * Archive Contribution Page
+ *
+ * @GatlenCulp update this as changes to the fields are made
+ * TODO: Add craft discipline/craft discipline category. Don't forget to update
+ * the fields in `convertArchiveContributionToSchema()` in `lib/utils.js`
+ *
+ * Pages:
+ * 0. Archive Image Upload
+ *    - imageData*
+ *    - imageExtension* (implied)
+ *    - caption*
+ * 1. Archive About
+ *    - imageType*
+ *    - dateTaken
+ *    - decadeTaken
+ *    - workshopName
+ *    - ownerName
+ *    - referenceName
+ *    - referenceUrl
+ *    - referenceCopyright
+ * 2. Archive  Location
+ *    - buildingNumber
+ *    - street
+ *    - quarter*
+ *    - sector*
+ *    - lat*
+ *    - lng*
+ * 3: Preview
+ */
+
 import { useState, useEffect } from 'react';
 import ImageUploadForm from '../../components/contribution/ImageUploadForm';
 import LocationForm from '../../components/contribution/LocationForm';
@@ -6,24 +37,24 @@ import Preview from '../../components/contribution/Preview';
 import Head from 'next/head';
 import {
   ARCHIVE_CONTRIBUTION_NAME,
-  prepareArchiveContribution,
+  convertArchiveContributionToSchema,
 } from '../../lib/utils';
 import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
+import Card from '../../components/Card';
 
 // Required fields for each page
-// 0: Image Upload
-// 1: About
-// 2: Location
 const REQUIRED_FIELDS = [
-  ['imageData'],
+  ['imageData', 'caption'],
   ['imageType', 'referenceName'],
-  ['municipality', 'lat', 'lng'],
+  ['quarter', 'sector', 'lat', 'lng'],
 ];
 
 const ArchiveContribution = () => {
   const [form, setForm] = useState({
     survey_origin: ARCHIVE_CONTRIBUTION_NAME,
   });
+  const [dialog, setDialog] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
   const updateForm = (data) => {
     setForm((prevForm) => {
@@ -39,13 +70,11 @@ const ArchiveContribution = () => {
 
   const onSubmit = () => {
     // Prepare the form data for submission
-    const { archive, imageMeta, imageData } = prepareArchiveContribution(form);
-    console.log(archive);
-    console.log(imageMeta);
-    console.log(imageData);
-    return; // FIXME: Temp disable submit
+    const { archive, imageMeta, imageData } =
+      convertArchiveContributionToSchema(form);
 
-    const data = {};
+    const data = { archive, imageMetas: [imageMeta], imageData: [imageData] };
+
     fetch('/api/archive', {
       method: 'POST',
       headers: {
@@ -53,13 +82,33 @@ const ArchiveContribution = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          res.json().then((data) => setDialog(data.message));
+          return;
+        }
+        return res.json();
+      })
       .then((data) => {
+        if (!data) {
+          return;
+        }
         console.log(data);
-        // Clear local storage
+        setSubmitted(true);
+        // Clear the form data
+        setForm({});
         localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => setDialog(err));
+  };
+
+  const showDialogContent = () => {
+    return (
+      <div>
+        <h1>Failed to submit!</h1>
+        <h4>{dialog}</h4>
+      </div>
+    );
   };
 
   return (
@@ -67,6 +116,11 @@ const ArchiveContribution = () => {
       <Head>
         <title>Archive Contribution | Intangible Heritage Atlas</title>
       </Head>
+      {dialog && (
+        <Card handleClose={() => setDialog(null)}>
+          <div className="card__content">{showDialogContent()}</div>
+        </Card>
+      )}
       <div className="Contribute drop-shadow__black">
         <MultipageForm
           name={ARCHIVE_CONTRIBUTION_NAME}
@@ -80,25 +134,16 @@ const ArchiveContribution = () => {
           requiredFields={REQUIRED_FIELDS}
           onUpdate={updateForm}
           onSubmit={onSubmit}
+          submitted={submitted}
         >
           <ImageUploadForm
-            onUpdate={updateForm}
-            formData={form}
             title="Archive Image Upload"
             label="Upload an image of the archival information"
             requiredFields={REQUIRED_FIELDS[0]}
           />
-          <ArchiveAboutForm
-            onUpdate={updateForm}
-            formData={form}
-            requiredFields={REQUIRED_FIELDS[1]}
-          />
-          <LocationForm
-            onUpdate={updateForm}
-            formData={form}
-            requiredFields={REQUIRED_FIELDS[2]}
-          />
-          <Preview formData={form} />
+          <ArchiveAboutForm requiredFields={REQUIRED_FIELDS[1]} />
+          <LocationForm requiredFields={REQUIRED_FIELDS[2]} />
+          <Preview />
         </MultipageForm>
       </div>
     </>

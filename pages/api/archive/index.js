@@ -12,10 +12,16 @@ export default async (req, res) => {
       break;
     case 'POST':
       const body = req.body;
-      const newArchive = await saveNewArchive(body);
+      if (!body) {
+        res.status(StatusCodes.BAD_REQUEST).send({
+          message: 'No body provided',
+        });
+      }
+
+      const result = await saveNewArchive(body);
 
       // Handle the case where the archive was not saved successfully.
-      if (!newArchive) {
+      if (!result?.archive) {
         res.status(StatusCodes.BAD_REQUEST).send({
           message:
             'Failed to save new archive information. Make sure you filled out the required fields!',
@@ -25,7 +31,7 @@ export default async (req, res) => {
 
       res.send({
         message: 'Succesfully added new archive information',
-        response: newArchive,
+        response: result,
       });
       break;
     default:
