@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SingleImageUpload from './SingleImageUpload';
 
 const ImageUploadForm = ({ onUpdate, formData, title, label }) => {
-  console.log(formData)
+  console.log(formData);
   return (
     <form className="ImageUploadForm">
       <h2>{title || 'Image Upload'}</h2>
@@ -10,7 +10,9 @@ const ImageUploadForm = ({ onUpdate, formData, title, label }) => {
         <div>
           <label>{label || 'Upload an image'}</label>
           <SingleImageUpload
-            handleUpdateImage={(imageData) => onUpdate({ imageData })}
+            handleUpdateImage={(imagebuffer, extension) =>
+              onUpdate({ imageData: imagebuffer, imageExtension: extension })
+            }
             currentImage={formData.imageData}
           />
         </div>

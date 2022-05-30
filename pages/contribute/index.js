@@ -201,36 +201,16 @@ const Contribute = () => {
         <title>Contribute | Intangible Heritage Atlas</title>
       </Head>
       {modal && (
-        <div className="card">
-          <div className="card__cover">
-            <div className="card__wrapper">
-              <div className="Contribute-modal">{showModal()}</div>
-              <div className="container__btn">
-                <button className="btn-close" onClick={() => setModal(null)}>
-                  <span></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Card handleClose={() => setModal(null)}>
+          <div className="card__content">{showModal()}</div>
+        </Card>
       )}
-      {/* {modal && (
-        <div className="card">
-          <div className="card__cover">
-            <div className="card__wrapper">
-              <div className="Contribute-modal">{showModal()}</div>
-              <div className="container__btn">
-                <button className="btn-close" onClick={() => setModal(null)}>
-                  <span></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )} */}
       <div className="Contribute drop-shadow__black">
         <div className="Contribute-index">
-          <h1>Contribute to the Living Heritage Atlas! <br/> Add a current craft workshop or upload an archival image to the database.</h1>
+          <h1>
+            Contribute to the Living Heritage Atlas! <br /> Add a current craft
+            workshop or upload an archival image to the database.
+          </h1>
           <div className="Contribute-types">
             <button
               className="Contribute-type-select "
@@ -248,7 +228,7 @@ const Contribute = () => {
               disabled={selection === 'workshop'}
             >
               <h3>
-              Add a <b>Craft Workshop</b>
+                Add a <b>Craft Workshop</b>
               </h3>
               <a onClick={() => setModal('workshop')}>What is this?</a>
             </button>
