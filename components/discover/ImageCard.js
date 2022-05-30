@@ -17,9 +17,7 @@ export default class ImageCard extends React.Component {
         wrapperContainer: 'mapSlider-wrapper',
       },
     };
-  } //   const imgSrc = workshop.thumb_img_id
-  //     ? `/api/images/${workshop.thumb_img_id}.jpg`
-  //     : thumbnailSrc || null;
+  }
 
   // TODO: Need to fix slider styling
   showImages() {
@@ -36,6 +34,7 @@ export default class ImageCard extends React.Component {
       return (
         <img
           className="mapCard-img"
+          key={image.src}
           style={{
             width: '100%',
             height: '100%',

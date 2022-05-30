@@ -1,22 +1,35 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 /***
- * TODO: add hover text to the nav-expand on web
  * TODO: update dual language
- * TODO: add class to the #header for pages without background
- * TODO: add drop shadow effect when triggered to a certain scroll point
  */
 
 const Nav = () => {
   const router = useRouter();
   const [isMenu, setIsMenu] = useState(false);
 
+  // Add drop shadow effect when scrolled to a certain position
+  const [isActive, setIsActive] = useState(false);
+
+  const headerRef = useRef();
+
+  useEffect(() => {
+    const { offsetHeight } = headerRef.current;
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > offsetHeight) {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
+    });
+  });
+
   const getPath = () => {
     const path = router.pathname.split('/')[1];
 
-    // TODO: Change the displayed name based on the path if necessary, e.g.
     let pageLocation = path;
     if (path === '') {
       pageLocation = '';
@@ -38,8 +51,11 @@ const Nav = () => {
   return (
     <>
       <header
+        ref={headerRef}
         id="header"
-        className={isMenu || hideBg() ? 'hide-background' : ''}
+        className={`container ${isMenu || hideBg() ? ' hide-background' : ''} ${
+          isActive ? 'active' : ''
+        }`}
       >
         <Link href="/">
           <a
@@ -75,7 +91,7 @@ const Nav = () => {
         </button>
       </header>
 
-      <div id="menu" className={isMenu ? 'open' : ''}>
+      <div id="menu" className={isMenu ? 'container open' : 'container'}>
         <nav className="main-nav">
           <ul>
             <li
