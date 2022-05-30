@@ -4,9 +4,7 @@ export default class LayersControl extends React.Component {
 
     constructor(props) {
         super(props);
-        this.setState({
 
-        })
     }
 
     getMapLayerButtons = () => {

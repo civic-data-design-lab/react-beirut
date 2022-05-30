@@ -10,6 +10,8 @@ export default class App extends React.PureComponent {
         super(props);
         this.state = {
 
+            toggableMaps : [],
+
 
             showMapCard: false
 
@@ -140,15 +142,7 @@ export default class App extends React.PureComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
-         // remove existing layer and add new layer
-        if (this.props.mapLayer) {
-            map.current.addLayer({
-            id: this.props.mapLayer,
-            'type': 'raster',
-            'source': this.props.mapLayer
-        });
-
-        }
+         // change visibility of layer
 
 
          // load workshop markers

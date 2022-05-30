@@ -24,7 +24,7 @@ export default class Explore extends React.Component {
 
         this.state = {
             mapLayer : null,
-            allLayers : [],
+            allLayers : ['radar'],
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
             startYearParent : 1900,
             endYearParent : 2030,
