@@ -5,23 +5,19 @@ import Slider from '../../components/Slider';
 import { data } from 'autoprefixer';
 
 export default class ImageCard extends React.Component {
-  constructor(props) {
-    super(props);
-  } //   const imgSrc = workshop.thumb_img_id
-  //     ? `/api/images/${workshop.thumb_img_id}.jpg`
-  //     : thumbnailSrc || null;
-
   render() {
+    const { workshop, onClose, thumbnailSrc } = this.props;
+
     return (
-      <Card handleClose={this.props.onClose}>
+      <Card handleClose={onClose}>
         <div className="card__content">
           <div className="card__item">
             <div className="container__preview-content">
               <img
                 className="img__detail"
                 src={
-                  this.props.workshop.thumb_img_id
-                    ? `/api/images/${this.props.workshop.thumb_img_id}.jpg`
+                  workshop.thumb_img_id
+                    ? `/api/images/${workshop.thumb_img_id}.jpg`
                     : thumbnailSrc || null
                 }
                 alt=""
@@ -33,11 +29,11 @@ export default class ImageCard extends React.Component {
               <div className="container__text">
                 <div className="container__title">
                   <h1>
-                    {this.props.workshop.shop_name.content ||
-                      this.props.workshop.shop_name.content_orig}
+                    {workshop.shop_name.content ||
+                      workshop.shop_name.content_orig}
                   </h1>
                   <p className="type">
-                    {this.props.workshop.craft_discipline_category.join(' | ')}
+                    {workshop.craft_discipline_category.join(' | ')}
                   </p>
                 </div>
                 <p>
@@ -57,22 +53,22 @@ export default class ImageCard extends React.Component {
                 <div className="parent">
                   <Slider>
                     <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
+                      <ImagePreview workshop={workshop} />
                     </div>
                     <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
+                      <ImagePreview workshop={workshop} />
                     </div>
                     <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
+                      <ImagePreview workshop={workshop} />
                     </div>
                     <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
+                      <ImagePreview workshop={workshop} />
                     </div>
                     <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
+                      <ImagePreview workshop={workshop} />
                     </div>
                     <div className="container__img">
-                      <ImagePreview workshop={this.props.workshop} />
+                      <ImagePreview workshop={workshop} />
                     </div>
                   </Slider>
                 </div>
