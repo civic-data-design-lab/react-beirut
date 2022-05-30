@@ -4,21 +4,21 @@ import DiscoverLayout from '../../components/layout/DiscoverLayout';
 import Layout from '../../components/layout/Layout';
 import {
   getSimilarWorkshops,
-  getWorkshop,
   getImageMeta,
+  getWorkshopOrArchive,
 } from '../../lib/apiUtils';
 
-const CardPage = ({ workshop, similarWorkshops, imageMetas }) => {
+const CardPage = ({ object, type, similarWorkshops, imageMetas }) => {
   const router = useRouter();
 
   const handleClose = () => {
-    router.push('/discover', undefined, { shallow: true });
+    router.push('/discover', undefined, { shallow: true, scroll: false });
   };
 
   return (
     <ImageCard
-      object={workshop}
-      type="workshop"
+      object={object}
+      type={type}
       similarWorkshops={similarWorkshops}
       isExpanded={true}
       onClose={handleClose}
@@ -36,10 +36,14 @@ CardPage.getLayout = function getLayout(page) {
 };
 
 export async function getServerSideProps({ params }) {
-  const workshop = await getWorkshop(params.id);
-  const similarWorkshops = await getSimilarWorkshops(workshop);
-  const imageMetas = await getImageMeta(workshop.ID);
-  return { props: { workshop, similarWorkshops, imageMetas } };
+  const { object, type } = await getWorkshopOrArchive(params.id);
+
+  let similarWorkshops = [];
+  if (type === 'workshop') {
+    similarWorkshops = await getSimilarWorkshops(object);
+  }
+  const imageMetas = await getImageMeta(object.ID);
+  return { props: { object, type, similarWorkshops, imageMetas } };
 }
 
 export default CardPage;

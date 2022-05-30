@@ -1,15 +1,15 @@
 import ImagePreview from './ImagePreview';
 
-const ImageFeed = ({ workshops }) => {
+const ImageFeed = ({ objects }) => {
   //TODO: Adjust css to fit the width of the page
   return (
     <div className="container">
       <div className="image-feed">
-        {workshops.map(
-          (workshop) =>
-            workshop.thumb_img_id && (
-              <div className="image-container" key={workshop.ID}>
-                <ImagePreview workshop={workshop}></ImagePreview>
+        {objects?.map(
+          (object) =>
+            object.thumb_img_id && (
+              <div className="image-container" key={object.ID}>
+                <ImagePreview workshop={object}></ImagePreview>
               </div>
             )
         )}

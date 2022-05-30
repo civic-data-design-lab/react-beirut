@@ -8,13 +8,22 @@ import ImageFilter from '../discover/ImageFilter';
 const DiscoverLayout = ({ children }) => {
   const router = useRouter();
   const [workshops, setWorkshops] = useState([]);
+  const [archive, setArchive] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
 
   useEffect(() => {
     console.log('fetching');
-    fetch('/api/workshops')
-      .then((res) => res.json())
-      .then((data) => setWorkshops(data.response));
+
+    Promise.all([fetch('/api/workshops'), fetch('/api/archive')]).then(
+      ([workshopsResponse, archiveResponse]) => {
+        Promise.all([workshopsResponse.json(), archiveResponse.json()]).then(
+          ([workshopsData, archiveData]) => {
+            setWorkshops(workshopsData.response);
+            setArchive(archiveData.response);
+          }
+        );
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -61,7 +70,7 @@ const DiscoverLayout = ({ children }) => {
         </div>
         <hr />
         <ImageFeed
-          workshops={workshops}
+          objects={workshops.concat(archive)}
           selectedCard={selectedCard}
           onCloseCard={resetSelected}
           onExpandCard={handleExpand}

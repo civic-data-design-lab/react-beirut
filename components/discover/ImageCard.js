@@ -64,7 +64,7 @@ export default class ImageCard extends React.Component {
             <Archive
               archive={object}
               imageMetas={this.props.imageMetas}
-              imageSrc={thumbnailSrc}
+              // imageSrc={thumbnailSrc}
               similarImages={this.props.similarImages}
             />
           )}
