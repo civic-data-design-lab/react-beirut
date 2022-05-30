@@ -2,7 +2,9 @@ import {
   convertWorkshopContributionToSchema,
   WORKSHOP_CONTRIBUTION_NAME,
   ARCHIVE_CONTRIBUTION_NAME,
+  convertArchiveContributionToSchema,
 } from '../../lib/utils';
+import Archive from '../Archive';
 import Workshop from '../Workshop';
 
 const Preview = ({ formData, missingFields }) => {
@@ -40,8 +42,15 @@ const Preview = ({ formData, missingFields }) => {
         />
       );
     } else if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
-      // const { archive, imageMeta, imageData } = null;
-      return;
+      const { archive, imageMeta, imageData } =
+        convertArchiveContributionToSchema(formData);
+      return (
+        <Archive
+          archive={archive}
+          imageMetas={imageMeta && [imageMeta]}
+          imageSrc={imageData?.data}
+        />
+      );
     }
   };
 
