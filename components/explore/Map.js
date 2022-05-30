@@ -56,7 +56,25 @@ export default class App extends React.PureComponent {
            style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
            center: [35.5, 33.893894], // starting position [lng, lat]
            zoom: 12, // starting zoom
+           maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
        });
+
+        // add all potential layers as a source
+
+        map.current.on('load', () => {
+        map.current.addSource('radar', {
+        'type': 'image',
+        'url': 'https://docs.mapbox.com/mapbox-gl-js/assets/radar.gif',
+        'coordinates': [
+            [35.383297650238326, 33.928357422091395], // top-left
+            [35.629842811007315, 33.928357422091395], // top-right
+            [35.629842811007315, 33.83527318407196], // bottom-right
+            [35.383297650238326, 33.83527318407196], // bottom-left
+
+        ]
+        });
+
+        });
 
        if (!this.props.workshops) {
             return;}
@@ -121,6 +139,18 @@ export default class App extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+
+         // remove existing layer and add new layer
+        if (this.props.mapLayer) {
+            map.current.addLayer({
+            id: this.props.mapLayer,
+            'type': 'raster',
+            'source': this.props.mapLayer
+        });
+
+        }
+
+
          // load workshop markers
         console.log(this.props);
         if (!this.props.workshops) {
@@ -242,7 +272,6 @@ export default class App extends React.PureComponent {
                     el.type = 'archive';
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
-                    console.log(archive)
                 }
 
             }

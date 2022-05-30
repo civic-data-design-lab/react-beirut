@@ -8,6 +8,14 @@ export default class MapCardSlider extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        if (this.props.getImageData) {
+            this.props.getImageData('arrived')
+        }
+
+
+    }
+
     scrollLeft = () => {
         const container = document.querySelector('.mapSlider-container');
         const wrapper = container.querySelector('.mapSlider-wrapper');
@@ -15,6 +23,9 @@ export default class MapCardSlider extends React.Component {
         const prevBtn = container.querySelector('.btn-prev');
         const itemWidth = container.querySelector('.mapCard-img').clientWidth;
         wrapper.scrollBy({left: -itemWidth, top: 0, behavior: 'smooth'});
+        if (this.props.getImageData) {
+            this.props.getImageData('bye')
+        }
     }
 
     scrollRight = () => {
@@ -25,6 +36,10 @@ export default class MapCardSlider extends React.Component {
         const itemWidth = container.querySelector('.mapCard-img').clientWidth;
         wrapper.scrollBy({left: itemWidth, top: 0, behavior: 'smooth'});
 
+        if (this.props.getImageData) {
+            this.props.getImageData('hi')
+        }
+
     }
 
 
@@ -34,12 +49,12 @@ export default class MapCardSlider extends React.Component {
             <>
                 <div className={this.props.sliderStyle['sliderContainer']}>
 
-                    <button className={this.props.sliderStyle['prevButton']} onClick={this.scrollLeft}><span className={this.props.sliderStyle['buttonLabel']}>&lt;</span></button>
+                    {(this.props.children.length>0) ? <button className={this.props.sliderStyle['prevButton']} onClick={this.scrollLeft}><span className={this.props.sliderStyle['buttonLabel']}>&lt;</span></button> : null}
 
                     <div className={this.props.sliderStyle['wrapperContainer']}>
                         {this.props.children}
                     </div>
-                    <button className={this.props.sliderStyle['nextButton']} onClick={this.scrollRight}><span className={this.props.sliderStyle['buttonLabel']}>&gt;</span></button>
+                    {(this.props.children.length>0) ? <button className={this.props.sliderStyle['nextButton']} onClick={this.scrollRight}><span className={this.props.sliderStyle['buttonLabel']}>&gt;</span></button> : null}
                 </div>
 
             </>

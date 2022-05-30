@@ -87,12 +87,32 @@
 
 .mapSlider-container {
   overflow: hidden;
-  height: 1000%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   margin: auto;
   justify-content: center;
   align-items: center;
+}
+
+.layersControl-container {
+  background-color: $c-white-off;
+  border-radius: 5px;
+  position: fixed;
+  padding: 24px;
+  height: 60%;
+  width: 25%;
+  bottom: 20%;
+  left: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lc-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 

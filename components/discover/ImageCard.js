@@ -56,7 +56,7 @@ export default class ImageCard extends React.Component {
         <div className="card__content">
           <div className="card__item">
             <div className="container__preview-content">
-              <MapCardSlider children={this.showImages()} sliderStyle={this.state.mainSliderStyle}/>
+              <MapCardSlider getImageData={null} children={this.showImages()} sliderStyle={this.state.mainSliderStyle}/>
             </div>
           </div>
           <div className="card__item">

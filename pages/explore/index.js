@@ -5,6 +5,7 @@ import MapFilter from "../../components/explore/MapFilter";
 import React from "react";
 import SearchBar from "../../components/explore/SearchBar";
 import MapCard from "../../components/explore/MapCard";
+import LayersControl from "../../components/explore/LayersControl";
 
 
 const Map = dynamic(() => import('../../components/explore/Map'), {
@@ -22,6 +23,8 @@ export default class Explore extends React.Component {
         this.updateToggle = this.updateToggle.bind(this);
 
         this.state = {
+            mapLayer : null,
+            allLayers : [],
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
             startYearParent : 1900,
             endYearParent : 2030,
@@ -31,8 +34,13 @@ export default class Explore extends React.Component {
             showMapCard: false,
             id: null,
             type: null,
-            workshop:null
+            workshop:null,
+            showLayersControl: false
         }
+    }
+
+    updateMapLayer = (mapLayer) => {
+            this.setState({mapLayer:mapLayer})
     }
 
 
@@ -60,8 +68,11 @@ export default class Explore extends React.Component {
     }
 
     toggleFilterPanel = () => {
-        this.setState({on: !this.state.on})
+        this.setState({on: !this.state.on}, ()=> (this.state.on ? this.setState({showLayersControl:false}) : null))
+
     }
+
+
 
     closeFilter = () => {
         this.setState({on: false})
@@ -123,6 +134,19 @@ export default class Explore extends React.Component {
             this.setState({showMapCard:false, id:null})
     }
 
+    toggleLayersControl = () => {
+            this.setState({showLayersControl: !this.state.showLayersControl}, ()=> (this.state.showLayersControl ? this.setState({on:false}) : null))
+
+    }
+
+    openLayersControl = () => {
+            this.setState({on:false, id:null, showLayersControl:true })
+    }
+
+    closeLayersControl = () => {
+            this.setState({showLayersControl:false})
+    }
+
 
 
 
@@ -145,7 +169,7 @@ export default class Explore extends React.Component {
                         <title>Explore | Intangible Heritage Atlas</title>
                     </Head>
                     <div>
-                        <Map workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} />
+                        <Map mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
                             updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} />  : null }
@@ -153,11 +177,12 @@ export default class Explore extends React.Component {
 
                         <div className={'filterSection'}>
                             <button className={'filterButton'} onClick={this.toggleFilterPanel}>filter</button>
-                            <button className={'filterButton'}>layers</button>
+                            <button className={'filterButton'} onClick={this.toggleLayersControl}>layers</button>
                         </div>
 
                         { this.state.showMapCard ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard}/> : null}
 
+                        { this.state.showLayersControl ? <LayersControl allLayers={this.state.allLayers} updateMapLayer={this.updateMapLayer} closeLayersControl={this.closeLayersControl}/> : null}
 
 
                     </div>

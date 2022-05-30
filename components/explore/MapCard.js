@@ -11,6 +11,7 @@ export default class MapCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            caption: null,
             workshop : null,
             similarWorkshops: null,
             mainSliderStyle : {
@@ -23,6 +24,7 @@ export default class MapCard extends React.Component {
         }
 
     }
+
 
 
     getShopName = () => {
@@ -73,6 +75,10 @@ export default class MapCard extends React.Component {
         return thumbNails
     }
 
+    getCaption = (metaData) => {
+        this.setState({caption: metaData})
+    }
+
 
     createMapCardContent = () => {
 
@@ -93,10 +99,9 @@ export default class MapCard extends React.Component {
                             }
                         })} </p>
 
-                        <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle}/>
+                        <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption}/>
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et velit interdum, ac aliquet
-                            odio mattis. Class aptent taciti sociosqu ad litora torquent per. Lorem</p>
+                        <p>{this.state.caption}</p>
 
                         <hr/>
                         <p>Explore Similar Shops</p>
