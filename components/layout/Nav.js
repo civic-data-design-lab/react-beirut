@@ -12,7 +12,6 @@ const Nav = () => {
 
   // Add drop shadow effect when scrolled to a certain position
   const [isActive, setIsActive] = useState(false);
-
   const headerRef = useRef();
 
   useEffect(() => {
@@ -27,6 +26,7 @@ const Nav = () => {
     });
   });
 
+  // dynamically showing the page location
   const getPath = () => {
     const path = router.pathname.split('/')[1];
 
@@ -98,6 +98,7 @@ const Nav = () => {
               onClick={() => {
                 setIsMenu(false);
               }}
+              className={router.pathname === '/explore' ? 'active' : ''}
             >
               <Link href="/explore">Explore</Link>
             </li>
@@ -105,20 +106,15 @@ const Nav = () => {
               onClick={() => {
                 setIsMenu(false);
               }}
+              className={router.pathname === '/work' ? 'active' : ''}
             >
               <Link href="/work">Work</Link>
             </li>
-            {/* <li
-              onClick={() => {
-                setIsMenu(false);
-              }}
-            >
-              <Link href="/trace">Trace</Link>
-            </li> */}
             <li
               onClick={() => {
                 setIsMenu(false);
               }}
+              className={router.pathname === '/discover' ? 'active' : ''}
             >
               <Link href="/discover">Discover</Link>
             </li>
@@ -126,6 +122,7 @@ const Nav = () => {
               onClick={() => {
                 setIsMenu(false);
               }}
+              className={router.pathname === '/contribute' ? 'active' : ''}
             >
               <Link href="/contribute">Contribute</Link>
             </li>
@@ -133,6 +130,7 @@ const Nav = () => {
               onClick={() => {
                 setIsMenu(false);
               }}
+              className={router.pathname === '/about' ? 'active' : ''}
             >
               <Link href="/about">About</Link>
             </li>
