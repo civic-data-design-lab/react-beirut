@@ -7,8 +7,15 @@ const ImageMetaSchema = require('../models/ImageMeta');
 const ImageDataSchema = require('../models/ImageData');
 const WorkshopSchema = require('../models/Workshop');
 const ArchiveSchema = require('../models/Archive');
+const StickerSchema = require('../models/Sticker');
 
-const UPLOAD_TYPES = ['image-data', 'image-meta', 'workshops', 'archive'];
+const UPLOAD_TYPES = [
+  'image-data',
+  'image-meta',
+  'workshops',
+  'archive',
+  'stickers',
+];
 
 const args = process.argv.slice(2);
 
@@ -214,23 +221,29 @@ const uploadArchive = async () => {
     if (existingArchiveObj) {
       // Handle the overwrite option
       if (overwrite) {
-        verbose && console.log(
-          `\t> Overwriting archive response ${existingArchiveObj.ID}...`
-        );
+        verbose &&
+          console.log(
+            `\t> Overwriting archive response ${existingArchiveObj.ID}...`
+          );
         await ArchiveSchema.replaceOne({ ID: archiveObjId }, archiveObj).exec();
-        verbose && console.log(`\tSuccessfully overwrote archive ${archiveObjId}.`);
+        verbose &&
+          console.log(`\tSuccessfully overwrote archive ${archiveObjId}.`);
         continue;
       }
 
       // Handle the update option, this will only update the fields provided
       // and not touch the rest of the object
       if (update) {
-        verbose && console.log(`\t> Updating archive object ${archiveObj.ID}...`);
+        verbose &&
+          console.log(`\t> Updating archive object ${archiveObj.ID}...`);
         await ArchiveSchema.updateOne(
           { ID: archiveObj.ID },
           { $set: archiveObj }
         ).exec();
-        verbose && console.log(`\tSuccessfully updated archive object ${archiveObj.ID}.`);
+        verbose &&
+          console.log(
+            `\tSuccessfully updated archive object ${archiveObj.ID}.`
+          );
         continue;
       }
 
@@ -243,9 +256,10 @@ const uploadArchive = async () => {
 
     const newArchiveObj = new ArchiveSchema(archiveObj);
     await newArchiveObj.save();
-    verbose && console.log(
-      `Successfully uploaded archive response ${archiveObjId} to database!`
-    );
+    verbose &&
+      console.log(
+        `Successfully uploaded archive response ${archiveObjId} to database!`
+      );
   }
   console.log('done');
   process.exit(0);
@@ -288,26 +302,32 @@ const uploadImageMeta = async () => {
     if (existingImageMeta) {
       // Handle the overwrite option (uses `replaceOne`)
       if (overwrite) {
-        verbose && console.log(
-          `\t> Overwriting image-meta ${existingImageMeta.img_id}...`
-        );
+        verbose &&
+          console.log(
+            `\t> Overwriting image-meta ${existingImageMeta.img_id}...`
+          );
         await ImageMetaSchema.replaceOne(
           { img_id: imageMeta.img_id },
           imageMeta
         ).exec();
-        verbose && console.log(`\tSuccessfully overwrote image-meta ${imageMeta.img_id}.`);
+        verbose &&
+          console.log(
+            `\tSuccessfully overwrote image-meta ${imageMeta.img_id}.`
+          );
         continue;
       }
 
       // Handle the update option, this will only update the fields provided
       // and not touch the rest of the object (uses `updateOne`)
       if (update) {
-        verbose && console.log(`\t> Updating image meta ${imageMeta.img_id}...`);
+        verbose &&
+          console.log(`\t> Updating image meta ${imageMeta.img_id}...`);
         await ImageMetaSchema.updateOne(
           { img_id: imageMeta.img_id },
           { $set: imageMeta }
         ).exec();
-        verbose && console.log(`\tSuccessfully updated image meta ${imageMeta.img_id}.`);
+        verbose &&
+          console.log(`\tSuccessfully updated image meta ${imageMeta.img_id}.`);
         continue;
       }
 
@@ -321,9 +341,10 @@ const uploadImageMeta = async () => {
     // Otherwise upload the image meta to the database
     const newImageMeta = new ImageMetaSchema(imageMeta);
     await newImageMeta.save();
-    verbose && console.log(
-      `Successfully uploaded image-meta ${imageMeta.img_id} to database!`
-    );
+    verbose &&
+      console.log(
+        `Successfully uploaded image-meta ${imageMeta.img_id} to database!`
+      );
   }
   console.log('done');
   process.exit(0);
@@ -368,6 +389,75 @@ const uploadImages = async () => {
   process.exit(0);
 };
 
+/**
+ * Uploads/updates sticker data in the database from JSON file.
+ */
+const uploadStickers = async () => {
+  let data;
+  try {
+    data = fs.readFileSync(path);
+  } catch (err) {
+    console.error(err);
+    console.error('Could not open the file at the specified path!');
+    process.exit(1);
+  }
+
+  const jsonObj = JSON.parse(data);
+  console.log(`Loaded ${jsonObj.length} sticker entries from the JSON file.`);
+
+  for (const sticker of jsonObj) {
+    // Upload the image meta to the database
+    verbose &&
+      console.log(
+        `> ${update ? 'Updating' : 'Uploading'} sticker ${sticker.code}...`
+      );
+    const existingSticker = await StickerSchema.findOne({
+      code: sticker.code,
+    }).exec();
+
+    if (existingSticker) {
+      // Handle the overwrite option (uses `replaceOne`)
+      if (overwrite) {
+        verbose &&
+          console.log(`\t> Overwriting sticker ${existingSticker.code}...`);
+        await StickerSchema.replaceOne({ code: sticker.code }, sticker).exec();
+        verbose &&
+          console.log(
+            `\tSuccessfully overwrote sticker ${existingSticker.code}.`
+          );
+        continue;
+      }
+
+      // Handle the update option, this will only update the fields provided
+      // and not touch the rest of the object (uses `updateOne`)
+      if (update) {
+        verbose && console.log(`\t> Updating sticker ${sticker.code}...`);
+        await StickerSchema.updateOne(
+          { code: sticker.code },
+          { $set: sticker }
+        ).exec();
+        verbose &&
+          console.log(`\tSuccessfully updated sticker ${sticker.code}.`);
+        continue;
+      }
+
+      // If neither overwrite or update is specified, raise a warning
+      console.log(
+        `Sticker ${sticker.code} already exists in database. Use -o/--overwrite to overwrite.`
+      );
+      continue;
+    }
+
+    // Otherwise upload the sticker to the database
+    const newSticker = new StickerSchema(sticker);
+    await newSticker.save();
+    verbose &&
+      console.log(`Successfully uploaded sticker ${sticker.code} to database!`);
+  }
+  console.log('done');
+  process.exit(0);
+};
+
 switch (type) {
   case 'image-data':
     console.log('> Starting image upload...');
@@ -384,6 +474,10 @@ switch (type) {
   case 'archive':
     console.log('> Starting archive upload...');
     uploadArchive();
+    break;
+  case 'stickers':
+    console.log('> Starting sticker upload...');
+    uploadStickers();
     break;
   default:
     console.log('Invalid type. Run with --help for usage.');

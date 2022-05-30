@@ -3,8 +3,53 @@ import Card from '../Card';
 import ImagePreview from './ImagePreview';
 import Slider from '../../components/Slider';
 import { data } from 'autoprefixer';
+import MapCardSlider from '../explore/MapCardSlider';
 
 export default class ImageCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mainSliderStyle: {
+        sliderContainer: 'mapSlider-container',
+        buttonLabel: 'slider-btn-label',
+        prevButton: 'btn-prev',
+        nextButton: 'btn-next',
+        wrapperContainer: 'mapSlider-wrapper',
+      },
+    };
+  } //   const imgSrc = workshop.thumb_img_id
+  //     ? `/api/images/${workshop.thumb_img_id}.jpg`
+  //     : thumbnailSrc || null;
+
+  // TODO: Need to fix slider styling
+  showImages() {
+    const imageMeta = this.props.imageMeta;
+    const workshop = this.props.workshop;
+    const thumbImage = imageMeta.filter(
+      (image) => image.img_id === workshop.thumb_img_id
+    );
+    const remainingImages = imageMeta.filter(
+      (image) => image.img_id !== workshop.thumb_img_id
+    );
+    const images = [...thumbImage, ...remainingImages];
+    return images.map((image) => {
+      return (
+        <img
+          className="mapCard-img"
+          style={{
+            width: '100%',
+            height: '100%',
+            marginRight: '10px',
+            objectFit: 'cover',
+            scrollSnapAlign: 'center',
+          }}
+          src={image.src}
+          alt=""
+        />
+      );
+    });
+  }
+
   render() {
     const { workshop, onClose, thumbnailSrc } = this.props;
 
@@ -13,14 +58,10 @@ export default class ImageCard extends React.Component {
         <div className="card__content">
           <div className="card__item">
             <div className="container__preview-content">
-              <img
-                className="img__detail"
-                src={
-                  workshop.thumb_img_id
-                    ? `/api/images/${workshop.thumb_img_id}.jpg`
-                    : thumbnailSrc || null
-                }
-                alt=""
+              <MapCardSlider
+                getImageData={null}
+                children={this.showImages()}
+                sliderStyle={this.state.mainSliderStyle}
               />
             </div>
           </div>
@@ -52,24 +93,11 @@ export default class ImageCard extends React.Component {
                 <p>Explore similar shops</p>
                 <div className="parent">
                   <Slider>
-                    <div className="container__img">
-                      <ImagePreview workshop={workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={workshop} />
-                    </div>
-                    <div className="container__img">
-                      <ImagePreview workshop={workshop} />
-                    </div>
+                    {this.props.similarWorkshops?.map((shop) => (
+                      <div key={shop.ID} className="container__img">
+                        <ImagePreview workshop={shop} />
+                      </div>
+                    ))}
                   </Slider>
                 </div>
               </div>

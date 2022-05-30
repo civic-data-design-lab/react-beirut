@@ -18,7 +18,7 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
               : ''
           }
         >
-          Add shop point
+          Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.
         </label>
       );
     }
@@ -32,10 +32,10 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
 
   return (
     <form className="LocationForm">
-      <h2>{title || 'Location Information'}</h2>
+      <h2>{title || 'Craft Workshop Location'}</h2>
       <div className="forms">
         <div className="address-form">
-          <h3>Address Information</h3>
+          <h3>Address</h3>
           <small>(English Preferred)</small>
           <div className="address-form-inputs">
             <InputField
@@ -54,12 +54,46 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
             />
 
             <InputField
-              title="Municipality"
-              fieldName="municipality"
-              value={formData.municipality}
+              title="Quarter"
+              type="select"
+              fieldName="quarter"
+              value={formData.quarter}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('municipality')}
-            />
+              required={requiredFields?.includes('quarter')}>
+                <option disabled value="">
+                --Select a quarter--
+                </option>
+                {
+                  ["Marfaa", "Mina El-Hosn", "Bachoura"].map( (quarter) => {
+                    return <option value={quarter}>{quarter}</option>
+                  })
+                };
+                {/* TODO:  dropdown selection list of admin 3
+                  - include admin 3 names we already have in our database
+                  - include "other" option
+                  - if "other" is selected add field to type in name*/}
+            </InputField>
+            <InputField
+              title="Sector"
+              type="select"
+              fieldName="sector"
+              value={formData.sector}
+              onUpdate={onUpdate}
+              required={requiredFields?.includes('sector')}>
+                <option disabled value="">
+                --Select a sector--
+                </option>
+                {
+                  ["Marfaa", "Mina El-Hosn", "Bachoura"].map( (sector) => {
+                    return <option value={sector}>{sector}</option>
+                  })
+                };
+                {/* TODO: dropdown selection list of admin 4
+                    - include Bourj Hamoud admin 4 names that we already have in our database
+                    - include "other" option
+                    - if "other" is selected add field to type in name*/}
+            </InputField>
+            {/* Reference: https://www.lebanesearabicinstitute.com/areas-beirut/#Sectors_of_Beirut */}
             {/* <div>
             <label htmlFor="building-number-ar">
               Arabic House/Building number

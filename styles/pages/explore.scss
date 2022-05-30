@@ -1,0 +1,200 @@
+.mapCard {
+  background-color: $c-white-off;
+  border-radius: 10px;
+  position: fixed;
+  padding: 24px;
+  height: 85%;
+  width: 30%;
+  right: 4%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mapSlider-wrapper::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.slider-btn-label {
+  font-size: 64px;
+  //font-weight: lighter;
+  color: $c-white;
+  opacity: 0.7;
+  z-index: 2000;
+}
+
+.btn-prev {
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  left: 8%;
+  height: 10%;
+  border:none;
+  background-color: Transparent;
+  z-index: 2000;
+
+}
+
+.btn-next {
+  padding: 0px;
+  margin: 0px;
+  position: absolute;
+  right: 8%;
+  height: 10%;
+  border:none;
+  background-color: Transparent;
+  z-index: 2000;
+
+}
+
+
+.mapSlider-wrapper {
+
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  // padding: 0 30px;
+}
+
+
+
+.mapCard-img {
+  z-index: -1;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  scroll-snap-align: center;
+}
+
+.mapCard-slider-image-container {
+  height: 100%;
+  margin: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+
+}
+
+
+.mapSlider-container {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.layersControl-container {
+  background-color: $c-white-off;
+  border-radius: 5px;
+  position: fixed;
+  padding: 24px;
+  height: 60%;
+  width: 25%;
+  bottom: 20%;
+  left: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lc-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+
+
+.filterCard {
+  background-color: $c-white-off;
+  border-radius: 5px;
+  position: fixed;
+  padding: 24px;
+  height: 60%;
+  width: 25%;
+  bottom: 20%;
+  left: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+
+.arrow-down {
+  position: fixed;
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 16px solid $c-white-off;
+  bottom: 18%;
+  left: 5%;
+}
+
+.filterButton {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  margin: 8px;
+}
+
+.filterSection {
+  position: fixed;
+  bottom: 9%;
+  left: 4%;
+  border: none;
+}
+
+.searchby-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.close-filter-btn :focus { outline: none }
+
+.close-filter-btn {
+  border:none;
+  background-color: Transparent;
+}
+
+.toggle-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.reset-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+.reset-btn :focus { outline: none; }
+.reset-btn {
+  border:none;
+  background-color: Transparent;
+  font-weight: bolder;
+}
+
+.searchbar {
+  position: fixed;
+  right: 3%
+}
+
+
+

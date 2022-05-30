@@ -10,25 +10,12 @@ import os
 
 dotenv.load_dotenv()
 
-# KOBO_API_KEY = os.getenv("KOBO_API_KEY")
-
 
 def arrayify(
     record,
-    space_sep_fields=[
-        "craft_discipline_category",
-        "craft_discipline",
-        "primary_decade",
-        "images",
-    ],
+    space_sep_fields,
 ):
     """Converts all space separated values into arrays.
-
-    Default space-separated value fields are:
-    * `craft_discipline_category`
-    * `craft_discipline`
-    * `primary_decade`
-    * `images`
 
     Note that the `primary_decade` field is converted to an array of integers,
     not strings.
@@ -58,33 +45,64 @@ def main():
         "csv_filepath",
         help="The path to the CSV file to be converted to json",
     )
+    parser.add_argument(
+        "type", help="The type of data to be converted", choices=["archive", "stickers"]
+    )
     # Reads the csv file and converts it to a dataframe
     args = parser.parse_args()
     path = args.csv_filepath
-    archive_df = pd.read_csv(path)
+    datatype = args.type
+    df = pd.read_csv(path)
 
     print(f"Successfully read CSV file at {path}")
 
     # Converts all space separated values to arrays
-    arrayified_archive_df = archive_df.apply(arrayify, axis=1)
+    if datatype == "archive":
+        space_sep_fields = [
+            "craft_discipline_category",
+            "craft_discipline",
+            "primary_decade",
+            "images",
+        ]
+    elif datatype == "stickers":
+        space_sep_fields = []
+
+    arrayified_df = df.apply(lambda record: arrayify(record, space_sep_fields), axis=1)
 
     current_time = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
     # Saves the dataframe to a json file
-    new_name_info = f"archive-info-{current_time}.json"
-    new_path_info = os.path.join("scripts", "data", "archive", new_name_info)
+    new_name_info = f"{datatype}-{current_time}.json"
+    new_path_info = os.path.join("scripts", "data", "tmp", new_name_info)
     # Create the directories if it doesn't exist
     os.makedirs(os.path.dirname(new_path_info), exist_ok=True)
-    arrayified_archive_df.to_json(
+    arrayified_df.to_json(
         new_path_info,
         orient="records",
         force_ascii=False,
         indent=2,
     )
 
-    print(f"Successfully wrote archive info JSON file at {new_path_info}")
+    print(f"Successfully converted CSV to JSON file at {new_path_info}")
 
-    print("Creating archive info image metadata fields to update...")
+    if datatype == "stickers":
+        print(
+            f"""
+To automatically upload the updated sticker information to the CDDL database,
+run the following command:
+
+$ node scripts/upload.js --overwrite scripts/data/tmp/{new_name_info} stickers
+
+This OVERWRITES the existing sticker using the new info
+from the CSV.
+        """
+        )
+        print("SUCCESS")
+        return
+
+    print(
+        "Detected archive information; creating archive info image metadata fields to update..."
+    )
 
     # Load the new archive JSON
     with open(new_path_info, "r", encoding="utf-8") as f:
@@ -152,7 +170,7 @@ def main():
 
     # Saves the image metadata (updates) to a json file
     new_name_meta = f"archive-updated-image-meta-{current_time}.json"
-    new_path_meta = os.path.join("scripts", "data", "image-meta", new_name_meta)
+    new_path_meta = os.path.join("scripts", "data", "tmp", new_name_meta)
     os.makedirs(os.path.dirname(new_path_meta), exist_ok=True)
     with open(new_path_meta, "w", encoding="utf-8") as f:
         json.dump(image_meta_updates, f, indent=2, ensure_ascii=False)
@@ -160,8 +178,6 @@ def main():
     print(
         f"Successfully wrote archive updated image metadata JSON file at {new_path_meta}"
     )
-
-    print("done")
 
     print(
         "--------------------------------------------------------------------------------"
@@ -171,12 +187,12 @@ def main():
 To automatically upload the updated archive information and image
 metadata to the CDDL API, run the following commands:
 
-$ node scripts/upload.js --overwrite scripts/data/archive/{new_name_info} archive
+$ node scripts/upload.js --overwrite scripts/data/tmp/{new_name_info} archive
 
 This OVERWRITES the existing archive information using the new info
 from the CSV.
 
-$ node scripts/upload.js --update scripts/data/image-meta/{new_name_meta} image-meta
+$ node scripts/upload.js --update scripts/data/tmp/{new_name_meta} image-meta
 
 This UPDATES the existing image metadata using the new info from the
 CSV. Does not overwrite the image meta object since the other fields
@@ -184,6 +200,10 @@ can only be found by looking at the original responses from the Kobo
 survey.
     """
     )
+
+    print("SUCCESS!")
+
+    return
 
 
 if __name__ == "__main__":

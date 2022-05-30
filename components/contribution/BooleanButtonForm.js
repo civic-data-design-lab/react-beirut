@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import OtherButton from './OtherButton';
+import ToastifyTest from './ToastifyTest';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * Form that provides a list of buttons that you can select.
@@ -14,73 +17,105 @@ import OtherButton from './OtherButton';
  * @param {boolean} hasOtherField - Whether or not to display an "other" field.
  * @returns {React.Component}
  */
-const BooleanButtonForm = ({ onUpdate, formData, dataLocation, title, label, buttonNames, hasOtherField }) => {
+const BooleanButtonForm = ({ onUpdate, formData, dataLocation, title, label, defaultTags, hasOtherField }) => {
 
-  // If not already defined in the formData, instantiate it.
-  if (formData[dataLocation] == undefined) {
-    formData[dataLocation] = {};
-    buttonNames.map((buttonName) => {
-      formData[dataLocation][buttonName] = false;
+  useEffect(() => {
+    // If not already defined in the formData, instantiate it.
+    if (formData[dataLocation] != undefined) return
+
+    let bbfData = {};
+    bbfData[dataLocation] = {
+      "defaultTags": {},
+      "customTags": {}
+    }
+    defaultTags.forEach( (tag) => {
+      bbfData[dataLocation]["defaultTags"][tag] = false;
     });
-  };
 
-  // Update the buttons to reflect the current state of the formData
-  const updateButtonPresentation = () => {
-    buttonNames.map((buttonName) => {
-      var button = document.getElementById(`btn-${buttonName}`)
-      if(formData[dataLocation][buttonName]) {
-        button.value = "true";
-        button.className = 'hstg-btn-pill-small-selected';
-      }
-      else {
-        button.value = "false";
-        button.className = 'hstg-btn-pill-small';
-      }
-    })
+    // Update the global form data object
+    onUpdate(bbfData);
+  }, [])
+
+  const onBooleanButtonClick = (e) => {
+    let bbfData = JSON.parse(JSON.stringify(formData));
+    bbfData[dataLocation]["defaultTags"][e.target.getAttribute("variable")] = !bbfData[dataLocation]["defaultTags"][e.target.getAttribute("variable")]
+    onUpdate(bbfData);
   }
 
-  // Sync local formData with global formData (is this necessary?)
-  const updateData = () => {
-    onUpdate(formData)
-    console.log(formData)
+  const onCustomTagClick = (e) => {
+    let bbfData = JSON.parse(JSON.stringify(formData));
+    delete bbfData[dataLocation]["customTags"][e.target.getAttribute("variable")];
+    onUpdate(bbfData);
   }
 
-  const onButtonClick = (e) => {
-    const buttonName = e.target.getAttribute("var")
+  const onKeyDown = (e) => {
+    return e.key != "Enter";
+  }
 
-    // When the button is clicked, check the form data and reverse the value stored there.
-    formData[dataLocation][buttonName] = !formData[dataLocation][buttonName]
-    // console.log("Data from the BooleanButtonForm = ", formData[dataLocation])
-    updateButtonPresentation();
-    // updateData(); Ask Enrique why I don't need to use onUpdate here. Is it because I am referencing a dictionary INSIDE of a static object? Unsure.
+  const sendErrorMessage = (string) => {
+    toast.error(string, {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      });
   }
 
   return (
-    <form className="BooleanButtonForm">
+    <div onKeyDown={onKeyDown} className="boolean-button-form">
         <h2>{title || 'Select Buttons'}</h2>
         {/* Not sure why these are so close together. Put many line breaks */}
         <br />
         <div>
+            
             <label>{label}</label>
           <br />
           <br />
-          {buttonNames.map((buttonName) => 
-          (
+          {
+            // Create a button for each default tag
+            formData[dataLocation] && Object.entries(formData[dataLocation]["defaultTags"]).map( ([key, value]) => {
+              return value ? (
+                <button 
+                type="button"
+                variable={key}
+                key={key}
+                onClick={onBooleanButtonClick}
+                className="hstg-btn-pill-small-selected">
+                  {key}
+                </button>) : (
                 <button 
                 type="button" 
-                value={formData[dataLocation][buttonName]} 
-                class={formData[dataLocation][buttonName] ? "hstg-btn-pill-small-selected" : "hstg-btn-pill-small"} 
-                id={`btn-${buttonName}`} 
-                onClick={onButtonClick}
-                var={buttonName}>
-                  {buttonName}
-                </button>
-                )
-              )
+                variable={key}
+                key={key} 
+                onClick={onBooleanButtonClick} 
+                className="hstg-btn-pill-small">
+                  {key}
+                </button>) 
+            })
           }
-          {hasOtherField && <OtherButton></OtherButton>}
+          {
+            // Create a button for each default tag
+            formData[dataLocation] && Object.entries(formData[dataLocation]["customTags"]).map( ([key, value]) => {
+              console.log("Custom Tag:", key)
+              return (<button variable={key} key={key} onClick={onCustomTagClick} className="hstg-btn-pill-small-selected">
+                ⓧ {key}
+                {/* <div className="remove-tag-btn"><small>X</small></div>  */}
+                </button>) 
+            })
+          }
+          {hasOtherField && <OtherButton
+          onUpdate={onUpdate}
+          sendErrorMessage={sendErrorMessage}
+          formData={formData}
+          dataLocation={dataLocation}
+          ></OtherButton>}
         </div>
-    </form>
+        {/* <ToastifyTest></ToastifyTest> */}
+        <ToastContainer />
+    </div>
   );
 };
 

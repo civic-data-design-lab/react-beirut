@@ -49,13 +49,12 @@
  * @property {number} lng
  */
 
-
 /**
  * @typedef {Object} Location
- * 
+ *
  * A location field contains the geolocation of a datapoint as well as an
  * address and additional location information.
- * 
+ *
  * @property {LatLng} geo - The actual lat/lng location
  * @property {Multilanguage} address - The address as a string,
  *    if available. This may be provided in mutliple languages.
@@ -68,7 +67,6 @@
  *    (e.g. Hamra)
  */
 
-
 //------------
 // STORED DATA
 //------------
@@ -77,14 +75,14 @@
  * @typedef {Object} Workshop
  *
  * Defines a workshop object.
- * 
+ *
  * Primary API endpoint: https://cddl-beirut.herokuapp.com/api/workshops
- * 
+ *
  * Workshop objects contain information about craft workshops in Beirut. The
  * primary attributes are the workshop/owner name (`shop_name`,
  * `shop_owner_name`), the location (`location`), and the craft disciplines
  * (`craft_discipline*`).
- * 
+ *
  * Workshops also have images associated with them with even more information such
  * as image captions, image type, and keywords; these are given by the `images`
  * field which is an array of image IDs that can be mapped to image metadata
@@ -120,14 +118,14 @@
  * @typedef {Object} ArchiveObject
  *
  * Defines an archive information object.
- * 
+ *
  * Primary API endpoint: https://cddl-beirut.herokuapp.com/api/archive
- * 
+ *
  * Each archive information object contains information about a response from
  * the archive survey. For responses with visual content, more information such
  * as the image caption, type, and keywords are provided in the associated image
  * metadata objects, given by the `images` field. See `ImageMeta` for more
- * details on this. 
+ * details on this.
  *
  * @property {string} ID - The archive information ID (from the "archive" Kobo survey)
  * @property {string} info_type - The type of information (e.g. "visual")
@@ -161,14 +159,14 @@
  * @typedef {Object} ImageMeta
  *
  * Defines an image metadata object.
- * 
+ *
  * Primary API endpoint: https://cddl-beirut.herokuapp.com/api/images
- * 
+ *
  * Image metadata contains information about specific images from either
  * workshops or archive information, or can be generic images. Image metadata is
  * tied to images from a survey response by the `response_id` field. Survey
  * response objects (`Workshop`, `ArchiveObject`) contain pointers to image
- * metadata objects by the IDs (the `img_id` here) in `images` field. 
+ * metadata objects by the IDs (the `img_id` here) in `images` field.
  *
  * @property {string} img_id - The image ID
  * @property {string} response_id - What response the image is tied to
@@ -184,8 +182,8 @@
  * @property {boolean} is_series - Whether or not this image is part of a series
  * @property {number} series_idx - The index of this image in the series,
  *    specifies the order among other images. Note that multiple images from one
- *    response may have the same index. 
- * @property {Location} location - The image location  
+ *    response may have the same index.
+ * @property {Location} location - The image location
  * @property {number} year_taken - The specific year the image was taken
  * @property {number | number[]} decade_taken - The decade or range of decades
  *    this image was taken in
@@ -205,6 +203,18 @@
  * @property {string} filename - The full file name with the extension
  * @property {Buffer} data
  *
+ */
+
+/**
+ * @typedef {Object} Sticker
+ *
+ * Defines a sticker object. A sticker is simply a more detailed version of an
+ * archival object. The primary attribute is its content, which is a small story
+ * about the archival information.
+ *
+ * @property {string} code - The sticker code
+ * @property {string} response_id - The associated archive information ID
+ * @property {string} content - The content of the sticker (the story)
  */
 
 module.exports = {};
