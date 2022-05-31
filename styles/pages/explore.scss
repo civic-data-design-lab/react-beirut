@@ -99,33 +99,53 @@
   background-color: $c-white-off;
   border-radius: 5px;
   position: fixed;
-  padding: 24px;
-  height: 60%;
-  width: 25%;
+  height: 65%;
+  width: 35%;
   bottom: 20%;
   left: 8%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .lc-section {
+  flex: 1 1 0;
+
+}
+
+.lc-button-section {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
 }
+
+
 
 .mapLayerButtons {
   height: 100%;
-  //width: 100%;
+  width: 100%;
   margin: 0px;
   padding: 0px;
   border:none;
   background-color: Transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
 }
 
-.mapLayerButtons :hover { outline: none; }
+.mapLayerButtons:hover {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  border:none;
+  background-color: $c-primary-light;
+}
+
+
+
+
 
 
 

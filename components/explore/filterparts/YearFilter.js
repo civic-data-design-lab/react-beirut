@@ -23,7 +23,7 @@ export default class YearFilter extends React.Component {
         return (
             <>
                 <Slider range
-                                value={[this.state.startYear, this.state.endYear]}
+
                                 marks={{
                                     //1900: '1900',
                                     //1910: '1910',

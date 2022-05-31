@@ -88,7 +88,8 @@ export default class MapCard extends React.Component {
 
                         <div className={'searchby-section'}>
                             <p>{this.getShopName()}</p>
-                            <button onClick = {this.props.closeMapCard} className={'close-filter-btn'}> X </button>
+                            <button className={'close-filter-btn'} onClick = {this.props.closeMapCard} > X </button>
+
                         </div>
 
 

@@ -1,5 +1,5 @@
 // import { } from '../../lib/apiUtils';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import ImageFeed from '../discover/ImageFeed';
@@ -9,6 +9,15 @@ const DiscoverLayout = ({ children }) => {
   const router = useRouter();
   const [workshops, setWorkshops] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [showFilter, setFilter] = useState(false);
+
+  const [numberCrafts, setNumber] = useState(7);
+  const [filteredCraftsImage, setCrafts] = useState(["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]);
+  const [startYearImage, setStartYear] = useState(1900);
+  const [endYearImage, setEndYear] = useState(2030);
+  const [toggleImage, setToggle] = useState(false)
+
+
 
   useEffect(() => {
     console.log('fetching');
@@ -42,6 +51,32 @@ const DiscoverLayout = ({ children }) => {
     router.push(`/discover`, undefined, { shallow: true });
   };
 
+  const expandFilter = () => {
+    setFilter(!showFilter);
+  }
+
+  const updateCrafts = (craftData) => {
+      setCrafts(craftData);
+      setNumber(craftData.length)
+       }
+
+  const updateYears = (yearData) => {
+      setStartYear(yearData[0]);
+      setEndYear(yearData[1])
+  }
+
+  const updateToggle = (toggleData) => {
+      setToggle(toggleData)
+    }
+
+    const filterData = {
+                'filteredCrafts' : filteredCraftsImage,
+                'filteredStartYear' : startYearImage,
+                'filteredEndYear' : endYearImage,
+                'filteredToggleStatus' : toggleImage,
+            }
+
+
   return (
     <>
       <Head>
@@ -57,14 +92,28 @@ const DiscoverLayout = ({ children }) => {
             </p>
           </div>
 
-          <ImageFilter />
+          <button onClick={expandFilter}>Filter By</button>
         </div>
         <hr />
+        {showFilter ?
+            <ImageFilter
+              filteredCrafts={filteredCraftsImage}
+              startYear={startYearImage}
+              endYear={endYearImage}
+              toggleStatus={toggleImage}
+              updateCrafts={updateCrafts}
+              updateYears={updateYears}
+              updateToggle={updateToggle}
+
+            />
+            : null}
         <ImageFeed
           workshops={workshops}
           selectedCard={selectedCard}
           onCloseCard={resetSelected}
           onExpandCard={handleExpand}
+          imageFilterData={filterData}
+
         />
       </div>
       {children}

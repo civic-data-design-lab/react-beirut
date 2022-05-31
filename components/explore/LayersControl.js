@@ -16,18 +16,28 @@ export default class LayersControl extends React.Component {
     }
 
     getMapLayerButtons = () => {
-        let buttons = this.props.allLayers.map((layerName) => {
-            return (<>
-                <div key={layerName} className={'lc-section'}>
-                <button key = {layerName} id={layerName} onClick={this.clickLayerButton}>
-                    {layerName}
-                </button>
+        let buttons = []
+        for (const [key, value] of Object.entries(this.props.allLayers)) {
+        buttons.push(
+            <>
+                <div key={key} className={'lc-section lc-button-section'}>
+                    <div className={'lc-button-section'}>
+                        <button className={'mapLayerButtons'} key ={key} id={key} onClick={this.clickLayerButton}>
+                        <p style={{margin:'24px'}} className={'mapLayerButtonText'} id={key} onClick={this.clickLayerButton}> {key} </p>
+                        <p style={{margin:'24px'}} className={'mapLayerButtonText'} id={key} onClick={this.clickLayerButton}> {value} </p>
+                        </button>
+
+                    </div>
+
             </div>
             <hr/>
-                </> )
-        })
+                </>
+        )
+        }
+
         return buttons
     }
+
 
     onReset = () => {
         this.props.updateMapLayer(null)
@@ -42,9 +52,10 @@ export default class LayersControl extends React.Component {
         return (
             <>
             <div className={'layersControl-container'}>
-                <div className={'searchby-section lc-section'}>
-                        <p>Historical Maps</p>
-                        <button className={'close-filter-btn'} onClick={this.props.closeLayersControl}>X</button>
+                <div className={'searchby-section lc-section'} style={{padding:'24px'}}>
+
+                        <p style={{margin:0, padding: 0}}>Historical Maps</p>
+                        <button style={{height: "10%"}} className={'close-filter-btn'} onClick={this.props.closeLayersControl}>X</button>
                 </div>
                 <hr/>
                 {this.getMapLayerButtons()}

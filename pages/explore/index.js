@@ -24,7 +24,14 @@ export default class Explore extends React.Component {
 
         this.state = {
             mapLayer : null,
-            allLayers : ['1920', '1945', '1984'],
+            allLayers : {
+                'ca. 1000AD': 'Écochard, M. (1943). Medieval gates and fortifications of Beirut. Item S806531, Michel Écochard Archive. Massachusetts Institute of Technology, Aga Khan Documentation Center. Cambridge (MA), USA.',
+                '1876' : 'Löytved, J., Stuckly, A. (1876). Map of Beirut dedicated to His Imperial Majesty Sultan Abdul Hamid II (Trans.). Item GE D 16879, (60 x 35cm), C Register. National Library of France. Paris, France.',
+                '1920': "Armée Française du Levant. Bureau Topographique. (1920). Beirut (Trans.). Item GE C-5752, (82 x 57cm). National Library of France, Departments of Maps and Plans. Paris, France.",
+
+            },
+
+
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
             startYearParent : 1900,
             endYearParent : 2030,
@@ -45,7 +52,6 @@ export default class Explore extends React.Component {
             } else {
                 this.setState({mapLayer:mapLayer})
             }
-
     }
 
 

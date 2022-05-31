@@ -154,3 +154,25 @@
     }
   }
 }
+
+.image-filter-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.image-filter-section {
+  flex: 1 1 0px;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 1rem;
+}
+
+.filter-active-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
