@@ -99,7 +99,7 @@ export default class MapCard extends React.Component {
                             }
                         })} </p>
 
-                        <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption}/>
+                        {(this.props.workshop.images.length !== 0) ? <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption}/>:null}
 
                         <p>{this.state.caption}</p>
 

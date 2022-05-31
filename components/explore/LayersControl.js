@@ -4,14 +4,22 @@ export default class LayersControl extends React.Component {
 
     constructor(props) {
         super(props);
+        this.clickLayerButton = this.clickLayerButton.bind(this)
 
+
+
+    }
+
+    clickLayerButton (e) {
+        let layerName = e.target.id;
+        this.props.updateMapLayer(layerName)
     }
 
     getMapLayerButtons = () => {
         let buttons = this.props.allLayers.map((layerName) => {
             return (<>
-                <div>
-                <button onClick={this.props.updateMapLayer(layerName)}>
+                <div key={layerName}>
+                <button id={layerName} onClick={this.clickLayerButton}>
                     {layerName}
                 </button>
             </div>

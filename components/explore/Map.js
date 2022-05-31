@@ -10,9 +10,7 @@ export default class App extends React.PureComponent {
         super(props);
         this.state = {
 
-            toggableMaps : [],
-
-
+            activeLayer: null,
             showMapCard: false
 
         }
@@ -64,18 +62,19 @@ export default class App extends React.PureComponent {
         // add all potential layers as a source
 
         map.current.on('load', () => {
-        map.current.addSource('radar', {
-        'type': 'image',
-        'url': 'https://docs.mapbox.com/mapbox-gl-js/assets/radar.gif',
-        'coordinates': [
-            [35.383297650238326, 33.928357422091395], // top-left
-            [35.629842811007315, 33.928357422091395], // top-right
-            [35.629842811007315, 33.83527318407196], // bottom-right
-            [35.383297650238326, 33.83527318407196], // bottom-left
 
-        ]
+        // map.current.addSource('1920', {
+        // 'type': 'raster',
+        // 'url': 'mapbox://mitcivicdata.ddxxt2r8'
+        // });
+        map.current.addLayer({
+        'id': '1920',
+        'source': '1920',
+        'type': 'raster',
+        'layout': {
+            'visibility': 'none'
+        }
         });
-
         });
 
        if (!this.props.workshops) {
@@ -143,6 +142,24 @@ export default class App extends React.PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
 
          // change visibility of layer
+        if (this.props.mapLayer) {
+            if (this.state.activeLayer) {
+                const visibility = map.current.getLayoutProperty(
+                    this.state.activeLayer,
+                    'visibility'
+                );
+                map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
+                this.setState({activeLayer:null})
+                if (this.state.mapLayer !== this.state.activeLayer) {
+                    map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
+                    this.setState({activeLayer:this.props.mapLayer})
+                }
+
+            } else {
+                map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
+                this.setState({activeLayer:this.props.mapLayer})
+            }
+        }
 
 
          // load workshop markers

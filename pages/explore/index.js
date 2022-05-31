@@ -24,7 +24,7 @@ export default class Explore extends React.Component {
 
         this.state = {
             mapLayer : null,
-            allLayers : ['radar'],
+            allLayers : ['1920', '1945', '1984'],
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
             startYearParent : 1900,
             endYearParent : 2030,
@@ -180,7 +180,7 @@ export default class Explore extends React.Component {
                             <button className={'filterButton'} onClick={this.toggleLayersControl}>layers</button>
                         </div>
 
-                        { this.state.showMapCard ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard}/> : null}
+                        { (this.state.showMapCard && this.state.workshop && this.state.workshop.images) ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard}/> : null}
 
                         { this.state.showLayersControl ? <LayersControl allLayers={this.state.allLayers} updateMapLayer={this.updateMapLayer} closeLayersControl={this.closeLayersControl}/> : null}
 
