@@ -1,3 +1,5 @@
+
+
 import React, { useEffect } from "react";
 import Slider from "../Slider";
 import MapCardSlider from "./MapCardSlider";
@@ -142,6 +144,7 @@ export default class MapCard extends React.Component {
         )
     }
 }
+
 
 
 

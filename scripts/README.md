@@ -1,6 +1,7 @@
 # Scripts and Database Upload
-This folder contains scripts used to upload data to the database. Click
-[here](#database-upload-log) to skip to the database upload log.
+This folder contains scripts used to upload data to the database. Below is some
+documentation on these scripts. Click [here](#database-upload-log) to skip to
+the database upload log.
 
 ## `csv_to_json.py`
 This script is used to convert CSV files to JSON for database upload. For
@@ -15,12 +16,13 @@ Note that if `archive` is provided script will also update the primary image
 metadata associated with the response.
 
 ### Usage:
+0. Make sure you have the Python dependencies installed, found in [`requirements.txt`](requirements.txt).
 1. Download the CSV data from the Google Sheet as a CSV and save it to a known location, preferably within the [`scripts/data`](/scripts/data) folder.
 2. Run the script with the following command:  
     ```
     python3 scripts/archive_csv_to_json.py <path> <type>
     ```
-   where `<path>` is the path to the CSV file and type is either `archive` or `sticker`.
+   where `<path>` is the path to the CSV file and `<type>` is either `archive` or `sticker`.
 3. The script will create appropriate JSON files in `scripts/data/tmp`, which
    can then be uploaded to the database using the [upload script](#uploadjs).
 
@@ -34,6 +36,11 @@ Use the following command to see the help page.
 ```
 node scripts/upload.js --help
 ```
+
+The basic workflow is to run the script with a JSON filepath as the first
+argument and the upload type as the second argument (e.g. `archive` or
+`sticker`). The script will convert the JSON objects to Mongoose models and
+upload them to the database.
 
 ### Examples
 Some examples JSON files are provided in the `example-data` folder to show how
@@ -64,7 +71,28 @@ the data should be formatted when running the upload script.
     preserve the other fields in `location`.
 
 
+## Updating Data Workflow
+The basic workflow for updating data in the database is as follows:
+
+1. Convert the data you want to upload/update to a JSON format. You can use the
+   [`csv_to_json.py`](#csv_to_json) script if the data is from a CSV and is from
+   the archive sheet or stickers. Otherwise you can write some other script to
+   create this JSON file.
+2. Note that the JSON file must contain an array of objects to be uploaded.
+   These objects should match the schemas found in
+   [`Types.js`](../models/Types.js). Nested fields should be written as
+   dot-separated strings such as `root.nested.double_nested...`. See the [example
+   data](example-data/) folder for examples.   
+3. Run the [`upload.js`](upload.js) script with the path to the JSON file to
+   update, overwrite, or upload the data. See the [documentation](#uploadjs)
+   above. 
+
 ## Database Upload Log
+
+### 5/29/2022
+* Changed "Najmeh" to "Nejmeh" in the archive responses.
+* Made slight edits to the duplicate archive responses based on the FHL
+  comments.
 
 ### 5/27/2022
 * Uploaded sticker data to the database.

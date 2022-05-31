@@ -1,3 +1,5 @@
+Map
+
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
 

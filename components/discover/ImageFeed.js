@@ -17,7 +17,6 @@ const ImageFeed = ({ workshops, imageFilterData }) => {
 
 
         const craftType = workshop.craft_discipline_category;
-        const {lng, lat} = workshop.location.geo;
         const indices = craftType.map((craft)=>{return imageFilterData['filteredCrafts'].indexOf(craft)});
         const start = imageFilterData['filteredStartYear'];
         const end = imageFilterData['filteredEndYear'];
@@ -37,7 +36,7 @@ const ImageFeed = ({ workshops, imageFilterData }) => {
             }
         }
 
-        if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
+        if ((indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
             if (imageFilterData['filteredToggleStatus'] && workshop.shop_status!=="open") {
                 return false
             } else {
@@ -46,17 +45,15 @@ const ImageFeed = ({ workshops, imageFilterData }) => {
             }
         }
 
-
-
-
     }
+
 
   //TODO: Adjust css to fit the width of the page
 
   return (
     <div className="container">
       <div className="image-feed">
-        {workshops.map(
+        {workshops && workshops.map(
           (workshop) =>
             filter(workshop) &&  (
               <div className="image-container" key={workshop.ID}>
@@ -64,9 +61,8 @@ const ImageFeed = ({ workshops, imageFilterData }) => {
               </div>
             )
         )}
-      </div>
+        </div>
     </div>
-  );
-};
+        )}
 
 export default ImageFeed;

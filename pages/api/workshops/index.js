@@ -12,10 +12,16 @@ export default async (req, res) => {
       break;
     case 'POST':
       const body = req.body;
-      const newWorkshop = await saveNewWorkshop(body);
+      if (!body) {
+        res.status(StatusCodes.BAD_REQUEST).send({
+          message: 'No body provided',
+        });
+      }
+
+      const result = await saveNewWorkshop(body);
 
       // Handle the case where the workshop was not saved.
-      if (!newWorkshop) {
+      if (!result?.workshop) {
         res.status(StatusCodes.BAD_REQUEST).send({
           message:
             'Failed to save new workshop. Make sure you filled out the required fields!',
@@ -24,8 +30,8 @@ export default async (req, res) => {
       }
 
       res.send({
-        message: 'Succesfully added new workshop',
-        response: newWorkshop,
+        message: 'Succesfully added new workshop and associated image metadata',
+        response: result,
       });
       break;
     default:

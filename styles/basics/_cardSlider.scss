@@ -1,0 +1,77 @@
+.mapSlider-wrapper::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.slider-btn-label {
+  cursor: pointer;
+  font-size: 48px;
+  font-weight: 400;
+  color: $c-white;
+  z-index: 2000;
+}
+
+.btn-prev,
+.btn-next {
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: Transparent;
+  z-index: 2000;
+
+  &.disable {
+    display: none;
+  }
+}
+
+.btn-prev {
+  left: 0;
+}
+
+.btn-next {
+  right: 0;
+}
+
+.mapSlider-wrapper {
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  // padding: 0 30px;
+}
+
+.mapCard-img {
+  z-index: -1;
+  border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  scroll-snap-align: center;
+}
+
+.mapCard-slider-image-container {
+  height: 100%;
+  margin: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mapSlider-container {
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+}

@@ -19,6 +19,12 @@ const WorkshopSchema = new mongoose.Schema({
     content_ar: String, // From `shop_name` if `shop_name_lang` is `ar`
   },
   shop_owner_name: String,
+  contact_info: {
+    phone: String,
+    email: String,
+    website: String,
+    social_media: String,
+  },
   year_established: Number,
   decade_established: [Number],
   craft_discipline_category: [String],

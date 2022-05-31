@@ -23,7 +23,7 @@ export default async (req, res) => {
     }
 
     // Send the image
-    res.setHeader('Content-Type', 'image/jpg');
+    res.setHeader('Content-Type', 'image');
     res.send(response.data);
     return;
   }

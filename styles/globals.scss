@@ -10,10 +10,12 @@
 // === BASICS ===
 @import 'basics/button';
 @import 'basics/card';
+@import 'basics/cardSlider';
 @import 'basics/effects';
 @import 'basics/input';
 @import 'basics/link';
 @import 'basics/slider';
+@import 'basics/divider';
 
 // === COMPONENTS ===
 @import 'layout/layout';
@@ -30,7 +32,6 @@
 @import 'pages/contribute';
 @import 'pages/discover.scss';
 @import 'pages/explore.scss';
-
 
 *,
 *::before,

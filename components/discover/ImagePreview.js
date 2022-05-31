@@ -10,7 +10,7 @@ const ImagePreview = ({ workshop, thumbnailSrc }) => {
       <div className="img-preview">
         {imgSrc && (
           <>
-            <Link href="/discover/[id]" as={`/discover/${workshop.ID}`}>
+            <Link href="/discover/[id]" as={`/discover/${workshop.ID}`} scroll={false}>
               <img src={imgSrc} alt="img" />
             </Link>
             <div className="overlay">
