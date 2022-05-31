@@ -2,6 +2,7 @@ import ImagePreview from './discover/ImagePreview';
 import MapCardSlider from './explore/MapCardSlider';
 import Slider from './Slider';
 import { Workshop as WorkshopType, ImageMeta } from '../models/Types';
+import MiniMap from "./discover/MiniMap";
 
 const mainSliderStyle = {
   sliderContainer: 'mapSlider-container',
@@ -85,8 +86,10 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops }) => {
             </p>
           </div>
           <div className="container__map">
-            <p>See it on map</p>
-            <div className="map"></div>
+             <p>See it on map</p>
+            <div className="map">
+              <MiniMap workshop={workshop}/>
+            </div>
           </div>
           <div className="container__suggestion">
             <p>Explore similar shops</p>

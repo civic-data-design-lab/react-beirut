@@ -1,4 +1,3 @@
-Map
 
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
@@ -51,7 +50,6 @@ export default class App extends React.PureComponent {
 
     componentDidMount() {
         //console.log('map.js ', this.props.filterSearchData)
-        console.log('archive', this.props.archives[0])
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
@@ -279,6 +277,7 @@ export default class App extends React.PureComponent {
                     el.type = 'archive';
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
+
                 }
 
             }

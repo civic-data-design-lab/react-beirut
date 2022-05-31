@@ -46,12 +46,28 @@ export default class MapCard extends React.Component {
         if (!this.props.workshop.decade_established) {
             return 'EST ???? '
         }
+        console.log(this.props.type)
+
         if (this.props.workshop.decade_established[0]) {
-            return `EST ${this.props.workshop.decade_established[0]} `}
-        else {
-            return 'EST ???? '
+            return `EST ${this.props.workshop.decade_established[0]} `
+        } else {
+                return "EST ????"
+            }
         }
-    }
+
+    getPrimaryDecade = () => {
+        if (!this.props.workshop.primary_decade) {
+            return 'Taken ????'
+        }
+
+        if (this.props.workshop.primary_decade[0]) {
+            return `Taken ${this.props.workshop.primary_decade[0]}`
+        } else {
+            return 'Taken ????'
+        }
+
+        }
+
 
     getImages = () => {
 
@@ -61,9 +77,8 @@ export default class MapCard extends React.Component {
         console.log('getting images ', this.props.workshop.images)
        //let slider = document.getElementsByClassName()
 
-        let images = this.props.workshop.images.map((image) => (
-            <img key={image} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" />))
-        return images
+        return this.props.workshop.images.map((image) => {return <img key={image} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" />})
+
     }
 
     getThumbnails = () => {
@@ -121,8 +136,36 @@ export default class MapCard extends React.Component {
         } else {
             return (
                 <div className={'mapCard'} id={`mapCard${this.props.id}`}>
-                    <button onClick = {this.props.closeMapCard}> close mapCard </button>
-                    archive type </div>
+
+                        <div className={'searchby-section'}>
+                            <p>{this.getShopName()}</p>
+                            <button className={'close-filter-btn'} onClick = {this.props.closeMapCard} > X </button>
+
+                        </div>
+
+
+
+                        <p>{this.getPrimaryDecade()}
+                            {this.props.workshop.craft_discipline.map((craft) => {
+                            if (craft.toUpperCase() === "OTHER") {
+                                if (!this.props.workshop.craft_discipline_other) {
+                                    return null
+                                } else {
+                                    return "| " + this.props.workshop.craft_discipline_other
+                                }
+                            } else {
+                                return "| " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase() + " ";
+                            }
+                        })} </p>
+
+                        {(this.props.workshop.images.length !== 0) ? <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption}/>:null}
+
+                        <p>{this.state.caption}</p>
+
+                        <hr/>
+
+
+                </div>
             )
         }
     }
