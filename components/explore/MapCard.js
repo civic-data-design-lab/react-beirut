@@ -86,10 +86,13 @@ export default class MapCard extends React.Component {
             return (
                 <div className={'mapCard'} id={`mapCard${this.props.id}`}>
 
-                        <button onClick = {this.props.closeMapCard}> close mapCard </button>
+                        <div className={'searchby-section'}>
+                            <p>{this.getShopName()}</p>
+                            <button onClick = {this.props.closeMapCard} className={'close-filter-btn'}> X </button>
+                        </div>
 
-                        <p>{this.props.id}</p>
-                        <p>{this.getShopName()}</p>
+
+
                         <p>{this.getDecadeEstablished()}
                             {this.props.workshop.craft_discipline.map((craft) => {
                             if (craft.toUpperCase() === "OTHER") {

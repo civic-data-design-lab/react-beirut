@@ -18,8 +18,8 @@ export default class LayersControl extends React.Component {
     getMapLayerButtons = () => {
         let buttons = this.props.allLayers.map((layerName) => {
             return (<>
-                <div key={layerName}>
-                <button id={layerName} onClick={this.clickLayerButton}>
+                <div key={layerName} className={'lc-section'}>
+                <button key = {layerName} id={layerName} onClick={this.clickLayerButton}>
                     {layerName}
                 </button>
             </div>

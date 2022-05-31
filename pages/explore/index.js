@@ -40,7 +40,12 @@ export default class Explore extends React.Component {
     }
 
     updateMapLayer = (mapLayer) => {
-            this.setState({mapLayer:mapLayer})
+            if (mapLayer === this.state.mapLayer) {
+                this.setState({mapLayer:null})
+            } else {
+                this.setState({mapLayer:mapLayer})
+            }
+
     }
 
 

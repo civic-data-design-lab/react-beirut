@@ -63,10 +63,10 @@ export default class App extends React.PureComponent {
 
         map.current.on('load', () => {
 
-        // map.current.addSource('1920', {
-        // 'type': 'raster',
-        // 'url': 'mapbox://mitcivicdata.ddxxt2r8'
-        // });
+        map.current.addSource('1920', {
+        'type': 'raster',
+        'url': 'mapbox://mitcivicdata.ddxxt2r8'
+         });
         map.current.addLayer({
         'id': '1920',
         'source': '1920',
@@ -144,21 +144,15 @@ export default class App extends React.PureComponent {
          // change visibility of layer
         if (this.props.mapLayer) {
             if (this.state.activeLayer) {
-                const visibility = map.current.getLayoutProperty(
-                    this.state.activeLayer,
-                    'visibility'
-                );
                 map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
-                this.setState({activeLayer:null})
-                if (this.state.mapLayer !== this.state.activeLayer) {
-                    map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
-                    this.setState({activeLayer:this.props.mapLayer})
-                }
-
-            } else {
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})
-            }
+            } else {
+                map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
+                this.setState({activeLayer:this.props.mapLayer})}
+        } else if (this.state.activeLayer) {
+                map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
+                this.setState({activeLayer:this.state.activeLayer})
         }
 
 
