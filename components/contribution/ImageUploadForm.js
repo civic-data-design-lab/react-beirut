@@ -1,6 +1,18 @@
-import { useState } from 'react';
 import SingleImageUpload from './SingleImageUpload';
 
+/**
+ * Image upload form component for the contribution page. Right now it only
+ * accepts one image using the `SingleImageUpload` component. TODO: Add support
+ * for multiple images.
+ * 
+ * @param {object} props - Props
+ * @param {function} props.onUpdate - The function to call when the value of the
+ *    image field updates (`{imageData: string}`)
+ * @param {string} props.formData - The current form data.
+ * @param {string} props.title - The title of this form
+ * @param {string} props.label - The label of this form (e.g. 'Upload an image')
+ * @returns
+ */
 const ImageUploadForm = ({ onUpdate, formData, title, label }) => {
   console.log(formData);
   return (

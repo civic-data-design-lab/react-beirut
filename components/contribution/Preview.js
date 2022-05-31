@@ -57,15 +57,6 @@ const Preview = ({ formData, missingFields }) => {
   return (
     <div>
       <h2>Preview</h2>
-      {/* <pre id="json">
-        <code>
-          {JSON.stringify(
-            { ...formData, imageData: formData.imageData ? 'uploaded' : null },
-            null,
-            4
-          )}
-        </code>
-      </pre> */}
       {getPreview()}
     </div>
   );

@@ -1,6 +1,6 @@
 # CDDL-Beirut API Documentation
 
-Last updated: 5/28/2022
+Last updated: 5/30/2022
 
 ## Endpoints
 All `GET` endpoints return a JSON-formatted string in the form `{"message":
@@ -15,7 +15,7 @@ Gets all of image metadata from the database.
 
 #### `GET /api/images/<id>` ⇒ [`ImageMeta[]`](../../models/ImageMeta.js)
 
-Gets the image metadata.
+Gets the image metadata by ID.
 
 Users may provide an image ID (`img_id`), in which case the particular image
 metadata object is returned, or a survey response ID (`response_id`), in which
@@ -27,8 +27,6 @@ of image metadata objects is returned.
 Retrieves the actual image given the image `filename` formatted as
 `img_id.<extension>`. 
 
-
-
 ### Workshops
 #### `GET /api/workshops` ⇒ [`Workshop[]`](../../models/Workshop.js)
 Gets all workshops from the database.
@@ -37,11 +35,20 @@ Gets all workshops from the database.
 Retrieves a workshop by its `ID` property from the database.
 
 #### `POST /api/workshops` ⇒ [`Workshop`](../../models/Workshop.js)
+Body:
+```
+ workshop: WorkshopType
+ imageMetas: ImageMetaType[]
+ imageDatas: ImageDataType[]
+```
+The request body must be an object containing the workshop to be added, an array
+of associated image metadata, and an array of associated image data.
+
 Creates a new workshop and saves it to the database. Data is
 "`application/json`"-formatted and is sent in the POST request body. The
 endpoint returns the newly created workshop to confirm it was created.
 
-TODO: This endpoint will also create and save an image metadata object if a
+Note: This endpoint will also create and save an image metadata object if a
 photo is provided. 
 ### Archive Information
 #### `GET /api/archive` ⇒ [`ArchiveObject[]`](../../models/Archive.js)
@@ -51,13 +58,22 @@ Gets all of the archive response objects from the database.
 Retrieves and archive object by its `ID` property from the database.
 
 #### `POST /api/archive` ⇒ [`ArchiveObject`](../../models/Archive.js)
+Body:
+```
+ archive: ArchiveType
+ imageMetas: ImageMetaType[]
+ imageDatas: ImageDataType[]
+```
+The request body must be an object containing the archive information object to
+be added, an array of associated image metadata, and an array of associated
+image data (if applicable).
 
 Creates a new archive object and saves it to the database. Data is
 "`application/json`"-formatted and is sent in the POST request body. The
 endpoint returns the newly created archive information object to confirm it was
 created and saved.
 
-TODO: This endpoint will also create and save an image metadata object for data
+Note: This endpoint will also create and save an image metadata object for data
 containing visual content. 
 
 ### Stickers

@@ -17,11 +17,12 @@ import Card from '../Card';
  * ```
  *  <MultipageForm
  *    onSubmit={onSubmit}
- *    requiredFields={[[], ['street', 'municipality']]}
+ *    requiredFields={[[], ['street', 'sector']]}
+ *    onUpdate={onUpdate}
  *    formData={form}
  *  >
- *    <ImageUploadForm onUpdate={updateForm} formData={form} />
- *    <LocationForm onUpdate={updateForm} formData={form} />
+ *    <ImageUploadForm />
+ *    <LocationForm />
  *  </MultipageForm>
  * ```
  * The `ImageUploadForm` component will be displayed on the first page (page 0),
@@ -29,11 +30,15 @@ import Card from '../Card';
  * are passed to the `onUpdate` function. This function should expect an object
  * containing the form data to update.
  *
- * @param {function} onSubmit - The function to call when the form is submitted
- * @param {string[]} requiredFields - An array of arrays of strings. Each array
+ * @param {object} props - Props (below)
+ * @param {string} props.name - Name of the multipage form
+ * @param {string[]} props.pageTitles - An array of page titles to display, one per page.
+ * @param {object} props.formData - The form data to use.
+ * @param {string[]} props.requiredFields - An array of arrays of strings. Each array
  *    entry represents the list of required fields for each form page.
- * @param {object} formData - The form data to use.
- * @returns
+ * @param {function} props.onUpdate - Function to call when the form is updated.
+ * @param {function} props.onSubmit - The function to call when the form is submitted
+ * @returns {JSX.Element}
  */
 const MultipageForm = ({
   name,
@@ -50,8 +55,11 @@ const MultipageForm = ({
   const [page, setPage] = useState(0);
   const [submitting, setSubmitting] = useState(false);
 
+  /**
+   * Initial component mount useEffect hook.
+   * Gets the form data from local storage when the component is mounted.
+   */
   useEffect(() => {
-    // Get the form data from local storage when the component is mounted
     console.log('Fetching existing form data from local storage');
     const formData = JSON.parse(localStorage.getItem(name)); // If cookies are disabled, this throws an error "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
     if (formData) {
@@ -59,6 +67,10 @@ const MultipageForm = ({
     }
   }, []);
 
+  /**
+   * Component update useEffect hook.
+   * When the page route is updated, swtich to a different page.
+   */
   useEffect(() => {
     const pageQuery = router.query.page;
     if (!pageQuery) {
@@ -72,19 +84,13 @@ const MultipageForm = ({
     setPage(pageIdx || 0);
   }, [router.query.page]);
 
-  const onBack = () => {
-    if (page === 0) {
-      return;
-    }
-    router.push(`${router.basePath}?page=${page - 1}`, undefined, {
-      shallow: true,
-    });
-  };
-
   /**
+   * Given the provided `requiredFields` props, figures out which fields are
+   * missing for the current page. If no page index is provided, returns all the
+   * missing fields across all pages.
    *
-   * @param {number} pageIdx
-   * @returns {string[]}
+   * @param {number} pageIdx - The page index to check (0-indexed).
+   * @returns {string[]} - The array of missing fields.
    */
   const getMissingFields = (pageIdx) => {
     if (pageIdx === undefined) {
@@ -105,6 +111,23 @@ const MultipageForm = ({
     return missingFields;
   };
 
+  /**
+   * Handles clicking the back button. Decrements the page index and updates the
+   * route if the page index is greater than 0.
+   */
+  const onBack = () => {
+    if (page === 0) {
+      return;
+    }
+    router.push(`${router.basePath}?page=${page - 1}`, undefined, {
+      shallow: true,
+    });
+  };
+
+  /**
+   * Handles clicking the next button. If the next page is the last page,
+   * submits the form.
+   */
   const onNext = () => {
     if (page >= children.length - 1) {
       // SUBMIT THE FORM
@@ -149,12 +172,18 @@ const MultipageForm = ({
     setDialog(null);
   };
 
+  /**
+   * Shows the dialog content for the given dialog type (stored in state).
+   *
+   * @returns {JSX.Element}
+   */
   const showDialogContent = () => {
     if (!dialog) {
       return <></>;
     }
 
     if (dialog === 'missing-fields') {
+      // Shows the missing fields dialog content for each page
       const missingFields = getMissingFields(page);
       return (
         <div className="MultipageForm-missing-fields">
@@ -187,12 +216,8 @@ const MultipageForm = ({
       );
     }
 
-    return <div>Hello!</div>;
-    // switch (dialog) {
-    //   case 'submit':
-    //     return div
-
-    //     }
+    // TODO: Other cases?
+    return <div></div>;
   };
 
   return (
@@ -244,8 +269,8 @@ const MultipageForm = ({
             </div>
           ) : (
             <>
-              {/* <h1>weoifwijefo aiwjeofi ajwoei fjaowief</h1> */}
-
+              {/* Clones the child element in order to pass in the form data,
+            update function, and missing fields per-page props */}
               <>
                 {cloneElement(children[page], {
                   formData: formData,

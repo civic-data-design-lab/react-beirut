@@ -1,6 +1,7 @@
 import ImagePreview from './discover/ImagePreview';
 import MapCardSlider from './explore/MapCardSlider';
 import Slider from './Slider';
+import { Workshop as WorkshopType, ImageMeta } from '../models/Types';
 
 const mainSliderStyle = {
   sliderContainer: 'mapSlider-container',
@@ -10,6 +11,21 @@ const mainSliderStyle = {
   wrapperContainer: 'mapSlider-wrapper',
 };
 
+/**
+ * This component can be used to display a generic workshop, either on the
+ * Discover page or the Explore page, or as the workshop preview in the
+ * contribution page.
+ *
+ * @param {object} props - Props
+ * @param {WorkshopType} props.workshop - Workshop to display
+ * @param {ImageMeta[]} props.imageMetas - Image metadata for the workshop,
+ *    provided in an array
+ * @param {string} props.imageSrc - Image source for the workshop's images.
+ *    Right now this is only really needed by the contribution preview.
+ * @param {WorkshopType[]} props.similarWorkshops- Similar workshop objects to
+ *    display, provided in an array which may be empty or null.  
+ * @returns {JSX.Element}
+ */
 const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops }) => {
   const showImages = () => {
     const thumbImage = imageMetas.filter(
