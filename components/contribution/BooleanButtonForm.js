@@ -29,7 +29,7 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
     if (formData[dataLocation] != undefined) return
 
     let bbfData = {};
-    bbfData[dataLocation] = defaultTags
+    bbfData[dataLocation] = []
 
     // Update the global form data object
     onUpdate(bbfData);
@@ -122,6 +122,8 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
                 </button>) 
             })
           }
+          {console.log(defaultTags)}
+          {console.log(formData)}
           {
             // Create a button for each custom tag
             formData[dataLocation] && formData[dataLocation].map( tag => {

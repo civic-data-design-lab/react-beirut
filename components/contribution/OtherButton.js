@@ -108,16 +108,16 @@ const OtherButton = ({ onUpdate, sendErrorMessage, setErrorMessage, formData, da
 
     // Todo: Add the new tag upon pressing "Enter"
     const onKeyPress = (e) => {
-        // e.key
-        if (e.keyCode != 32) return
+        // // e.key
+        // if (e.keyCode != 32) return
 
-        // Again, this may break if there are multiple of these on the screen at once.
-        let otherButton = window.document.getElementsByClassName("other-btn-selected")[0]
-        console.log("otherButton =", otherButton)
-        if (otherButton == undefined) return
+        // // Again, this may break if there are multiple of these on the screen at once.
+        // let otherButton = window.document.getElementsByClassName("other-btn-selected")[0]
+        // console.log("otherButton =", otherButton)
+        // if (otherButton == undefined) return
 
-        submitNewTag(otherButton);
-        disableButton(otherButton);
+        // submitNewTag(otherButton);
+        // disableButton(otherButton);
     }
 
     const onChange = (e) => {
