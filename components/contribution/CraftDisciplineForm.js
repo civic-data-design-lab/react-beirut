@@ -4,7 +4,7 @@ import ToastifyTest from './ToastifyTest';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BooleanButtonForm from '../../components/contribution/BooleanButtonForm';
-import { CRAFT_DISCIPLINES, CRAFT_TYPES } from '../../lib/utils';
+import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../lib/utils';
 
 /**
  * Form that provides a list of buttons that you can select.
@@ -21,17 +21,19 @@ import { CRAFT_DISCIPLINES, CRAFT_TYPES } from '../../lib/utils';
  */
 const CraftDisciplineForm = ({ onUpdate, formData, title, label}) => {
 
+  console.log(CRAFT_CATEGORIES);
+
   return (
     <>
       <BooleanButtonForm
         onUpdate={onUpdate}
         formData={formData}
-        dataLocation="craft_discipline"
-        title="Craft Discipline"
+        dataLocation="craft_categories"
+        title="Craft Categories"
         label="What category of crafts are produced in this workshop?"
-        defaultTags={CRAFT_DISCIPLINES}
+        selectionsAllowed="2"
+        defaultTags={CRAFT_CATEGORIES}
         requiredFields={[]}
-        hasOtherField={true}
       />
       <BooleanButtonForm
         onUpdate={onUpdate}

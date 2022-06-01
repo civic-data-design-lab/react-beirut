@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
  * @param {boolean} hasOtherField - Whether or not to display an "other" field.
  * @returns {React.Component}
  */
-const BooleanButtonForm = ({ onUpdate, formData, dataLocation, title, label, defaultTags, hasOtherField }) => {
+const BooleanButtonForm = ({ onUpdate, formData, dataLocation, title="Boolean Button Form", label="Select", selectionsAllowed=0, defaultTags=[], hasOtherField=false }) => {
 
   useEffect(() => {
     // If not already defined in the formData, instantiate it.
@@ -66,12 +66,12 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, title, label, def
 
   return (
     <div onKeyDown={onKeyDown} className="boolean-button-form">
-        <h2>{title || 'Select Buttons'}</h2>
+        <h2>{title}</h2>
         {/* Not sure why these are so close together. Put many line breaks */}
         <br />
         <div>
             
-            <label>{label}</label>
+            <label>{label} {selectionsAllowed == 1 && `(Select one option)`} {selectionsAllowed > 1 && `(Select up to ${selectionsAllowed} options)`}</label>
           <br />
           <br />
           {

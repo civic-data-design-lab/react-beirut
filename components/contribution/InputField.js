@@ -79,13 +79,59 @@ const InputField = (props) => {
           <select
             name={title}
             id={fieldName}
-            value={value || ''}
+            value={value || "null"}
             onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
             {...rest}
           >
+            <option selected hidden value="null">
+              --Select {title}--
+            </option>
             {children}
           </select>
         );
+        case 'select-with-other':
+          const [otherSelected, setOtherSelected] = useState(false);
+          return (
+            <>
+              <select
+                name={title}
+                id={fieldName}
+                value={[null, ...children[0].map(option => option.props.value)].includes(value) ? (value || '') : "OTHER"}
+                onChange={(e) => 
+                  {
+                    if (e.target.value == "OTHER") {
+                      setOtherSelected(true);
+                      onUpdate({ [fieldName]: "" });
+                    }
+                    else {
+                      setOtherSelected(false);
+                      onUpdate(e.target.value == "null" ? { [fieldName]: null } : { [fieldName]: e.target.value });
+                      console.log(children);
+                    }
+                  }}
+                {...rest}
+              >
+                <option selected value="null">
+                  {`--Select ${title}--`}
+                </option>
+                {children}
+                <option value="OTHER">
+                  ⊕ OTHER
+                </option>
+              </select>
+              {otherSelected && <input
+              id={fieldName}
+              type="text"
+              required={required}
+              value={value}
+              placeholder={`Enter Other ${title}`}
+              onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
+              {...rest}
+              />}
+              {/* <p>Value: {value}</p>
+              <p>otherSelected: {`${otherSelected}`}</p> */}
+            </>
+          );
       case 'tel':
         validationPattern =
           /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm;
