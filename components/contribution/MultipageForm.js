@@ -106,7 +106,7 @@ const MultipageForm = ({
     // Get the missing fields for the given page
     const requiredFieldsForPage = requiredFields[pageIdx];
     const missingFields = requiredFieldsForPage.filter(
-      (field) => !formData[field]
+      (field) => formData[field]?.length == 0 ? true : !formData[field]
     );
     return missingFields;
   };

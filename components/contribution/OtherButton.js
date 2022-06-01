@@ -8,7 +8,7 @@ import { useEffect } from 'react';
  * Button that allows you to enter in custom tags
  *
  */
-const OtherButton = ({ onUpdate, sendErrorMessage, formData, dataLocation }) => {
+const OtherButton = ({ onUpdate, sendErrorMessage, setErrorMessage, formData, dataLocation, defaultTags }) => {
 
     // TODO: Fix this clicking off function from overwriting the previous label for some reason.
     // This might break things if there are multiple of this form on a page
@@ -48,20 +48,23 @@ const OtherButton = ({ onUpdate, sendErrorMessage, formData, dataLocation }) => 
     const validateData = (string) => {
         if (!(/^[A-Za-z]*$/.test(string))) {
             sendErrorMessage("Your custom tag was invalid.\nPlease enter a tag that contains only letters.")
+            setErrorMessage("Your custom tag was invalid.\nPlease enter a tag that contains only letters.")
+            
             return false
         }
         if (string == "") {
             return false
         }
-        if (Object.keys(formData[dataLocation]['customTags']).includes(string)) {
-            return false
-        }
-        if (Object.keys(formData[dataLocation]['defaultTags']).includes(string)) {
+        if (formData[dataLocation].includes(string)) {
+            if (defaultTags.includes(string)) {
             sendErrorMessage("Your custom tag is already in the set of default tags.")
+            setErrorMessage("Your custom tag is already in the set of default tags.")
+            }
             return false
         }
         if (string.length >= 50) {
             sendErrorMessage("Your custom tag was invalid.\nPlease enter a tag that is less than 50 characters.")
+            setErrorMessage("Your custom tag was invalid.\nPlease enter a tag that is less than 50 characters.")
             return false
         }
 
@@ -76,11 +79,13 @@ const OtherButton = ({ onUpdate, sendErrorMessage, formData, dataLocation }) => 
         if (!validateData(string)) return
         
         let bbfData = JSON.parse(JSON.stringify(formData))
-        bbfData[dataLocation]['customTags'][string] = true;
+        bbfData[dataLocation].push(string);
         onUpdate(bbfData)
     }
 
     const onClick = (e) => {
+        setErrorMessage("");
+
         if (e.target.classList.contains("other-btn")) {
             enableButton(e.target);
         }
@@ -116,10 +121,12 @@ const OtherButton = ({ onUpdate, sendErrorMessage, formData, dataLocation }) => 
     }
 
     const onChange = (e) => {
+        setErrorMessage("");
         let otherButton = e.target.parentElement.parentElement;
         console.assert(otherButton == undefined, "otherButton is undefined");
         if (e.target.value.includes(" ")) {
             sendErrorMessage("Spaces are not allowed in custom tag.")
+            setErrorMessage("Spaces are not allowed in custom tag.")
         }
     }
 

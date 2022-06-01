@@ -75,6 +75,7 @@ const InputField = (props) => {
           />
         );
       case 'select':
+        // onUpdate({ [fieldName]: null });
         return (
           <select
             name={title}
@@ -90,6 +91,7 @@ const InputField = (props) => {
           </select>
         );
         case 'select-with-other':
+          // onUpdate({ [fieldName]: null }); TODO: Learn how to make the null option the default. Enabling this line makes the page not load.
           const [otherSelected, setOtherSelected] = useState(false);
           return (
             <>

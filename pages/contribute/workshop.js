@@ -46,7 +46,7 @@ import { prepareWorkshopContribution } from '../../lib/utils';
 
 
 // Array of arrays of required fields for each page
-const REQUIRED_FIELDS = [['shopName', 'status'], ['quarter', 'sector'], [], []];
+const REQUIRED_FIELDS = [['shopName', 'status'], ['quarter', 'sector'], ['craft_categories', 'type_of_craft'], []];
 
 const WorkshopContribution = () => {
   const [form, setForm] = useState({

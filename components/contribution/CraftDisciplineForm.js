@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BooleanButtonForm from '../../components/contribution/BooleanButtonForm';
 import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../lib/utils';
+import InputField from './InputField';
 
 /**
  * Form that provides a list of buttons that you can select.
@@ -15,13 +16,10 @@ import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../lib/utils';
  * @param {string} dataLocation - Indicates the location where the results of this form will be stored inside formData
  * @param {string} title - Optional title of the form. Displays above the input on the page.
  * @param {string} label - Optional subtitle of the form. Gives instrucitons on how to use.
- * @param {string[]} buttonNames - List of strings that will display individually on their own buttons.
- * @param {boolean} hasOtherField - Whether or not to display an "other" field.
+ * @param {string[]} requiredFields - Optional required fields that are needed to turn in these forms.
  * @returns {React.Component}
  */
-const CraftDisciplineForm = ({ onUpdate, formData, title, label}) => {
-
-  console.log(CRAFT_CATEGORIES);
+const CraftDisciplineForm = ({ onUpdate, formData, title, label, requiredFields=[]}) => {
 
   return (
     <>
@@ -33,7 +31,7 @@ const CraftDisciplineForm = ({ onUpdate, formData, title, label}) => {
         label="What category of crafts are produced in this workshop?"
         selectionsAllowed="2"
         defaultTags={CRAFT_CATEGORIES}
-        requiredFields={[]}
+        required={requiredFields?.includes('craft_categories')}
       />
       <BooleanButtonForm
         onUpdate={onUpdate}
@@ -42,7 +40,7 @@ const CraftDisciplineForm = ({ onUpdate, formData, title, label}) => {
         title="Type of Craft"
         label="What type of crafts are produced in this workshop?"
         defaultTags={CRAFT_TYPES}
-        requiredFields={[]}
+        required={requiredFields?.includes('type_of_craft')}
         hasOtherField={true}
       />
     </>
