@@ -20,8 +20,12 @@ import { data } from 'autoprefixer';
  * @param {boolean} hasOtherField - Whether or not to display an "other" field which allows the addition of custom tags.
  * @returns {React.Component}
  */
+<<<<<<< Updated upstream
 const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, title="Boolean Button Form", label="Select", selectionsAllowed=0, defaultTags=[], hasOtherField=false }) => {
   const [errorMessage, setErrorMessage] = useState("");
+=======
+const BooleanButtonForm = ({ onUpdate, formData, dataLocation, title="Boolean Button Form", label="Select", selectionsAllowed=0, defaultTags=[], hasOtherField=false }) => {
+>>>>>>> Stashed changes
 
   useEffect(() => {
 

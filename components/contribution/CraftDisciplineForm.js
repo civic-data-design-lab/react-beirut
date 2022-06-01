@@ -24,6 +24,8 @@ const CraftDisciplineForm = ({ onUpdate, formData, title, label, requiredFields=
 
   console.log(CRAFT_CATEGORIES);
 
+  console.log(CRAFT_CATEGORIES);
+
   return (
     <>
       <BooleanButtonForm
