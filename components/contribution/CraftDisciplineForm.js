@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BooleanButtonForm from '../../components/contribution/BooleanButtonForm';
 import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../lib/utils';
-import InputField from './InputField';
 
 /**
  * Form that provides a list of buttons that you can select.
@@ -20,6 +19,10 @@ import InputField from './InputField';
  * @returns {React.Component}
  */
 const CraftDisciplineForm = ({ onUpdate, formData, title, label, requiredFields=[]}) => {
+
+  console.log(CRAFT_CATEGORIES);
+
+  console.log(CRAFT_CATEGORIES);
 
   return (
     <>
