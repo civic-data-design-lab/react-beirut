@@ -1,13 +1,8 @@
 import { useState, useEffect } from 'react';
 import OtherButton from './OtherButton';
-import ToastifyTest from '../../ToastifyTest';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { data } from 'autoprefixer';
 
 /**
  * Form that provides a list of buttons that you can select.
- *
  *
  * @param {function} onUpdate - The function to call when the form is updated (ie: interacted with)
  * @param {object} formData - The form data to use.
@@ -46,7 +41,6 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
     let isSelected = bbfData[dataLocation].includes(tag);
     // User is trying to make more than the allowed selections
     if (getTotalSelectionsMade() >= selectionsAllowed && isSelected == false && selectionsAllowed != 0) {
-      sendErrorMessage("Too many selected")
       setErrorMessage(selectionsAllowed == 1 ?`Please only select one option.` : `Please only select up to ${selectionsAllowed} options.`)
       return
     } 
@@ -71,18 +65,6 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
 
   const onKeyDown = (e) => {
     return e.key != "Enter";
-  }
-
-  const sendErrorMessage = (string) => {
-    // toast.error(string, {
-    //   position: "bottom-right",
-    //   autoClose: 5000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   });
   }
 
   return (
@@ -138,7 +120,6 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
             // Create button for adding additional tags
             hasOtherField && <OtherButton
             onUpdate={onUpdate}
-            sendErrorMessage={sendErrorMessage}
             setErrorMessage={setErrorMessage}
             formData={formData}
             dataLocation={dataLocation}
@@ -149,8 +130,6 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
           <br></br>
           {errorMessage && <small className="input-error">* {errorMessage}</small>}
         </div>
-        {/* <ToastifyTest></ToastifyTest> */}
-        <ToastContainer />
     </div>
   );
 };

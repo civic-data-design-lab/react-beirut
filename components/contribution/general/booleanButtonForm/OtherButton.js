@@ -1,4 +1,3 @@
-import { sendError } from 'next/dist/server/api-utils';
 import { useEffect } from 'react';
 
 // TODO: Fix black add button from not working on mobile.
@@ -8,7 +7,7 @@ import { useEffect } from 'react';
  * Button that allows you to enter in custom tags
  *
  */
-const OtherButton = ({ onUpdate, sendErrorMessage, setErrorMessage, formData, dataLocation, defaultTags }) => {
+const OtherButton = ({ onUpdate, setErrorMessage, formData, dataLocation, defaultTags }) => {
 
     // TODO: Fix this clicking off function from overwriting the previous label for some reason.
     // This might break things if there are multiple of this form on a page
@@ -47,7 +46,6 @@ const OtherButton = ({ onUpdate, sendErrorMessage, setErrorMessage, formData, da
 
     const validateData = (string) => {
         if (!(/^[A-Za-z]*$/.test(string))) {
-            sendErrorMessage("Your custom tag was invalid.\nPlease enter a tag that contains only letters.")
             setErrorMessage("Your custom tag was invalid.\nPlease enter a tag that contains only letters.")
             
             return false
@@ -57,13 +55,11 @@ const OtherButton = ({ onUpdate, sendErrorMessage, setErrorMessage, formData, da
         }
         if (formData[dataLocation].includes(string)) {
             if (defaultTags.includes(string)) {
-            sendErrorMessage("Your custom tag is already in the set of default tags.")
             setErrorMessage("Your custom tag is already in the set of default tags.")
             }
             return false
         }
         if (string.length >= 50) {
-            sendErrorMessage("Your custom tag was invalid.\nPlease enter a tag that is less than 50 characters.")
             setErrorMessage("Your custom tag was invalid.\nPlease enter a tag that is less than 50 characters.")
             return false
         }
@@ -125,7 +121,6 @@ const OtherButton = ({ onUpdate, sendErrorMessage, setErrorMessage, formData, da
         let otherButton = e.target.parentElement.parentElement;
         console.assert(otherButton == undefined, "otherButton is undefined");
         if (e.target.value.includes(" ")) {
-            sendErrorMessage("Spaces are not allowed in custom tag.")
             setErrorMessage("Spaces are not allowed in custom tag.")
         }
     }
