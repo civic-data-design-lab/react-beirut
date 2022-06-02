@@ -9,7 +9,6 @@ import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
 import Preview from '../../components/contribution/Preview';
 import {
   convertWorkshopContributionToSchema,
-  CRAFT_DISCIPLINES,
 } from '../../lib/utils';
 import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
 import Card from '../../components/Card';
@@ -43,10 +42,11 @@ import Card from '../../components/Card';
  * 4: Preview
  * 
  */
+import { prepareWorkshopContribution } from '../../lib/utils';
 
 
 // Array of arrays of required fields for each page
-const REQUIRED_FIELDS = [['shopName', 'status'], ['quarter', 'sector'], [], []];
+const REQUIRED_FIELDS = [['shopName', 'status'], ['quarter', 'sector'], ['craft_categories', 'type_of_craft'], []];
 
 const WorkshopContribution = () => {
   const [form, setForm] = useState({
@@ -131,8 +131,8 @@ const WorkshopContribution = () => {
         <MultipageForm
           name={WORKSHOP_CONTRIBUTION_NAME}
           pageTitles={[
-            'About the Shop',
-            'Location Information',
+            'About the Workshop',
+            'Workshop Location',
             'About the Craft',
             'Image Upload',
             'Preview',
@@ -147,12 +147,16 @@ const WorkshopContribution = () => {
             title="About the Craft Workshop"
             requiredFields={REQUIRED_FIELDS[0]}
           />
-          <LocationForm requiredFields={REQUIRED_FIELDS[1]} />
+          <LocationForm 
+            mapCaption={"Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."}
+            requiredFields={REQUIRED_FIELDS[1]} 
+          />
           <CraftDisciplineForm
-            dataLocation="craft_discipline"
-            title="Craft Discipline"
+            onUpdate={updateForm}
+            formData={form}
+            dataLocation="craft_category"
+            title="Craft Category"
             label="What type of crafts are produced in this workshop?"
-            defaultTags={CRAFT_DISCIPLINES}
             requiredFields={REQUIRED_FIELDS[2]}
             hasOtherField={true}
           />

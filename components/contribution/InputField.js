@@ -16,6 +16,8 @@ import { useState } from 'react';
  * @param {function} props.onUpdate - The function to call when the value of the
  *   field is updated.
  * @param {boolean} props.required - Whether or not this field is required
+ * @param {string} props.label - Optional parameter only used for the checkbox type.
+ * @param {string} props.defaultValue - Optional parameter specially for the select type field. This is the value that first appears on the dropdown.
  * @param {JSX.Element[]} props.children - Any children to render (e.g., if
  *    using `type='select'`, this would be the '<option>' elements to render)
  * @returns
@@ -28,6 +30,8 @@ const InputField = (props) => {
     type,
     onUpdate,
     required,
+    label,
+    defaultValue,
     children,
     ...rest
   } = props;
@@ -52,6 +56,23 @@ const InputField = (props) => {
     }
 
     switch (inputType) {
+      case 'checkbox':
+        return (
+          <>
+            <span>
+              <input
+                  name={fieldName}
+                  id={fieldName}
+                  type={inputType}
+                  required={required}
+                  checked={value || false}
+                  onClick={(e) => onUpdate({ [fieldName]: e.target.checked })}
+                  {...rest}
+                />
+                <label style={{margin: "10px"}} htmlFor={fieldName}>{label}</label>
+            </span>
+          </>
+        )
       case 'text':
       case 'number':
       case 'date':
@@ -75,17 +96,65 @@ const InputField = (props) => {
           />
         );
       case 'select':
+        // onUpdate({ [fieldName]: null });
         return (
           <select
             name={title}
             id={fieldName}
-            value={value || ''}
+            value={value || "null"}
             onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
             {...rest}
           >
+            <option selected value="null">
+              {defaultValue ? defaultValue : `--Select ${title}--`}
+            </option>
             {children}
           </select>
         );
+        case 'select-with-other':
+          // onUpdate({ [fieldName]: null }); TODO: Learn how to make the null option the default. Enabling this line makes the page not load.
+          const [otherSelected, setOtherSelected] = useState(false);
+          return (
+            <>
+              <select
+                name={title}
+                id={fieldName}
+                value={[null, ...children[0].map(option => option.props.value)].includes(value) ? (value || '') : "OTHER"}
+                onChange={(e) => 
+                  {
+                    if (e.target.value == "OTHER") {
+                      setOtherSelected(true);
+                      onUpdate({ [fieldName]: "" });
+                    }
+                    else {
+                      setOtherSelected(false);
+                      onUpdate(e.target.value == "null" ? { [fieldName]: null } : { [fieldName]: e.target.value });
+                      console.log(children);
+                    }
+                  }}
+                {...rest}
+              >
+                <option selected value="null">
+                  {`--Select ${title}--`}
+                </option>
+                {children}
+                <option value="OTHER">
+                  ⊕ OTHER
+                </option>
+              </select>
+              {otherSelected && <input
+              id={fieldName}
+              type="text"
+              required={required}
+              value={value}
+              placeholder={`Enter Other ${title}`}
+              onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
+              {...rest}
+              />}
+              {/* <p>Value: {value}</p>
+              <p>otherSelected: {`${otherSelected}`}</p> */}
+            </>
+          );
       case 'tel':
         validationPattern =
           /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm;
@@ -125,7 +194,7 @@ const InputField = (props) => {
   };
 
   return (
-    <div>
+    <div className='inputType'>
       <label className={required ? 'required' : ''} htmlFor={fieldName}>
         {title}
       </label>

@@ -29,3 +29,69 @@ select {
 .input-error {
   color: $color-error;
 }
+
+.inputType {
+  // font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  
+  span {
+    display: inline-flex;
+    font-weight: normal;
+  }
+
+  label {
+    margin: 0.5rem 0;
+  }
+
+  input[type="checkbox"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    /* Remove most all native input styles */
+    appearance: none;
+    /* For iOS < 15 */
+    background-color: $c-white-off;
+    /* Not removed via appearance */
+    margin: 0;
+  
+    font: inherit;
+    color: $c-white-off;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid $c-grey-mid;
+    border-radius: 0.15em;
+    // transform: translateY(0.075em);
+  
+    display: grid;
+    place-content: center;
+
+    transform: translateY(0.5em);
+  }
+  
+  input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transform-origin: bottom left;
+    transition: 90ms transform ease-in-out;
+    /* Windows High Contrast Mode */
+    background-color: $c-primary-dark;
+  }
+
+
+  // input[type="checkbox"]:checked {
+  //   background-color: $c;
+  // }
+
+  input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+  
+
+  // background-color: $c-white-off;
+  // border: 1px solid $c-grey-light;
+  // border-radius: 3px;
+  // padding: 0.2rem;
+}

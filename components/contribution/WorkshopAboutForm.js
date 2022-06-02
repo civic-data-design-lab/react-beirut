@@ -28,6 +28,7 @@ const WorkshopAboutForm = ({
             value={formData.yearEstablished}
             type="number"
             min="0"
+            max={new Date().getFullYear()}
             onUpdate={onUpdate}
             required={requiredFields?.includes('yearEstablished')}
             highlight={highlightedFields?.includes('yearEstablished')}

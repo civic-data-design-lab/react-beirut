@@ -51,6 +51,10 @@
 
 .boolean-button-form {
   max-width: 700px;
+  padding: 0;
+  div {
+    display: inline-block;
+  }
 }
 
 .Contribute-types {
@@ -195,5 +199,26 @@
         min-width: 200px;
       }
     }
+  }
+}
+
+.UploadedImage {
+  aspect-ratio: 1;
+  background-color: $c-grey-light;
+  color: hsl(0, 0%, 45%);
+  // height: 100%;
+  // width: 100%;
+  // display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  font-size: small;
+  border-radius: 5px;
+  margin: 10px;
+  :only-child {
+    // background-color: black;
+    padding: 5px;
   }
 }

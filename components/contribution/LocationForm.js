@@ -1,7 +1,30 @@
 import InputField from './InputField';
 import LocationSelect from './LocationSelect';
+import { useState, useEffect } from 'react';
 
-const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
+const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption }) => {
+
+  const [workshops, setWorkshops] = useState([]);
+  const [archive, setArchive] = useState([]);
+
+  useEffect(() => {
+    console.log('fetching');
+
+    Promise.all([fetch('/api/workshops'), fetch('/api/archive')])
+    .then(
+      ([workshopsResponse, archiveResponse]) => {
+        Promise.all([workshopsResponse.json(), archiveResponse.json()])
+        .then(
+          ([workshopsData, archiveData]) => {
+            setWorkshops(workshopsData.response);
+            setArchive(archiveData.response);
+          }
+        );
+      }
+    );
+  }, []);
+  
+
   const handleUpdate = (data) => {
     const newLocation = { lat: data.lat, lng: data.lng };
     onUpdate(newLocation);
@@ -17,14 +40,14 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
               ? 'required'
               : ''
           }
+          key="LatLngLabel"
         >
-          Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.
+          {mapCaption ? mapCaption : "Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."}
         </label>
       );
     }
-
     return (
-      <small>
+      <small key="LatitudeAndLongitude">
         Current: {`(${formData.lat.toFixed(6)}, ${formData.lng.toFixed(6)})`}
       </small>
     );
@@ -41,6 +64,7 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
             <InputField
               title="Building number"
               fieldName="buildingNumber"
+              key="buildingNumber"
               value={formData.buildingNumber}
               onUpdate={onUpdate}
               required={requiredFields?.includes('buildingNumber')}
@@ -48,6 +72,7 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
             <InputField
               title="Street name/number"
               fieldName="street"
+              key="street"
               value={formData.street}
               onUpdate={onUpdate}
               required={requiredFields?.includes('street')}
@@ -55,43 +80,34 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
 
             <InputField
               title="Quarter"
-              type="select"
+              type="select-with-other"
               fieldName="quarter"
+              key="quarter"
               value={formData.quarter}
               onUpdate={onUpdate}
               required={requiredFields?.includes('quarter')}>
-                <option disabled value="">
-                --Select a quarter--
-                </option>
                 {
-                  ["Marfaa", "Mina El-Hosn", "Bachoura"].map( (quarter) => {
+                  [... new Set(
+                    workshops.map((workshop) => {return workshop.location.adm3;}))].filter(workshop => workshop).sort().map( (quarter) => {
                     return <option value={quarter}>{quarter}</option>
                   })
                 };
-                {/* TODO:  dropdown selection list of admin 3
-                  - include admin 3 names we already have in our database
-                  - include "other" option
-                  - if "other" is selected add field to type in name*/}
             </InputField>
             <InputField
               title="Sector"
-              type="select"
+              type="select-with-other"
               fieldName="sector"
+              key="sector"
               value={formData.sector}
               onUpdate={onUpdate}
               required={requiredFields?.includes('sector')}>
-                <option disabled value="">
-                --Select a sector--
-                </option>
                 {
-                  ["Marfaa", "Mina El-Hosn", "Bachoura"].map( (sector) => {
+                  [... new Set(
+                    workshops.map((workshop) => {return workshop.location.adm4;}))].filter(workshop => workshop).sort()
+                    .map( (sector) => {
                     return <option value={sector}>{sector}</option>
                   })
                 };
-                {/* TODO: dropdown selection list of admin 4
-                    - include Bourj Hamoud admin 4 names that we already have in our database
-                    - include "other" option
-                    - if "other" is selected add field to type in name*/}
             </InputField>
             {/* Reference: https://www.lebanesearabicinstitute.com/areas-beirut/#Sectors_of_Beirut */}
             {/* <div>
@@ -131,7 +147,7 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
 
           <LocationSelect onUpdate={handleUpdate} />
           <p className="location-select-hint">
-            Drag marker to change the location
+          Drag marker to change the location
           </p>
         </div>
       </div>
