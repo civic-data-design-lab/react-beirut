@@ -4,7 +4,7 @@ import { useState } from 'react';
  * Component handling inputs for the contribution page. It is used to handle a
  * lot of the actions an input would normall need such as updating the form data
  * and validation based on the required fields.
- * 
+ *
  * @param {object} props - Props
  * @param {string} props.title - The title of this field to be shown in the label
  * @param {string} props.fieldName - The name of the field as it is saved in the
@@ -40,12 +40,10 @@ const InputField = (props) => {
   let errorString;
   const [focused, setFocused] = useState(false);
   const onFocus = (e) => {
-    console.log('FOCUSED');
     setFocused(true);
   };
 
   const onBlur = (e) => {
-    console.log('BLURRED');
     setFocused(false);
   };
 
@@ -61,18 +59,20 @@ const InputField = (props) => {
           <>
             <span>
               <input
-                  name={fieldName}
-                  id={fieldName}
-                  type={inputType}
-                  required={required}
-                  checked={value || false}
-                  onClick={(e) => onUpdate({ [fieldName]: e.target.checked })}
-                  {...rest}
-                />
-                <label style={{margin: "10px"}} htmlFor={fieldName}>{label}</label>
+                name={fieldName}
+                id={fieldName}
+                type={inputType}
+                required={required}
+                defaultChecked={value || false}
+                onClick={(e) => onUpdate({ [fieldName]: e.target.checked })}
+                {...rest}
+              />
+              <label style={{ margin: '10px' }} htmlFor={fieldName}>
+                {label}
+              </label>
             </span>
           </>
-        )
+        );
       case 'text':
       case 'number':
       case 'date':
@@ -101,7 +101,7 @@ const InputField = (props) => {
           <select
             name={title}
             id={fieldName}
-            value={value || "null"}
+            value={value || 'null'}
             onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
             {...rest}
           >
@@ -111,50 +111,58 @@ const InputField = (props) => {
             {children}
           </select>
         );
-        case 'select-with-other':
-          // onUpdate({ [fieldName]: null }); TODO: Learn how to make the null option the default. Enabling this line makes the page not load.
-          const [otherSelected, setOtherSelected] = useState(false);
-          return (
-            <>
-              <select
-                name={title}
-                id={fieldName}
-                value={[null, ...children[0].map(option => option.props.value)].includes(value) ? (value || '') : "OTHER"}
-                onChange={(e) => 
-                  {
-                    if (e.target.value == "OTHER") {
-                      setOtherSelected(true);
-                      onUpdate({ [fieldName]: "" });
-                    }
-                    else {
-                      setOtherSelected(false);
-                      onUpdate(e.target.value == "null" ? { [fieldName]: null } : { [fieldName]: e.target.value });
-                      console.log(children);
-                    }
-                  }}
-                {...rest}
-              >
-                <option selected value="null">
-                  {`--Select ${title}--`}
-                </option>
-                {children}
-                <option value="OTHER">
-                  ⊕ OTHER
-                </option>
-              </select>
-              {otherSelected && <input
+      case 'select-with-other':
+        // onUpdate({ [fieldName]: null }); TODO: Learn how to make the null option the default. Enabling this line makes the page not load.
+        const [otherSelected, setOtherSelected] = useState(false);
+        return (
+          <>
+            <select
+              name={title}
               id={fieldName}
-              type="text"
-              required={required}
-              value={value}
-              placeholder={`Enter Other ${title}`}
-              onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
+              value={
+                [
+                  null,
+                  ...children[0].map((option) => option.props.value),
+                ].includes(value)
+                  ? value || ''
+                  : 'OTHER'
+              }
+              onChange={(e) => {
+                if (e.target.value == 'OTHER') {
+                  setOtherSelected(true);
+                  onUpdate({ [fieldName]: '' });
+                } else {
+                  setOtherSelected(false);
+                  onUpdate(
+                    e.target.value == 'null'
+                      ? { [fieldName]: null }
+                      : { [fieldName]: e.target.value }
+                  );
+                }
+              }}
               {...rest}
-              />}
-              {/* <p>Value: {value}</p>
+            >
+              <option defaultValue value="null">
+                {`--Select ${title}--`}
+              </option>
+              {children}
+              <option value="OTHER">⊕ OTHER</option>
+            </select>
+            {otherSelected && (
+              <input
+                id={fieldName}
+                type="text"
+                required={required}
+                value={value}
+                placeholder={`Enter Other ${title}`}
+                onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
+                {...rest}
+              />
+            )}
+            {/* <p>Value: {value}</p>
               <p>otherSelected: {`${otherSelected}`}</p> */}
-            </>
-          );
+          </>
+        );
       case 'tel':
         validationPattern =
           /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm;
@@ -194,7 +202,7 @@ const InputField = (props) => {
   };
 
   return (
-    <div className='inputType'>
+    <div className="inputType">
       <label className={required ? 'required' : ''} htmlFor={fieldName}>
         {title}
       </label>

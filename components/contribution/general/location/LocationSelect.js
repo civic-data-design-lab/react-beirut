@@ -25,7 +25,7 @@ const LocationSelect = ({ onUpdate }) => {
 
     function onDragEnd() {
       const lngLat = marker.getLngLat();
-      console.log(lngLat);
+      // console.log(lngLat);
       onUpdate(lngLat);
     }
 

@@ -13,8 +13,13 @@ import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../../lib/utils';
  * @param {string[]} requiredFields - Optional required fields that are needed to turn in these forms.
  * @returns {React.Component}
  */
-const CraftDisciplineForm = ({ onUpdate, formData, title, label, requiredFields=[]}) => {
-
+const CraftDisciplineForm = ({
+  onUpdate,
+  formData,
+  title,
+  label,
+  requiredFields = [],
+}) => {
   return (
     <>
       <BooleanButtonForm

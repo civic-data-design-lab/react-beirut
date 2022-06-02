@@ -1,7 +1,6 @@
-import ImageUploadForm from "../general/imageUpload/ImageUploadForm";
+import ImageUploadForm from '../general/imageUpload/ImageUploadForm';
 
 const WorkshopImageForm = ({ onUpdate, formData, title, label }) => {
-
   return (
     <div className="WorkshopImageForm">
       <ImageUploadForm

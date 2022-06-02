@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
+
   const handleUploadImage = (e) => {
     const file = e.target.files[0];
 
@@ -29,7 +30,7 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
         {currentImage ? (
           <img src={currentImage} alt="Uploaded image" />
         ) : (
-          <div className='SingleImageUpload-default'>
+          <div className="SingleImageUpload-default">
             <FontAwesomeIcon icon={faImage} width="5em" />
             <p>Click to upload image</p>
           </div>

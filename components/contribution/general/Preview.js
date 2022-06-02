@@ -43,7 +43,7 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
     if (formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME) {
       const { workshop, imageMeta, imageData } =
         convertWorkshopContributionToSchema(formData);
-      console.log(workshop);
+      // console.log(workshop);
       return (
         <Workshop
           workshop={workshop}
