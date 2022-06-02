@@ -4,9 +4,9 @@ import InputField from './InputField';
 /**
  * The Archive about form updates the following fields:
  * - `imageType`
- * - `dateTaken` (e.g. `'2022-05-04'`)
- * - `startDecade` (e.g. `'1930'`)
- * - `endDecade`
+ * - `yearTaken` (e.g. `'2022`) *[yearTaken OR (startDecade AND endDecade)]
+ * - `startDecade` (e.g. `'1930'`) *[yearTaken OR (startDecade AND endDecade)]
+ * - `endDecade` *[yearTaken OR (startDecade AND endDecade)]
  * - `workshopName`
  * - `ownerName`
  * - `referenceName`
@@ -44,12 +44,14 @@ const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
             ))}
           </InputField>
           <InputField
-            title="When was the image taken?"
-            fieldName="dateTaken"
-            type="date"
-            value={formData.dateTaken}
+            title="What year was the image taken?"
+            fieldName="yearTaken"
+            value={formData.yearTaken}
+            type="number"
+            min="0"
+            max={new Date().getFullYear()}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('dateTaken')}
+            required={requiredFields?.includes('yearTaken')}
           />
           <div>
             <label>
@@ -110,7 +112,7 @@ const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
           <InputField
             title={
               <>
-                Associated workshop owner name <small>(if applicable)</small>
+                Associated workshop owner name <small>(optional - name may be publicly displayed)</small>
               </>
             }
             fieldName="ownerName"

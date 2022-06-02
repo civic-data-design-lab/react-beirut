@@ -11,15 +11,16 @@
  *    - imageExtension* (implied)
  *    - caption*
  * 1. Archive About
- *    - imageType*
- *    - dateTaken
- *    - decadeTaken
- *    - workshopName
- *    - ownerName
- *    - referenceName
- *    - referenceUrl
- *    - referenceCopyright
- * 2. Archive  Location
+ *    - `imageType`
+ *    - `yearTaken` (e.g. `'2022`) *[yearTaken OR (startDecade AND endDecade)]
+ *    - `startDecade` (e.g. `'1930'`) *[yearTaken OR (startDecade AND endDecade)]
+ *    - `endDecade` *[yearTaken OR (startDecade AND endDecade)]
+ *    - `workshopName`
+ *    - `ownerName`
+ *    - `referenceName`
+ *    - `referenceUrl`
+ *    - `referenceCopyright`
+ * 2. Archive Location
  *    - buildingNumber
  *    - street
  *    - quarter*
@@ -47,6 +48,7 @@ const REQUIRED_FIELDS = [
   ['imageData', 'caption'],
   ['imageType', 'referenceName'],
   ['quarter', 'sector', 'lat', 'lng'],
+  ['consent']
 ];
 
 const ArchiveContribution = () => {
@@ -126,8 +128,8 @@ const ArchiveContribution = () => {
           name={ARCHIVE_CONTRIBUTION_NAME}
           pageTitles={[
             'Archive Upload',
-            'About',
-            'Location Information',
+            'About the Archive',
+            'Location of Archival Image',
             'Preview',
           ]}
           formData={form}
@@ -137,13 +139,23 @@ const ArchiveContribution = () => {
           submitted={submitted}
         >
           <ImageUploadForm
-            title="Archive Image Upload"
-            label="Upload an image of the archival information"
+            title="Archival Image Upload"
+            label="Upload an archival image related to crafts in Beirut"
             requiredFields={REQUIRED_FIELDS[0]}
           />
-          <ArchiveAboutForm requiredFields={REQUIRED_FIELDS[1]} />
-          <LocationForm requiredFields={REQUIRED_FIELDS[2]} />
-          <Preview />
+          <ArchiveAboutForm 
+            title="About the Archive"
+            requiredFields={REQUIRED_FIELDS[1]}
+          />
+          <LocationForm 
+            title="Location of Archival Image"
+            mapCaption="Locate where this image was taken on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."
+            requiredFields={REQUIRED_FIELDS[2]} 
+          />
+          <Preview 
+            onUpdate={updateForm}
+            requiredFields={REQUIRED_FIELDS[3]}
+          />
         </MultipageForm>
       </div>
     </>

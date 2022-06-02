@@ -20,12 +20,6 @@ import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../lib/utils';
  */
 const CraftDisciplineForm = ({ onUpdate, formData, title, label, requiredFields=[]}) => {
 
-  console.log(CRAFT_CATEGORIES);
-
-  console.log(CRAFT_CATEGORIES);
-
-  console.log(CRAFT_CATEGORIES);
-
   return (
     <>
       <BooleanButtonForm
@@ -43,7 +37,7 @@ const CraftDisciplineForm = ({ onUpdate, formData, title, label, requiredFields=
         formData={formData}
         dataLocation="type_of_craft"
         title="Type of Craft"
-        label="What type of crafts are produced in this workshop?"
+        label="What type of crafts are produced in this workshop? If entering a custom type, English is preferred."
         defaultTags={CRAFT_TYPES}
         required={requiredFields?.includes('type_of_craft')}
         hasOtherField={true}

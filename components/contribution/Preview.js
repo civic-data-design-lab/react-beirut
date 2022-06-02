@@ -6,8 +6,9 @@ import {
 } from '../../lib/utils';
 import Archive from '../Archive';
 import Workshop from '../Workshop';
+import InputField from './InputField';
 
-const Preview = ({ formData, missingFields }) => {
+const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
   const getPreview = () => {
     if (!formData) {
       return <></>;
@@ -26,6 +27,15 @@ const Preview = ({ formData, missingFields }) => {
               <li key={field}>{field}</li>
             ))}
           </ul>
+          <InputField
+            title="Data Consent"
+            fieldName="consent"
+            value={formData.consent}
+            type="checkbox"
+            onUpdate={onUpdate}
+            required={requiredFields?.includes('consent')}
+            label="I consent to the data in this form being shared on our public database."
+          />
         </div>
       );
     }

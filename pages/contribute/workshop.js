@@ -147,7 +147,10 @@ const WorkshopContribution = () => {
             title="About the Craft Workshop"
             requiredFields={REQUIRED_FIELDS[0]}
           />
-          <LocationForm requiredFields={REQUIRED_FIELDS[1]} />
+          <LocationForm 
+            mapCaption={"Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."}
+            requiredFields={REQUIRED_FIELDS[1]} 
+          />
           <CraftDisciplineForm
             onUpdate={updateForm}
             formData={form}

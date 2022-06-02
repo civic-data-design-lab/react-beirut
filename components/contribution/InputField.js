@@ -16,6 +16,7 @@ import { useState } from 'react';
  * @param {function} props.onUpdate - The function to call when the value of the
  *   field is updated.
  * @param {boolean} props.required - Whether or not this field is required
+ * @param {string} props.label - Optional parameter only used for the checkbox type.
  * @param {JSX.Element[]} props.children - Any children to render (e.g., if
  *    using `type='select'`, this would be the '<option>' elements to render)
  * @returns
@@ -28,6 +29,7 @@ const InputField = (props) => {
     type,
     onUpdate,
     required,
+    label,
     children,
     ...rest
   } = props;
@@ -52,6 +54,23 @@ const InputField = (props) => {
     }
 
     switch (inputType) {
+      case 'checkbox':
+        return (
+          <>
+            <span>
+              <input
+                  name={fieldName}
+                  id={fieldName}
+                  type={inputType}
+                  required={required}
+                  checked={value || false}
+                  onClick={(e) => onUpdate({ [fieldName]: e.target.checked })}
+                  {...rest}
+                />
+                <label style={{margin: "10px"}} htmlFor={fieldName}>{label}</label>
+            </span>
+          </>
+        )
       case 'text':
       case 'number':
       case 'date':
@@ -173,7 +192,7 @@ const InputField = (props) => {
   };
 
   return (
-    <div>
+    <div className='inputType'>
       <label className={required ? 'required' : ''} htmlFor={fieldName}>
         {title}
       </label>

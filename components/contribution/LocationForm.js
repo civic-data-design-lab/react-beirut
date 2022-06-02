@@ -2,7 +2,7 @@ import InputField from './InputField';
 import LocationSelect from './LocationSelect';
 import { useState, useEffect } from 'react';
 
-const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
+const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption }) => {
 
   const [workshops, setWorkshops] = useState([]);
   const [archive, setArchive] = useState([]);
@@ -25,7 +25,7 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
   }, []);
   
 
-  const handleUpdate = (data) => {s
+  const handleUpdate = (data) => {
     const newLocation = { lat: data.lat, lng: data.lng };
     onUpdate(newLocation);
     return;
@@ -42,11 +42,10 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
           }
           key="LatLngLabel"
         >
-          Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.
+          {mapCaption ? mapCaption : "Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."}
         </label>
       );
     }
-    image.png
     return (
       <small key="LatitudeAndLongitude">
         Current: {`(${formData.lat.toFixed(6)}, ${formData.lng.toFixed(6)})`}
@@ -148,7 +147,7 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields }) => {
 
           <LocationSelect onUpdate={handleUpdate} />
           <p className="location-select-hint">
-          Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.
+          Drag marker to change the location
           </p>
         </div>
       </div>
