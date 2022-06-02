@@ -1,0 +1,64 @@
+.filterCard {
+  background-color: $c-white-off;
+  border-radius: 5px;
+  position: fixed;
+  padding: 24px;
+  max-height: 100%;
+  width: 30%;
+  bottom: 20%;
+  left: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (max-width: 688px) {
+    border-radius: 0px;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 70%;
+    z-index: 3;
+
+  }
+}
+
+
+
+
+
+
+.searchby-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.close-filter-btn :focus {
+  outline: none;
+}
+
+.close-filter-btn {
+  border: none;
+  background-color: Transparent;
+}
+
+.toggle-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.reset-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.reset-btn :focus {
+  outline: none;
+}
+.reset-btn {
+  border: none;
+  background-color: Transparent;
+  font-weight: bolder;
+}

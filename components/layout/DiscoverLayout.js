@@ -4,6 +4,24 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import ImageFeed from '../discover/ImageFeed';
 import ImageFilter from '../discover/ImageFilter';
+import { useMediaQuery } from 'react-responsive'
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 688 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 const DiscoverLayout = ({ children }) => {
   const router = useRouter();
@@ -88,45 +106,95 @@ const DiscoverLayout = ({ children }) => {
 
   return (
     <>
-      <Head>
-        <title>Discover | Intangible Heritage Atlas</title>
-      </Head>
-      <div className="container">
-        <div className="title-card">
-          <div className="text-container">
-            <h1>DISCOVER</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis.
-            </p>
-          </div>
+        <Desktop>
+          <Head>
+            <title>Discover | Intangible Heritage Atlas</title>
+          </Head>
+          <div className="container">
+            <div className="title-card">
+              <div className="text-container">
+                <h1>DISCOVER</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                  vulputate libero et velit interdum, ac aliquet odio mattis.
+                </p>
+              </div>
 
-          <button onClick={expandFilter}>Filter By</button>
-        </div>
-        <hr />
-        {showFilter ?
-            <ImageFilter
-              filteredCrafts={filteredCraftsImage}
-              startYear={startYearImage}
-              endYear={endYearImage}
-              toggleStatus={toggleImage}
-              updateCrafts={updateCrafts}
-              updateYears={updateYears}
-              updateToggle={updateToggle}
+              <button className={'reset-btn image-filter-btn'} onClick={expandFilter}>Filter By</button>
+            </div>
+            <hr />
+            {showFilter ?
+                <ImageFilter
+                  filteredCrafts={filteredCraftsImage}
+                  startYear={startYearImage}
+                  endYear={endYearImage}
+                  toggleStatus={toggleImage}
+                  updateCrafts={updateCrafts}
+                  updateYears={updateYears}
+                  updateToggle={updateToggle}
+
+                />
+                : null}
+            <ImageFeed
+              objects={workshops.concat(archive)}
+              selectedCard={selectedCard}
+              onCloseCard={resetSelected}
+              onExpandCard={handleExpand}
+              imageFilterData={filterData}
 
             />
-            : null}
-        <ImageFeed
-          objects={workshops.concat(archive)}
-          selectedCard={selectedCard}
-          onCloseCard={resetSelected}
-          onExpandCard={handleExpand}
-          imageFilterData={filterData}
+          </div>
+          {children}
+            </Desktop>
 
-        />
-      </div>
-      {children}
-    </>
+      <Mobile>
+                    <Head>
+            <title>Discover | Intangible Heritage Atlas</title>
+          </Head>
+          <div className="container">
+            <div className="title-card">
+              <div className="text-container">
+                <h1>DISCOVER</h1>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                  vulputate libero et velit interdum, ac aliquet odio mattis.
+                </p>
+              </div>
+
+              <button className={'reset-btn image-filter-btn'} onClick={expandFilter}>Filter By</button>
+            </div>
+            <hr />
+            {showFilter ?
+                <ImageFilter
+                  filteredCrafts={filteredCraftsImage}
+                  startYear={startYearImage}
+                  endYear={endYearImage}
+                  toggleStatus={toggleImage}
+                  updateCrafts={updateCrafts}
+                  updateYears={updateYears}
+                  updateToggle={updateToggle}
+
+                />
+                : null}
+            <ImageFeed
+              objects={workshops.concat(archive)}
+              selectedCard={selectedCard}
+              onCloseCard={resetSelected}
+              onExpandCard={handleExpand}
+              imageFilterData={filterData}
+
+            />
+          </div>
+          {children}
+
+
+
+      </Mobile>
+
+
+
+        </>
+
   );
 };
 

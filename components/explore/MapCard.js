@@ -1,9 +1,25 @@
-
-
 import React, { useEffect } from "react";
 import Slider from "../Slider";
 import MapCardSlider from "./MapCardSlider";
+import { useMediaQuery } from 'react-responsive'
 
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 688 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 
 
@@ -181,7 +197,13 @@ export default class MapCard extends React.Component {
 
         return (
             <>
-                {this.props.workshop && this.createMapCardContent()}
+                <Desktop>
+                    {this.props.workshop && this.createMapCardContent()}
+                </Desktop>
+
+                <Mobile>
+                    {this.props.workshop && this.createMapCardContent()}
+                </Mobile>
 
             </>
         )

@@ -6,6 +6,25 @@ import React from "react";
 import SearchBar from "../../components/explore/SearchBar";
 import MapCard from "../../components/explore/MapCard";
 import LayersControl from "../../components/explore/LayersControl";
+import { useMediaQuery } from 'react-responsive'
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 688 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
+
 
 
 const Map = dynamic(() => import('../../components/explore/Map'), {

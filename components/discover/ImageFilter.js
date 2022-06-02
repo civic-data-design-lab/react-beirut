@@ -4,6 +4,24 @@ import React from "react";
 import CraftFilter from "../explore/filterparts/CraftFilter";
 import YearFilter from "../explore/filterparts/YearFilter";
 import ActiveFilter from "../explore/filterparts/ActiveFilter";
+import { useMediaQuery } from 'react-responsive'
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 688 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 
 export default class ImageFilter extends React.Component {
@@ -17,11 +35,9 @@ export default class ImageFilter extends React.Component {
 
         }
 
-
-    render () {
+    getImageFilterContent = () => {
         return (
-            <>
-                <div className={'image-filter-container'}>
+            <div className={'image-filter-container'}>
                     <div className={'image-filter-section'} style={{flexBasis: '35%'}}>
                         <p>Craft Type</p>
                         <hr/>
@@ -41,6 +57,27 @@ export default class ImageFilter extends React.Component {
 
                     </div>
                 </div>
+        )
+    }
+
+
+    render () {
+        return (
+            <>
+                <Desktop>
+                    {this.getImageFilterContent()}
+                </Desktop>
+
+                <Mobile>
+                    <div className="card">
+                          <div className="card__cover">
+                            <div className="card__wrapper">
+                                {this.getImageFilterContent()}
+                            </div>
+                          </div>
+                        </div>
+                </Mobile>
+
             </>
         )
     }

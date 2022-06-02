@@ -2,6 +2,25 @@ import React, {useState} from "react";
 import CraftFilter from "./filterparts/CraftFilter";
 import YearFilter from "./filterparts/YearFilter";
 import ActiveFilter from "./filterparts/ActiveFilter";
+import Card from "../Card";
+import { useMediaQuery } from 'react-responsive'
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 688 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 
 
@@ -53,38 +72,66 @@ export default class MapFilter extends React.Component {
         });
     }
 
+    filterCardContent() {
+        return(
+            <>
+                        <div className={'searchby-section'}>
+
+                            <p>Search By</p>
+                            <button className={'close-filter-btn'} onClick={this.props.closeFilter}>X</button>
+                        </div>
+                        <hr/>
+                        <div>
+                            <p>Craft Type</p>
+                            <CraftFilter filteredCrafts={this.state.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
+                        </div>
+                        <hr/>
+                        <div>
+                            <p>Time Range</p>
+                            <YearFilter startYear={this.state.startYear} endYear={this.state.endYear}
+                                        updateYears={this.props.updateYears}/>
+                        </div>
+                        <hr/>
+                        <div className={'toggle-section'}>
+                            <p>Only show active businesses</p>
+                            <ActiveFilter toggleStatus={this.state.toggleStatus} updateToggle={this.props.updateToggle}/>
+                        </div>
+                        <hr/>
+                        <div className={'reset-section'}>
+                            <button className={'reset-btn'} onClick = {this.onReset}> Reset Filters </button>
+                        </div>
+            </>
+        )
+    }
+
+
+
 
     render () {
-        console.log("MapFilter ", this.state);
+
         return (
             <>
-                <div className={'filterCard'}>
-                    <div className={'searchby-section'}>
-                        <p>Search By</p>
-                        <button className={'close-filter-btn'} onClick={this.props.closeFilter}>X</button>
+                <Desktop>
+                    <div className={'filterCard'}>
+                        {this.filterCardContent()}
                     </div>
-                    <hr/>
-                    <div>
-                        <p>Craft Type</p>
-                        <CraftFilter filteredCrafts={this.state.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
-                    </div>
-                    <hr/>
-                    <div>
-                        <p>Time Range</p>
-                        <YearFilter startYear={this.state.startYear} endYear={this.state.endYear}
-                                    updateYears={this.props.updateYears}/>
-                    </div>
-                    <hr/>
-                    <div className={'toggle-section'}>
-                        <p>Only show active businesses</p>
-                        <ActiveFilter toggleStatus={this.state.toggleStatus} updateToggle={this.props.updateToggle}/>
-                    </div>
-                    <hr/>
-                    <div className={'reset-section'}>
-                        <button className={'reset-btn'} onClick = {this.onReset}> Reset Filters </button>
-                    </div>
-                </div>
-                <div className={'arrow-down'}/>
+                </Desktop>
+
+                <Mobile>
+
+                        <div className="card">
+                          <div className="card__cover">
+                            <div className="card__wrapper">
+                              <div className="filterCard">
+                                  {this.filterCardContent()}
+                                  <button className={'btn-pill'} onClick={this.props.closeFilter}>Show Map</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                </Mobile>
+
             </>
 
 

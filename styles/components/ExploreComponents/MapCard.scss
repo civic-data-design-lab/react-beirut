@@ -1,0 +1,23 @@
+.mapCard {
+  background-color: $c-white-off;
+  border-radius: 10px;
+  position: fixed;
+  padding: 24px;
+  height: 85%;
+  width: 30%;
+  right: 4%;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 688px) {
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: 80%;
+      z-index: 3;
+
+    }
+
+
+}
+
