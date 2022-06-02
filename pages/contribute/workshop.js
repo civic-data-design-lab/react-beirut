@@ -1,12 +1,11 @@
 import Head from 'next/head';
 import { useState } from 'react';
-// import ImageUploadForm from '../../components/contribution/ImageUploadForm';
-import LocationForm from '../../components/contribution/LocationForm';
-import CraftDisciplineForm from '../../components/contribution/CraftDisciplineForm';
-import MultipageForm from '../../components/contribution/MultipageForm';
-import WorkshopImageForm from '../../components/contribution/WorkshopImageForm';
-import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
-import Preview from '../../components/contribution/Preview';
+import LocationForm from '../../components/contribution/general/location/LocationForm';
+import MultipageForm from '../../components/contribution/general/MultipageForm';
+import CraftDisciplineForm from '../../components/contribution/workshop/CraftDisciplineForm';
+import WorkshopImageForm from '../../components/contribution/workshop/WorkshopImageForm'
+import WorkshopAboutForm from '../../components/contribution/workshop/WorkshopAboutForm';
+import Preview from '../../components/contribution/general/Preview';
 import {
   convertWorkshopContributionToSchema,
 } from '../../lib/utils';

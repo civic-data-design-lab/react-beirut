@@ -31,16 +31,16 @@
  */
 
 import { useState, useEffect } from 'react';
-import ImageUploadForm from '../../components/contribution/ImageUploadForm';
-import LocationForm from '../../components/contribution/LocationForm';
-import MultipageForm from '../../components/contribution/MultipageForm';
-import Preview from '../../components/contribution/Preview';
+import ImageUploadForm from '../../components/contribution/general/imageUpload/ImageUploadForm'
+import LocationForm from '../../components/contribution/general/location/LocationForm';
+import MultipageForm from '../../components/contribution/general/MultipageForm';
+import Preview from '../../components/contribution/general/Preview';
 import Head from 'next/head';
 import {
   ARCHIVE_CONTRIBUTION_NAME,
   convertArchiveContributionToSchema,
 } from '../../lib/utils';
-import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
+import ArchiveAboutForm from '../../components/contribution/archive/ArchiveAboutForm';
 import Card from '../../components/Card';
 
 const ArchiveContribution = () => {

@@ -1,4 +1,4 @@
-import InputField from './InputField';
+import InputField from "../general/InputField";
 
 const WorkshopAboutForm = ({
   onUpdate,

@@ -1,7 +1,4 @@
-import { useState } from 'react';
-import SingleImageUpload from './SingleImageUpload';
-import ImageUploadForm from './ImageUploadForm';
-import BooleanButtonForm from './BooleanButtonForm';
+import ImageUploadForm from "../general/imageUpload/ImageUploadForm";
 
 const WorkshopImageForm = ({ onUpdate, formData, title, label }) => {
 

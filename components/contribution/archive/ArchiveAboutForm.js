@@ -1,5 +1,5 @@
-import { IMAGE_TYPES, VALID_DECADES } from '../../lib/utils';
-import InputField from './InputField';
+import { IMAGE_TYPES, VALID_DECADES } from '../../../lib/utils';
+import InputField from '../general/InputField';
 
 /**
  * The Archive about form updates the following fields:

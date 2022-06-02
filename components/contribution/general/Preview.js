@@ -3,9 +3,9 @@ import {
   WORKSHOP_CONTRIBUTION_NAME,
   ARCHIVE_CONTRIBUTION_NAME,
   convertArchiveContributionToSchema,
-} from '../../lib/utils';
-import Archive from '../Archive';
-import Workshop from '../Workshop';
+} from '../../../lib/utils';
+import Archive from '../../Archive';
+import Workshop from '../../Workshop';
 import InputField from './InputField';
 
 const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {

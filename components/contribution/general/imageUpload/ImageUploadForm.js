@@ -1,9 +1,9 @@
 import SingleImageUpload from './SingleImageUpload';
-import BooleanButtonForm from './BooleanButtonForm';
+import BooleanButtonForm from '../booleanButtonForm/BooleanButtonForm';
 
 import UploadedImage from './UploadedImage';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faImage, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { useState, useEffect } from 'react';
 

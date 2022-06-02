@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import OtherButton from './OtherButton';
-import ToastifyTest from './ToastifyTest';
+import ToastifyTest from '../../ToastifyTest';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { data } from 'autoprefixer';
@@ -21,22 +21,14 @@ import { data } from 'autoprefixer';
  * @returns {React.Component}
  */
 const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, title="Boolean Button Form", label="Select", selectionsAllowed=0, defaultTags=[], hasOtherField=false }) => {
-  console.log(title, "required", required);
   const [errorMessage, setErrorMessage] = useState("");
-
   useEffect(() => {
 
     // If not already defined in the formData, instantiate it.
     if (formData[dataLocation] != undefined) return
 
     let bbfData = {};
-    bbfData[dataLocation] = {
-      "defaultTags": {},
-      "customTags": {}
-    }
-    defaultTags.forEach( (tag) => {
-      bbfData[dataLocation]["defaultTags"][tag] = false;
-    });
+    bbfData[dataLocation] = []
 
     // Update the global form data object
     onUpdate(bbfData);
@@ -44,30 +36,36 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
 
   const getTotalSelectionsMade = () => {
     let bbfData = JSON.parse(JSON.stringify(formData));
-    let defaultCount = Object.values(bbfData[dataLocation]["defaultTags"]).filter(tag => tag).length
-    let customCount = Object.values(bbfData[dataLocation]["customTags"]).filter(tag => tag).length
-    return defaultCount + customCount
+    return formData[dataLocation].length
   }
 
   const onBooleanButtonClick = (e) => {
     setErrorMessage("");
     let tag = e.target.getAttribute("variable");
     let bbfData = JSON.parse(JSON.stringify(formData));
-    let value = bbfData[dataLocation]["defaultTags"][tag]
-    if (getTotalSelectionsMade() >= selectionsAllowed && value == false && selectionsAllowed != 0) {
+    let isSelected = bbfData[dataLocation].includes(tag);
+    // User is trying to make more than the allowed selections
+    if (getTotalSelectionsMade() >= selectionsAllowed && isSelected == false && selectionsAllowed != 0) {
       sendErrorMessage("Too many selected")
       setErrorMessage(selectionsAllowed == 1 ?`Please only select one option.` : `Please only select up to ${selectionsAllowed} options.`)
       return
     } 
-    bbfData[dataLocation]["defaultTags"][tag] = !value
+    // User is making a valid selection, and the button is currently selected so remove from list
+    if (isSelected) {
+      bbfData[dataLocation] = bbfData[dataLocation].filter((element) => element != tag)
+    }
+    else {
+      bbfData[dataLocation].push(tag)
+    }
     onUpdate(bbfData);
   }
 
   const onCustomTagClick = (e) => {
+    console.log("Custom tag was clicked!")
     setErrorMessage("");
     let bbfData = JSON.parse(JSON.stringify(formData));
     let tag = e.target.getAttribute("variable");
-    delete bbfData[dataLocation]["customTags"][tag];
+    bbfData[dataLocation] = bbfData[dataLocation].filter((element) => element != tag)
     onUpdate(bbfData);
   }
 
@@ -101,32 +99,37 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
           <br />
           {
             // Create a button for each default tag
-            formData[dataLocation] && Object.entries(formData[dataLocation]["defaultTags"]).map( ([key, value]) => {
-              return value ? (
+            formData[dataLocation] && defaultTags.map( tag => {
+              return formData[dataLocation].includes(tag) ? (
                 <button 
                 type="button"
-                variable={key}
-                key={key}
+                variable={tag}
+                key={tag}
                 onClick={onBooleanButtonClick}
                 className="hstg-btn-pill-small-selected">
-                  {key}
+                  {tag}
                 </button>) : (
                 <button 
                 type="button" 
-                variable={key}
-                key={key} 
+                variable={tag}
+                key={tag} 
                 onClick={onBooleanButtonClick} 
                 className="hstg-btn-pill-small">
-                  {key}
+                  {tag}
                 </button>) 
             })
           }
+          {console.log(defaultTags)}
+          {console.log(formData)}
           {
             // Create a button for each custom tag
-            formData[dataLocation] && Object.entries(formData[dataLocation]["customTags"]).map( ([key, value]) => {
-              console.log("Custom Tag:", key)
-              return (<button variable={key} key={key} onClick={onCustomTagClick} className="hstg-btn-pill-small-selected">
-                ⓧ {key}
+            formData[dataLocation] && formData[dataLocation].map( tag => {
+              return defaultTags.includes(tag) 
+              ? 
+              ""
+              :
+              (<button variable={tag} key={tag} onClick={onCustomTagClick} className="hstg-btn-pill-small-selected">
+                ⓧ {tag}
                 {/* <div className="remove-tag-btn"><small>X</small></div>  */}
                 </button>)
             })
@@ -139,6 +142,7 @@ const BooleanButtonForm = ({ onUpdate, formData, dataLocation, required=false, t
             setErrorMessage={setErrorMessage}
             formData={formData}
             dataLocation={dataLocation}
+            defaultTags={defaultTags}
             ></OtherButton>
           }
           {/* Show error message if applicable */}

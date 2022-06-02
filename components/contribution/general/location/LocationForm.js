@@ -1,4 +1,4 @@
-import InputField from './InputField';
+import InputField from '../InputField';
 import LocationSelect from './LocationSelect';
 import { useState, useEffect } from 'react';
 
