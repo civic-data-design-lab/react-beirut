@@ -9,17 +9,18 @@ import InputField from './InputField';
  * - `endDecade` *[yearTaken OR (startDecade AND endDecade)]
  * - `workshopName`
  * - `ownerName`
- * - `referenceName`
- * - `referenceUrl`
- * - `referenceCopyright`
+ * - `typeOfReference`
+ * - `referenceName` (Appears if typeOfReference == "Owner of personal photo")
+ * - `referenceCopyright`* (Appears if typeOfReference !="Owner of personal photo")
  *
  * @param {function} onUpdate - Function to call when the form is updated.
  * @param {object} formData - The form data to use.
  * @param {string[]} requiredFields - List of required fields for this form. See
  *    applicable fields above.
+ * @param {function} setRequiredFields - Function that can be used to set the required fields. This is used to update the required fields when a certain option is selected.
  * @returns {React.Component}
  */
-const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
+const ArchiveAboutForm = ({ onUpdate, formData, requiredFields, setRequiredFields }) => {
   return (
     <form className="ArchiveAboutForm">
       <h2>About the Archive</h2>
@@ -30,13 +31,11 @@ const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
             title="What is the image showing?"
             fieldName="imageType"
             type="select"
+            defaultValue="--Select a type--"
             value={formData.imageType}
             onUpdate={onUpdate}
             required={requiredFields?.includes('imageType')}
           >
-            <option disabled value="">
-              --Select a type--
-            </option>
             {IMAGE_TYPES.map((type) => (
               <option key={type.value} value={type.value}>
                 {type.name}
@@ -64,7 +63,7 @@ const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
                 value={formData.startDecade || ''}
                 onChange={(e) => onUpdate({ startDecade: e.target.value })}
               >
-                <option disabled value="">
+                <option value="">
                   --Start decade--
                 </option>
                 {VALID_DECADES.map((decade) => (
@@ -80,7 +79,7 @@ const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
                 value={formData.endDecade || ''}
                 onChange={(e) => onUpdate({ endDecade: e.target.value })}
               >
-                <option disabled value="">
+                <option value="">
                   --End decade--
                 </option>
                 {VALID_DECADES.map((decade) => (
@@ -124,24 +123,46 @@ const ArchiveAboutForm = ({ onUpdate, formData, requiredFields }) => {
         <div className="section">
           <h3>Reference Information</h3>
           <InputField
-            title="Name of reference"
-            fieldName="referenceName"
-            value={formData.referenceName}
+            title="Type of Refrence"
+            fieldName="typeOfReference"
+            type="select"
+            value={formData.typeOfReference}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('referenceName')}
-          />
-          <InputField
-            title={
-              <>
-                URL for reference <small>(if applicable)</small>
-              </>
-            }
-            fieldName="referenceUrl"
-            type="url"
-            value={formData.referenceUrl}
-            onUpdate={onUpdate}
-            required={requiredFields?.includes('referenceUrl')}
-          />
+            required={requiredFields?.includes('typeOfReference')}
+          >
+            <option value="Owner of personal photo">Owner of personal photo (I have the rights to share this image)</option>
+            <option value="Print source">Print source (book, newspaper, magazine, article, printed periodical, etc.)</option>
+            <option value="Electronic source">Electronic source (database, website, blog, social media, etc.)</option>
+          </InputField>
+          {formData.typeOfReference == "Owner of personal photo" && 
+            <InputField
+              title={
+                <>
+                  Name of person submitting the photo <br/> <small>(optional - if no name is included, the photo will be submitted anonymously)</small>
+                </>
+              }
+              fieldName="referenceName"
+              type="text"
+              value={formData.referenceName}
+              onUpdate={onUpdate}
+              required={requiredFields?.includes('referenceName')}
+            />
+          }
+          {
+            (formData.typeOfReference == "Print source" || formData.typeOfReference == "Electronic source") &&
+            <InputField
+              title={
+                <>
+                  Reference source citation
+                </>
+              }
+              fieldName="referenceSourceCitation"
+              type="text"
+              value={formData.referenceName}
+              onUpdate={onUpdate}
+              required={requiredFields?.includes('referenceSourceCitation')}
+            />
+          }
           <InputField
             title="Any additional copyright information?"
             type="textarea"

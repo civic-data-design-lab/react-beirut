@@ -17,6 +17,7 @@ import { useState } from 'react';
  *   field is updated.
  * @param {boolean} props.required - Whether or not this field is required
  * @param {string} props.label - Optional parameter only used for the checkbox type.
+ * @param {string} props.defaultValue - Optional parameter specially for the select type field. This is the value that first appears on the dropdown.
  * @param {JSX.Element[]} props.children - Any children to render (e.g., if
  *    using `type='select'`, this would be the '<option>' elements to render)
  * @returns
@@ -30,6 +31,7 @@ const InputField = (props) => {
     onUpdate,
     required,
     label,
+    defaultValue,
     children,
     ...rest
   } = props;
@@ -103,8 +105,8 @@ const InputField = (props) => {
             onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
             {...rest}
           >
-            <option selected hidden value="null">
-              --Select {title}--
+            <option selected value="null">
+              {defaultValue ? defaultValue : `--Select ${title}--`}
             </option>
             {children}
           </select>

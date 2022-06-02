@@ -96,7 +96,7 @@ const MultipageForm = ({
     if (pageIdx === undefined) {
       // If no page index is provided, get all the missing fields across all
       // pages
-      const allRequiredFields = requiredFields.flat();
+      const allRequiredFields = Object.values(requiredFields).flat();
       const missingFields = allRequiredFields.filter(
         (field) => !formData[field]
       );
@@ -104,7 +104,8 @@ const MultipageForm = ({
     }
 
     // Get the missing fields for the given page
-    const requiredFieldsForPage = requiredFields[pageIdx];
+    const formName = Object.keys(requiredFields)[pageIdx]
+    const requiredFieldsForPage = requiredFields[formName];
     const missingFields = requiredFieldsForPage.filter(
       (field) => formData[field]?.length == 0 ? true : !formData[field]
     );

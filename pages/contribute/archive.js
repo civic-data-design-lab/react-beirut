@@ -43,20 +43,19 @@ import {
 import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
 import Card from '../../components/Card';
 
-// Required fields for each page
-const REQUIRED_FIELDS = [
-  ['imageData', 'caption'],
-  ['imageType', 'referenceName'],
-  ['quarter', 'sector', 'lat', 'lng'],
-  ['consent']
-];
-
 const ArchiveContribution = () => {
   const [form, setForm] = useState({
     survey_origin: ARCHIVE_CONTRIBUTION_NAME,
   });
   const [dialog, setDialog] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  // Required fields for each page
+  const [requiredFields, setRequiredFields] = useState({
+    imageUpload: ['imageData', 'caption'],
+    about: ['imageType', 'typeOfReference', 'referenceSourceCitation'],
+    location: ['quarter', 'sector', 'lat', 'lng'],
+    preview: ['consent']
+});
 
   const updateForm = (data) => {
     setForm((prevForm) => {
@@ -133,7 +132,7 @@ const ArchiveContribution = () => {
             'Preview',
           ]}
           formData={form}
-          requiredFields={REQUIRED_FIELDS}
+          requiredFields={requiredFields}
           onUpdate={updateForm}
           onSubmit={onSubmit}
           submitted={submitted}
@@ -141,20 +140,20 @@ const ArchiveContribution = () => {
           <ImageUploadForm
             title="Archival Image Upload"
             label="Upload an archival image related to crafts in Beirut"
-            requiredFields={REQUIRED_FIELDS[0]}
+            requiredFields={requiredFields.imageUpload}
           />
           <ArchiveAboutForm 
             title="About the Archive"
-            requiredFields={REQUIRED_FIELDS[1]}
+            requiredFields={requiredFields.about}
           />
           <LocationForm 
             title="Location of Archival Image"
             mapCaption="Locate where this image was taken on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."
-            requiredFields={REQUIRED_FIELDS[2]} 
+            requiredFields={requiredFields.location} 
           />
           <Preview 
             onUpdate={updateForm}
-            requiredFields={REQUIRED_FIELDS[3]}
+            requiredFields={requiredFields.preview}
           />
         </MultipageForm>
       </div>
