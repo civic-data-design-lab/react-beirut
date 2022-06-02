@@ -3,13 +3,15 @@ import InputField from '../general/InputField';
 const WorkshopAboutForm = ({
   onUpdate,
   formData,
-  title,
+  formSchema,
+  pageName,
   requiredFields,
   highlightedFields,
 }) => {
+
   return (
     <form className="WorkshopAboutForm">
-      <h2>{title || 'About the Workshop'}</h2>
+      <h2>{formSchema['pages'][pageName]['title']}</h2>
       <div className="sections">
         <div className="section">
           <h3>Craft Workshop Information</h3>
@@ -42,9 +44,6 @@ const WorkshopAboutForm = ({
             required={requiredFields?.includes('status')}
             highlight={highlightedFields?.includes('status')}
           >
-            <option disabled value="">
-              --Select a status--
-            </option>
             <option value="open">Open</option>
             <option value="closed_temp">Closed (temporary)</option>
             <option value="closed_perm">Closed (permanent)</option>

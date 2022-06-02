@@ -89,7 +89,7 @@ const BooleanButtonForm = ({
 
   return (
     <div onKeyDown={onKeyDown} className="boolean-button-form">
-      <h2>{title}</h2>
+      <h3>{title}</h3>
       {/*TODO: Not sure why these are so close together. Put many line breaks.*/}
       <br />
       <div>

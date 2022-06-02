@@ -3,20 +3,18 @@ import { useState } from 'react';
 import LocationForm from '../../components/contribution/general/location/LocationForm';
 import MultipageForm from '../../components/contribution/general/MultipageForm';
 import WorkshopCraftTypeForm from '../../components/contribution/workshop/WorkshopCraftTypeForm';
-import WorkshopImageForm from '../../components/contribution/workshop/WorkshopImageForm'
+import WorkshopImageForm from '../../components/contribution/workshop/WorkshopImageForm';
 import WorkshopAboutForm from '../../components/contribution/workshop/WorkshopAboutForm';
 import Preview from '../../components/contribution/general/Preview';
-import {
-  convertWorkshopContributionToSchema,
-} from '../../lib/utils';
+import { convertWorkshopContributionToSchema } from '../../lib/utils';
 import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
 import Card from '../../components/Card';
 
 /**
  * Workshop Contribution Page
- * 
+ *
  * @GatlenCulp update this as changes to the fields are made
- * 
+ *
  * Pages:
  * 0. About the Workshop
  *    - shopName
@@ -39,13 +37,107 @@ import Card from '../../components/Card';
  *    - imageData
  *    - caption
  * 4: Preview
- * 
+ *
  */
 import { prepareWorkshopContribution } from '../../lib/utils';
 
+/*
+ * Only need to provide required if required = true.
+ * Only required if both enabled and true.
+ * For creating groups of fields that are together, one must group them(?)
+ */
+const formSchema = {
+  pages: {
+    about: {
+      title: 'About the Craft Workshop',
+      short_title: 'About the Workshop',
+      fields: {
+        shop_name: {
+          title: 'Shop Name',
+        },
+        year_established: {
+          title: 'Year Established',
+        },
+        status: {
+          title: 'Shop Status',
+        },
+        phone_number: {
+          title: 'Phone Number',
+        },
+        email: {
+          title: 'Email',
+        },
+        website: {
+          title: 'Website',
+        },
+        social_media: {
+          title: 'Social Media',
+        },
+      },
+    },
+    location: {
+      title: 'Craft Workshop Location',
+      short_title: 'Workshop Location',
+      fields: {
+        building_number: {
+          title: 'Building Number',
+        },
+        street: {
+          title: 'Street Name/Number',
+        },
+        quarter: {
+          title: 'Quarter',
+          required: true
+        },
+        sector: {
+          title: 'Sector',
+          required: true
+        },
+      },
+    },
+    about_the_craft: {
+      title: 'About the Craft',
+      fields: {
+        craft_category: {
+          title: 'Craft Category',
+          required: true
+        },
+        type_of_craft: {
+          title: 'Type of Craft',
+          required: true
+        },
+      },
+    },
+    image_upload: {
+      title: 'Craft Workshop Image Upload',
+      short_title: 'Image Upload',
+      fields: {
+        craft_workshop_image_upload: {
+          title: 'Craft Workshop Image Upload',
+        },
+        image_content: {
+          title: 'Image Content',
+        },
+      },
+    },
+    preview: {
+      title: 'Preview',
+      fields: {
+        consent: {
+          title: 'Consent to Publish Data',
+        },
+      },
+    },
+  }
+};
 
-// Array of arrays of required fields for each page
-const REQUIRED_FIELDS = [['shopName', 'status'], ['quarter', 'sector'], ['craft_categories', 'type_of_craft'], ['consent']];
+// INFO: Array of arrays of required fields for each page
+const REQUIRED_FIELDS = [
+  ['shopName', 'status'],
+  ['quarter', 'sector'],
+  ['craft_categories', 'type_of_craft'],
+  ['consent'],
+];
 
 const WorkshopContribution = () => {
   const [form, setForm] = useState({
@@ -93,16 +185,14 @@ const WorkshopContribution = () => {
 
   const updateForm = (data) => {
     setForm((prevForm) => {
-      // console.log(data);
-      // console.log('old form:', prevForm);
       const updatedFormData = { ...prevForm, ...data };
       console.info('setting form data to ', updatedFormData);
 
-      // Update the local storage as well
+      // INFO: Update the local storage
       localStorage.setItem(
         WORKSHOP_CONTRIBUTION_NAME,
         JSON.stringify(updatedFormData)
-      ); // This errors if cookies are disabled.
+      ); //!! This errors if cookies are disabled.
       return updatedFormData;
     });
   };
@@ -129,13 +219,14 @@ const WorkshopContribution = () => {
       <div className="Contribute drop-shadow__black">
         <MultipageForm
           name={WORKSHOP_CONTRIBUTION_NAME}
-          pageTitles={[
-            'About the Workshop',
-            'Workshop Location',
-            'About the Craft',
-            'Image Upload',
-            'Preview',
-          ]}
+          pageTitles={
+            // INFO: Use the short_titles if available otherwise use titles.
+            Object.keys(formSchema.pages).map((p) => {
+              return formSchema['pages'][p]['short_title']
+                ? formSchema['pages'][p]['short_title']
+                : formSchema['pages'][p]['title'];
+            })
+          }
           requiredFields={REQUIRED_FIELDS}
           formData={form}
           onUpdate={updateForm}
@@ -143,34 +234,31 @@ const WorkshopContribution = () => {
           submitted={submitted}
         >
           <WorkshopAboutForm
-            title="About the Craft Workshop"
+            formSchema={formSchema}
+            pageName='about'
             requiredFields={REQUIRED_FIELDS[0]}
           />
-          <LocationForm 
-            mapCaption={"Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."}
-            requiredFields={REQUIRED_FIELDS[1]} 
+          <LocationForm
+            formSchema={formSchema}
+            pageName='location'
+            mapCaption={
+              'Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.'
+            }
+            requiredFields={REQUIRED_FIELDS[1]}
           />
           <WorkshopCraftTypeForm
             onUpdate={updateForm}
             formData={form}
+            formSchema={formSchema}
+            pageName='about_the_craft'
             dataLocation="craft_category"
-            title="Craft Category"
             label="What type of crafts are produced in this workshop?"
             requiredFields={REQUIRED_FIELDS[2]}
             hasOtherField={true}
           />
-          {/* <BooleanButtonForm
-            onUpdate={updateForm}
-            formData={form}
-            dataLocation="craft_discipline"
-            title="Craft Discipline"
-            label="What type of crafts are produced in this workshop?"
-            defaultTags={CRAFT_DISCIPLINES}
-            requiredFields={REQUIRED_FIELDS[2]}
-            hasOtherField={true}
-          /> */}
           <WorkshopImageForm
-            title="Craft Workshop Image Upload"
+            formSchema={formSchema}
+            pageName='location'
             label="Upload an image of the craft workshop"
             requiredFields={REQUIRED_FIELDS[3]}
           />

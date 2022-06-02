@@ -44,6 +44,64 @@ import ArchiveAboutForm from '../../components/contribution/archive/ArchiveAbout
 import Card from '../../components/Card';
 
 const ArchiveContribution = () => {
+  const formSchema = {
+    pages: {
+      image_upload: {
+        title: 'Archival Image Upload',
+        short_title: 'Archive Upload',
+        fields: {
+        },
+      },
+      about: {
+        title: 'About the Archive',
+        short_title: 'About the Archive',
+        fields: {
+          image_content: {
+            title: 'What is the image showing?',
+          },
+          year: {
+            title: 'What year was the image taken?',
+          },
+          decades: {
+            title: 'If exact year is unknown, please provide a decade range',
+          } // Not great
+        },
+      },
+      about_the_craft: {
+        title: 'About the Craft',
+        fields: {
+          craft_category: {
+            title: 'Craft Category',
+            required: true
+          },
+          type_of_craft: {
+            title: 'Type of Craft',
+            required: true
+          },
+        },
+      },
+      image_upload: {
+        title: 'Craft Workshop Image Upload',
+        short_title: 'Image Upload',
+        fields: {
+          craft_workshop_image_upload: {
+            title: 'Craft Workshop Image Upload',
+          },
+          image_content: {
+            title: 'Image Content',
+          },
+        },
+      },
+      preview: {
+        title: 'Preview',
+        fields: {
+          consent: {
+            title: 'Consent to Publish Data',
+          },
+        },
+      },
+    }
+  };
   const [form, setForm] = useState({
     survey_origin: ARCHIVE_CONTRIBUTION_NAME,
   });

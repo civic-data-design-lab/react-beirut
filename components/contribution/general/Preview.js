@@ -10,10 +10,12 @@ import InputField from './InputField';
 
 const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
   const getPreview = () => {
+    // INFO: Return nothing if there is no form data
     if (!formData) {
       return <></>;
     }
 
+    // INFO: Return list of missing fields if there are missing fields.
     if (missingFields.length > 0) {
       return (
         <div>
@@ -27,19 +29,11 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
               <li key={field}>{field}</li>
             ))}
           </ul>
-          <InputField
-            title="Data Consent"
-            fieldName="consent"
-            value={formData.consent}
-            type="checkbox"
-            onUpdate={onUpdate}
-            required={requiredFields?.includes('consent')}
-            label="I consent to the data in this form being shared on our public database."
-          />
         </div>
       );
     }
 
+    // INFO: If this form was for a workshop, show the workshop preview
     if (formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME) {
       const { workshop, imageMeta, imageData } =
         convertWorkshopContributionToSchema(formData);
@@ -51,7 +45,10 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
           imageSrc={imageData?.data}
         />
       );
-    } else if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
+    }
+
+    // INFO: If this form was for an archive, show the archive preview
+    if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
       const { archive, imageMeta, imageData } =
         convertArchiveContributionToSchema(formData);
       return (
@@ -68,6 +65,15 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
     <div>
       <h2>Preview</h2>
       {getPreview()}
+      <InputField
+        title="Data Consent"
+        fieldName="consent"
+        value={formData.consent}
+        type="checkbox"
+        onUpdate={onUpdate}
+        required={requiredFields?.includes('consent')}
+        label="I consent to the data in this form being shared on our public database."
+      />
     </div>
   );
 };

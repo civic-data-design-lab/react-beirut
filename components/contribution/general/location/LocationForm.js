@@ -5,12 +5,15 @@ import { useState, useEffect } from 'react';
 const LocationForm = ({
   onUpdate,
   formData,
-  title,
+  formSchema,
+  pageName,
   requiredFields,
   mapCaption,
 }) => {
   const [workshops, setWorkshops] = useState([]);
   const [archive, setArchive] = useState([]);
+
+  const FIELDS = Object.entries(formSchema['pages'][pageName]['fields'])
 
   useEffect(() => {
     console.log('fetching');
@@ -59,37 +62,37 @@ const LocationForm = ({
 
   return (
     <form className="LocationForm">
-      <h2>{title || 'Craft Workshop Location'}</h2>
+      <h2>{formSchema['pages'][pageName]['title']}</h2>
       <div className="forms">
         <div className="address-form">
           <h3>Address</h3>
           <small>(English Preferred)</small>
           <div className="address-form-inputs">
             <InputField
-              title="Building number"
-              fieldName="buildingNumber"
-              key="buildingNumber"
+              title={FIELDS[0][1]['title']}
+              fieldName={FIELDS[0][0]}
+              key={FIELDS[0][0]}
               value={formData.buildingNumber}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('buildingNumber')}
+              required={FIELDS[0][1]['required'] ? FIELDS[0][1]['required'] : false}
             />
             <InputField
-              title="Street name/number"
-              fieldName="street"
-              key="street"
+              title={FIELDS[1][1]['title']}
+              fieldName={FIELDS[1][0]}
+              key={FIELDS[1][0]}
               value={formData.street}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('street')}
+              required={FIELDS[1][1]['required'] ? FIELDS[1][1]['required'] : false}
             />
 
             <InputField
-              title="Quarter"
+              title={FIELDS[2][1]['title']}
               type="select-with-other"
-              fieldName="quarter"
-              key="quarter"
+              fieldName={FIELDS[2][0]}
+              key={FIELDS[2][0]}
               value={formData.quarter}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('quarter')}
+              required={FIELDS[2][1]['required'] ? FIELDS[2][1]['required'] : false}
             >
               {[
                 ...new Set(
@@ -106,13 +109,13 @@ const LocationForm = ({
               ;
             </InputField>
             <InputField
-              title="Sector"
+              title={FIELDS[3][1]['title']}
               type="select-with-other"
-              fieldName="sector"
-              key="sector"
+              fieldName={FIELDS[3][0]}
+              key={FIELDS[3][0]}
               value={formData.sector}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('sector')}
+              required={FIELDS[3][1]['required'] ? FIELDS[3][1]['required'] : false}
             >
               {[
                 ...new Set(
