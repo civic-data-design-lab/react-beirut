@@ -1,18 +1,17 @@
-import { IMAGE_TYPES, VALID_DECADES } from '../../../lib/utils';
-import InputField from '../general/InputField';
+import { IMAGE_TYPES, VALID_DECADES } from '../../lib/utils';
+import InputField from './InputField';
 
 /**
  * The Archive about form updates the following fields:
- * - imageType
- * - yearTaken (e.g. `'2022`) *[yearTaken OR (startDecade AND endDecade)]
- * - startDecade (e.g. `'1930'`) *[yearTaken OR (startDecade AND endDecade)]
- * - endDecade *[yearTaken OR (startDecade AND endDecade)]
- * - workshopName
- * - ownerName
- * - typeOfReference
- * - referenceName (Appears if typeOfReference == "Owner of personal photo")
- * - referenceSourceCitation (Appears if typeOfReference !="Owner of personal photo")
- * - referenceCopyright
+ * - `imageType`
+ * - `yearTaken` (e.g. `'2022`) *[yearTaken OR (startDecade AND endDecade)]
+ * - `startDecade` (e.g. `'1930'`) *[yearTaken OR (startDecade AND endDecade)]
+ * - `endDecade` *[yearTaken OR (startDecade AND endDecade)]
+ * - `workshopName`
+ * - `ownerName`
+ * - `typeOfReference`
+ * - `referenceName` (Appears if typeOfReference == "Owner of personal photo")
+ * - `referenceCopyright`* (Appears if typeOfReference !="Owner of personal photo")
  *
  * @param {function} onUpdate - Function to call when the form is updated.
  * @param {object} formData - The form data to use.
@@ -21,13 +20,7 @@ import InputField from '../general/InputField';
  * @param {function} setRequiredFields - Function that can be used to set the required fields. This is used to update the required fields when a certain option is selected.
  * @returns {React.Component}
  */
-const ArchiveAboutForm = ({
-  onUpdate,
-  formData,
-  requiredFields,
-  setRequiredFields,
-}) => {
-
+const ArchiveAboutForm = ({ onUpdate, formData, requiredFields, setRequiredFields }) => {
   return (
     <form className="ArchiveAboutForm">
       <h2>About the Archive</h2>
@@ -70,7 +63,9 @@ const ArchiveAboutForm = ({
                 value={formData.startDecade || ''}
                 onChange={(e) => onUpdate({ startDecade: e.target.value })}
               >
-                <option value="">--Start decade--</option>
+                <option value="">
+                  --Start decade--
+                </option>
                 {VALID_DECADES.map((decade) => (
                   <option key={decade} value={decade}>
                     {decade}
@@ -84,7 +79,9 @@ const ArchiveAboutForm = ({
                 value={formData.endDecade || ''}
                 onChange={(e) => onUpdate({ endDecade: e.target.value })}
               >
-                <option value="">--End decade--</option>
+                <option value="">
+                  --End decade--
+                </option>
                 {VALID_DECADES.map((decade) => (
                   <option
                     key={decade}
@@ -114,8 +111,7 @@ const ArchiveAboutForm = ({
           <InputField
             title={
               <>
-                Associated workshop owner name{' '}
-                <small>(optional - name may be publicly displayed)</small>
+                Associated workshop owner name <small>(optional - name may be publicly displayed)</small>
               </>
             }
             fieldName="ownerName"
@@ -134,26 +130,15 @@ const ArchiveAboutForm = ({
             onUpdate={onUpdate}
             required={requiredFields?.includes('typeOfReference')}
           >
-            <option value="Owner of personal photo">
-              Owner of personal photo (I have the rights to share this image)
-            </option>
-            <option value="Print source">
-              Print source (book, newspaper, magazine, article, printed
-              periodical, etc.)
-            </option>
-            <option value="Electronic source">
-              Electronic source (database, website, blog, social media, etc.)
-            </option>
+            <option value="Owner of personal photo">Owner of personal photo (I have the rights to share this image)</option>
+            <option value="Print source">Print source (book, newspaper, magazine, article, printed periodical, etc.)</option>
+            <option value="Electronic source">Electronic source (database, website, blog, social media, etc.)</option>
           </InputField>
-          {formData.typeOfReference == 'Owner of personal photo' && (
+          {formData.typeOfReference == "Owner of personal photo" && 
             <InputField
               title={
                 <>
-                  Name of person submitting the photo <br />{' '}
-                  <small>
-                    (optional - if no name is included, the photo will be
-                    submitted anonymously)
-                  </small>
+                  Name of person submitting the photo <br/> <small>(optional - if no name is included, the photo will be submitted anonymously)</small>
                 </>
               }
               fieldName="referenceName"
@@ -162,18 +147,22 @@ const ArchiveAboutForm = ({
               onUpdate={onUpdate}
               required={requiredFields?.includes('referenceName')}
             />
-          )}
-          {(formData.typeOfReference == 'Print source' ||
-            formData.typeOfReference == 'Electronic source') && (
+          }
+          {
+            (formData.typeOfReference == "Print source" || formData.typeOfReference == "Electronic source") &&
             <InputField
-              title={<>Reference source citation</>}
+              title={
+                <>
+                  Reference source citation
+                </>
+              }
               fieldName="referenceSourceCitation"
               type="text"
               value={formData.referenceName}
               onUpdate={onUpdate}
               required={requiredFields?.includes('referenceSourceCitation')}
             />
-          )}
+          }
           <InputField
             title="Any additional copyright information?"
             type="textarea"

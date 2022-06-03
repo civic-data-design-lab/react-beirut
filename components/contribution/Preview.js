@@ -3,9 +3,9 @@ import {
   WORKSHOP_CONTRIBUTION_NAME,
   ARCHIVE_CONTRIBUTION_NAME,
   convertArchiveContributionToSchema,
-} from '../../../lib/utils';
-import Archive from '../../Archive';
-import Workshop from '../../Workshop';
+} from '../../lib/utils';
+import Archive from '../Archive';
+import Workshop from '../Workshop';
 import InputField from './InputField';
 
 const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
@@ -43,7 +43,7 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
     if (formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME) {
       const { workshop, imageMeta, imageData } =
         convertWorkshopContributionToSchema(formData);
-      // console.log(workshop);
+      console.log(workshop);
       return (
         <Workshop
           workshop={workshop}

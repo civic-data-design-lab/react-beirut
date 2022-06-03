@@ -18,7 +18,7 @@ const Contribute = () => {
       workshop: localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME),
       archive: localStorage.getItem(ARCHIVE_CONTRIBUTION_NAME),
     };
-    // console.log(existingForms);
+    console.log(existingForms);
     return existingForms;
   };
 

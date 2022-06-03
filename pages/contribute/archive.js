@@ -31,16 +31,16 @@
  */
 
 import { useState, useEffect } from 'react';
-import ImageUploadForm from '../../components/contribution/general/imageUpload/ImageUploadForm'
-import LocationForm from '../../components/contribution/general/location/LocationForm';
-import MultipageForm from '../../components/contribution/general/MultipageForm';
-import ArchivePreview from '../../components/contribution/archive/ArchivePreview'
+import ImageUploadForm from '../../components/contribution/ImageUploadForm';
+import LocationForm from '../../components/contribution/LocationForm';
+import MultipageForm from '../../components/contribution/MultipageForm';
+import Preview from '../../components/contribution/Preview';
 import Head from 'next/head';
 import {
   ARCHIVE_CONTRIBUTION_NAME,
   convertArchiveContributionToSchema,
 } from '../../lib/utils';
-import ArchiveAboutForm from '../../components/contribution/archive/ArchiveAboutForm';
+import ArchiveAboutForm from '../../components/contribution/ArchiveAboutForm';
 import Card from '../../components/Card';
 
 const ArchiveContribution = () => {
@@ -49,8 +49,7 @@ const ArchiveContribution = () => {
   });
   const [dialog, setDialog] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-
-  // INFO: Required fields for each page
+  // Required fields for each page
   const [requiredFields, setRequiredFields] = useState({
     imageUpload: ['imageData', 'caption'],
     about: ['imageType', 'typeOfReference', 'referenceSourceCitation'],
@@ -61,7 +60,7 @@ const ArchiveContribution = () => {
   const updateForm = (data) => {
     setForm((prevForm) => {
       const updatedFormData = { ...prevForm, ...data };
-      console.info('setting form data to ', updatedFormData);
+      console.log('setting form data to ', updatedFormData);
       localStorage.setItem(
         ARCHIVE_CONTRIBUTION_NAME,
         JSON.stringify(updatedFormData)
@@ -71,7 +70,7 @@ const ArchiveContribution = () => {
   };
 
   const onSubmit = () => {
-    // INFO: Prepare the form data for submission
+    // Prepare the form data for submission
     const { archive, imageMeta, imageData } =
       convertArchiveContributionToSchema(form);
 
@@ -95,7 +94,7 @@ const ArchiveContribution = () => {
         if (!data) {
           return;
         }
-        // console.log(data);
+        console.log(data);
         setSubmitted(true);
         // Clear the form data
         setForm({});
@@ -152,7 +151,7 @@ const ArchiveContribution = () => {
             mapCaption="Locate where this image was taken on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."
             requiredFields={requiredFields.location} 
           />
-          <ArchivePreview
+          <Preview 
             onUpdate={updateForm}
             requiredFields={requiredFields.preview}
           />

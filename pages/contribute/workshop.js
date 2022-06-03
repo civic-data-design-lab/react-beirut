@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import LocationForm from '../../components/contribution/general/location/LocationForm';
-import MultipageForm from '../../components/contribution/general/MultipageForm';
-import WorkshopCraftTypeForm from '../../components/contribution/workshop/WorkshopCraftTypeForm';
-import WorkshopImageForm from '../../components/contribution/workshop/WorkshopImageForm'
-import WorkshopAboutForm from '../../components/contribution/workshop/WorkshopAboutForm';
-import Preview from '../../components/contribution/general/Preview';
+// import ImageUploadForm from '../../components/contribution/ImageUploadForm';
+import LocationForm from '../../components/contribution/LocationForm';
+import CraftDisciplineForm from '../../components/contribution/CraftDisciplineForm';
+import MultipageForm from '../../components/contribution/MultipageForm';
+import WorkshopImageForm from '../../components/contribution/WorkshopImageForm';
+import WorkshopAboutForm from '../../components/contribution/WorkshopAboutForm';
+import Preview from '../../components/contribution/Preview';
 import {
   convertWorkshopContributionToSchema,
 } from '../../lib/utils';
@@ -45,7 +46,7 @@ import { prepareWorkshopContribution } from '../../lib/utils';
 
 
 // Array of arrays of required fields for each page
-const REQUIRED_FIELDS = [['shopName', 'status'], ['quarter', 'sector'], ['craft_categories', 'type_of_craft'], ['consent']];
+const REQUIRED_FIELDS = [['shopName', 'status'], ['quarter', 'sector'], ['craft_categories', 'type_of_craft'], []];
 
 const WorkshopContribution = () => {
   const [form, setForm] = useState({
@@ -59,9 +60,9 @@ const WorkshopContribution = () => {
     const { workshop, imageMeta, imageData } =
       convertWorkshopContributionToSchema(form);
 
-    // console.log(workshop);
-    // console.log(imageMeta);
-    // console.log(imageData);
+    console.log(workshop);
+    console.log(imageMeta);
+    console.log(imageData);
 
     const data = { workshop, imageMetas: [imageMeta], imageData: [imageData] };
 
@@ -96,7 +97,7 @@ const WorkshopContribution = () => {
       // console.log(data);
       // console.log('old form:', prevForm);
       const updatedFormData = { ...prevForm, ...data };
-      console.info('setting form data to ', updatedFormData);
+      console.log('setting form data to ', updatedFormData);
 
       // Update the local storage as well
       localStorage.setItem(
@@ -150,7 +151,7 @@ const WorkshopContribution = () => {
             mapCaption={"Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."}
             requiredFields={REQUIRED_FIELDS[1]} 
           />
-          <WorkshopCraftTypeForm
+          <CraftDisciplineForm
             onUpdate={updateForm}
             formData={form}
             dataLocation="craft_category"

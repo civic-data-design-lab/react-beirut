@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
-import Card from '../../Card';
+import Card from '../Card';
 
 /**
  * Component handling mulitpage forms.
@@ -60,7 +60,7 @@ const MultipageForm = ({
    * Gets the form data from local storage when the component is mounted.
    */
   useEffect(() => {
-    console.info('Fetching existing form data from local storage');
+    console.log('Fetching existing form data from local storage');
     const formData = JSON.parse(localStorage.getItem(name)); // If cookies are disabled, this throws an error "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
     if (formData) {
       onUpdate(formData);
@@ -77,7 +77,7 @@ const MultipageForm = ({
       return;
     }
     const pageIdx = parseInt(router.query.page);
-    // console.log('Switched to page', pageIdx);
+    console.log('Switched to page', pageIdx);
     if (!pageIdx || pageIdx >= children.length || pageIdx < 0) {
       router.push(`${router.basePath}?page=0`, undefined, { shallow: true });
     }
@@ -104,10 +104,10 @@ const MultipageForm = ({
     }
 
     // Get the missing fields for the given page
-    const formName = Object.keys(requiredFields)[pageIdx];
+    const formName = Object.keys(requiredFields)[pageIdx]
     const requiredFieldsForPage = requiredFields[formName];
-    const missingFields = requiredFieldsForPage.filter((field) =>
-      formData[field]?.length == 0 ? true : !formData[field]
+    const missingFields = requiredFieldsForPage.filter(
+      (field) => formData[field]?.length == 0 ? true : !formData[field]
     );
     return missingFields;
   };

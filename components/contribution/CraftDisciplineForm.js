@@ -1,5 +1,10 @@
-import BooleanButtonForm from '../general/booleanButtonForm/BooleanButtonForm';
-import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../../lib/utils';
+import { useState, useEffect } from 'react';
+import OtherButton from './OtherButton';
+import ToastifyTest from './ToastifyTest';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import BooleanButtonForm from '../../components/contribution/BooleanButtonForm';
+import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../lib/utils';
 
 /**
  * Form that provides a list of buttons that you can select.
@@ -13,13 +18,8 @@ import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../../lib/utils';
  * @param {string[]} requiredFields - Optional required fields that are needed to turn in these forms.
  * @returns {React.Component}
  */
-const CraftDisciplineForm = ({
-  onUpdate,
-  formData,
-  title,
-  label,
-  requiredFields = [],
-}) => {
+const CraftDisciplineForm = ({ onUpdate, formData, title, label, requiredFields=[]}) => {
+
   return (
     <>
       <BooleanButtonForm
