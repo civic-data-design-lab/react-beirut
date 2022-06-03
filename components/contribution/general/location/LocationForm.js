@@ -1,20 +1,23 @@
-import InputField from './InputField';
+import InputField from '../InputField';
 import LocationSelect from './LocationSelect';
 import { useState, useEffect } from 'react';
 
-const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption }) => {
-
+const LocationForm = ({
+  onUpdate,
+  formData,
+  title,
+  requiredFields,
+  mapCaption,
+}) => {
   const [workshops, setWorkshops] = useState([]);
   const [archive, setArchive] = useState([]);
 
   useEffect(() => {
     console.log('fetching');
 
-    Promise.all([fetch('/api/workshops'), fetch('/api/archive')])
-    .then(
+    Promise.all([fetch('/api/workshops'), fetch('/api/archive')]).then(
       ([workshopsResponse, archiveResponse]) => {
-        Promise.all([workshopsResponse.json(), archiveResponse.json()])
-        .then(
+        Promise.all([workshopsResponse.json(), archiveResponse.json()]).then(
           ([workshopsData, archiveData]) => {
             setWorkshops(workshopsData.response);
             setArchive(archiveData.response);
@@ -23,7 +26,6 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
       }
     );
   }, []);
-  
 
   const handleUpdate = (data) => {
     const newLocation = { lat: data.lat, lng: data.lng };
@@ -42,7 +44,9 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
           }
           key="LatLngLabel"
         >
-          {mapCaption ? mapCaption : "Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."}
+          {mapCaption
+            ? mapCaption
+            : 'Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.'}
         </label>
       );
     }
@@ -85,13 +89,21 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
               key="quarter"
               value={formData.quarter}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('quarter')}>
-                {
-                  [... new Set(
-                    workshops.map((workshop) => {return workshop.location.adm3;}))].filter(workshop => workshop).sort().map( (quarter) => {
-                    return <option value={quarter}>{quarter}</option>
+              required={requiredFields?.includes('quarter')}
+            >
+              {[
+                ...new Set(
+                  workshops.map((workshop) => {
+                    return workshop.location.adm3;
                   })
-                };
+                ),
+              ]
+                .filter((workshop) => workshop)
+                .sort()
+                .map((quarter) => {
+                  return <option key={quarter} value={quarter}>{quarter}</option>;
+                })}
+              ;
             </InputField>
             <InputField
               title="Sector"
@@ -100,14 +112,21 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
               key="sector"
               value={formData.sector}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('sector')}>
-                {
-                  [... new Set(
-                    workshops.map((workshop) => {return workshop.location.adm4;}))].filter(workshop => workshop).sort()
-                    .map( (sector) => {
-                    return <option value={sector}>{sector}</option>
+              required={requiredFields?.includes('sector')}
+            >
+              {[
+                ...new Set(
+                  workshops.map((workshop) => {
+                    return workshop.location.adm4;
                   })
-                };
+                ),
+              ]
+                .filter((workshop) => workshop)
+                .sort()
+                .map((sector) => {
+                  return <option key={sector} value={sector}>{sector}</option>;
+                })}
+              ;
             </InputField>
             {/* Reference: https://www.lebanesearabicinstitute.com/areas-beirut/#Sectors_of_Beirut */}
             {/* <div>
@@ -147,7 +166,7 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
 
           <LocationSelect onUpdate={handleUpdate} />
           <p className="location-select-hint">
-          Drag marker to change the location
+            Drag marker to change the location
           </p>
         </div>
       </div>
