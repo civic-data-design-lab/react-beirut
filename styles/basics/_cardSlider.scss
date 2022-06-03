@@ -17,8 +17,8 @@
 .btn-next {
   padding: 20px;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  //top: 50%;
+  //transform: translateY(-50%);
   border: none;
   background-color: Transparent;
   z-index: 2000;
@@ -37,6 +37,7 @@
 }
 
 .mapSlider-wrapper {
+  position: relative;
   overflow-x: scroll;
   scroll-behavior: smooth;
   white-space: nowrap;
@@ -57,6 +58,8 @@
   scroll-snap-align: center;
 }
 
+
+
 .mapCard-slider-image-container {
   height: 100%;
   margin: 2px;
@@ -67,6 +70,7 @@
 }
 
 .mapSlider-container {
+  //position: relative;
   overflow: hidden;
   height: 100%;
   display: flex;
@@ -75,3 +79,4 @@
   justify-content: center;
   align-items: center;
 }
+

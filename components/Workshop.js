@@ -88,7 +88,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops }) => {
           <div className="container__map">
              <p>See it on map</p>
             <div className="map">
-              <MiniMap workshop={workshop}/>
+              <MiniMap workshop={workshop} type={'workshop'}/>
             </div>
           </div>
           <div className="container__suggestion">

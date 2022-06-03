@@ -12,19 +12,24 @@ export default class MiniMap extends React.Component {
         this.mapContainer = React.createRef();
         this.mappedMarkers = [];
         this.colorMap = {
-            "architectural": '#66816c',
-            "cuisine": '#b68c66',
-            "decorative": '#ab6d6d' ,
-            "fashion": "#608f96",
-            "functional": "#a98199",
-            "furniture": "#72475f",
-            "textiles": "#eebc71"
-        }
+            "architectural": '#91B0D1',
+            "cuisine": '#DFBA96',
+            "decorative": '#88A384',
+            "fashion": "#DEC2B4",
+            "functional": "#72A1AB",
+            "furniture": "#9F8278",
+            "textiles": "#EACC74"
 
+        }
     }
 
     componentDidMount() {
-        const geos = [this.state.workshop.location.geo['lng'],this.state.workshop.location.geo['lat']]
+        let geos = null
+        if (this.props.type === "workshop") {
+            geos = [this.state.workshop.location.geo['lng'], this.state.workshop.location.geo['lat']]
+        } else {
+            geos =[this.state.workshop.primary_location.geo['lng'],this.state.workshop.primary_location.geo['lat']]
+        }
         console.log("geos ", geos);
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({

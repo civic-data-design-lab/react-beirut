@@ -42,7 +42,7 @@ export default class MapFilter extends React.Component {
         const defaultCrafts = ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]
         for (const craft of defaultCrafts) {
             let button = document.getElementById(`${craft}-btn`)
-            button.className='hstg-btn-pill-small-selected'
+            button.className=`hstg-btn-pill-small-selected hstg-btn-pill-small-selected--${craft}`
         }
 
         this.setState({
@@ -75,16 +75,17 @@ export default class MapFilter extends React.Component {
     filterCardContent() {
         return(
             <>
-                        <div className={'searchby-section'}>
-
+                        <div className={'close-btn-container'}>
+                            <button className={'close-card-btn'} onClick={this.props.closeFilter}>X</button>
+                        </div>
+                        <div>
                             <p>Search By</p>
-                            <button className={'close-filter-btn'} onClick={this.props.closeFilter}>X</button>
                         </div>
                         <hr/>
-                        <div>
-                            <p>Craft Type</p>
+
+
                             <CraftFilter filteredCrafts={this.state.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
-                        </div>
+
                         <hr/>
                         <div>
                             <p>Time Range</p>
@@ -124,7 +125,7 @@ export default class MapFilter extends React.Component {
                             <div className="card__wrapper">
                               <div className="filterCard">
                                   {this.filterCardContent()}
-                                  <button className={'btn-pill'} onClick={this.props.closeFilter}>Show Map</button>
+                                  <button className={'btn-pill view-map-btn'} onClick={this.props.closeFilter}>View Map</button>
                               </div>
                             </div>
                           </div>

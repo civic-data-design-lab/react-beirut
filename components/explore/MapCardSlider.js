@@ -48,7 +48,7 @@ export default class MapCardSlider extends React.Component {
           className={sliderStyle['sliderContainer']}
           ref={this.sliderContainerRef}
         >
-          {children.length > 0 ? (
+          {children.length > 1 ? (
             <button
               className={sliderStyle['prevButton']}
               ref={this.prevBtnRef}
@@ -64,7 +64,7 @@ export default class MapCardSlider extends React.Component {
           >
             {children}
           </div>
-          {children.length > 0 ? (
+          {children.length > 1 ? (
             <button
               className={`${sliderStyle['nextButton']}`}
               onClick={this.scrollRight}

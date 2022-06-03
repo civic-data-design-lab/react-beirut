@@ -166,6 +166,8 @@ $icon-zindex: 1000;
   /* IsMobile=Off, IsActive=Off */
 
 
+
+
   box-sizing: border-box;
 
   /* Auto layout */
@@ -177,13 +179,18 @@ $icon-zindex: 1000;
 
   border: 0.5px solid #CFCFCF;
   border-radius: 10px;
+
+  background: #FFFFFF;
 }
+
+
+
 
 .hstg-btn-pill-small:hover {
 
   /* IsMobile=Off, IsActive=On */
 
-  color: #9C6340;
+  //color: #9C6340;
 
   box-sizing: border-box;
 
@@ -197,18 +204,62 @@ $icon-zindex: 1000;
   background: #FFFFFF;
   /* orange */
 
-  border: 0.5px solid #9C6340;
+  //border: 0.5px solid #9C6340;
   /* Btn Shadow Red */
 
-  box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+  //box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
   border-radius: 10px;
 }
+
+.hstg-btn-pill-small--architectural:hover {
+  color: $c-architectural;
+  border: 0.5px solid $c-architectural;
+  box-shadow: 0px 0px 30px 1px $c-architectural;
+}
+
+.hstg-btn-pill-small--cuisine:hover {
+  color: $c-cuisine;
+  border: 0.5px solid $c-cuisine;
+  box-shadow: 0px 0px 30px 1px $c-cuisine;
+}
+
+.hstg-btn-pill-small--decorative:hover {
+  color: $c-decorative;
+  border: 0.5px solid $c-decorative;
+  box-shadow: 0px 0px 30px 1px $c-decorative;
+}
+
+.hstg-btn-pill-small--fashion:hover {
+  color: $c-fashion;
+  border: 0.5px solid $c-fashion;
+  box-shadow: 0px 0px 30px 1px $c-fashion;
+}
+
+.hstg-btn-pill-small--functional:hover {
+  color: $c-functional;
+  border: 0.5px solid $c-functional;
+  box-shadow: 0px 0px 30px 1px $c-functional;
+}
+
+.hstg-btn-pill-small--furniture:hover {
+  color: $c-furniture;
+  border: 0.5px solid $c-furniture;
+  box-shadow: 0px 0px 30px 1px $c-furniture;
+}
+
+.hstg-btn-pill-small--textiles:hover {
+  color: $c-textiles;
+  border: 0.5px solid $c-textiles;
+  box-shadow: 0px 0px 30px 1px $c-textiles;
+}
+
+
 
 .hstg-btn-pill-small-selected {
 
   /* IsMobile=Off, IsActive=On */
 
-  color: #9C6340;
+  //color: #9C6340;
   font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
 
   box-sizing: border-box;
@@ -223,12 +274,59 @@ $icon-zindex: 1000;
   background: #FFFFFF;
   /* orange */
 
-  border: 0.5px solid #9C6340;
+  //border: 0.5px solid #9C6340;
   /* Btn Shadow Red */
 
-  box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+  //box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
   border-radius: 10px;
+
 }
+
+.hstg-btn-pill-small-selected--architectural {
+  color: $c-architectural;
+  border: 0.5px solid $c-architectural;
+  //box-shadow: 0px 0px 30px 1px $c-architectural;
+}
+
+.hstg-btn-pill-small-selected--cuisine {
+  color: $c-cuisine;
+  border: 0.5px solid $c-cuisine;
+  //box-shadow: 0px 0px 30px 1px $c-cuisine;
+}
+
+.hstg-btn-pill-small-selected--decorative {
+  color: $c-decorative;
+  border: 0.5px solid $c-decorative;
+  //box-shadow: 0px 0px 30px 1px $c-decorative;
+}
+
+.hstg-btn-pill-small-selected--fashion {
+  color: $c-fashion;
+  border: 0.5px solid $c-fashion;
+  //box-shadow: 0px 0px 30px 1px $c-fashion;
+}
+
+.hstg-btn-pill-small-selected--functional {
+  color: $c-functional;
+  border: 0.5px solid $c-functional;
+  //box-shadow: 0px 0px 30px 1px $c-functional;
+}
+
+.hstg-btn-pill-small-selected--furniture {
+  color: $c-furniture;
+  border: 0.5px solid $c-furniture;
+  //box-shadow: 0px 0px 30px 1px $c-furniture;
+}
+
+.hstg-btn-pill-small-selected--textiles {
+  color: $c-textiles;
+  border: 0.5px solid $c-textiles;
+  //box-shadow: 0px 0px 30px 1px $c-textiles;
+}
+
+
+
+
 
 .other-btn {
   .additional-tag-tooltip {
@@ -351,3 +449,7 @@ $icon-zindex: 1000;
   border: 0.5px solid #9C6340;
   color: #9C6340;
 }
+
+
+
+

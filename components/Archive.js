@@ -1,6 +1,7 @@
 import MapCardSlider from './explore/MapCardSlider';
 import Slider from './Slider';
 import { Archive as ArchiveType, ImageMeta } from '../models/Types';
+import MiniMap from "./discover/MiniMap";
 
 const mainSliderStyle = {
   sliderContainer: 'mapSlider-container',
@@ -85,7 +86,10 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives }) => {
           </div>
           <div className="container__map">
             <p>See it on map</p>
-            <div className="map"></div>
+            <div className="map">
+              <MiniMap workshop={archive} type={'archive'}/>
+            </div>
+
           </div>
           <div className="container__suggestion">
             <p>Explore similar shops</p>

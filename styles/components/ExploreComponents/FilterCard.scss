@@ -23,23 +23,31 @@
 }
 
 
-
-
-
-
-.searchby-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.craftFilter-container {
+  @media screen and (max-width: 688px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
 }
 
-.close-filter-btn :focus {
-  outline: none;
+.craftFilter-buttons-container::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+  display: none;
 }
 
-.close-filter-btn {
-  border: none;
-  background-color: Transparent;
+
+
+.craftFilter-buttons-container{
+  @media screen and (max-width: 688px) {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
 }
 
 .toggle-section {

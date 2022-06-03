@@ -49,6 +49,7 @@ export default class Explore extends React.Component {
                 '1920': "Armée Française du Levant. Bureau Topographique. (1920). Beirut (Trans.). Item GE C-5752, (82 x 57cm). National Library of France, Departments of Maps and Plans. Paris, France.",
 
             },
+            coords: [35.5, 33.893894],
 
 
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
@@ -119,40 +120,51 @@ export default class Explore extends React.Component {
     }
 
     openMapCard = (id, type) => {
+
+            //this.setState({showMapCard:false, id:null, type: null, coords: [35.5, 33.893894]})
             if (this.state.showMapCard) {
                 if (this.state.id === id) {
-                    this.setState({showMapCard:false, id:null, type: null})
+                    this.setState({showMapCard:false, id:null, type: null, coords: [35.5, 33.893894]})
+
+
                 } else {
+
                     this.setState({showMapCard:true, id:id, type:type}, () => {
 
                         if (this.state.type === 'workshop') {
                             fetch(`/api/workshops/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
-                            .then(() => console.log(this.state.workshop))
+                            .then(()=> this.setState({coords:[this.state.workshop.location.geo['lng'], this.state.workshop.location.geo['lat']]}))
+                            .then(() => console.log(this.state))
                         } else {
                             fetch(`/api/archive/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
-                            .then(() => console.log(this.state.workshop))
+                            .then(()=> this.setState({coords:[this.state.workshop.primary_location.geo['lng'], this.state.workshop.primary_location.geo['lat']]}))
+                            .then(() => console.log(this.state))
                         }
 
 
                 });
                 }
             } else {
+                //this.setState({showMapCard:false, id:null, type: null})
                 this.setState({showMapCard:true, id:id, type:type}, () => {
 
                         if (this.state.type === 'workshop') {
                             fetch(`/api/workshops/${this.state.id}`)
                             .then((res) => res.json())
+                                //.then((res)=>console.log("response ", res['response'].location.geo))
                             .then((res) => this.setState({workshop:res['response']}))
-                            .then(() => console.log(this.state.workshop))
+                            .then(()=> this.setState({coords:[this.state.workshop.location.geo['lng'], this.state.workshop.location.geo['lat']]}))
+                            .then(() => console.log(this.state))
                         } else {
                             fetch(`/api/archive/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
-                            .then(() => console.log(this.state.workshop))
+                            .then(()=> this.setState({coords:[this.state.workshop.primary_location.geo['lng'], this.state.workshop.primary_location.geo['lat']]}))
+                            .then(() => console.log(this.state))
                         }
 
                 });
@@ -199,7 +211,7 @@ export default class Explore extends React.Component {
                         <title>Explore | Intangible Heritage Atlas</title>
                     </Head>
                     <div>
-                        <Map mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} />
+                        <Map mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
                             updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} />  : null }
@@ -210,7 +222,7 @@ export default class Explore extends React.Component {
                             <button className={'filterButton'} onClick={this.toggleLayersControl}>layers</button>
                         </div>
 
-                        { (this.state.showMapCard && this.state.workshop && this.state.workshop.images) ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard}/> : null}
+                        { (this.state.showMapCard && this.state.workshop && this.state.workshop.images) ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard} openMapCard={this.openMapCard}/> : null}
 
                         { this.state.showLayersControl ? <LayersControl allLayers={this.state.allLayers} updateMapLayer={this.updateMapLayer} closeLayersControl={this.closeLayersControl}/> : null}
 

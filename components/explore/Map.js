@@ -19,28 +19,32 @@ export default class App extends React.PureComponent {
         this.mapContainer = React.createRef();
         this.mappedMarkers = [];
         this.colorMap = {
-            "architectural": '#66816c',
-            "cuisine": '#b68c66',
-            "decorative": '#ab6d6d' ,
-            "fashion": "#608f96",
-            "functional": "#a98199",
-            "furniture": "#72475f",
-            "textiles": "#eebc71"
+            "architectural": '#91B0D1',
+            "cuisine": '#DFBA96',
+            "decorative": '#88A384' ,
+            "fashion": "#DEC2B4",
+            "functional": "#72A1AB",
+            "furniture": "#9F8278",
+            "textiles": "#EACC74"
         }
 
         this.clickMarker = this.clickMarker.bind(this)
     }
 
+
+
     clickMarker (e) {
         let el = e.target;
-        map.current.flyTo({
-            center:[el.lng, el.lat],
-            zoom: 16,
-            bearing: 0,
-            speed: 0.5, // make the flying slow
-            curve: 1, // change the speed at which it zooms out
-            essential: true
-        })
+        //map.current.flyTo({
+        //    center:[el.lng, el.lat],
+        //    zoom: 16,
+        //    bearing: 0,
+        //    speed: 0.5, // make the flying slow
+        //    curve: 1, // change the speed at which it zooms out
+        //    essential: true
+        //})
+
+        //console.log(el);
 
         this.props.openMapCard(el.id, el.type);
 
@@ -55,9 +59,11 @@ export default class App extends React.PureComponent {
            container: this.mapContainer.current,
            style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
            center: [35.5, 33.893894], // starting position [lng, lat]
-           zoom: 12, // starting zoom
+           zoom: 12.5, // starting zoom
            maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
        });
+
+
 
         // add all potential layers as a source
 
@@ -82,11 +88,35 @@ export default class App extends React.PureComponent {
 
        for (const workshop of this.props.workshops) {
             const el = document.createElement('div');
-            const craft = workshop.craft_discipline_category[0];
+
+            if (workshop.craft_discipline_category.length >1) {
+                el.style.display = 'flex'
+                el.style.flexDirection = 'row'
+                el.style.justifyItems = 'center'
+                el.style.columnGap = '0px';
+                el.style.overflow = "hidden";
+                const firstCraft = document.createElement('div');
+                firstCraft.style.pointerEvents = 'none';
+                const secondCraft = document.createElement('div');
+                secondCraft.style.pointerEvents = 'none';
+                firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0]]}`;
+                firstCraft.style.width = `7.5px`;
+                firstCraft.style.height = `15px`;
+                secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1]]}`
+                secondCraft.style.width = `7.5px`;
+                secondCraft.style.height = '15px';
+                el.appendChild(firstCraft);
+                el.appendChild(secondCraft);
+            } else {
+                const craft = workshop.craft_discipline_category[0];
+                el.style.backgroundColor = this.colorMap[craft];
+
+            }
+
+
             el.className = 'marker';
             el.style.width = '15px';
             el.style.height = '15px';
-            el.style.backgroundColor = this.colorMap[craft];
             el.style.borderRadius = '50%';
             el.id = workshop.ID;
             el.onclick = this.clickMarker;
@@ -108,10 +138,38 @@ export default class App extends React.PureComponent {
 
        for (const archive of this.props.archives) {
             const el = document.createElement('div');
+            const craft = archive.craft_discipline_category[0];
+
+            if (archive.craft_discipline_category.length > 1) {
+                el.style.display = 'flex'
+                el.style.flexDirection = 'row'
+                el.style.justifyItems = 'center'
+                el.style.columnGap = '0px';
+                el.style.overflow = "hidden";
+                const firstCraft = document.createElement('div');
+                firstCraft.style.pointerEvents = 'none';
+                const secondCraft = document.createElement('div');
+                secondCraft.style.pointerEvents = 'none';
+                firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0]]}`;
+                firstCraft.style.width = `7.5px`;
+                firstCraft.style.height = `15px`;
+                secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1]]}`
+                secondCraft.style.width = `7.5px`;
+                secondCraft.style.height = '15px';
+                el.appendChild(firstCraft);
+                el.appendChild(secondCraft);
+            } else {
+                const craft = archive.craft_discipline_category[0];
+                el.style.backgroundColor = this.colorMap[craft];
+
+            }
+
+
+
             el.className = 'marker';
             el.style.width = '15px';
             el.style.height = '15px';
-            el.style.backgroundColor = '#eeb4aa';
+            el.style.backgroundColor = this.colorMap[craft];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = archive.ID;
@@ -140,6 +198,32 @@ export default class App extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        //console.log(this.props.coords)
+
+        if (this.props.coords && prevProps.coords !== this.props.coords) {
+            if (this.props.coords[0] !== 35.5 && this.props.coords[1] !== 33.893894) {
+                map.current.flyTo({
+                    center: this.props.coords,
+                    zoom: 16,
+                    bearing: 0,
+                    speed: 0.5, // make the flying slow
+                    curve: 1, // change the speed at which it zooms out
+                    essential: true
+                })
+            } else if (this.props.coords[0] === 35.5 && this.props.coords[1] === 33.893894) {
+                map.current.flyTo({
+                    center: this.props.coords,
+                    zoom: 12.5,
+                    bearing: 0,
+                    speed: 0.5, // make the flying slow
+                    curve: 1, // change the speed at which it zooms out
+                    essential: true
+                })
+            }
+        }
+
+
+
 
          // change visibility of layer
         if (this.props.mapLayer) {
@@ -157,7 +241,7 @@ export default class App extends React.PureComponent {
 
 
          // load workshop markers
-        console.log(this.props);
+        //console.log(this.props);
         if (!this.props.workshops) {
             return;}
 
@@ -167,10 +251,34 @@ export default class App extends React.PureComponent {
 
         for (const workshop of this.props.workshops) {
             const el = document.createElement('div');
+
+            if (workshop.craft_discipline_category.length >1) {
+                el.style.display = 'flex'
+                el.style.flexDirection = 'row'
+                el.style.justifyItems = 'center'
+                el.style.columnGap = '0px';
+                el.style.overflow = "hidden";
+                const firstCraft = document.createElement('div');
+                firstCraft.style.pointerEvents = 'none';
+                const secondCraft = document.createElement('div');
+                secondCraft.style.pointerEvents = 'none';
+                firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0]]}`;
+                firstCraft.style.width = `7.5px`;
+                firstCraft.style.height = `15px`;
+                secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1]]}`
+                secondCraft.style.width = `7.5px`;
+                secondCraft.style.height = '15px';
+                el.appendChild(firstCraft);
+                el.appendChild(secondCraft);
+            } else {
+                const craft = workshop.craft_discipline_category[0];
+                el.style.backgroundColor = this.colorMap[craft];
+
+            }
+
             el.className = 'marker';
             el.style.width = '15px';
             el.style.height = '15px';
-            el.style.backgroundColor = this.colorMap[workshop.craft_discipline_category[0]];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = workshop.ID;
@@ -226,11 +334,36 @@ export default class App extends React.PureComponent {
         }
 
         for (const archive of this.props.archives) {
+            const craft = archive.craft_discipline_category[0];
             const el = document.createElement('div');
+
+            if (archive.craft_discipline_category.length >1) {
+                el.style.display = 'flex'
+                el.style.flexDirection = 'row'
+                el.style.justifyItems = 'center'
+                el.style.columnGap = '0px';
+                el.style.overflow = "hidden";
+                const firstCraft = document.createElement('div');
+                firstCraft.style.pointerEvents = 'none';
+                const secondCraft = document.createElement('div');
+                secondCraft.style.pointerEvents = 'none';
+                firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0]]}`;
+                firstCraft.style.width = `7.5px`;
+                firstCraft.style.height = `15px`;
+                secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1]]}`
+                secondCraft.style.width = `7.5px`;
+                secondCraft.style.height = '15px';
+                el.appendChild(firstCraft);
+                el.appendChild(secondCraft);
+            } else {
+                const craft = archive.craft_discipline_category[0];
+                el.style.backgroundColor = this.colorMap[craft];
+
+            }
+
             el.className = 'marker';
             el.style.width = '15px';
             el.style.height = '15px';
-            el.style.backgroundColor = '#eeb4aa';
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = archive.ID;

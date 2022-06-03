@@ -31,7 +31,7 @@ export default class MapCard extends React.Component {
         this.state = {
             caption: null,
             workshop : null,
-            similarWorkshops: null,
+            similarObjects: null,
             mainSliderStyle : {
             'sliderContainer': 'mapSlider-container',
             'buttonLabel': 'slider-btn-label',
@@ -43,6 +43,45 @@ export default class MapCard extends React.Component {
 
     }
 
+    async fetchSimilarWorkshops() {
+    const response = await fetch(`api/similarWorkshops/${this.props.workshop.ID}`);
+    const res = await response.json();
+    this.setState({similarObjects:res['response']});
+    }
+
+    async fetchSimilarArchives() {
+        const response = await fetch(`api/similarArchives/${this.props.workshop.ID}`);
+        const res = await response.json();
+        this.setState({similarObjects:res['response']});
+    }
+
+
+
+    componentDidMount() {
+        if (this.props.type === "workshop") {
+            this.fetchSimilarWorkshops();
+        } else {
+            this.fetchSimilarArchives();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+     if (prevProps.workshop.ID !== this.props.workshop.ID) {
+       if (this.props.type === "workshop") {
+            this.fetchSimilarWorkshops();
+        } else {
+            this.fetchSimilarArchives();
+        }
+     }
+   }
+
+
+    clickExplore = (e) => {
+        //console.log(e.target)
+        this.props.openMapCard(e.target.id, this.props.type)
+
+
+    }
 
 
     getShopName = () => {
@@ -54,35 +93,68 @@ export default class MapCard extends React.Component {
         } else {
             return 'No Shop Name'
         }
+    }
 
-        //this.props.workshop.shop_name['content'] ? this.props.workshop.shop_name['content'] : (this.props.workshop.shop_name['content_orig'] ? this.props.workshop.shop_name['content_orig'] : 'No Shop Name')
+    getReferenceName = () => {
+        return this.props.workshop.reference.name;
     }
 
     getDecadeEstablished = () => {
         if (!this.props.workshop.decade_established) {
-            return 'EST ???? '
+            return null
         }
         console.log(this.props.type)
 
         if (this.props.workshop.decade_established[0]) {
-            return `EST ${this.props.workshop.decade_established[0]} `
+            return `EST ${this.props.workshop.decade_established[0]} | `
         } else {
-                return "EST ????"
+                return null
             }
         }
 
     getPrimaryDecade = () => {
         if (!this.props.workshop.primary_decade) {
-            return 'Taken ????'
+            return null
         }
 
         if (this.props.workshop.primary_decade[0]) {
-            return `Taken ${this.props.workshop.primary_decade[0]}`
+            return `Taken ${this.props.workshop.primary_decade[0]} | `
         } else {
-            return 'Taken ????'
+            return null
         }
 
         }
+
+    getSubtitle = () => {
+        let craftsList = []
+        let otherList = []
+        this.props.workshop.craft_discipline.forEach(craft =>
+            {
+            if (craft.toUpperCase() === "OTHER") {
+                if (this.props.workshop.craft_discipline_other) {
+                    const other = this.props.workshop.craft_discipline_other.charAt(0).toUpperCase() + this.props.workshop.craft_discipline_other.slice(1).toLowerCase()
+                    if (craftsList.indexOf(other) < 0) {
+                        otherList.push(other)
+                        if (craftsList.length < 1) {
+                            craftsList.push(other)
+                        } else {
+                            craftsList.push(" | " + other)
+                        }
+                    }
+                }
+            } else {
+                if (craftsList.length<1) {
+                    craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                } else {
+                    if (otherList.indexOf(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase()<0))
+                    craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                }
+            }
+        }
+        )
+        return craftsList
+
+ }
 
 
     getImages = () => {
@@ -90,7 +162,7 @@ export default class MapCard extends React.Component {
         if (!this.props.workshop.images) {
             return
         }
-        console.log('getting images ', this.props.workshop.images)
+        //console.log('getting images ', this.props.workshop.images)
        //let slider = document.getElementsByClassName()
 
         return this.props.workshop.images.map((image) => {return <img key={image} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" />})
@@ -98,18 +170,36 @@ export default class MapCard extends React.Component {
     }
 
     getThumbnails = () => {
-        if (!this.state.similarWorkshops) {
-            return
-        }
 
-        let thumbNails = this.state.similarWorkshops.map((simWorks) => (
-            <img key={simWorks.thumb_img_id} className={'mapCard-img'} src={`/api/images/${simWorks.thumb_img_id}.jpg`} alt="img" />
-        ))
-        return thumbNails
+
+
+        return this.state.similarObjects.map((object) => {
+            console.log(object.thumb_img_id)
+            //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]
+            //return <div className={'exploreShop-div'}><img src={`/api/images/${workshop.thumb_img_id}.jpg`} className={'exploreShops-img'} key={workshop.thumb_img_id}/></div>
+
+            if (object.thumb_img_id) {
+                return(
+                <div className={"exploreShops-div"}>
+                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={this.clickExplore}/>
+                <div className={'exploreShop-name'}>
+                    <p>{object.shop_name['content'] || object.shop_name['content_orig'] }</p>
+                </div>
+            </div> )
+
+            } else {
+                return null
+            }
+
+
+
+        })
+
     }
 
     getCaption = (metaData) => {
-        this.setState({caption: metaData})
+        //this.setState({caption: metaData})
+        return null;
     }
 
 
@@ -119,29 +209,42 @@ export default class MapCard extends React.Component {
             return (
                 <div className={'mapCard'} id={`mapCard${this.props.id}`}>
 
-                        <div className={'searchby-section'}>
-                            <p>{this.getShopName()}</p>
-                            <button className={'close-filter-btn'} onClick = {this.props.closeMapCard} > X </button>
+                        <div className={'close-btn-container'}>
+
+                            <button className={'close-card-btn'} onClick = {this.props.closeMapCard} > X </button>
+                        </div>
+
+                        <p>{this.getShopName()}</p>
+
+                        <div>
+                            <p>{this.getDecadeEstablished()}
+                            {this.getSubtitle()}
+                        </p>
 
                         </div>
 
+                        {(this.props.workshop.images.length !== 0) ?
+                            <>
+                            <div className={'mapCard-slider-container'} >
+                                <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption()}/>
+                            </div>
+                            <div>
+                            <p> caption </p>
+                            </div>
+                            </>
+                            : null}
 
 
-                        <p>{this.getDecadeEstablished()}
-                            {this.props.workshop.craft_discipline.map((craft) => {
-                            if (craft.toUpperCase() === "OTHER") {
-                                return null
-                            } else {
-                                return "| " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase() + " ";
-                            }
-                        })} </p>
 
-                        {(this.props.workshop.images.length !== 0) ? <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption}/>:null}
-
-                        <p>{this.state.caption}</p>
 
                         <hr/>
-                        <p>Explore Similar Shops</p>
+                    {this.state.similarObjects ? (this.getThumbnails().length>0 ? <>
+                            <p>Explore Similar Images</p>
+                            <div className={'exploreContainer'}>
+                                {this.state.similarObjects ? <Slider children={this.getThumbnails()}/> : null}
+                            </div>
+                        </> : null ) : null
+                    }
 
 
 
@@ -153,34 +256,42 @@ export default class MapCard extends React.Component {
             return (
                 <div className={'mapCard'} id={`mapCard${this.props.id}`}>
 
-                        <div className={'searchby-section'}>
-                            <p>{this.getShopName()}</p>
-                            <button className={'close-filter-btn'} onClick = {this.props.closeMapCard} > X </button>
+                        <div className={'close-btn-container'}>
+
+                            <button className={'close-card-btn'} onClick = {this.props.closeMapCard} > X </button>
+                        </div>
+
+                        <p>{this.getShopName() || this.getReferenceName()}</p>
+
+                        <div>
+                            <p>{this.getPrimaryDecade()} {this.getSubtitle()}</p>
+
 
                         </div>
 
+                        {(this.props.workshop.images.length !== 0) ?
+                            <>
+                            <div className={'mapCard-slider-container'} >
+                                <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption()}/>
+                            </div>
+
+                            <div>
+                            <p> caption </p>
+                            </div>
+                            </>
+                            : null}
 
 
-                        <p>{this.getPrimaryDecade()}
-                            {this.props.workshop.craft_discipline.map((craft) => {
-                            if (craft.toUpperCase() === "OTHER") {
-                                if (!this.props.workshop.craft_discipline_other) {
-                                    return null
-                                } else {
-                                    return "| " + this.props.workshop.craft_discipline_other
-                                }
-                            } else {
-                                return "| " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase() + " ";
-                            }
-                        })} </p>
 
-                        {(this.props.workshop.images.length !== 0) ? <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption}/>:null}
-
-                        <p>{this.state.caption}</p>
 
                         <hr/>
-
-
+                        {this.state.similarObjects ? (this.getThumbnails().length>0 ? <>
+                            <p>Explore Similar Images</p>
+                            <div className={'exploreContainer'}>
+                                {this.state.similarObjects ? <Slider children={this.getThumbnails()}/> : null}
+                            </div>
+                        </> : null ) : null
+                    }
                 </div>
             )
         }
@@ -189,11 +300,9 @@ export default class MapCard extends React.Component {
 
 
     render() {
-        console.log("mapcard images ", this.props.workshop)
+        console.log("similarobjects ", this.state.similarObjects)
 
 
-        const yearEST = 1950
-        const specificCategory = 'Metal'
 
         return (
             <>
@@ -202,7 +311,13 @@ export default class MapCard extends React.Component {
                 </Desktop>
 
                 <Mobile>
-                    {this.props.workshop && this.createMapCardContent()}
+                    <div className="card">
+                          <div className="card__cover">
+                            <div className="card__wrapper">
+                                {this.props.workshop && this.createMapCardContent()}
+                            </div>
+                          </div>
+                    </div>
                 </Mobile>
 
             </>
