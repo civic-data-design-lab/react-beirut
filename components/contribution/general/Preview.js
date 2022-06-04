@@ -10,7 +10,7 @@ import InputField from './InputField';
 
 const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
   const getPreview = () => {
-    // INFO: Return nothing if there is no form data
+    // INFO: Return nothing if there is no form data. (Is this necessary?)
     if (!formData) {
       return <></>;
     }
@@ -37,7 +37,7 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
     if (formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME) {
       const { workshop, imageMeta, imageData } =
         convertWorkshopContributionToSchema(formData);
-      // console.log(workshop);
+      console.debug('Returning workshop to preview:', workshop);
       return (
         <Workshop
           workshop={workshop}
@@ -51,6 +51,7 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
     if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
       const { archive, imageMeta, imageData } =
         convertArchiveContributionToSchema(formData);
+      console.debug('Returning archive to preview:', archive);
       return (
         <Archive
           archive={archive}
@@ -72,7 +73,15 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
         type="checkbox"
         onUpdate={onUpdate}
         required={requiredFields?.includes('consent')}
-        label="I consent to the data in this form being shared on our public database."
+        label={
+          formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME
+            ? `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview above.
+        Checking this box indicates that you consent to sharing information and photo(s) about your craft workshop with the Living Heritage Atlas.
+        Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`
+            : `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your information and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview above.
+        Checking this box indicates that you consent to sharing information and photo(s) with the Living Heritage Atlas.
+        Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`
+        }
       />
     </div>
   );

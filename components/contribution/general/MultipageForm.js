@@ -246,8 +246,8 @@ const MultipageForm = ({
             <div className="submit">
               {!submitted ? (
                 <div className="loading">
+                  <div className="loader"></div>
                   <h2>Submitting...</h2>
-                  <div className="spinner" />
                 </div>
               ) : (
                 <div className="success">

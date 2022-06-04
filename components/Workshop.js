@@ -2,7 +2,7 @@ import ImagePreview from './discover/ImagePreview';
 import MapCardSlider from './explore/MapCardSlider';
 import Slider from './Slider';
 import { Workshop as WorkshopType, ImageMeta } from '../models/Types';
-import MiniMap from "./discover/MiniMap";
+import MiniMap from './discover/MiniMap';
 
 const mainSliderStyle = {
   sliderContainer: 'mapSlider-container',
@@ -23,11 +23,13 @@ const mainSliderStyle = {
  *    provided in an array
  * @param {string} props.imageSrc - Image source for the workshop's images.
  *    Right now this is only really needed by the contribution preview.
- * @param {WorkshopType[]} props.similarWorkshops- Similar workshop objects to
- *    display, provided in an array which may be empty or null.  
+ * @param {WorkshopType[]} props.similarWorkshops - Similar workshop objects to
+ *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
 const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops }) => {
+  console.debug(workshop);
+
   const showImages = () => {
     const thumbImage = imageMetas.filter(
       (image) => image.img_id === workshop.thumb_img_id
@@ -57,16 +59,16 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops }) => {
 
   return (
     <>
-      <div className="card__item">
-        <div className="container__preview-content">
-          {imageMetas?.length > 0 && (
+      {imageMetas?.length > 0 && (
+        <div className="card__item">
+          <div className="container__preview-content">
             <MapCardSlider
               children={showImages()}
               sliderStyle={mainSliderStyle}
             />
-          )}
+          </div>
         </div>
-      </div>
+      )}
       <div className="card__item">
         <div className="container__preview-content">
           <div className="container__text">
@@ -85,24 +87,28 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops }) => {
               odio mattis. Class aptent taciti sociosqu ad ... <b>Read More</b>
             </p>
           </div>
-          <div className="container__map">
-             <p>See it on map</p>
-            <div className="map">
-              <MiniMap workshop={workshop}/>
+          {workshop.location.geo['lng'] && workshop.location.geo['lat'] && (
+            <div className="container__map">
+              <p>See it on map</p>
+              <div className="map">
+                <MiniMap workshop={workshop} />
+              </div>
             </div>
-          </div>
-          <div className="container__suggestion">
-            <p>Explore similar shops</p>
-            <div className="parent">
-              <Slider>
-                {similarWorkshops?.map((shop) => (
-                  <div key={shop.ID} className="container__img">
-                    <ImagePreview workshop={shop} />
-                  </div>
-                ))}
-              </Slider>
+          )}
+          {similarWorkshops != null && similarWorkshops != [] && (
+            <div className="container__suggestion">
+              <p>Explore similar shops</p>
+              <div className="parent">
+                <Slider>
+                  {similarWorkshops?.map((shop) => (
+                    <div key={shop.ID} className="container__img">
+                      <ImagePreview workshop={shop} />
+                    </div>
+                  ))}
+                </Slider>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

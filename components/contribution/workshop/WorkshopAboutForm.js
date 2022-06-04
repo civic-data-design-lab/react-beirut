@@ -17,11 +17,11 @@ const WorkshopAboutForm = ({
           <h3>Craft Workshop Information</h3>
           <InputField
             title="Shop Name"
-            fieldName="shopName"
-            value={formData.shopName}
+            fieldName="shop_name"
+            value={formData.shop_name}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('shopName')}
-            highlight={highlightedFields?.includes('shopName')}
+            required={requiredFields?.includes('shop_name')}
+            highlight={highlightedFields?.includes('shop_name')}
           />
           {/* This input was changed from a date to numerical year. Check that data still works here. */}
           <InputField
@@ -69,13 +69,13 @@ const WorkshopAboutForm = ({
           {/* TODO: Make this into an info "i" note. */}
           <InputField
             title="Phone Number"
-            fieldName="phoneNumber"
+            fieldName="phone"
             type="tel"
             // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  This will only work if it is a US number
-            value={formData.phoneNumber}
+            value={formData.phone}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('phoneNumber')}
-            highlight={highlightedFields?.includes('phoneNumber')}
+            required={requiredFields?.includes('phone')}
+            highlight={highlightedFields?.includes('phone')}
           />
           <InputField
             title="Email"

@@ -72,7 +72,7 @@ const LocationForm = ({
               title={FIELDS[0][1]['title']}
               fieldName={FIELDS[0][0]}
               key={FIELDS[0][0]}
-              value={formData.buildingNumber}
+              value={formData[FIELDS[0][0]]}
               onUpdate={onUpdate}
               required={FIELDS[0][1]['required'] ? FIELDS[0][1]['required'] : false}
             />

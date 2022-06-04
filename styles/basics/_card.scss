@@ -65,7 +65,7 @@
 }
 
 .card__item {
-  width: 50%;
+  width: 100%; // Switched from 50% to 100%.
   margin: 10px;
   position: relative;
   height: 80vh;

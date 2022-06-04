@@ -61,7 +61,7 @@ const formSchema = {
         status: {
           title: 'Shop Status',
         },
-        phone_number: {
+        phone: {
           title: 'Phone Number',
         },
         email: {
@@ -133,9 +133,10 @@ const formSchema = {
 
 // INFO: Array of arrays of required fields for each page
 const REQUIRED_FIELDS = [
-  ['shopName', 'status'],
+  ['shop_name', 'status'],
   ['quarter', 'sector'],
-  ['craft_categories', 'type_of_craft'],
+  ['craft_category', 'type_of_craft'],
+  [],
   ['consent'],
 ];
 
@@ -157,6 +158,8 @@ const WorkshopContribution = () => {
 
     const data = { workshop, imageMetas: [imageMeta], imageData: [imageData] };
 
+    console.debug(data);
+
     fetch('/api/workshops', {
       method: 'POST',
       headers: {
@@ -176,9 +179,10 @@ const WorkshopContribution = () => {
           return;
         }
         setSubmitted(true);
-        // Clear the form data
-        setForm({});
-        localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+        // TODO: UNCOMMENT THESE. ONLY UNCOMMENTED FOR TESTING.
+        // INFO Clear the form data
+        // setForm({});
+        // localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
       })
       .catch((err) => setDialog(err));
   };

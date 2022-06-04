@@ -18,6 +18,8 @@ export default async (req, res) => {
         });
       }
 
+      console.debug("Here is the post request. Be sure to check out body:", req)
+
       const result = await saveNewWorkshop(body);
 
       // Handle the case where the workshop was not saved.

@@ -25,7 +25,8 @@ export default class MiniMap extends React.Component {
 
     componentDidMount() {
         const geos = [this.state.workshop.location.geo['lng'],this.state.workshop.location.geo['lat']]
-        console.log("geos ", geos);
+        console.debug(this.state.workshop.location);
+        console.debug("geos ", geos);
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
