@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { REGEX_VALIDATION } from '../../../lib/utils';
 
 /**
  * Component handling inputs for the contribution page. It is used to handle a
@@ -41,6 +42,7 @@ const InputField = (props) => {
   const [focused, setFocused] = useState(false);
   const onFocus = (e) => {
     setFocused(true);
+    console.debug();
   };
 
   const onBlur = (e) => {
@@ -102,7 +104,13 @@ const InputField = (props) => {
             name={title}
             id={fieldName}
             value={value || 'null'}
-            onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
+            onChange={(e) =>
+              onUpdate(
+                e.target.value == 'null'
+                  ? { [fieldName]: null }
+                  : { [fieldName]: e.target.value }
+              )
+            }
             {...rest}
           >
             <option defaultValue value="null">
@@ -164,18 +172,15 @@ const InputField = (props) => {
           </>
         );
       case 'tel':
-        validationPattern =
-          /^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/gm;
+        validationPattern = REGEX_VALIDATION.tel;
         errorString = '* Please enter a valid phone number.';
         break;
       case 'email':
-        validationPattern =
-          /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+        validationPattern = REGEX_VALIDATION.email;
         errorString = '* Please enter a valid email address';
         break;
       case 'url':
-        validationPattern =
-          /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+        validationPattern = REGEX_VALIDATION.url;
         errorString = '* Please enter a valid url';
         break;
       default:

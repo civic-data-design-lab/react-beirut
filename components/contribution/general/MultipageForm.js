@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import Card from '../../Card';
+import { isProperlyTruthy } from '../../../lib/utils';
 
 /**
  * Component handling mulitpage forms.
@@ -17,7 +18,7 @@ import Card from '../../Card';
  * ```
  *  <MultipageForm
  *    onSubmit={onSubmit}
- *    requiredFields={[[], ['street', 'sector']]}
+ *    requiredFields={[[], ['street', 'sector']]} (outdated)
  *    onUpdate={onUpdate}
  *    formData={form}
  *  >
@@ -34,8 +35,7 @@ import Card from '../../Card';
  * @param {string} props.name - Name of the multipage form
  * @param {string[]} props.pageTitles - An array of page titles to display, one per page.
  * @param {object} props.formData - The form data to use.
- * @param {string[]} props.requiredFields - An array of arrays of strings. Each array
- *    entry represents the list of required fields for each form page.
+ * @param {object} props.formSchema - The layout of the form detailing the pages, fields, and their info.
  * @param {function} props.onUpdate - Function to call when the form is updated.
  * @param {function} props.onSubmit - The function to call when the form is submitted
  * @returns {JSX.Element}
@@ -44,7 +44,7 @@ const MultipageForm = ({
   name,
   pageTitles,
   formData,
-  requiredFields,
+  formSchema,
   onUpdate,
   onSubmit,
   submitted,
@@ -54,6 +54,35 @@ const MultipageForm = ({
   const [dialog, setDialog] = useState(null);
   const [page, setPage] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+
+  const requiredFields = Object.entries(formSchema.pages).map((page) => {
+    return [
+      // INFO: Return each required field per page...
+      ...Object.entries(page[1].fields)
+        .map((field) => {
+          return field[1].required == true
+            ? {
+                type: 'always required',
+                field_name: field[1].field_name,
+                title: field[1].title,
+                parent: page[1].title,
+              }
+            : null;
+        })
+        .filter((required) => required),
+      // INFO: And each conditional requirement
+      ...(page[1].custom_reqs
+        ? Object.entries(page[1].custom_reqs).map((custom_req) => {
+            return {
+              type: 'custom requirement',
+              function: custom_req[1].function,
+              title: custom_req[1].title,
+              parent: page[1].title,
+            };
+          })
+        : []),
+    ];
+  });
 
   /**
    * Initial component mount useEffect hook.
@@ -69,7 +98,7 @@ const MultipageForm = ({
 
   /**
    * Component update useEffect hook.
-   * When the page route is updated, swtich to a different page.
+   * When the page route is updated, switch to a different page.
    */
   useEffect(() => {
     const pageQuery = router.query.page;
@@ -89,26 +118,50 @@ const MultipageForm = ({
    * missing for the current page. If no page index is provided, returns all the
    * missing fields across all pages.
    *
-   * @param {number} pageIdx - The page index to check (0-indexed).
+   * @param {number} [pageIdx=null] - The page index to check (0-indexed).
    * @returns {string[]} - The array of missing fields.
    */
-  const getMissingFields = (pageIdx) => {
-    if (pageIdx === undefined) {
-      // If no page index is provided, get all the missing fields across all
-      // pages
+  const getMissingFields = (pageIdx = null) => {
+    // INFO: If no page index is provided, get all the missing fields across all
+    // INFO: pages
+    if (pageIdx === null) {
       const allRequiredFields = Object.values(requiredFields).flat();
-      const missingFields = allRequiredFields.filter(
-        (field) => !formData[field]
-      );
+      let missingFields = [];
+      allRequiredFields.forEach((reqField) => {
+        if (
+          reqField.type == 'always required' && !isProperlyTruthy(formData[reqField.field_name])
+        ) {
+          missingFields.push(reqField);
+          return;
+        }
+        // INFO: If reqField is an object, it is a custom
+        if (
+          reqField.type == 'custom requirement' &&
+          !reqField.function(formData).requirementFulfilled
+        ) {
+          missingFields.push(reqField);
+        }
+      });
       return missingFields;
     }
 
-    // Get the missing fields for the given page
-    const formName = Object.keys(requiredFields)[pageIdx];
-    const requiredFieldsForPage = requiredFields[formName];
-    const missingFields = requiredFieldsForPage.filter((field) =>
-      formData[field]?.length == 0 ? true : !formData[field]
-    );
+    // INFO: Get the missing fields for the given page
+    const requiredFieldsForPage = requiredFields[pageIdx];
+    let missingFields = [];
+    requiredFieldsForPage.forEach((reqField) => {
+      // If reqFieldValue is neither truthy nor an empty list
+      if (reqField.type == 'always required' && !isProperlyTruthy(formData[reqField.field_name])) {
+        missingFields.push(reqField);
+        return;
+      }
+      // INFO: If reqField is an object, it is a custom requirement.
+      if (
+        reqField.type == 'custom requirement' &&
+        !reqField.function(formData).requirementFulfilled
+      ) {
+        missingFields.push(reqField);
+      }
+    });
     return missingFields;
   };
 
@@ -185,7 +238,7 @@ const MultipageForm = ({
 
     if (dialog === 'missing-fields') {
       // Shows the missing fields dialog content for each page
-      const missingFields = getMissingFields(page);
+      const missingFields = getMissingFields(page).map((field) => field.title);
       return (
         <div className="MultipageForm-missing-fields">
           <h2>Missing Required Fields</h2>
@@ -276,6 +329,7 @@ const MultipageForm = ({
                 {cloneElement(children[page], {
                   formData: formData,
                   onUpdate: onUpdate,
+                  formSchema: formSchema,
                   missingFields: getMissingFields(),
                 })}
               </>

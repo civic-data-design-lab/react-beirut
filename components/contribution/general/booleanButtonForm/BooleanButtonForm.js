@@ -89,11 +89,11 @@ const BooleanButtonForm = ({
 
   return (
     <div onKeyDown={onKeyDown} className="boolean-button-form">
-      <h3>{title}</h3>
+      {/* <h3>{title}</h3> */}
       {/*TODO: Not sure why these are so close together. Put many line breaks.*/}
       <br />
       <div>
-        <label className={required ? 'required' : ''}>
+        <label className={required ? 'required' : ''} htmlFor={dataLocation}>
           {label} {selectionsAllowed == 1 && `(Select one option)`}{' '}
           {selectionsAllowed > 1 &&
             `(Select up to ${selectionsAllowed} options)`}

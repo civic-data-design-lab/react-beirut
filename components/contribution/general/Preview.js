@@ -8,7 +8,13 @@ import Archive from '../../Archive';
 import Workshop from '../../Workshop';
 import InputField from './InputField';
 
-const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
+const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
+  const missingFieldPages = [
+    ...new Set(missingFields.map((field) => field.parent)),
+  ];
+  const page = formSchema.pages.preview;
+  const fields = page.fields;
+
   const getPreview = () => {
     // INFO: Return nothing if there is no form data. (Is this necessary?)
     if (!formData) {
@@ -24,11 +30,25 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
             Please go back and fill in the required fields (*) before being able
             to see the preview and submit.
           </p>
-          <ul>
-            {missingFields.map((field) => (
-              <li key={field}>{field}</li>
-            ))}
-          </ul>
+          {missingFieldPages.map((page) => {
+            return (
+              <div key={page}>
+                <br/>
+                <h4>{page}</h4>
+                <ul>
+                  {missingFields
+                    .map((field) =>
+                      field.parent == page ? (
+                        <li key={field.field_name}>{field.title}</li>
+                      ) : null
+                    )
+                    .filter((field) => {
+                      return field;
+                    })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       );
     }
@@ -66,13 +86,15 @@ const Preview = ({ formData, onUpdate, requiredFields, missingFields }) => {
     <div>
       <h2>Preview</h2>
       {getPreview()}
+      <br/>
       <InputField
-        title="Data Consent"
-        fieldName="consent"
-        value={formData.consent}
+        title={fields.consent.title}
+        fieldName={fields.consent.field_name}
+        key={fields.consent.field_name}
+        value={formData[fields.consent.field_name]}
         type="checkbox"
         onUpdate={onUpdate}
-        required={requiredFields?.includes('consent')}
+        required={fields.consent.required}
         label={
           formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME
             ? `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview above.

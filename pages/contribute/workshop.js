@@ -6,72 +6,120 @@ import WorkshopCraftTypeForm from '../../components/contribution/workshop/Worksh
 import WorkshopImageForm from '../../components/contribution/workshop/WorkshopImageForm';
 import WorkshopAboutForm from '../../components/contribution/workshop/WorkshopAboutForm';
 import Preview from '../../components/contribution/general/Preview';
-import { convertWorkshopContributionToSchema } from '../../lib/utils';
-import { WORKSHOP_CONTRIBUTION_NAME } from '../../lib/utils';
+import {
+  convertWorkshopContributionToSchema,
+  WORKSHOP_CONTRIBUTION_NAME,
+  REGEX_VALIDATION,
+  isProperlyTruthy,
+} from '../../lib/utils';
 import Card from '../../components/Card';
 
 /**
- * Workshop Contribution Page
+ * Passed down to WorkshopAboutForm to display error. Passed down to MultipageForm to act as a requirement for the form.
  *
- * @GatlenCulp update this as changes to the fields are made
- *
- * Pages:
- * 0. About the Workshop
- *    - shopName
- *    - yearEstablished
- *    - status
- *    - phoneNumber
- *    - email
- *    - website
- *    - socialMedia
- * 1. Workshop Location
- *    - buildingNumber
- *    - street
- *    - quarter
- *    - sector
- * 2. Craft Disciplines
- *    - type_of_craft
- *    - craft_discipline (category)
- * 3. Image Upload
- *    - image_content
- *    - imageData
- *    - caption
- * 4: Preview
- *
+ * @param {object} formData
+ * @returns {object} requirementFulfilled: boolean, errorMessage: string -
+ *  Says whether the current form data passes the requirement and an error to display if not.
  */
-import { prepareWorkshopContribution } from '../../lib/utils';
+const contactRequirement = (formData) => {
+  // INFO: No form of contact given
+  if (
+    ![
+      formData.phone,
+      formData.email,
+      formData.website,
+      formData.social_media,
+    ].some((contact) => contact)
+  ) {
+    return {
+      requirementFulfilled: false,
+      errorMessage: 'Business contact information required',
+    };
+  }
+
+  // INFO: Check if each of the fields are valid
+  let requirementFulfilled = true;
+  let incorrectFields = [];
+
+  if (!REGEX_VALIDATION.tel.test(formData.phone) && formData.phone) {
+    requirementFulfilled = false;
+    incorrectFields.push('Phone Number');
+  }
+  if (!REGEX_VALIDATION.email.test(formData.email) && formData.email) {
+    requirementFulfilled = false;
+    incorrectFields.push('Email');
+  }
+  if (!REGEX_VALIDATION.url.test(formData.website) && formData.website) {
+    requirementFulfilled = false;
+    incorrectFields.push('Website');
+  }
+  if (
+    !REGEX_VALIDATION.url.test(formData.social_media) &&
+    formData.social_media
+  ) {
+    requirementFulfilled = false;
+    incorrectFields.push('Social Media');
+  }
+
+  return requirementFulfilled
+    ? { requirementFulfilled: true, errorMessage: '' }
+    : {
+        requirementFulfilled: false,
+        errorMessage: `The following fields are invalid: ${incorrectFields.join(
+          ', '
+        )} `,
+      };
+};
 
 /*
  * Only need to provide required if required = true.
  * Only required if both enabled and true.
- * For creating groups of fields that are together, one must group them(?)
+ *
+ *
+ * !! THIS FORM SCHEMA WAS ONLY USED FOR THE FIRST FEW FORMS. I DECIDED THIS WAS TOO MUCH WORK TO IMPLEMENT PRIOR TO DEPLOYMENT.
+ * !! MAINLY ONLY USED FOR REQUIRED FIELDS AND GENERAL INFO.
  */
 const formSchema = {
   pages: {
     about: {
       title: 'About the Craft Workshop',
       short_title: 'About the Workshop',
+      custom_reqs: {
+        contact_requirement: {
+          function: contactRequirement,
+          title: 'Business Contact Information',
+        },
+      },
       fields: {
         shop_name: {
           title: 'Shop Name',
+          field_name: 'shop_name',
+          required: true,
         },
         year_established: {
           title: 'Year Established',
+          field_name: 'year_established',
         },
         status: {
           title: 'Shop Status',
+          field_name: 'status',
+          required: true,
         },
         phone: {
           title: 'Phone Number',
+          field_name: 'phone',
         },
         email: {
           title: 'Email',
+          field_name: 'email',
         },
         website: {
           title: 'Website',
+          field_name: 'website',
         },
         social_media: {
           title: 'Social Media',
+          field_name: 'social_media',
         },
       },
     },
@@ -81,17 +129,29 @@ const formSchema = {
       fields: {
         building_number: {
           title: 'Building Number',
+          field_name: 'building_number',
         },
         street: {
           title: 'Street Name/Number',
+          field_name: 'street',
         },
         quarter: {
           title: 'Quarter',
-          required: true
+          field_name: 'quarter',
+          required: true,
         },
         sector: {
           title: 'Sector',
-          required: true
+          field_name: 'sector',
+          required: true,
+        },
+        lat: {
+          title: 'Latitude',
+          field_name: 'lat',
+        },
+        lng: {
+          title: 'Longitude',
+          field_name: 'lng',
         },
       },
     },
@@ -100,23 +160,45 @@ const formSchema = {
       fields: {
         craft_category: {
           title: 'Craft Category',
-          required: true
+          field_name: 'craft_category',
+          required: true,
         },
         type_of_craft: {
           title: 'Type of Craft',
-          required: true
+          field_name: 'type_of_craft',
+          required: true,
         },
       },
     },
     image_upload: {
       title: 'Craft Workshop Image Upload',
       short_title: 'Image Upload',
+      custom_reqs: {
+        image_req: {
+          function: (formData) => {
+            return{
+              requirementFulfilled: isProperlyTruthy(formData.images),
+              errorMessage: 'Business contact information required',
+            };
+          },
+          title: 'Image Upload',
+        },
+      },
       fields: {
         image: {
           title: 'Craft Workshop Image Upload',
+          field_name: 'image',
+          // required: true, Need custom function to check for now.
+        },
+        caption: {
+          title: 'Caption',
+          field_name: 'caption',
+          required: true,
         },
         image_content: {
           title: 'Image Content',
+          field_name: 'image_content',
+          required: false,
         },
       },
     },
@@ -125,21 +207,20 @@ const formSchema = {
       fields: {
         consent: {
           title: 'Consent to Publish Data',
+          field_name: 'consent',
+          required: true,
         },
       },
     },
-  }
+  },
 };
 
-// INFO: Array of arrays of required fields for each page
-const REQUIRED_FIELDS = [
-  ['shop_name', 'status'],
-  ['quarter', 'sector'],
-  ['craft_category', 'type_of_craft'],
-  [],
-  ['consent'],
-];
+const conditionalRequirements = [{}];
 
+/**
+ * Workshop Contribution MultipageForm
+ *
+ */
 const WorkshopContribution = () => {
   const [form, setForm] = useState({
     survey_origin: WORKSHOP_CONTRIBUTION_NAME,
@@ -150,7 +231,7 @@ const WorkshopContribution = () => {
   const onSubmit = () => {
     // Prepare the form data for submission
     const { workshop, imageMeta, imageData } =
-      convertWorkshopContributionToSchema(form);
+      convertWorkshopContributionToSchema(form, formSchema);
 
     // console.log(workshop);
     // console.log(imageMeta);
@@ -231,41 +312,20 @@ const WorkshopContribution = () => {
                 : formSchema['pages'][p]['title'];
             })
           }
-          requiredFields={REQUIRED_FIELDS}
           formData={form}
           onUpdate={updateForm}
+          formSchema={formSchema}
           onSubmit={onSubmit}
           submitted={submitted}
         >
-          <WorkshopAboutForm
-            formSchema={formSchema}
-            pageName='about'
-            requiredFields={REQUIRED_FIELDS[0]}
-          />
+          <WorkshopAboutForm />
           <LocationForm
-            formSchema={formSchema}
-            pageName='location'
             mapCaption={
               'Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.'
             }
-            requiredFields={REQUIRED_FIELDS[1]}
           />
-          <WorkshopCraftTypeForm
-            onUpdate={updateForm}
-            formData={form}
-            formSchema={formSchema}
-            pageName='about_the_craft'
-            dataLocation="craft_category"
-            label="What type of crafts are produced in this workshop?"
-            requiredFields={REQUIRED_FIELDS[2]}
-            hasOtherField={true}
-          />
-          <WorkshopImageForm
-            formSchema={formSchema}
-            pageName='location'
-            label="Upload an image of the craft workshop"
-            requiredFields={REQUIRED_FIELDS[3]}
-          />
+          <WorkshopCraftTypeForm label="What type of crafts are produced in this workshop?" />
+          <WorkshopImageForm label="Upload an image of the craft workshop" />
           <Preview />
         </MultipageForm>
       </div>

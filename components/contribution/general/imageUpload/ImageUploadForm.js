@@ -25,6 +25,8 @@ const ImageUploadForm = ({
   dataLocation,
   title,
   label,
+  imageRequired,
+  captionRequired,
   maxNumberOfImages = 1,
 }) => {
 
@@ -59,7 +61,7 @@ const ImageUploadForm = ({
         </div>
         <span>
           <div>
-            <label>{label || 'Upload an image'}</label>
+            <label className={imageRequired ? 'required' : ''}>{label || 'Upload an image'}</label>
             <SingleImageUpload
               handleUpdateImage={(imagebuffer, extension) => {
                 updateImageFormState({
@@ -80,7 +82,7 @@ const ImageUploadForm = ({
           </div>
 
           <div>
-            <label htmlFor="caption">
+            <label className={captionRequired ? 'required' : ''} htmlFor="caption">
               Enter a caption or a story associated with this image.
             </label>
             <textarea

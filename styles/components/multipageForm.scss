@@ -2,7 +2,7 @@
   width: 100%;
   position: relative;
 
-  label.required::after {
+  .required::after {
     color: $color-error;
     content: '*';
   }
