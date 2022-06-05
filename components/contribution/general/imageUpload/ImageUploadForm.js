@@ -29,6 +29,7 @@ const ImageUploadForm = ({
 }) => {
 
   const [imageFormState, setImageFormState] = useState({});
+  const [imageIndex, setImageIndex] = useState(0); // TODO: Set up multi-image upload.
 
   const updateImageFormState = (newData) => {
     setImageFormState((prevForm) => {
@@ -38,10 +39,11 @@ const ImageUploadForm = ({
       return updatedFormData;
     });
   };
+  
 
   return (
     <form className="ImageUploadForm">
-      <h2>{title || 'Image Upload'}</h2>
+      <h3>{title || 'Image Upload'}</h3>
       <div>
         <div>
           {maxNumberOfImages != 1 &&
@@ -61,16 +63,16 @@ const ImageUploadForm = ({
             <SingleImageUpload
               handleUpdateImage={(imagebuffer, extension) => {
                 updateImageFormState({
-                  [dataLocation]: {
+                  [dataLocation]: [{
                     imageData: imagebuffer,
                     imageExtension: extension,
-                  },
+                  }],
                 });
                 // onUpdate({ [dataLocation]: { imageData: imagebuffer, imageExtension: extension } })
               }}
               currentImage={
                 formData[dataLocation]
-                  ? formData[dataLocation]['imageData']
+                  ? formData[dataLocation][0]['imageData']
                   : ''
               }
               // currentImage={formData[dataLocation][]}

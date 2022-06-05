@@ -28,7 +28,7 @@ const mainSliderStyle = {
  * @returns {JSX.Element}
  */
 const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops }) => {
-  console.debug(workshop);
+  console.debug("Here is the workshop html is being generated for:", workshop);
 
   const showImages = () => {
     const thumbImage = imageMetas.filter(

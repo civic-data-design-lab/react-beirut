@@ -112,7 +112,7 @@ const formSchema = {
       title: 'Craft Workshop Image Upload',
       short_title: 'Image Upload',
       fields: {
-        craft_workshop_image_upload: {
+        image: {
           title: 'Craft Workshop Image Upload',
         },
         image_content: {

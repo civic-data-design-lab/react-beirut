@@ -4,12 +4,13 @@ import BooleanButtonForm from '../general/booleanButtonForm/BooleanButtonForm';
 const WorkshopImageForm = ({ onUpdate, formData, title, label }) => {
   return (
     <>
+    <h2>Craft Workshop Image Upload</h2>
       <div className="WorkshopImageForm">
         <ImageUploadForm
           onUpdate={onUpdate}
           formData={formData}
-          dataLocation="workshop_images"
-          title="Craft Workshop Image Upload"
+          dataLocation="images"
+          title=""
           label="Upload an image of the craft workshop"
           requiredFields={[]}
         />
