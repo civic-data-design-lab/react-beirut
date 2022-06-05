@@ -5,15 +5,20 @@ import Layout from '../../components/layout/Layout';
 import {
   getSimilarWorkshops,
   getImageMeta,
-  getWorkshopOrArchive,
+  getWorkshopOrArchive, getSimilarArchives,
 } from '../../lib/apiUtils';
 
 const CardPage = ({ object, type, similarWorkshops, imageMetas }) => {
   const router = useRouter();
 
+
   const handleClose = () => {
     router.push('/discover', undefined, { shallow: true, scroll: false });
   };
+
+  console.log('checking what iamgeMetas is ', imageMetas)
+
+
 
   return (
     <ImageCard
@@ -37,10 +42,13 @@ CardPage.getLayout = function getLayout(page) {
 
 export async function getServerSideProps({ params }) {
   const { object, type } = await getWorkshopOrArchive(params.id);
+  //console.log("object ", object)
 
   let similarWorkshops = [];
   if (type === 'workshop') {
     similarWorkshops = await getSimilarWorkshops(object);
+  } else if (type === 'archive') {
+    similarWorkshops = await getSimilarArchives(object)
   }
   const imageMetas = await getImageMeta(object.ID);
   return { props: { object, type, similarWorkshops, imageMetas } };

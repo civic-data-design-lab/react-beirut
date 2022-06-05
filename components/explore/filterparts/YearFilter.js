@@ -12,18 +12,33 @@ export default class YearFilter extends React.Component {
         }
     }
 
-        // function that updates state based on slider changes
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        //console.log("component updated ", this.props.startYear, this.props.endYear)
+        if (prevProps !== this.props) {
+            //console.log("here")
+            this.setState({
+                startYear: this.props.startYear,
+                endYear: this.props.endYear})
+        }
+        //console.log("component updated ", this.state.startYear, this.state.endYear)
+    }
+
+    // function that updates state based on slider changes
     onSliderUpdate = (value) => {
         this.setState({startYear:value[0], endYear:value[1]}, () => this.props.updateYears([this.state.startYear, this.state.endYear]))
+        // this.props.updateYears([value[0], value[1]])
     }
 
 
 
     render() {
+        //console.log("year filter values ", this.state.startYear, this.state.endYear)
+        //console.log("year filter values ", this.props.startYear, this.props.endYear)
         return (
             <>
                 <Slider range
 
+                                value={[this.state.startYear, this.state.endYear]}
                                 marks={{
                                     //1900: '1900',
                                     //1910: '1910',

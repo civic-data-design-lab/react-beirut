@@ -53,7 +53,7 @@ export default class Explore extends React.Component {
 
 
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYearParent : 1900,
+            startYearParent : 1920,
             endYearParent : 2030,
             toggleParent : false,
             search: '',
@@ -189,6 +189,26 @@ export default class Explore extends React.Component {
             this.setState({showLayersControl:false})
     }
 
+    onReset = () => {
+        //const defaultCrafts = ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]
+        //for (const craft of defaultCrafts) {
+        //    let button = document.getElementById(`${craft}-btn`)
+        //    button.className=`hstg-btn-pill-small-selected hstg-btn-pill-small-selected--${craft}`
+        //}
+
+        console.log("triggered reset fxn")
+
+        this.setState({
+            filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
+            startYearParent : 1920,
+            endYearParent : 2030,
+            toggleParent : false
+        });
+
+        //this.resetToggle();
+        //this.props.triggerReset();
+    }
+
 
 
 
@@ -196,6 +216,8 @@ export default class Explore extends React.Component {
 
 
     render () {
+
+            console.log("state from inde ", this.state)
 
             const filterSearchData = {
                 'filteredCraftsParent' : this.state.filteredCraftsParent,
@@ -214,7 +236,7 @@ export default class Explore extends React.Component {
                         <Map mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
-                            updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} />  : null }
+                            updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} reset={this.onReset} />  : null }
                         <SearchBar callBack={this.searchMap}/>
 
                         <div className={'filterSection'}>

@@ -41,13 +41,7 @@
 
 
 .craftFilter-buttons-container{
-  @media screen and (max-width: 688px) {
-    display: flex;
-    flex-direction: row;
-    overflow-x: scroll;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-  }
+
 }
 
 .toggle-section {

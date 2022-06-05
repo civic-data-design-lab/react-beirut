@@ -37,40 +37,9 @@ export default class MapFilter extends React.Component {
     }
 
 
-    // function to handle when the reset filter button is pressed
-    onReset = () => {
-        const defaultCrafts = ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]
-        for (const craft of defaultCrafts) {
-            let button = document.getElementById(`${craft}-btn`)
-            button.className=`hstg-btn-pill-small-selected hstg-btn-pill-small-selected--${craft}`
-        }
-
-        this.setState({
-            startYear: 1950,
-            endYear: 2030
-        });
 
 
-        this.resetToggle();
-        this.props.triggerReset();
-    }
 
-
-    // function resets slider to default position
-    resetSlider() {
-        this.setState({
-            startYear: 1950,
-            endYear: 2030
-        });
-    }
-
-
-    // function tries to reset toggle to default state (WORK IN PROGRESS)
-    resetToggle() {
-        this.setState({
-            toggleStatus: false,
-        });
-    }
 
     filterCardContent() {
         return(
@@ -84,22 +53,22 @@ export default class MapFilter extends React.Component {
                         <hr/>
 
 
-                            <CraftFilter filteredCrafts={this.state.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
+                            <CraftFilter filteredCrafts={this.props.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
 
                         <hr/>
                         <div>
                             <p>Time Range</p>
-                            <YearFilter startYear={this.state.startYear} endYear={this.state.endYear}
+                            <YearFilter startYear={this.props.startYear} endYear={this.props.endYear}
                                         updateYears={this.props.updateYears}/>
                         </div>
                         <hr/>
                         <div className={'toggle-section'}>
                             <p>Only show active businesses</p>
-                            <ActiveFilter toggleStatus={this.state.toggleStatus} updateToggle={this.props.updateToggle}/>
+                            <ActiveFilter toggleStatus={this.props.toggleStatus} updateToggle={this.props.updateToggle}/>
                         </div>
                         <hr/>
                         <div className={'reset-section'}>
-                            <button className={'reset-btn'} onClick = {this.onReset}> Reset Filters </button>
+                            <button className={'reset-btn'} onClick = {this.props.reset}> Reset Filters </button>
                         </div>
             </>
         )
@@ -109,6 +78,9 @@ export default class MapFilter extends React.Component {
 
 
     render () {
+
+        console.log("checking props here ", this.props)
+        console.log("checking state here " ,this.state)
 
         return (
             <>

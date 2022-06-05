@@ -18,9 +18,6 @@ export default class MapCardSlider extends React.Component {
 
     wrapper.scrollBy({ left: -itemWidth, top: 0, behavior: 'smooth' });
 
-    if (this.props.getImageData) {
-      this.props.getImageData('bye');
-    }
   };
 
   scrollRight = () => {
@@ -30,9 +27,7 @@ export default class MapCardSlider extends React.Component {
 
     wrapper.scrollBy({ left: itemWidth, top: 0, behavior: 'smooth' });
 
-    if (this.props.getImageData) {
-      this.props.getImageData('hi');
-    }
+
   };
 
   checkIfScroll = () => {
@@ -59,6 +54,7 @@ export default class MapCardSlider extends React.Component {
           ) : null}
 
           <div
+            onScroll={this.props.handleScroll}
             className={sliderStyle['wrapperContainer']}
             ref={this.wrapperContainerRef}
           >

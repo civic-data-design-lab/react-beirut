@@ -60,7 +60,7 @@ export default class App extends React.PureComponent {
            style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
            center: [35.5, 33.893894], // starting position [lng, lat]
            zoom: 12.5, // starting zoom
-           maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
+           //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
        });
 
 
@@ -127,7 +127,7 @@ export default class App extends React.PureComponent {
             }
 
             const {lng, lat} = workshop.location.geo;
-            if (lat && lng) {
+            if (lat && lng && workshop.images.length>0) {
                 el.lng = lng;
                 el.lat = lat;
                 el.type = 'workshop';
@@ -185,7 +185,7 @@ export default class App extends React.PureComponent {
             }
 
             const {lng, lat} = archive.primary_location['geo'];
-            if (lat && lng) {
+            if (lat && lng && archive.images.length>0) {
                 el.lng = lng;
                 el.lat = lat;
                 el.type = 'archive'
@@ -321,7 +321,7 @@ export default class App extends React.PureComponent {
 
 
 
-                if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
+                if (workshop.images.length>0 && (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))) {
                     el.lng = lng;
                     el.lat = lat;
                     el.type = 'workshop';
@@ -404,7 +404,7 @@ export default class App extends React.PureComponent {
 
 
 
-                if (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase()))) {
+                if (archive.images.length>0 && (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))) {
                     el.lng = lng;
                     el.lat = lat;
                     el.type = 'archive';

@@ -38,21 +38,33 @@ export default class ImageFilter extends React.Component {
     getImageFilterContent = () => {
         return (
             <div className={'image-filter-container'}>
+
+                    <Mobile>
+                        <div>
+                            <button onClick={this.props.close}>close button</button>
+                        </div>
+                    </Mobile>
+
+
                     <div className={'image-filter-section'} style={{flexBasis: '35%'}}>
-                        <p>Craft Type</p>
-                        <hr/>
+
+
                         <CraftFilter filteredCrafts={this.props.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
                     </div>
                     <div className={'image-filter-section'} style={{flexBasis: '35%'}}>
                         <p>Time Range</p>
                         <hr/>
-                        <YearFilter startYear={this.state.startYear} endYear={this.state.endYear}
+                        <YearFilter startYear={this.props.startYear} endYear={this.props.endYear}
                                     updateYears={this.props.updateYears}/>
                     </div>
                     <div className={'image-filter-section'} style={{flexBasis: '30%'}}>
                         <div className={'filter-active-section'}>
                             <p>Only Show Active Businesses</p>
                             <ActiveFilter toggleStatus={this.state.toggleStatus} updateToggle={this.props.updateToggle}/>
+                        </div>
+
+                        <div>
+                            <button onClick={this.props.reset}>Reset Filter</button>
                         </div>
 
                     </div>
@@ -73,6 +85,8 @@ export default class ImageFilter extends React.Component {
                           <div className="card__cover">
                             <div className="card__wrapper">
                                 {this.getImageFilterContent()}
+
+
                             </div>
                           </div>
                         </div>

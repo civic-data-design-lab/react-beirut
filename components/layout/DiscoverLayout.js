@@ -96,6 +96,22 @@ const DiscoverLayout = ({ children }) => {
       setToggle(toggleData)
     }
 
+
+  const handleReset = () => {
+      console.log("reset")
+
+      setCrafts(["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"])
+      setNumber(7)
+      setStartYear(1920)
+      setEndYear(2030)
+      setToggle(false)
+
+  }
+
+  const handleClose = () => {
+      setFilter(false)
+  }
+
     const filterData = {
                 'filteredCrafts' : filteredCraftsImage,
                 'filteredStartYear' : startYearImage,
@@ -132,6 +148,7 @@ const DiscoverLayout = ({ children }) => {
                   updateCrafts={updateCrafts}
                   updateYears={updateYears}
                   updateToggle={updateToggle}
+                  reset={handleReset}
 
                 />
                 : null}
@@ -173,6 +190,8 @@ const DiscoverLayout = ({ children }) => {
                   updateCrafts={updateCrafts}
                   updateYears={updateYears}
                   updateToggle={updateToggle}
+                  reset={handleReset}
+                  close={handleClose}
 
                 />
                 : null}

@@ -47,6 +47,7 @@ export default class ImageCard extends React.Component {
     });
   }
 
+
   render() {
     const { object, onClose, type, imageMetas, similarWorkshops } = this.props;
 
@@ -63,9 +64,9 @@ export default class ImageCard extends React.Component {
           ) : (
             <Archive
               archive={object}
-              imageMetas={this.props.imageMetas}
+              imageMetas={imageMetas}
               // imageSrc={thumbnailSrc}
-              similarImages={this.props.similarImages}
+              similarArchives={similarWorkshops}
             />
           )}
         </div>

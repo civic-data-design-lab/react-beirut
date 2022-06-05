@@ -10,16 +10,25 @@ export default class ActiveFilter extends React.Component {
         }
     }
 
+
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps !== this.props) {
+            this.setState({
+                toggleStatus: this.props.toggleStatus
+            })
+        }
+    }
+
     // function changes state to match toggle
     onToggle = (state) => {
         this.setState({toggleStatus:state}, () => this.props.updateToggle(this.state.toggleStatus))
     }
 
-
     render() {
         return (
             <>
-                <ToggleSlider state={this.state.toggleStatus} onToggle={(state) => this.onToggle(state)} active={this.state.toggleStatus} draggable={false} barBackgroundColorActive={"#9C6340"}/>
+                <ToggleSlider onToggle={(state) => this.onToggle(state)} active={this.state.toggleStatus} draggable={false} barBackgroundColorActive={"#9C6340"}/>
             </>
         )
     }

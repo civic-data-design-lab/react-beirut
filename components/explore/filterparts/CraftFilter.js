@@ -12,6 +12,12 @@ export default class CraftFilter extends React.Component {
             };
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps !== this.props) {
+            this.setState({filteredCrafts: this.props.filteredCrafts})
+        }
+    }
+
     // function for handling when a craft button is selected, updates state accprdingly
     selectedCraft = (craftType) => {
         let craftsList = this.state.filteredCrafts;
