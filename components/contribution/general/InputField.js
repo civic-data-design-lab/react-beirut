@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { REGEX_VALIDATION, VALID_DECADES } from '../../../lib/utils';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 /**
  * Component handling inputs for the contribution page. It is used to handle a
@@ -120,7 +122,7 @@ const InputField = (props) => {
               .map((i) => i + startYear)
               .reverse()
               .map((year) => {
-                return <option value={year}>{year}</option>;
+                return <option key={year} value={year}>{year}</option>;
               })}
 
             {/* {children} */}
@@ -182,7 +184,7 @@ const InputField = (props) => {
                 {`--Select ${title}--`}
               </option>
               {children}
-              <option value="OTHER">⊕ OTHER</option>
+              <option value="OTHER"> ＋ OTHER</option>
             </select>
             {otherSelected && (
               <input
