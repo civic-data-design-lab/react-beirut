@@ -105,7 +105,7 @@ const InputField = (props) => {
             onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
             {...rest}
           >
-            <option selected value="null">
+            <option defaultValue value="null">
               {defaultValue ? defaultValue : `--Select ${title}--`}
             </option>
             {children}

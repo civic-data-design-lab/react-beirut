@@ -13,7 +13,6 @@ const OtherButton = ({
   dataLocation,
   defaultTags,
 }) => {
-
   // TODO: Fix this clicking off function from overwriting the previous label for some reason.
   // This might break things if there are multiple of this form on a page
   // const onClickOffTxtbox = (e) => {
@@ -94,6 +93,8 @@ const OtherButton = ({
 
     if (e.target.classList.contains('other-btn')) {
       enableButton(e.target);
+      let txtbox = e.target.getElementsByClassName('additional-tag-txtbox')[0];
+      txtbox.focus();
     } else if (e.target.classList.contains('other-btn-selected')) {
       disableButton(e.target);
       submitNewTag(e.target);
@@ -125,35 +126,34 @@ const OtherButton = ({
   const onChange = (e) => {
     setErrorMessage('');
     let otherButton = e.target.parentElement.parentElement;
-    console.assert(otherButton == undefined, 'otherButton is undefined');
+    console.assert(otherButton != undefined, 'otherButton is undefined');
     if (e.target.value.includes(' ')) {
       setErrorMessage('Spaces are not allowed in custom tag.');
     }
   };
 
+  // TODO: Clean up this HTML after update.
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      onKeyPress={(e) => {
-        e.preventDefault();
-      }}
-      className="hstg-btn-pill-small other-btn"
-    >
-      ＋
-      <div className="additional-tag-tooltip">
-        <input
-          onKeyPress={onKeyPress}
-          onBlur={onBlur}
-          onChange={onChange}
-          type="text"
-          className="additional-tag-txtbox"
-        ></input>
-        <div className="submit-new-tag-btn">＋</div>
-      </div>
-    </button>
+    <>
+      <button
+        type="button"
+        onClick={onClick}
+        className="hstg-btn-pill-small other-btn"
+      >
+        ＋
+        <div>
+          <input 
+            onKeyPress={onKeyPress}
+            onBlur={onBlur}
+            onChange={onChange}
+            type="text"
+            className="additional-tag-txtbox additional-tag-tooltip"
+          />
+          {/* <div className="submit-new-tag-btn">＋</div> */}
+        </div>
+      </button>
+    </>
   );
 };
-// */ Unsure how to prioritize other-button CSS over hstg-btn-pill-small
 
 export default OtherButton;
