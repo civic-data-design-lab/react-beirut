@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { REGEX_VALIDATION } from '../../../lib/utils';
+import { REGEX_VALIDATION, VALID_DECADES } from '../../../lib/utils';
 
 /**
  * Component handling inputs for the contribution page. It is used to handle a
@@ -96,8 +96,37 @@ const InputField = (props) => {
             {...rest}
           />
         );
+      case 'year':
+        const startYear = VALID_DECADES[0];
+        const endYear = new Date().getFullYear();
+        return (
+          <select
+            name={title}
+            id={fieldName}
+            value={value || 'null'}
+            onChange={(e) =>
+              onUpdate(
+                e.target.value == 'null'
+                  ? { [fieldName]: null }
+                  : { [fieldName]: e.target.value }
+              )
+            }
+            {...rest}
+          >
+            <option defaultValue value="null">
+              {defaultValue ? defaultValue : `--Select ${title}--`}
+            </option>
+            {[...Array(endYear - startYear).keys()]
+              .map((i) => i + startYear)
+              .reverse()
+              .map((year) => {
+                return <option value={year}>{year}</option>;
+              })}
+
+            {/* {children} */}
+          </select>
+        );
       case 'select':
-        // onUpdate({ [fieldName]: null });
         return (
           <select
             name={title}
