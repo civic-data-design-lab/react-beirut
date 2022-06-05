@@ -12,13 +12,16 @@ export default async (req, res) => {
       break;
     case 'POST':
       const body = req.body;
+      console.log(
+        'Here is the post request. Be sure to check out body:',
+        req
+      );
+
       if (!body) {
         res.status(StatusCodes.BAD_REQUEST).send({
           message: 'No body provided',
         });
       }
-
-      console.debug("Here is the post request. Be sure to check out body:", req)
 
       const result = await saveNewWorkshop(body);
 

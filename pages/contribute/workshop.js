@@ -75,9 +75,6 @@ const contactRequirement = (formData) => {
  * Only need to provide required if required = true.
  * Only required if both enabled and true.
  *
- *
- * !! THIS FORM SCHEMA WAS ONLY USED FOR THE FIRST FEW FORMS. I DECIDED THIS WAS TOO MUCH WORK TO IMPLEMENT PRIOR TO DEPLOYMENT.
- * !! MAINLY ONLY USED FOR REQUIRED FIELDS AND GENERAL INFO.
  */
 const formSchema = {
   pages: {
@@ -176,7 +173,7 @@ const formSchema = {
       custom_reqs: {
         image_req: {
           function: (formData) => {
-            return{
+            return {
               requirementFulfilled: isProperlyTruthy(formData.images),
               errorMessage: 'Business contact information required',
             };
@@ -239,7 +236,22 @@ const WorkshopContribution = () => {
 
     const data = { workshop, imageMetas: [imageMeta], imageData: [imageData] };
 
-    console.debug(data);
+    console.group('Database Submission');
+    console.info('Here is all the data being uploaded to the server:', data);
+    console.info(
+      `When uploaded, your workshop will be visible at http://localhost:3000/discover/${workshop.ID}`
+    );
+    console.info('Find these entries on MongoDB with the filters:');
+    console.info(
+      `workshops: {survey_origin: '${WORKSHOP_CONTRIBUTION_NAME}', response_id: '${workshop.ID}'}`
+    );
+    console.info(
+      `imagemetas: {from_survey: '${WORKSHOP_CONTRIBUTION_NAME}', response_id: '${workshop.ID}'}`
+    );
+    console.info(
+      `imagedatas: {img_id: '${data.imageMetas[0].img_id}'}`
+    );
+    console.groupEnd();
 
     fetch('/api/workshops', {
       method: 'POST',

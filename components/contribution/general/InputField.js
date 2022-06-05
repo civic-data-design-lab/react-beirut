@@ -42,7 +42,6 @@ const InputField = (props) => {
   const [focused, setFocused] = useState(false);
   const onFocus = (e) => {
     setFocused(true);
-    console.debug();
   };
 
   const onBlur = (e) => {

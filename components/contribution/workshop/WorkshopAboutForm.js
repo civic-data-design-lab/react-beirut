@@ -108,7 +108,6 @@ const WorkshopAboutForm = ({
               fields.social_media.field_name
             )}
           />
-          {/* {console.debug(page.custom_reqs.contact_requirement.function(formData))} */}
           {(() => {
             const contactRequirement =
               page.custom_reqs.contact_requirement.function(formData);

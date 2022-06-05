@@ -188,14 +188,11 @@ const MultipageForm = ({
       // (User is on the last page, so "next page" means submit)
 
       // Make sure all required fields are filled out
-      const allRequiredFields = requiredFields.flat();
-      const missingFields = allRequiredFields.filter((field) => {
-        return !formData[field];
-      });
+      const missingFields = getMissingFields();
       if (missingFields.length > 0) {
         // TODO: Show a more helpful error message if the user is missing fields
         alert(
-          `Please fill in the following fields: ${missingFields.join(', ')}`
+          `Please fill in the following fields: ${missingFields.map(field => field.title).join(', ')}`
         );
         return;
       }
