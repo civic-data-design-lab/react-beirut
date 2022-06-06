@@ -1,10 +1,5 @@
-import { useState, useEffect } from 'react';
-import OtherButton from './OtherButton';
-import ToastifyTest from './ToastifyTest';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import BooleanButtonForm from '../../components/contribution/BooleanButtonForm';
-import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../lib/utils';
+import BooleanButtonForm from '../general/booleanButtonForm/BooleanButtonForm';
+import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../../lib/utils';
 
 /**
  * Form that provides a list of buttons that you can select.
@@ -18,31 +13,44 @@ import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../lib/utils';
  * @param {string[]} requiredFields - Optional required fields that are needed to turn in these forms.
  * @returns {React.Component}
  */
-const CraftDisciplineForm = ({ onUpdate, formData, title, label, requiredFields=[]}) => {
+const CraftDisciplineForm = ({
+  onUpdate,
+  formData,
+  formSchema,
+  pageName,
+  requiredFields = [],
+}) => {
+  
+  const page = formSchema.pages.about_the_craft;
+  const fields = page.fields;
 
   return (
-    <>
-      <BooleanButtonForm
-        onUpdate={onUpdate}
-        formData={formData}
-        dataLocation="craft_categories"
-        title="Craft Categories"
-        label="What category of crafts are produced in this workshop?"
-        selectionsAllowed="2"
-        defaultTags={CRAFT_CATEGORIES}
-        required={requiredFields?.includes('craft_categories')}
-      />
-      <BooleanButtonForm
-        onUpdate={onUpdate}
-        formData={formData}
-        dataLocation="type_of_craft"
-        title="Type of Craft"
-        label="What type of crafts are produced in this workshop? If entering a custom type, English is preferred."
-        defaultTags={CRAFT_TYPES}
-        required={requiredFields?.includes('type_of_craft')}
-        hasOtherField={true}
-      />
-    </>
+    <form className="CraftTypeForm">
+      <h2>{page.title}</h2>
+      <br/>
+      <div>
+        <BooleanButtonForm
+          onUpdate={onUpdate}
+          formData={formData}
+          title={fields.craft_category.title}
+          dataLocation={fields.craft_category.field_name}
+          label="What category of crafts are produced in this workshop?"
+          selectionsAllowed="2"
+          defaultTags={CRAFT_CATEGORIES}
+          required={fields.craft_category.required ? true : false}
+        />
+        <BooleanButtonForm
+          onUpdate={onUpdate}
+          formData={formData}
+          title={fields.type_of_craft.title}
+          dataLocation={fields.type_of_craft.field_name}
+          label="What type of crafts are produced in this workshop? If entering a custom type, English is preferred."
+          defaultTags={CRAFT_TYPES}
+          required={fields.type_of_craft.required ? true : false}
+          hasOtherField={true}
+        />
+      </div>
+    </form>
   );
 };
 

@@ -1,20 +1,29 @@
-import InputField from './InputField';
+import InputField from '../InputField';
 import LocationSelect from './LocationSelect';
 import { useState, useEffect } from 'react';
 
-const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption }) => {
-
+const LocationForm = ({
+  onUpdate,
+  formData,
+  formSchema,
+  pageName,
+  mapCaption,
+}) => {
   const [workshops, setWorkshops] = useState([]);
   const [archive, setArchive] = useState([]);
 
-  useEffect(() => {
-    console.log('fetching');
+  const page = formSchema.pages.location;
+  const fields = page.fields;
 
-    Promise.all([fetch('/api/workshops'), fetch('/api/archive')])
-    .then(
+  useEffect(() => {
+    console.info('fetching');
+
+    // TODO: For a few seconds, the quarters and sectors don't show up because this fetch is so slow.
+    // TODO: ... so fix this fetch being
+
+    Promise.all([fetch('/api/workshops'), fetch('/api/archive')]).then(
       ([workshopsResponse, archiveResponse]) => {
-        Promise.all([workshopsResponse.json(), archiveResponse.json()])
-        .then(
+        Promise.all([workshopsResponse.json(), archiveResponse.json()]).then(
           ([workshopsData, archiveData]) => {
             setWorkshops(workshopsData.response);
             setArchive(archiveData.response);
@@ -23,7 +32,6 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
       }
     );
   }, []);
-  
 
   const handleUpdate = (data) => {
     const newLocation = { lat: data.lat, lng: data.lng };
@@ -36,13 +44,13 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
       return (
         <label
           className={
-            requiredFields.includes('lat') || requiredFields.includes('lng')
-              ? 'required'
-              : ''
+            fields.lat.required || fields.lng.required ? 'required' : ''
           }
           key="LatLngLabel"
         >
-          {mapCaption ? mapCaption : "Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."}
+          {mapCaption
+            ? mapCaption
+            : 'Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.'}
         </label>
       );
     }
@@ -55,60 +63,93 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
 
   return (
     <form className="LocationForm">
-      <h2>{title || 'Craft Workshop Location'}</h2>
+      <h2>{page.title}</h2>
       <div className="forms">
         <div className="address-form">
           <h3>Address</h3>
           <small>(English Preferred)</small>
           <div className="address-form-inputs">
             <InputField
-              title="Building number"
-              fieldName="buildingNumber"
-              key="buildingNumber"
-              value={formData.buildingNumber}
+              title={fields.building_number.title}
+              fieldName={fields.building_number.field_name}
+              key={fields.building_number.field_name}
+              value={formData[fields.building_number.field_name]}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('buildingNumber')}
+              required={fields.building_number.required ? true : false}
             />
             <InputField
-              title="Street name/number"
-              fieldName="street"
-              key="street"
-              value={formData.street}
+              title={fields.street.title}
+              fieldName={fields.street.field_name}
+              key={fields.street.field_name}
+              value={formData[fields.street.field_name]}
               onUpdate={onUpdate}
-              required={requiredFields?.includes('street')}
+              required={fields.street.required ? true : false}
             />
-
-            <InputField
-              title="Quarter"
-              type="select-with-other"
-              fieldName="quarter"
-              key="quarter"
-              value={formData.quarter}
-              onUpdate={onUpdate}
-              required={requiredFields?.includes('quarter')}>
-                {
-                  [... new Set(
-                    workshops.map((workshop) => {return workshop.location.adm3;}))].filter(workshop => workshop).sort().map( (quarter) => {
-                    return <option value={quarter}>{quarter}</option>
-                  })
-                };
-            </InputField>
-            <InputField
-              title="Sector"
-              type="select-with-other"
-              fieldName="sector"
-              key="sector"
-              value={formData.sector}
-              onUpdate={onUpdate}
-              required={requiredFields?.includes('sector')}>
-                {
-                  [... new Set(
-                    workshops.map((workshop) => {return workshop.location.adm4;}))].filter(workshop => workshop).sort()
-                    .map( (sector) => {
-                    return <option value={sector}>{sector}</option>
-                  })
-                };
-            </InputField>
+            {/* These shouldn't need to load. TODO: Fix loading time. */}
+            {!workshops[0] ? (
+              <>
+                <div className="loader"></div>
+                <p style={{margin: "0 auto"}}>Loading options...</p>
+              </>
+            ) : (
+              <>
+                <InputField
+                  title={fields.quarter.title}
+                  type="select-with-other"
+                  fieldName={fields.quarter.field_name}
+                  key={fields.quarter.field_name}
+                  value={formData[fields.quarter.field_name]}
+                  onUpdate={onUpdate}
+                  required={fields.quarter.required ? true : false}
+                >
+                  {[
+                    ...new Set(
+                      workshops.map((workshop) => {
+                        return workshop.location.adm3;
+                      })
+                    ),
+                  ]
+                    .filter((workshop) => workshop)
+                    .sort()
+                    .map((quarter) => {
+                      return (
+                        <option key={quarter} value={quarter}>
+                          {quarter}
+                        </option>
+                      );
+                    })}
+                  ;
+                </InputField>
+                <InputField
+                  title={fields.sector.title}
+                  type="select-with-other"
+                  fieldName={fields.sector.field_name}
+                  key={fields.sector.field_name}
+                  value={formData[fields.sector.field_name]}
+                  onUpdate={onUpdate}
+                  required={fields.sector.required ? true : false}
+                >
+                  {[
+                    ...new Set(
+                      workshops.map((workshop) => {
+                        return workshop.location.adm4;
+                      })
+                    ),
+                  ]
+                    .filter((workshop) => workshop)
+                    .sort()
+                    .map((sector) => {
+                      return (
+                        <option key={sector} value={sector}>
+                          {sector}
+                        </option>
+                      );
+                    })}
+                  ;
+                </InputField>
+              </>
+            )}
+            {/* {!workshops[0] && <p>Loading options...</p>} */}
             {/* Reference: https://www.lebanesearabicinstitute.com/areas-beirut/#Sectors_of_Beirut */}
             {/* <div>
             <label htmlFor="building-number-ar">
@@ -147,7 +188,7 @@ const LocationForm = ({ onUpdate, formData, title, requiredFields, mapCaption })
 
           <LocationSelect onUpdate={handleUpdate} />
           <p className="location-select-hint">
-          Drag marker to change the location
+            Drag marker to change the location
           </p>
         </div>
       </div>

@@ -25,7 +25,7 @@ const mainSliderStyle = {
  * @param {string} props.imageSrc - Image source for the workshop's images.
  *    Right now this is only really needed by the contribution preview.
  * @param {WorkshopType[]} props.similarWorkshops- Similar workshop objects to
- *    display, provided in an array which may be empty or null.  
+ *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
 const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops}) => {
@@ -202,3 +202,4 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops}) => {
 };
 
 export default Workshop;
+

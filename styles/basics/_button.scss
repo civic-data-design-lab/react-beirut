@@ -348,12 +348,10 @@ $icon-zindex: 1000;
   .additional-tag-tooltip {
     background-color: #333;
     color: white;
-    position: absolute;
+    // position: relative;
+    margin: 1px 1px 1px 5px;
     visibility: visible;
     border-radius: 5px;
-    // margin-left: auto;
-    // margin-right: auto;
-    margin: 5px auto;
     padding: 0;
     left: 0;
     right: 0;
@@ -364,7 +362,7 @@ $icon-zindex: 1000;
       border: none;
       border-radius: 5px;
       background-color: rgba(0,0,0,0);
-      margin: 0 2px;
+      margin: 5px 4px;
     }
     .submit-new-tag-btn {
       border-radius: 10px;

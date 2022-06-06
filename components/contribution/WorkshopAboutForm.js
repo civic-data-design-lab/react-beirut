@@ -3,48 +3,48 @@ import InputField from './InputField';
 const WorkshopAboutForm = ({
   onUpdate,
   formData,
-  title,
-  requiredFields,
+  formSchema,
   highlightedFields,
 }) => {
+  const page = formSchema.pages.about;
+  const fields = page.fields;
+
   return (
     <form className="WorkshopAboutForm">
-      <h2>{title || 'About the Workshop'}</h2>
+      <h2>{page.title}</h2>
       <div className="sections">
         <div className="section">
           <h3>Craft Workshop Information</h3>
           <InputField
-            title="Shop Name"
-            fieldName="shopName"
-            value={formData.shopName}
+            title={fields.shop_name.title}
+            fieldName={fields.shop_name.field_name}
+            value={formData[fields.shop_name.field_name]}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('shopName')}
-            highlight={highlightedFields?.includes('shopName')}
+            type="text"
+            required={fields.shop_name.required}
+            highlight={highlightedFields?.includes(fields.shop_name.field_name)}
           />
           {/* This input was changed from a date to numerical year. Check that data still works here. */}
           <InputField
-            title="Year Established"
-            fieldName="yearEstablished"
-            value={formData.yearEstablished}
-            type="number"
-            min="0"
-            max={new Date().getFullYear()}
+            title={fields.year_established.title}
+            fieldName={fields.year_established.field_name}
+            value={formData[fields.year_established.field_name]}
+            type="year"
             onUpdate={onUpdate}
-            required={requiredFields?.includes('yearEstablished')}
-            highlight={highlightedFields?.includes('yearEstablished')}
+            required={fields.year_established.required}
+            highlight={highlightedFields?.includes(
+              fields.year_established.field_name
+            )}
           />
           <InputField
-            title="Shop Status"
-            fieldName="status"
-            value={formData.status}
+            title={fields.status.title}
+            fieldName={fields.status.field_name}
+            value={formData[fields.status.field_name]}
             type="select"
             onUpdate={onUpdate}
-            required={requiredFields?.includes('status')}
-            highlight={highlightedFields?.includes('status')}
+            required={fields.status.required}
+            highlight={highlightedFields?.includes(fields.status.field_name)}
           >
-            <option disabled value="">
-              --Select a status--
-            </option>
             <option value="open">Open</option>
             <option value="closed_temp">Closed (temporary)</option>
             <option value="closed_perm">Closed (permanent)</option>
@@ -52,7 +52,7 @@ const WorkshopAboutForm = ({
           </InputField>
         </div>
         <div className="section">
-          <h3>Business Contact Information</h3>
+          <h3 className="required">Business Contact Information</h3>
           {/* Removed per Ashley.
           <InputField
             title="Owner Name"
@@ -66,42 +66,54 @@ const WorkshopAboutForm = ({
           <p>This information will be publicly available on the <br />Living Heritage Atlas | Beirut database and website.</p>
           {/* TODO: Make this into an info "i" note. */}
           <InputField
-            title="Phone Number"
-            fieldName="phoneNumber"
+            title={fields.phone.title}
+            fieldName={fields.phone.field_name}
             type="tel"
-            // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"  This will only work if it is a US number
-            value={formData.phoneNumber}
+            value={formData[fields.phone.field_name]}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('phoneNumber')}
-            highlight={highlightedFields?.includes('phoneNumber')}
+            required={fields.phone.required}
+            highlight={highlightedFields?.includes(fields.phone.field_name)}
           />
           <InputField
-            title="Email"
-            fieldName="email"
+            title={fields.email.title}
+            fieldName={fields.email.field_name}
             type="email"
-            value={formData.email}
+            value={formData[fields.email.field_name]}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('email')}
-            highlight={highlightedFields?.includes('email')}
+            required={fields.email.required}
+            highlight={highlightedFields?.includes(fields.email.field_name)}
           />
           <InputField
-            title="Website"
-            fieldName="website"
+            title={fields.website.title}
+            fieldName={fields.website.field_name}
             type="url"
-            value={formData.website}
+            value={formData[fields.website.field_name]}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('website')}
-            highlight={highlightedFields?.includes('website')}
+            required={fields.website.required}
+            highlight={highlightedFields?.includes(fields.website.field_name)}
           />
           <InputField
-            title="Social Media"
-            fieldName="socialMedia"
+            title={fields.social_media.title}
+            fieldName={fields.social_media.field_name}
             type="url"
-            value={formData.socialMedia}
+            value={formData[fields.social_media.field_name]}
             onUpdate={onUpdate}
-            required={requiredFields?.includes('socialMedia')}
-            highlight={highlightedFields?.includes('socialMedia')}
+            required={fields.social_media.required}
+            highlight={highlightedFields?.includes(
+              fields.social_media.field_name
+            )}
           />
+          {(() => {
+            const contactRequirement =
+              page.custom_reqs.contact_requirement.function(formData);
+            return (
+              !contactRequirement.requirementFulfilled && (
+                <small className="input-error">
+                  * {contactRequirement.errorMessage}
+                </small>
+              )
+            );
+          })()}
         </div>
       </div>
     </form>
