@@ -10,15 +10,6 @@
   justify-content: center;
 
 
-  @media screen and (max-width: 688px) {
-    grid-gap: 2px 2px;
-    padding: 0px;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-
-
-  }
-
   &:hover {
     .img-preview:not(:hover) {
       transition: all 0.2s ease-in-out;
@@ -27,17 +18,14 @@
 
 
   }
+}
 
   .image-container {
     height: 200px;
     width: 200px;
   }
 
-  @media screen and (max-width: 688px) {
-    padding: 0px;
 
-  }
-}
 
 .image-filter-btn {
   @media screen and (max-width: 688px) {

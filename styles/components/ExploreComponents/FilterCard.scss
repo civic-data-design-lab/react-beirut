@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 5px 10px 20px #bbbbbb;
 
   @media screen and (max-width: 688px) {
     border-radius: 0px;
@@ -23,26 +24,9 @@
 }
 
 
-.craftFilter-container {
-  @media screen and (max-width: 688px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }
-}
-
-.craftFilter-buttons-container::-webkit-scrollbar {
-  /* WebKit */
-  width: 0;
-  height: 0;
-  display: none;
-}
 
 
 
-.craftFilter-buttons-container{
-
-}
 
 .toggle-section {
   display: flex;
@@ -64,3 +48,4 @@
   background-color: Transparent;
   font-weight: bolder;
 }
+

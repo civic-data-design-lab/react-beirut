@@ -50,7 +50,6 @@ export default class CraftFilter extends React.Component {
         return (
             <>
                 <div className={'craftFilter-container'}>
-                    <p>Craft Type</p>
                     <div className={'craftFilter-buttons-container'}>
                     <button id={'architectural-btn'} className={this.determineCraftButtonClass('architectural')} onClick={() => this.selectedCraft('architectural')}>Architectural</button>
                     <button id={'cuisine-btn'} className={this.determineCraftButtonClass('cuisine')} onClick={() => this.selectedCraft('cuisine')}>Cuisine</button>

@@ -80,18 +80,30 @@
   }
 }
 
-.close-btn-container {
-  display: flex;
-  flex-direction: row;
-  justify-items: end;
-}
+
 
 .close-card-btn :focus {
   outline: none;
 }
 
 .close-card-btn {
-  flex: none;
   border: none;
   background-color: Transparent;
 }
+
+.close-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.closeIcon {
+  color: $c-black;
+}
+

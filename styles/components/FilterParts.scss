@@ -1,0 +1,53 @@
+// CRAFT TYPE FILTER
+.craftFilter-container {
+
+  margin: 8px 0px 0px 0px;
+
+  @media screen and (max-width: 688px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}
+
+
+.rc-slider-handle-dragging {
+  border-color: $c-primary-mid !important;
+  box-shadow: 0 0 0 5px rgb(156,99, 64, .30) !important;
+}
+
+.rc-slider-handle:active {
+  border-color: $c-primary-mid !important;
+}
+
+.rc-slider {
+    position: relative;
+    width: 90% !important;
+    margin: auto !important;
+    height: 14px;
+    padding: 5px 0;
+    border-radius: 6px;
+    touch-action: none;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.rc-slider-dot-active {
+    border-color: $c-primary-mid !important;
+}
+
+.rc-slider-dot {
+    position: absolute;
+    bottom: -2px;
+    width: 8px;
+    height: 8px;
+    vertical-align: middle;
+    background-color: #fff;
+    border: 1px solid $c-primary-mid !important;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.yearFilter-container {
+  margin: 5% 0px 5% 0px;
+}

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import CraftFilter from "./filterparts/CraftFilter";
-import YearFilter from "./filterparts/YearFilter";
-import ActiveFilter from "./filterparts/ActiveFilter";
+import CraftFilter from "../filterparts/CraftFilter";
+import YearFilter from "../filterparts/YearFilter";
+import ActiveFilter from "../filterparts/ActiveFilter";
 import Card from "../Card";
 import { useMediaQuery } from 'react-responsive'
 
@@ -44,32 +44,31 @@ export default class MapFilter extends React.Component {
     filterCardContent() {
         return(
             <>
-                        <div className={'close-btn-container'}>
-                            <button className={'close-card-btn'} onClick={this.props.closeFilter}>X</button>
-                        </div>
-                        <div>
-                            <p>Search By</p>
-                        </div>
-                        <hr/>
-
-
-                            <CraftFilter filteredCrafts={this.props.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
-
-                        <hr/>
-                        <div>
-                            <p>Time Range</p>
-                            <YearFilter startYear={this.props.startYear} endYear={this.props.endYear}
-                                        updateYears={this.props.updateYears}/>
-                        </div>
-                        <hr/>
-                        <div className={'toggle-section'}>
-                            <p>Only show active businesses</p>
-                            <ActiveFilter toggleStatus={this.props.toggleStatus} updateToggle={this.props.updateToggle}/>
-                        </div>
-                        <hr/>
-                        <div className={'reset-section'}>
-                            <button className={'reset-btn'} onClick = {this.props.reset}> Reset Filters </button>
-                        </div>
+                <div className={"close-btn-container"}>
+                    <h1>Search By</h1>
+                    <button className={'close-card-btn'} onClick={this.props.closeFilter}>X</button>
+                </div>
+                <hr/>
+                <div className={"card-section"}>
+                    <p>Craft Type</p>
+                    <CraftFilter filteredCrafts={this.props.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
+                </div>
+                <hr/>
+                <div className={"card-section"}>
+                    <p>Time Range</p>
+                    <YearFilter startYear={this.props.startYear} endYear={this.props.endYear}
+                                updateYears={this.props.updateYears}/>
+                </div>
+                <hr/>
+                <div className={'toggle-section'}>
+                    <p>Only show active businesses</p>
+                    <ActiveFilter toggleStatus={this.props.toggleStatus} updateToggle={this.props.updateToggle}
+                                  resetToggle={this.props.resetToggle}/>
+                </div>
+                <hr/>
+                <div className={'reset-section'}>
+                    <button className={'reset-btn'} onClick = {this.props.reset}> Reset Filters </button>
+                </div>
             </>
         )
     }
@@ -95,7 +94,7 @@ export default class MapFilter extends React.Component {
                         <div className="card">
                           <div className="card__cover">
                             <div className="card__wrapper">
-                              <div className="filterCard">
+                              <div className="filterCard animateCard">
                                   {this.filterCardContent()}
                                   <button className={'btn-pill view-map-btn'} onClick={this.props.closeFilter}>View Map</button>
                               </div>

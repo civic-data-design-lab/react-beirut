@@ -32,9 +32,11 @@ const DiscoverLayout = ({ children }) => {
 
   const [numberCrafts, setNumber] = useState(7);
   const [filteredCraftsImage, setCrafts] = useState(["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]);
-  const [startYearImage, setStartYear] = useState(1900);
+  const [startYearImage, setStartYear] = useState(1910);
   const [endYearImage, setEndYear] = useState(2030);
-  const [toggleImage, setToggle] = useState(false)
+  const [toggleImage, setToggle] = useState(false);
+  const [resetToggleImage, setResetToggle] = useState(false)
+
 
 
 
@@ -98,15 +100,17 @@ const DiscoverLayout = ({ children }) => {
 
 
   const handleReset = () => {
-      console.log("reset")
+      console.log("RESET")
 
+      setResetToggle(!resetToggleImage)
       setCrafts(["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"])
       setNumber(7)
-      setStartYear(1920)
+      setStartYear(1910)
       setEndYear(2030)
       setToggle(false)
-
   }
+
+
 
   const handleClose = () => {
       setFilter(false)
@@ -149,6 +153,7 @@ const DiscoverLayout = ({ children }) => {
                   updateYears={updateYears}
                   updateToggle={updateToggle}
                   reset={handleReset}
+                  resetToggle={resetToggleImage}
 
                 />
                 : null}
@@ -192,6 +197,7 @@ const DiscoverLayout = ({ children }) => {
                   updateToggle={updateToggle}
                   reset={handleReset}
                   close={handleClose}
+                  resetToggle={resetToggleImage}
 
                 />
                 : null}

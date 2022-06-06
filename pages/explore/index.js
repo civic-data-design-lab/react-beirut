@@ -7,6 +7,9 @@ import SearchBar from "../../components/explore/SearchBar";
 import MapCard from "../../components/explore/MapCard";
 import LayersControl from "../../components/explore/LayersControl";
 import { useMediaQuery } from 'react-responsive'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -51,9 +54,9 @@ export default class Explore extends React.Component {
             },
             coords: [35.5, 33.893894],
 
-
+            toggleReset: false,
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYearParent : 1920,
+            startYearParent : 1910,
             endYearParent : 2030,
             toggleParent : false,
             search: '',
@@ -200,9 +203,10 @@ export default class Explore extends React.Component {
 
         this.setState({
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYearParent : 1920,
+            startYearParent : 1910,
             endYearParent : 2030,
-            toggleParent : false
+            toggleParent : false,
+            toggleReset: !this.state.toggleReset
         });
 
         //this.resetToggle();
@@ -230,23 +234,31 @@ export default class Explore extends React.Component {
         return (
                 <>
                     <Head>
-                        <title>Explore | Intangible Heritage Atlas</title>
+                        <title>Map | Intangible Heritage Atlas</title>
                     </Head>
                     <div>
                         <Map mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
-                            updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} reset={this.onReset} />  : null }
+                            updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} reset={this.onReset} resetToggle={this.state.toggleReset} />  : null }
                         <SearchBar callBack={this.searchMap}/>
 
                         <div className={'filterSection'}>
-                            <button className={'filterButton'} onClick={this.toggleFilterPanel}>filter</button>
-                            <button className={'filterButton'} onClick={this.toggleLayersControl}>layers</button>
+                            <button className={'filterButton filterSettingsButton'} onClick={this.toggleFilterPanel}>
+                                <span style={{color:"blue"}}>
+                                    <FontAwesomeIcon icon="fa-solid fa-bars-filter" />
+                                </span>
+                            </button>
+                            <button className={'filterButton layerControlButton'} onClick={this.toggleLayersControl}>
+
+                                    <FontAwesomeIcon icon={faLayerGroup} className="layerIcon"/>
+
+                            </button>
                         </div>
 
                         { (this.state.showMapCard && this.state.workshop && this.state.workshop.images) ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard} openMapCard={this.openMapCard}/> : null}
 
-                        { this.state.showLayersControl ? <LayersControl allLayers={this.state.allLayers} updateMapLayer={this.updateMapLayer} closeLayersControl={this.closeLayersControl}/> : null}
+                        { this.state.showLayersControl ? <LayersControl currentLayer={this.state.mapLayer} allLayers={this.state.allLayers} updateMapLayer={this.updateMapLayer} closeLayersControl={this.closeLayersControl}/> : null}
 
 
                     </div>

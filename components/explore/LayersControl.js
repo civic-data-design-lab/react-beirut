@@ -24,14 +24,34 @@ export default class LayersControl extends React.Component {
     constructor(props) {
         super(props);
         this.clickLayerButton = this.clickLayerButton.bind(this)
+        this.state = {
+            selected:null,
+            currentLayer: this.props.currentLayer
+        }
 
+    }
 
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.currentLayer !== prevProps.currentLayer) {
+            this.setState({currentLayer: this.props.currentLayer})
+        }
     }
 
     clickLayerButton (e) {
         let layerName = e.target.id;
         this.props.updateMapLayer(layerName)
+
+    }
+
+    getClassName = (key) => {
+        console.log("here")
+        console.log("props ", this.props.currentLayer)
+        console.log("state ", this.state.currentLayer)
+        if (key === this.state.currentLayer) {
+            return "lc-button-labels-wrapper-selected"
+        } else {
+            return "lc-button-labels-wrapper"
+        }
     }
 
     getMapLayerButtons = () => {
@@ -40,7 +60,7 @@ export default class LayersControl extends React.Component {
         buttons.push(
             <>
 
-                        <button className={'mapLayerButtons'} key ={key} id={key} onClick={this.clickLayerButton}>
+                        <button className={`mapLayerButtons ${this.getClassName(key)}`} key ={key} id={`${key}-button`} onClick={this.clickLayerButton}>
                         <p className={'lc-button-year'} id={key} onClick={this.clickLayerButton}> {key} </p>
                         <p className={'lc-button-ref'} id={key} onClick={this.clickLayerButton}> {value} </p>
                         </button>
@@ -61,9 +81,9 @@ export default class LayersControl extends React.Component {
     layersControlContent = () => {
         return (
             <>
-                <div className={'searchby-section padded-lc-section'}>
-                    <p>Historic Maps</p>
-                    <button className={'close-filter-btn'} onClick={this.props.closeLayersControl}>X</button>
+                <div className={'close-btn-container padded-lc-section'}>
+                    <h1>Historic Maps</h1>
+                    <button className={'close-card-btn'} onClick={this.props.closeLayersControl}>X</button>
                 </div>
                 <hr/>
 

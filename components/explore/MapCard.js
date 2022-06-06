@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import Slider from "../Slider";
 import MapCardSlider from "./MapCardSlider";
 import { useMediaQuery } from 'react-responsive'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faXmark} from "@fortawesome/free-solid-svg-icons";
 
 
 const Desktop = ({ children }) => {
@@ -188,7 +190,7 @@ export default class MapCard extends React.Component {
         } else if (this.props.workshop.shop_name['content_orig']) {
             return this.props.workshop.shop_name['content_orig']
         } else {
-            return 'No Shop Name'
+            return 'Shop'
         }
     }
 
@@ -304,11 +306,13 @@ export default class MapCard extends React.Component {
                 <div className={'mapCard'} id={`mapCard${this.props.id}`}>
 
                         <div className={'close-btn-container'}>
-
-                            <button className={'close-card-btn'} onClick = {this.props.closeMapCard} > X </button>
+                            <p>{this.getShopName()}</p>
+                            <button className={'close-card-btn'} onClick = {this.props.closeMapCard} >
+                                <FontAwesomeIcon icon={faXmark} className="closeIcon"/>
+                            </button>
                         </div>
 
-                        <p>{this.getShopName()}</p>
+
 
                         <div>
                             <p>{this.getDecadeEstablished()}
@@ -333,7 +337,7 @@ export default class MapCard extends React.Component {
 
                         <hr/>
                     {this.state.similarObjects ? (this.getThumbnails().length>0 ? <>
-                            <p>Explore Similar Images</p>
+                            <p>Explore Similar Shops</p>
                             <div className={'exploreContainer'}>
                                 {this.state.similarObjects ? <Slider children={this.getThumbnails()}/> : null}
                             </div>
@@ -346,14 +350,13 @@ export default class MapCard extends React.Component {
                 <div className={'mapCard'} id={`mapCard${this.props.id}`}>
 
                         <div className={'close-btn-container'}>
-
-                            <button className={'close-card-btn'} onClick = {this.props.closeMapCard} > X </button>
+                            <p>{this.getShopName() || this.getReferenceName()}</p>
+                            <button className={'close-card-btn'} onClick = {this.props.closeMapCard} >
+                                 <FontAwesomeIcon icon={faXmark} className="closeIcon"/>
+                            </button>
                         </div>
-
-                        <p>{this.getShopName() || this.getReferenceName()}</p>
-
                         <div>
-                            <p>{this.getPrimaryDecade()} {this.getSubtitle()}</p>
+                            <p className={'mapCard-subtitle'}>{this.getPrimaryDecade()} {this.getSubtitle()}</p>
 
 
                         </div>
@@ -369,9 +372,6 @@ export default class MapCard extends React.Component {
                             </div>
                             </>
                             : null}
-
-
-
 
                         <hr/>
                         {this.state.similarObjects ? (this.getThumbnails().length>0 ? <>
