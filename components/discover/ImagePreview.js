@@ -5,6 +5,9 @@ const ImagePreview = ({ workshop, thumbnailSrc }) => {
     ? `/api/images/${workshop.thumb_img_id}.jpg`
     : thumbnailSrc || null;
 
+
+
+
   return (
     <>
       <div className="img-preview">

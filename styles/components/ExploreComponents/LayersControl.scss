@@ -11,6 +11,7 @@
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 5px 10px 20px #bbbbbb;
+  z-index: 10;
 
   @media screen and (max-width: 688px) {
     border-radius: 0px;
@@ -59,7 +60,7 @@
 }
 
 .lc-button-labels-wrapper-selected {
-  color: $c-white-off;
+  color: #9C6340;
   background-color: $c-primary-light;
 }
 
@@ -109,3 +110,16 @@
 .padded-lc-section {
   padding: 24px;
 }
+
+.map-name-label {
+  //font-family: $font-main;
+  //font-style: normal;
+  //font-weight: 400;
+  //font-size: 16px;
+  //line-height: 18px;
+}
+
+.map-name-reference {
+ //color: #AEAEAE;
+}
+

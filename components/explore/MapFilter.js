@@ -45,29 +45,33 @@ export default class MapFilter extends React.Component {
         return(
             <>
                 <div className={"close-btn-container"}>
-                    <h1>Search By</h1>
-                    <button className={'close-card-btn'} onClick={this.props.closeFilter}>X</button>
+                    <p className={'card-labels'}>Filter By</p>
+                    <button className={'close-card-btn'} onClick={this.props.closeFilter}>
+                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
+                         </svg>
+                    </button>
                 </div>
                 <hr/>
                 <div className={"card-section"}>
-                    <p>Craft Type</p>
+                    <p className={'card-section-labels'}>Craft Type</p>
                     <CraftFilter filteredCrafts={this.props.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
                 </div>
                 <hr/>
                 <div className={"card-section"}>
-                    <p>Time Range</p>
+                    <p className={'card-section-labels'}>Time Range</p>
                     <YearFilter startYear={this.props.startYear} endYear={this.props.endYear}
                                 updateYears={this.props.updateYears}/>
                 </div>
                 <hr/>
                 <div className={'toggle-section'}>
-                    <p>Only show active businesses</p>
+                    <p className={'card-section-labels'}>Only show active businesses</p>
                     <ActiveFilter toggleStatus={this.props.toggleStatus} updateToggle={this.props.updateToggle}
                                   resetToggle={this.props.resetToggle}/>
                 </div>
                 <hr/>
                 <div className={'reset-section'}>
-                    <button className={'reset-btn'} onClick = {this.props.reset}> Reset Filters </button>
+                    <button className={'reset-btn card-labels'} onClick = {this.props.reset}> Reset Filters </button>
                 </div>
             </>
         )
@@ -96,7 +100,9 @@ export default class MapFilter extends React.Component {
                             <div className="card__wrapper">
                               <div className="filterCard animateCard">
                                   {this.filterCardContent()}
-                                  <button className={'btn-pill view-map-btn'} onClick={this.props.closeFilter}>View Map</button>
+                                  <button className={'btn-pill view-map-btn'} onClick={this.props.closeFilter}>
+                                      <span className={'view-map-label'}>View Map</span>
+                                  </button>
                               </div>
                             </div>
                           </div>
