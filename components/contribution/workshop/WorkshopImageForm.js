@@ -46,7 +46,7 @@ const WorkshopImageForm = ({
           'Craftsperson',
           'Craft object',
           'Other outdoor space',
-        ]} //!! This space might not work with the form bc of how it saves to the data.
+        ]}
         hasOtherField={true}
         required={fields.image_content.required}
       />

@@ -175,7 +175,7 @@ const formSchema = {
           function: (formData) => {
             return {
               requirementFulfilled: isProperlyTruthy(formData.images),
-              errorMessage: 'Business contact information required',
+              errorMessage: '',
             };
           },
           title: 'Image Upload',
@@ -280,7 +280,7 @@ const WorkshopContribution = () => {
       .catch((err) => setDialog(err));
   };
 
-  const updateForm = (data) => {
+  const onUpdate = (data) => {
     setForm((prevForm) => {
       const updatedFormData = { ...prevForm, ...data };
       console.info('setting form data to ', updatedFormData);
@@ -316,16 +316,8 @@ const WorkshopContribution = () => {
       <div className="Contribute drop-shadow__black">
         <MultipageForm
           name={WORKSHOP_CONTRIBUTION_NAME}
-          pageTitles={
-            // INFO: Use the short_titles if available otherwise use titles.
-            Object.keys(formSchema.pages).map((p) => {
-              return formSchema['pages'][p]['short_title']
-                ? formSchema['pages'][p]['short_title']
-                : formSchema['pages'][p]['title'];
-            })
-          }
           formData={form}
-          onUpdate={updateForm}
+          onUpdate={onUpdate}
           formSchema={formSchema}
           onSubmit={onSubmit}
           submitted={submitted}
@@ -338,7 +330,7 @@ const WorkshopContribution = () => {
           />
           <WorkshopCraftTypeForm label="What type of crafts are produced in this workshop?" />
           <WorkshopImageForm label="Upload an image of the craft workshop" />
-          <Preview />
+          <Preview/>
         </MultipageForm>
       </div>
     </>

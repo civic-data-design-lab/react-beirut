@@ -72,9 +72,11 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives }) => {
               <h1>
                 {archive.shop_name.content || archive.shop_name.content_orig}
               </h1>
-              <p className="type">
-                {archive.craft_discipline_category.join(' | ')}
-              </p>
+              {archive.craft_discipline_category && (
+                <p className="type">
+                  {archive.craft_discipline_category.join(' | ')}
+                </p>
+              )}
             </div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc et

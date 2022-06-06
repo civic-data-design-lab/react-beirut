@@ -9,6 +9,7 @@ import Workshop from '../../Workshop';
 import InputField from './InputField';
 
 const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
+  console.debug(formSchema);
   const missingFieldPages = [
     ...new Set(missingFields.map((field) => field.parent)),
   ];
@@ -33,7 +34,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
           {missingFieldPages.map((page) => {
             return (
               <div key={page}>
-                <br/>
+                <br />
                 <h4>{page}</h4>
                 <ul>
                   {missingFields
@@ -70,7 +71,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
     // INFO: If this form was for an archive, show the archive preview
     if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
       const { archive, imageMeta, imageData } =
-        convertArchiveContributionToSchema(formData);
+        convertArchiveContributionToSchema(formData, formSchema);
       console.debug('Returning archive to preview:', archive);
       return (
         <Archive
@@ -86,7 +87,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
     <div>
       <h2>Preview</h2>
       {getPreview()}
-      <br/>
+      <br />
       <InputField
         title={fields.consent.title}
         fieldName={fields.consent.field_name}

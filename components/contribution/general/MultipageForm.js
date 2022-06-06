@@ -33,7 +33,6 @@ import { isProperlyTruthy } from '../../../lib/utils';
  *
  * @param {object} props - Props (below)
  * @param {string} props.name - Name of the multipage form
- * @param {string[]} props.pageTitles - An array of page titles to display, one per page.
  * @param {object} props.formData - The form data to use.
  * @param {object} props.formSchema - The layout of the form detailing the pages, fields, and their info.
  * @param {function} props.onUpdate - Function to call when the form is updated.
@@ -42,7 +41,6 @@ import { isProperlyTruthy } from '../../../lib/utils';
  */
 const MultipageForm = ({
   name,
-  pageTitles,
   formData,
   formSchema,
   onUpdate,
@@ -54,6 +52,13 @@ const MultipageForm = ({
   const [dialog, setDialog] = useState(null);
   const [page, setPage] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+
+  // INFO: Use the short_titles if available otherwise use titles.
+  const pageTitles = Object.keys(formSchema.pages).map((p) => {
+    return formSchema['pages'][p]['short_title']
+      ? formSchema['pages'][p]['short_title']
+      : formSchema['pages'][p]['title'];
+  });
 
   const requiredFields = Object.entries(formSchema.pages).map((page) => {
     return [
@@ -129,7 +134,8 @@ const MultipageForm = ({
       let missingFields = [];
       allRequiredFields.forEach((reqField) => {
         if (
-          reqField.type == 'always required' && !isProperlyTruthy(formData[reqField.field_name])
+          reqField.type == 'always required' &&
+          !isProperlyTruthy(formData[reqField.field_name])
         ) {
           missingFields.push(reqField);
           return;
@@ -150,7 +156,10 @@ const MultipageForm = ({
     let missingFields = [];
     requiredFieldsForPage.forEach((reqField) => {
       // If reqFieldValue is neither truthy nor an empty list
-      if (reqField.type == 'always required' && !isProperlyTruthy(formData[reqField.field_name])) {
+      if (
+        reqField.type == 'always required' &&
+        !isProperlyTruthy(formData[reqField.field_name])
+      ) {
         missingFields.push(reqField);
         return;
       }
@@ -192,7 +201,9 @@ const MultipageForm = ({
       if (missingFields.length > 0) {
         // TODO: Show a more helpful error message if the user is missing fields
         alert(
-          `Please fill in the following fields: ${missingFields.map(field => field.title).join(', ')}`
+          `Please fill in the following fields: ${missingFields
+            .map((field) => field.title)
+            .join(', ')}`
         );
         return;
       }
