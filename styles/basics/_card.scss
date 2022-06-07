@@ -79,3 +79,34 @@
     width: 90%;
   }
 }
+
+
+
+
+
+.close-card-btn :focus {
+  outline: none;
+}
+
+.close-card-btn {
+  border: none;
+  background-color: Transparent;
+}
+
+.close-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.closeIcon {
+  color: $c-black;
+}
+

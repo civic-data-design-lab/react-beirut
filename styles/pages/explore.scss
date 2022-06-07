@@ -1,41 +1,216 @@
-.arrow-down {
-  position: fixed;
-  width: 0;
-  height: 0;
-  border-left: 16px solid transparent;
-  border-right: 16px solid transparent;
-  border-top: 16px solid $c-white-off;
-  bottom: 18%;
-  left: 5%;
+#map {
+  position: absolute;
+  left: 0;
+  right:0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  zIndex: -1;
+  overflow-y: hidden;
 }
 
+.prevent-scroll {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.hoverMarker--architectural {
+  box-shadow: 0 0 0 7px $c-architectural
+}
+
+.hoverMarker--fashion {
+  box-shadow: 0 0 0 7px $c-fashion
+}
+
+.hoverMarker--decorative {
+  box-shadow: 0 0 0 7px $c-decorative
+}
+
+.hoverMarker--functional {
+  box-shadow: 0 0 0 7px $c-functional
+}
+
+.hoverMarker--furniture {
+  box-shadow: 0 0 0 7px $c-furniture
+}
+
+.hoverMarker--textiles {
+  box-shadow: 0 0 0 7px $c-textiles
+}
+
+.hoverMarker--cuisine {
+  box-shadow: 0 0 0 7px $c-cuisine
+}
+
+
+
+
+
 .filterButton {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   height: 48px;
   width: 48px;
   border-radius: 50%;
   margin: 8px;
+  border-width: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.filterSettingsButton{
+  background-color: $c-primary-mid;
+}
+
+.layerControlButton{
+  background-color: #FFFFFF;
+}
+
+
+
+.layerIcon {
+  color: $c-grey-mid;
+  width: 30px;
 }
 
 .filterSection {
   position: fixed;
   bottom: 5%;
-  left: 4%;
+  left: 2rem;
   border: none;
+  display: flex;
+  flex-direction: row;
 
   @media screen and (max-width: 688px) {
     display: flex;
     flex-direction: column;
-    left: 80%;
-
-
+    //left: 18rem;
+    left:80%;
+    //right: 2rem ;
   }
 
 }
 
 
-
 .searchbar {
-  width: 360px;
+
+  display: flex;
+  padding: 16px;
+  right: 4%;
   position: fixed;
-  right: 3%;
+
+  @media screen and (max-width: 688px) {
+    right:0px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 }
+
+
+
+#mapSearch {
+  background-color: $c-white-off;
+  padding: 8px 8px 8px 40px;
+  border-radius: 15px;
+  border-width: 0px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  outline: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M14.71 14H15.5L20.49 19L19 20.49L14 15.5V14.71L13.73 14.43C12.59 15.41 11.11 16 9.5 16C5.91 16 3 13.09 3 9.5C3 5.91 5.91 3 9.5 3C13.09 3 16 5.91 16 9.5C16 11.11 15.41 12.59 14.43 13.73L14.71 14ZM5 9.5C5 11.99 7.01 14 9.5 14C11.99 14 14 11.99 14 9.5C14 7.01 11.99 5 9.5 5C7.01 5 5 7.01 5 9.5Z' fill='%23471E10'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 8px 5px;
+  //background-size: 18px 18px;
+  //background-size: cover;
+
+
+
+}
+
+#mapSearch:active {
+  outline: none;
+  border: none;
+}
+
+#mapSearch::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z' fill='%23471E10'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+}
+
+
+.card-labels {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  //line-height: 18px;
+  color: #333333;
+}
+
+.card-section-labels {
+
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333333;
+
+}
+
+.view-map-btn {
+  background-color: $c-primary-mid;
+  border-radius: 20px;
+  border-width: 0px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.view-map-label {
+  font-family: $c-primary-mid;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #FAF8F6;
+  }
+
+.nav-ctr-container{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  bottom: 5%;
+  right: 2rem;
+}
+
+.nav-ctr-btn {
+  margin: 8px;
+  height: 42px;
+  width: 42px;
+  background-color: $c-white-off;
+  border-width: 0px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+}
+
+.zoom-in-btn {
+
+}
+
+.zoom-out-btn {
+
+}
+
+
+
+

@@ -1,4 +1,4 @@
-import InputField from '../general/InputField';
+import InputField from './InputField';
 
 const WorkshopAboutForm = ({
   onUpdate,
@@ -63,10 +63,7 @@ const WorkshopAboutForm = ({
             required={requiredFields?.includes('ownerName')}
             highlight={highlightedFields?.includes('ownerName')}
           /> */}
-          <p>
-            This information will be publicly available on the <br />
-            Living Heritage Atlas | Beirut database and website.
-          </p>
+          <p>This information will be publicly available on the <br />Living Heritage Atlas | Beirut database and website.</p>
           {/* TODO: Make this into an info "i" note. */}
           <InputField
             title={fields.phone.title}

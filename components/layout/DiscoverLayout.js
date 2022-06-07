@@ -32,9 +32,11 @@ const DiscoverLayout = ({ children }) => {
 
   const [numberCrafts, setNumber] = useState(7);
   const [filteredCraftsImage, setCrafts] = useState(["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]);
-  const [startYearImage, setStartYear] = useState(1900);
+  const [startYearImage, setStartYear] = useState(1910);
   const [endYearImage, setEndYear] = useState(2030);
-  const [toggleImage, setToggle] = useState(false)
+  const [toggleImage, setToggle] = useState(false);
+  const [resetToggleImage, setResetToggle] = useState(false)
+
 
 
 
@@ -96,6 +98,24 @@ const DiscoverLayout = ({ children }) => {
       setToggle(toggleData)
     }
 
+
+  const handleReset = () => {
+      console.log("RESET")
+
+      setResetToggle(!resetToggleImage)
+      setCrafts(["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"])
+      setNumber(7)
+      setStartYear(1910)
+      setEndYear(2030)
+      setToggle(false)
+  }
+
+
+
+  const handleClose = () => {
+      setFilter(false)
+  }
+
     const filterData = {
                 'filteredCrafts' : filteredCraftsImage,
                 'filteredStartYear' : startYearImage,
@@ -108,7 +128,7 @@ const DiscoverLayout = ({ children }) => {
     <>
         <Desktop>
           <Head>
-            <title>Discover | Intangible Heritage Atlas</title>
+            <title>Discover | Living Heritage Atlas</title>
           </Head>
           <div className="container">
             <div className="title-card">
@@ -132,6 +152,8 @@ const DiscoverLayout = ({ children }) => {
                   updateCrafts={updateCrafts}
                   updateYears={updateYears}
                   updateToggle={updateToggle}
+                  reset={handleReset}
+                  resetToggle={resetToggleImage}
 
                 />
                 : null}
@@ -149,7 +171,7 @@ const DiscoverLayout = ({ children }) => {
 
       <Mobile>
                     <Head>
-            <title>Discover | Intangible Heritage Atlas</title>
+            <title>Discover | Living Heritage Atlas</title>
           </Head>
           <div className="container">
             <div className="title-card">
@@ -173,6 +195,9 @@ const DiscoverLayout = ({ children }) => {
                   updateCrafts={updateCrafts}
                   updateYears={updateYears}
                   updateToggle={updateToggle}
+                  reset={handleReset}
+                  close={handleClose}
+                  resetToggle={resetToggleImage}
 
                 />
                 : null}

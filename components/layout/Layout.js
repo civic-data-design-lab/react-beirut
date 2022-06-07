@@ -7,10 +7,10 @@ const Layout = ({ children }) => {
     <>
       <div>
         <Head>
-          <title>Intangible Heritage Atlas</title>
+          <title>Living Heritage Atlas</title>
           <meta
             name="keywords"
-            content="intangible heritage, beirut, crafts, atlas"
+            content="living heritage, beirut, crafts, atlas"
           />
           <link
             href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css"
