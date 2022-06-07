@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive'
 import Draggable from "react-draggable";
 
 
+
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
   return isDesktop ? children : null
@@ -35,6 +36,7 @@ export default class MapCard extends React.Component {
             similarObjects: null,
             imageMetaData: [],
             currentImageIndex: 0,
+            invalidImages: [],
             mainSliderStyle : {
             'sliderContainer': 'mapSlider-container',
             'buttonLabel': 'slider-btn-label',
@@ -80,13 +82,20 @@ export default class MapCard extends React.Component {
             (image) => image.img_id !== this.props.workshop.thumb_img_id
         );
         const images = [...thumbImage, ...remainingImages];
+        let validImages=[]
         let metaData = []
+
         for (const image_id of images) {
-                 const response = await fetch(`api/imageMetaData/${image_id}`)
-                 const res = await response.json()
-                 metaData.push(res['response'][0])
+                 const imageResponse = await fetch(`api/images/${image_id}`)
+                 if (imageResponse.status !== 404) {
+                     const response = await fetch(`api/imageMetaData/${image_id}`)
+                     const res = await response.json()
+                     metaData.push(res['response'][0])
+                     validImages.push(image_id)
+
+                 }
              }
-        this.setState({imageMetaData:metaData})
+        this.setState({imageMetaData:metaData, validImages:validImages})
         //console.log("metadata ", this.state.imageMetaData)
     }
 
@@ -96,7 +105,13 @@ export default class MapCard extends React.Component {
         //let imageContainer = document.querySelector('.mapSlider-wrapper');
         //return (<p>{imageContainer.offsetWidth}</p>)
 
+        //if (this.state.invalidImages.indexOf(this.state.currentImageIndex)>-1) {
+        //    return <p>Image unavailable</p>
+        //}
+
         const currentMetaData = this.state.imageMetaData[this.state.currentImageIndex]
+
+
         //console.log("metadata ", currentMetaData)
         const viewKeywords = ["storefront", "street", "interior", "indoor"];
         const interiorKeywords = ["interior", "inside", "indoor"]
@@ -112,9 +127,14 @@ export default class MapCard extends React.Component {
                     return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} produced by {this.getShopName() || "shop"}.</p>
                 } else if (currentMetaData.type[0] === "craftsperson") {
                     return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} of {this.getShopName() || "shop"}.</p>
+                } else if (currentMetaData.type[0] === "text") {
+                    return <p>Text</p>
                 }
             } else if (currentMetaData.type.length === 2) {
-                const craftspersonIndex = currentMetaData.type.indexOf("craftsperson")
+                let craftspersonIndex = currentMetaData.type.indexOf("craftsperson")
+                if (craftspersonIndex>-1) {
+                    craftspersonIndex = currentMetaData.type.indexOf("craftperson")
+                }
 
                 const storefrontIndex = currentMetaData.type.indexOf("storefront")
                 const indoorMap = interiorKeywords.map((word)=> {
@@ -142,6 +162,7 @@ export default class MapCard extends React.Component {
 
     componentDidMount() {
         window.addEventListener('resize', this.updateDimensions);
+        this.setState({invalidImages:[]})
         if (this.props.type === "workshop") {
             this.fetchSimilarWorkshops();
         } else {
@@ -155,6 +176,8 @@ export default class MapCard extends React.Component {
 
     componentDidUpdate(prevProps) {
      if (prevProps.workshop.ID !== this.props.workshop.ID) {
+
+         this.setState({invalidImages:[]})
          if (this.props.type === "workshop") {
              this.fetchSimilarWorkshops();
          } else {
@@ -249,8 +272,28 @@ export default class MapCard extends React.Component {
         }
         )
         return craftsList
-
  }
+
+    handleOnError = (e) => {
+
+        let el = e.target
+        console.log("key ", el.id)
+        //let newInvImgs = this.state.invalidImages
+        //newInvImgs.push(el.id)
+        //this.setState({invalidImages: newInvImgs})
+        //console.log("invalidImages ", this.state.invalidImages)
+        //el.parentNode.removeChild(el)
+        //el.src = '';
+        el.classList.add('broken-img')
+        //el.src = 'broken_img.png'
+        el.onerror = null;
+        el.alt = "Image Unavailable";
+        el.title = "Image Unavailable";
+        console.log("metadata ", this.state.imageMetaData)
+
+
+
+    }
 
 
 
@@ -266,7 +309,8 @@ export default class MapCard extends React.Component {
             (image) => image.img_id !== this.props.workshop.thumb_img_id
         );
         const images = [...thumbImage, ...remainingImages];
-        return images.map((image) => {return <img key={image} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" />})
+        console.log('images ', images)
+        return images.map((image, index) => {return <img key={image} id={index} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" onError={this.handleOnError} />})
 
     }
 
@@ -387,6 +431,8 @@ export default class MapCard extends React.Component {
 
     render() {
         console.log("similarobjects ", this.state.similarObjects)
+        console.log("info ", this.state.validImages, this.state.imageMetaData)
+        console.log("meta ", this.state.imageMetaData)
 
 
 

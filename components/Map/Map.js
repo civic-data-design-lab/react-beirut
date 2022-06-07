@@ -456,8 +456,10 @@ export default class App extends React.PureComponent {
 
             }
         }
+    }
 
-
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
     }
 
 

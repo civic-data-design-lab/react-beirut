@@ -10,6 +10,12 @@
   overflow-y: hidden;
 }
 
+.prevent-scroll {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 
 .hoverMarker--architectural {
   box-shadow: 0 0 0 7px $c-architectural

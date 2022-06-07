@@ -197,7 +197,17 @@ export default class Explore extends React.Component {
         });
     }
 
+    componentDidMount() {
+            document.body.classList.add('prevent-scroll')
+            let root = document.documentElement;
+            root.className += 'prevent-scroll';
+    }
 
+    componentWillUnmount() {
+            document.body.classList.remove('prevent-scroll')
+            let root = document.documentElement;
+            root.className -= 'prevent-scroll';
+    }
 
 
     render () {
