@@ -69,10 +69,11 @@ export default class App extends React.PureComponent {
 
         map.current.on('load', () => {
 
-        map.current.addSource('1920', {
-        'type': 'raster',
-        'url': 'mapbox://mitcivicdata.ddxxt2r8'
-         });
+        //map.current.addSource('1920', {
+        //'type': 'raster',
+        //'url': 'mapbox://mitcivicdata.ddxxt2r8'
+        // });
+
         map.current.addLayer({
         'id': '1920',
         'source': '1920',

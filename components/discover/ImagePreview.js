@@ -6,25 +6,6 @@ const ImagePreview = ({ workshop, thumbnailSrc }) => {
     ? `/api/images/${workshop.thumb_img_id}.jpg`
     : thumbnailSrc || null;
 
-  const imgAlt = workshop.thumb_img_id
-    ? `img-${workshop.thumb_img_id}`
-    : thumbnailSrc || null;
-  
-  const duotoneCraft = {
-    architectural: {one: [52, 62, 97], two: [236, 223, 190]},
-    cuisine: {one: [172, 107, 43], two: [185, 193, 179]},
-    decorative: {one: [70, 95, 75], two: [222, 194, 180]},
-    fashion: {one: [179, 103, 79], two: [167, 192, 218]},
-    functional: {one: [11, 96, 115], two: [186, 210, 218]},
-    furniture: {one: [133, 89, 75], two: [205, 184, 159]},
-    textiles: {one: [172, 133, 17], two: [229, 200, 171]}
-  };
-
-  const imgDuotone =
-    (workshop.craft_discipline_category.length == 1) ? duotoneCraft[workshop.craft_discipline_category[0]]
-    // : (workshop.craft_discipline_category.length == 2) ? {one: duotoneCraft[workshop.craft_discipline_category[0]].one, two: duotoneCraft[workshop.craft_discipline_category[1]].two}
-    : {one: [0, 0, 0], two: [255, 255, 255]};
-
   return (
     <>
       <div className="img-preview">

@@ -49,7 +49,11 @@ export default class MapCardSlider extends React.Component {
               ref={this.prevBtnRef}
               onClick={this.scrollLeft}
             >
-              <span className={sliderStyle['buttonLabel']}>&lt;</span>
+
+                <svg width="43" height="38" viewBox="0 0 43 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M27.8518 12.1655L25.3816 9.96973L14.8701 19.3132L25.3816 28.6567L27.8518 26.461L19.828 19.3132L27.8518 12.1655Z" fill="white"/>
+                </svg>
+
             </button>
           ) : null}
 
@@ -66,7 +70,11 @@ export default class MapCardSlider extends React.Component {
               onClick={this.scrollRight}
               ref={this.nextBtnRef}
             >
-              <span className={sliderStyle['buttonLabel']}>&gt;</span>
+
+                <svg width="45" height="38" viewBox="0 0 45 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.9372 9.96973L16.3984 12.1655L24.6451 19.3132L16.3984 26.461L18.9372 28.6567L29.7407 19.3132L18.9372 9.96973Z" fill="white"/>
+                </svg>
+
             </button>
           ) : null}
         </div>
