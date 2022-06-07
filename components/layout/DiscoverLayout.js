@@ -128,7 +128,7 @@ const DiscoverLayout = ({ children }) => {
     <>
         <Desktop>
           <Head>
-            <title>Discover | Intangible Heritage Atlas</title>
+            <title>Discover | Living Heritage Atlas</title>
           </Head>
           <div className="container">
             <div className="title-card">
