@@ -21,6 +21,7 @@
     "headlessui": "^0.0.0",
     "http-status-codes": "^2.2.0",
     "mapbox-gl": "^2.8.2",
+    "mime": "^3.0.0",
     "mongoose": "^6.0.11",
     "next": "latest",
     "prop-types": "^15.8.1",
