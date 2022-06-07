@@ -93,6 +93,12 @@ export default class MapFilter extends React.Component {
                     </div>
                 </Desktop>
 
+                <Tablet>
+                    <div className={'filterCard'}>
+                        {this.filterCardContent()}
+                    </div>
+                </Tablet>
+
                 <Mobile>
 
                         <div className="card">

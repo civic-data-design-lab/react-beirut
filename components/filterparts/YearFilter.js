@@ -64,6 +64,7 @@ export default class YearFilter extends React.Component {
                 value={[this.state.startYear, this.state.endYear]}
                 dots={false}
                 marks={{
+                    1890: '1890',
                     //1900: '1900',
                     1910: '1910',
                     //1920: '1920',
@@ -79,7 +80,7 @@ export default class YearFilter extends React.Component {
                     //2020: '2020',
                     2030: `2030`
         }}
-                min={1910}
+                min={1890}
                 max={2030}
                 defaultValue={[this.state.startYear, this.state.endYear]}
                 step={10}

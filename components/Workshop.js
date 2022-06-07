@@ -1,5 +1,5 @@
 import ImagePreview from './discover/ImagePreview';
-import MapCardSlider from './explore/MapCardSlider';
+import MapCardSlider from './Map/MapCardSlider';
 import Slider from './Slider';
 import { Workshop as WorkshopType, ImageMeta } from '../models/Types';
 import MiniMap from "./discover/MiniMap";

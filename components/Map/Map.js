@@ -1,18 +1,20 @@
-
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
-
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+
+
 
 
 export default class App extends React.PureComponent {
 
     constructor(props) {
         super(props);
-        this.state = {
 
+        this.state = {
             activeLayer: null,
-            showMapCard: false
+            showMapCard: false,
+            width: window.innerWidth,
+            height: window.innerHeight,
 
         }
 
@@ -27,32 +29,54 @@ export default class App extends React.PureComponent {
             "furniture": "#9F8278",
             "textiles": "#EACC74"
         }
-
         this.clickMarker = this.clickMarker.bind(this)
     }
 
 
 
-    clickMarker (e) {
-        let el = e.target;
-        //map.current.flyTo({
-        //    center:[el.lng, el.lat],
-        //    zoom: 16,
-        //    bearing: 0,
-        //    speed: 0.5, // make the flying slow
-        //    curve: 1, // change the speed at which it zooms out
-        //    essential: true
-        //})
+    handleResize = () => {
+        this.setState({
+            width: window.innerWidth,
+            height: window.innerHeight
+        }, ()=> console.log("new dimesnsions ", this.state))
 
-        //console.log(el);
+    }
 
-        this.props.openMapCard(el.id, el.type);
+    handleClickZoomIn = () => {
+        map.current.zoomIn({duration: 1000});
+    }
 
+    handleClickZoomOut = () => {
+        map.current.zoomOut({duration: 1000});
     }
 
 
 
+
+    clickMarker (e) {
+        let el = e.target;
+        this.props.openMapCard(el.id, el.type);
+    }
+
+    hoverMarker(e) {
+        let el = e.target;
+        el.classList.add('hoverMarker');
+        el.classList.add(`hoverMarker--${el.craft}`);
+        //console.log(`hoverMarker--${el.craft}`)
+    }
+
+    leaveMarker(e) {
+        let el = e.target;
+        el.classList.remove('hoverMarker');
+        el.classList.remove(`hoverMarker--${el.craft}`);
+        //console.log('exit')
+    }
+
+
     componentDidMount() {
+
+        window.addEventListener('resize', this.handleResize);
+
         //console.log('map.js ', this.props.filterSearchData)
         mapboxGl.accessToken = ACCESS_TOKEN;
         map.current = new mapboxGl.Map({
@@ -69,10 +93,13 @@ export default class App extends React.PureComponent {
 
         map.current.on('load', () => {
 
-        //map.current.addSource('1920', {
-        //'type': 'raster',
-        //'url': 'mapbox://mitcivicdata.ddxxt2r8'
-        // });
+        const source1920 = map.current.getSource('1920');
+        if (!source1920) {
+            map.current.addSource('1920', {
+            'type': 'raster',
+            'url': 'mapbox://mitcivicdata.ddxxt2r8'
+             });
+        }
 
         map.current.addLayer({
         'id': '1920',
@@ -83,6 +110,7 @@ export default class App extends React.PureComponent {
         }
         });
         });
+
 
        if (!this.props.workshops) {
             return;}
@@ -120,7 +148,10 @@ export default class App extends React.PureComponent {
             el.style.height = '15px';
             el.style.borderRadius = '50%';
             el.id = workshop.ID;
+            el.craft = workshop.craft_discipline_category[0];
             el.onclick = this.clickMarker;
+            el.onmouseenter = this.hoverMarker;
+            el.onmouseleave = this.leaveMarker;
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
@@ -174,7 +205,10 @@ export default class App extends React.PureComponent {
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = archive.ID;
+            el.craft = archive.craft_discipline_category[0];
             el.onClick=()=>this.clickMarker(el);
+            el.onmouseenter = this.hoverMarker;
+            el.onmouseleave = this.leaveMarker;
 
             if (archive.ID === "A397612231") {
                 console.warn(`${archive.ID} is ignored`);
@@ -199,13 +233,13 @@ export default class App extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        //console.log(this.props.coords)
 
         if (this.props.coords && prevProps.coords !== this.props.coords) {
             if (this.props.coords[0] !== 35.5 && this.props.coords[1] !== 33.893894) {
                 map.current.flyTo({
                     center: this.props.coords,
                     zoom: 16,
+                    offset: (687<this.state.width && this.state.width<992)?[0, this.state.height*0.30]:[0,0],
                     bearing: 0,
                     speed: 0.5, // make the flying slow
                     curve: 1, // change the speed at which it zooms out
@@ -283,6 +317,9 @@ export default class App extends React.PureComponent {
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = workshop.ID;
+            el.craft = workshop.craft_discipline_category[0];
+            el.onmouseenter = this.hoverMarker;
+            el.onmouseleave = this.leaveMarker;
 
 
             if (!workshop.location.geo) {
@@ -368,6 +405,9 @@ export default class App extends React.PureComponent {
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = archive.ID;
+            el.craft = archive.craft_discipline_category[0];
+            el.onmouseenter = this.hoverMarker;
+            el.onmouseleave = this.leaveMarker;
 
 
 
@@ -424,18 +464,25 @@ export default class App extends React.PureComponent {
     render() {
 
         return (
-            <div
-    ref={this.mapContainer}
-    id="map"
-    style={{
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-    }}
-    />
+            <>
+            <div ref={this.mapContainer} id="map"/>
+                {this.state.width>688 ?
+                    <div className={"nav-ctr-container"}>
+                        <button className={"nav-ctr-btn zoom-in-btn"} onClick={this.handleClickZoomIn}>
+                            <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.86719 3.76562V5.46094H0.0703125V3.76562H7.86719ZM4.88281 0.578125V8.85938H3.0625V0.578125H4.88281Z" fill="#471E10"/>
+                            </svg>
+
+                        </button>
+                        <button className={"nav-ctr-btn zoom-out-btn"} onClick={this.handleClickZoomOut}>
+                            <svg width="6" height="2" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.03906 0.390625V1.89062H0.90625V0.390625H5.03906Z" fill="#471E10"/>
+                            </svg>
+                        </button>
+                    </div> : null}
+            </>
+
+
 
         );
     }

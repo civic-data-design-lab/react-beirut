@@ -121,6 +121,12 @@ export default class LayersControl extends React.Component {
                 </div>
             </Desktop>
 
+            <Tablet>
+                <div className={'layersControlCard'}>
+                    {this.layersControlContent()}
+                </div>
+            </Tablet>
+
             <Mobile>
                 <div className="card">
                           <div className="card__cover">

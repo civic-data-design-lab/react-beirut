@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import Slider from "../Slider";
 import MapCardSlider from "./MapCardSlider";
 import { useMediaQuery } from 'react-responsive'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faXmark} from "@fortawesome/free-solid-svg-icons";
+import Draggable from "react-draggable";
 
 
 const Desktop = ({ children }) => {
@@ -254,6 +253,8 @@ export default class MapCard extends React.Component {
  }
 
 
+
+
     getImages = () => {
 
         if (!this.props.workshop.images) {
@@ -275,6 +276,7 @@ export default class MapCard extends React.Component {
             //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]
             //return <div className={'exploreShop-div'}><img src={`/api/images/${workshop.thumb_img_id}.jpg`} className={'exploreShops-img'} key={workshop.thumb_img_id}/></div>
 
+
             if (object.thumb_img_id) {
                 return(
 
@@ -295,7 +297,8 @@ export default class MapCard extends React.Component {
 
         if (this.props.type === "workshop") {
             return (
-                <div className={'mapCard'} id={`mapCard${this.props.id}`}>
+                <>
+
 
                         <div className={'close-btn-container'}>
                             <div>
@@ -303,7 +306,7 @@ export default class MapCard extends React.Component {
                                 <p className={'shopSubtitle-text'}>{this.getDecadeEstablished()} {this.getSubtitle()} </p>
                             </div>
 
-                            <button className={'close-card-btn'} onClick = {this.props.closeMapCard} >
+                            <button className={'close-card-btn close-mapcard'} onClick = {this.props.closeMapCard} >
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
                                 </svg>
@@ -325,9 +328,6 @@ export default class MapCard extends React.Component {
                             </>
                             : null}
 
-
-
-
                         <hr/>
                     {this.state.similarObjects ? (this.getThumbnails().length>0 ? <>
                             <p className={'exploreShops-label'}>Explore Similar Shops</p>
@@ -336,11 +336,12 @@ export default class MapCard extends React.Component {
                             </div>
                         </> : null ) : null
                     }
-                </div>
+               </>
             )
         } else {
             return (
-                <div className={'mapCard'} id={`mapCard${this.props.id}`}>
+                <>
+
 
                         <div className={'close-btn-container'}>
                             <div>
@@ -348,11 +349,13 @@ export default class MapCard extends React.Component {
                                 <p className={'shopSubtitle-text'}>{this.getPrimaryDecade()} {this.getSubtitle()} </p>
                             </div>
 
-                            <button className={'close-card-btn'} onClick = {this.props.closeMapCard} >
+                            <button className={'close-card-btn close-mapcard'} onClick = {this.props.closeMapCard} >
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
                                 </svg>
                             </button>
+
+
                         </div>
 
                         {(this.props.workshop.images.length !== 0) ?
@@ -375,7 +378,7 @@ export default class MapCard extends React.Component {
                             </div>
                         </> : null ) : null
                     }
-                </div>
+                </>
             )
         }
     }
@@ -390,17 +393,36 @@ export default class MapCard extends React.Component {
         return (
             <>
                 <Desktop>
+                    <div className={'mapCard'} id={`mapCard${this.props.id}`}>
                     {this.props.workshop && this.createMapCardContent()}
+                    </div>
                 </Desktop>
 
-                <Mobile>
-                    <div className="card">
-                          <div className="card__cover">
-                            <div className="card__wrapper">
-                                {this.props.workshop && this.createMapCardContent()}
-                            </div>
-                          </div>
+                <Tablet>
+                    <div className={'mapCard'} id={`mapCard${this.props.id}`}>
+                    {this.props.workshop && this.createMapCardContent()}
                     </div>
+                </Tablet>
+
+                <Mobile>
+
+
+
+                            <div className={'mapCard-drag-container'}>
+
+                                <Draggable axis="y" bounds={".mapCard-drag-container"}>
+                                    <div className={'mapCard'} id={`mapCard${this.props.id}`}>
+                                    <div className={'mapCard-dragger'}>
+                                        <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <line x1="1.5" y1="2.26367" x2="22.5" y2="2.26367" stroke="#CFCFCF" strokeWidth="3" strokeLinecap="round"/>
+                                    </svg>
+                                    </div>
+                                    {this.props.workshop && this.createMapCardContent()}
+                                        </div>
+                                </Draggable>
+
+                            </div>
+
                 </Mobile>
 
             </>

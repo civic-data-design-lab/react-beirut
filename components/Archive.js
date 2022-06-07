@@ -1,4 +1,4 @@
-import MapCardSlider from './explore/MapCardSlider';
+import MapCardSlider from './Map/MapCardSlider';
 import Slider from './Slider';
 import { Archive as ArchiveType, ImageMeta } from '../models/Types';
 import MiniMap from "./discover/MiniMap";

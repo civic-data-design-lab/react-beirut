@@ -9,17 +9,90 @@
   display: flex;
   flex-direction: column;
   row-gap: 16px;
-  box-shadow: 5px 10px 20px #bbbbbb;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+
+  @media screen and (min-width: 688px) and (max-width: 991px) {
+      border-radius: 10px 10px 10px 10px;
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      height: 60%;
+    }
 
   @media screen and (max-width: 688px) {
+      position: absolute;
       border-radius: 10px 10px 0px 0px;
-      bottom: 0px;
       left: 0px;
       width: 100%;
-      height: 90%;
+      height: 600px;
+      bottom: 0%;
+      z-index: 100;
 
-    }
+      -webkit-animation: slideIn 2s forwards;
+      -moz-animation: slideIn 2s forwards;
+      animation: slideIn 2s forwards;
+
+        @-webkit-keyframes slideIn {
+        0% {
+          bottom: -900px;
+        }
+        100% {
+          bottomm: 0px;
+        }
+      }
+      @-moz-keyframes slideIn {
+        0% {
+          bottom:-900px;
+        }
+        100% {
+          bottom: 0px;
+        }
+      }
+      @keyframes slideIn {
+        0% {
+          bottom: -900px;
+        }
+        100% {
+          bottom: 0px;
+        }
+      }
+
+
+      }
 }
+
+
+
+
+
+.mapCard-drag-container {
+  overflow: hidden;
+  position: absolute;
+  bottom:-400px;
+  width: 100%;
+  height: 1000px;
+  pointer-events: none;
+}
+
+.close-mapcard {
+  @media screen and (max-width: 688px) {
+    display: none;
+  }
+
+}
+
+
+.mapCard-dragger {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  //margin: auto;
+  height: 0.2%;
+}
+
 
 .shopName-text {
   font-family: $font-title;
@@ -46,12 +119,6 @@
   justify-content: space-around;
   align-items: center;
 }
-
-.mapCard-subtitle {
-
-}
-
-
 
 
 .exploreContainer {
@@ -102,8 +169,7 @@ exploreShops-div {
 .exploreShops-img {
   padding: 4px;
   object-fit: cover;
-
-  width: 30%;
+  width: 40%;
   height: 100%;
 
   border-radius: 10px;

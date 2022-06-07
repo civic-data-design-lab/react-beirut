@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import {getAllArchives, getAllWorkshops} from '../../lib/apiUtils';
-import MapFilter from "../../components/explore/MapFilter";
+import MapFilter from "../../components/Map/MapFilter";
 import React from "react";
-import SearchBar from "../../components/explore/SearchBar";
-import MapCard from "../../components/explore/MapCard";
-import LayersControl from "../../components/explore/LayersControl";
+import SearchBar from "../../components/Map/SearchBar";
+import MapCard from "../../components/Map/MapCard";
+import LayersControl from "../../components/Map/LayersControl";
 import { useMediaQuery } from 'react-responsive'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +30,7 @@ const Default = ({ children }) => {
 
 
 
-const Map = dynamic(() => import('../../components/explore/Map'), {
+const Map = dynamic(() => import('../../components/Map/Map'), {
   loading: () => 'Loading...',
   ssr: false,
 });
@@ -56,7 +56,7 @@ export default class Explore extends React.Component {
 
             toggleReset: false,
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYearParent : 1910,
+            startYearParent : 1890,
             endYearParent : 2030,
             toggleParent : false,
             search: '',
@@ -81,24 +81,24 @@ export default class Explore extends React.Component {
     updateCrafts = (craftData) => {
         this.setState({
             filteredCraftsParent : craftData
-            }, () => console.log("index.js", this.state.filteredCraftsParent))}
+            })}
 
     updateYears = (yearData) => {
         this.setState({
             startYearParent: yearData[0],
             endYearParent: yearData[1]
-        }, () => console.log("index.js", this.state))}
+        })}
 
     updateToggle = (toggleData) => {
         this.setState({
             toggleParent: toggleData
-        }, () => console.log("index.js", this.state))
+        })
     }
 
 
 
     searchMap = (searchQuery) => {
-        this.setState({search:searchQuery}, () => console.log(this.state.search))
+        this.setState({search:searchQuery})
     }
 
     toggleFilterPanel = () => {
@@ -115,7 +115,7 @@ export default class Explore extends React.Component {
     triggerReset = () => {
         this.setState({
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYearParent : 1920,
+            startYearParent : 1890,
             endYearParent : 2030,
             toggleParent : false,
         })
@@ -139,13 +139,11 @@ export default class Explore extends React.Component {
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
                             .then(()=> this.setState({coords:[this.state.workshop.location.geo['lng'], this.state.workshop.location.geo['lat']]}))
-                            .then(() => console.log(this.state))
                         } else {
                             fetch(`/api/archive/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
                             .then(()=> this.setState({coords:[this.state.workshop.primary_location.geo['lng'], this.state.workshop.primary_location.geo['lat']]}))
-                            .then(() => console.log(this.state))
                         }
 
 
@@ -158,16 +156,13 @@ export default class Explore extends React.Component {
                         if (this.state.type === 'workshop') {
                             fetch(`/api/workshops/${this.state.id}`)
                             .then((res) => res.json())
-                                //.then((res)=>console.log("response ", res['response'].location.geo))
                             .then((res) => this.setState({workshop:res['response']}))
                             .then(()=> this.setState({coords:[this.state.workshop.location.geo['lng'], this.state.workshop.location.geo['lat']]}))
-                            .then(() => console.log(this.state))
                         } else {
                             fetch(`/api/archive/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
                             .then(()=> this.setState({coords:[this.state.workshop.primary_location.geo['lng'], this.state.workshop.primary_location.geo['lat']]}))
-                            .then(() => console.log(this.state))
                         }
 
                 });
@@ -176,7 +171,7 @@ export default class Explore extends React.Component {
         }
 
     closeMapCard = () => {
-            this.setState({showMapCard:false, id:null})
+            this.setState({showMapCard:false, id:null, coords: [35.5, 33.893894]})
     }
 
     toggleLayersControl = () => {
@@ -193,36 +188,19 @@ export default class Explore extends React.Component {
     }
 
     onReset = () => {
-        //const defaultCrafts = ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"]
-        //for (const craft of defaultCrafts) {
-        //    let button = document.getElementById(`${craft}-btn`)
-        //    button.className=`hstg-btn-pill-small-selected hstg-btn-pill-small-selected--${craft}`
-        //}
-
-        console.log("triggered reset fxn")
-
         this.setState({
-            filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
-            startYearParent : 1910,
-            endYearParent : 2030,
-            toggleParent : false,
+            filteredCraftsParent: ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
+            startYearParent: 1890,
+            endYearParent: 2030,
+            toggleParent: false,
             toggleReset: !this.state.toggleReset
         });
-
-        //this.resetToggle();
-        //this.props.triggerReset();
     }
 
 
 
 
-
-
-
     render () {
-
-            console.log("state from inde ", this.state)
-
             const filterSearchData = {
                 'filteredCraftsParent' : this.state.filteredCraftsParent,
                 'startYearParent' : this.state.startYearParent,
@@ -236,7 +214,7 @@ export default class Explore extends React.Component {
                     <Head>
                         <title>Map | Intangible Heritage Atlas</title>
                     </Head>
-                    <div>
+                    <div className={"explore-page-container"}>
                         <Map mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
@@ -247,13 +225,13 @@ export default class Explore extends React.Component {
                             <button className={'filterButton filterSettingsButton'} onClick={this.toggleFilterPanel}>
                                 <span style={{color:"blue"}}>
                                     <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0L0 2L18 2V0L0 0ZM7 12H11V10H7V12ZM15 7L3 7V5L15 5V7Z" fill="white"/>
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M0 0L0 2L18 2V0L0 0ZM7 12H11V10H7V12ZM15 7L3 7V5L15 5V7Z" fill="white"/>
                                         </svg>
 
                                 </span>
                             </button>
                             <button className={'filterButton layerControlButton'} onClick={this.toggleLayersControl}>
-                                    <svg width="24" height="27" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M21.8133 11.6937L12 19.3337L2.17333 11.6937L0 10.0003L12 0.666992L24 10.0003L21.8133 11.6937ZM2.16 15.0803L11.9867 22.7203L21.8267 15.067L24 16.7603L12 26.0937L0 16.7603L2.16 15.0803Z" fill="#AEAEAE"/> </svg>
+                                    <svg width="24" height="27" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fillRule="evenodd" clipRule="evenodd" d="M21.8133 11.6937L12 19.3337L2.17333 11.6937L0 10.0003L12 0.666992L24 10.0003L21.8133 11.6937ZM2.16 15.0803L11.9867 22.7203L21.8267 15.067L24 16.7603L12 26.0937L0 16.7603L2.16 15.0803Z" fill="#AEAEAE"/> </svg>
                             </button>
                         </div>
 
