@@ -3,6 +3,7 @@ import ImageData from '../../../models/ImageData';
 import { isImage } from '../../../lib/utils';
 import { getImageMeta } from '../../../lib/apiUtils';
 import { StatusCodes } from 'http-status-codes';
+const mime = require('mime');
 
 export default async (req, res) => {
   const { id } = req.query;
@@ -23,7 +24,7 @@ export default async (req, res) => {
     }
 
     // INFO: Send the image
-    res.setHeader('Content-Type', 'image');
+    res.setHeader('Content-Type', mime.getType(filename));
     res.send(response.data);
     return;
   }
