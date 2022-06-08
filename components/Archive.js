@@ -15,7 +15,7 @@ const mainSliderStyle = {
 
 /**
  * This component can be used to display a generic archive, either on the
- * Discover page or the Explore page, or as the archive preview in the
+ * Discover page or the Map page, or as the archive preview in the
  * contribution page.
  *
  * @param {object} props - Props

@@ -32,7 +32,7 @@ export default class CraftFilter extends React.Component {
             button.className=`hstg-btn-pill-small-selected--${craftType}`
         }
 
-        // callback passed as a prop from explore.js that passes state back up everytime a craft button is pressed
+        // callback passed as a prop from explore.js (map?) that passes state back up everytime a craft button is pressed
         this.setState({filteredCrafts: craftsList}, () => this.props.updateCrafts(this.state.filteredCrafts))
     };
 
