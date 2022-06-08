@@ -1,6 +1,6 @@
 import mapboxGl from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
-import { MAPBOX_STYLE_URL } from '../../lib/utils';
+import { MAPBOX_STYLE_URL } from '../../../../lib/utils';
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -25,7 +25,7 @@ const LocationSelect = ({ onUpdate }) => {
 
     function onDragEnd() {
       const lngLat = marker.getLngLat();
-      console.log(lngLat);
+      // console.log(lngLat);
       onUpdate(lngLat);
     }
 
