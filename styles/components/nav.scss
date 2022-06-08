@@ -209,6 +209,24 @@ $hamburger-zindex: $menu-zindex + 10;
     left: 0;
     position: absolute;
     right: 0;
+    color: $c-primary-light;
+
+    @media (max-width: 600px) {
+      display: none;
+    }
+    
+    img {
+      height: 25px;
+      margin-right: 40px;
+      mix-blend-mode: multiply;
+      filter: opacity(0.6);
+    }
+    #FHL-Logo {
+      height: 30px;
+    }
+    #SAP-Logo {
+      margin: 0;
+    }
 
     ul {
       display: inline-block;
@@ -223,9 +241,9 @@ $hamburger-zindex: $menu-zindex + 10;
     }
 
     a {
-      color: $menu-color;
-      text-decoration: none;
-      text-transform: uppercase;
+      color: $c-primary-light;
+      // text-decoration: none;
+      // text-transform: uppercase;
     }
   }
 }

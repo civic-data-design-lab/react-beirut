@@ -53,9 +53,9 @@ const Nav = () => {
       <header
         ref={headerRef}
         id="header"
-        className={`container ${isMenuOpen || hideBg() ? ' hide-background' : ''} ${
-          isActive ? 'active' : ''
-        }`}
+        className={`container ${
+          isMenuOpen || hideBg() ? ' hide-background' : ''
+        } ${isActive ? 'active' : ''}`}
       >
         <Link href="/">
           <a
@@ -78,7 +78,9 @@ const Nav = () => {
           {getPath() ? '|' : ''} {getPath()}
         </div>
         <div
-          className={isMenuOpen ? 'container-lang light' : 'container-lang dark'}
+          className={
+            isMenuOpen ? 'container-lang light' : 'container-lang dark'
+          }
         >
           <button className="btn-language active">En</button>
           <button className="btn-language">عربي</button>
@@ -139,7 +141,29 @@ const Nav = () => {
 
         <footer className="menu-footer">
           <nav className="footer-nav">
-            <ul>
+            <div>
+              <a href="https://civicdatadesignlab.mit.edu/" target="_blank">
+                <img id="CDDL-Logo" src="/CDDL Logo.png" />
+              </a>
+              <a href="https://www.futureheritagelab.com/" target="_blank">
+                <img id="FHL-Logo" src="/FHL Logo.png" />
+              </a>
+              <a href="https://sap.mit.edu/" target="_blank">
+                <img id="SAP-Logo" src="/MIT SA+P Logo.png" />
+              </a>
+            </div>
+            <br />
+            Contact us at{' '}
+            <a href="mailto:livingheritage@mit.edu">
+              livingheritage@mit.edu
+            </a>{' '}
+            with any questions or comments about the Living Heritage Atlas |
+            Beirut.
+            <br />
+            <small>
+              &copy; 2022 Living Heritage Atlas 2022. All rights reserved.
+            </small>
+            {/* <ul>
               <li>
                 <a href="#">
                   <i className="fa fa-twitter fa-fw"></i>
@@ -152,7 +176,7 @@ const Nav = () => {
                   Subscribe
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </nav>
         </footer>
       </div>
