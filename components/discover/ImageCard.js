@@ -2,6 +2,25 @@ import React from 'react';
 import Card from '../Card';
 import Workshop from '../Workshop';
 import Archive from '../Archive';
+import { useMediaQuery } from 'react-responsive';
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 650 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
+
 
 export default class ImageCard extends React.Component {
   constructor(props) {
@@ -17,7 +36,22 @@ export default class ImageCard extends React.Component {
     };
   }
 
-  // TODO: Need to fix slider styling
+
+  componentDidMount() {
+      document.body.style.overflow = "hidden"; // ADD THIS LINE
+      document.body.style.height = "100%"; // ADD THIS LINE
+      document.body.style.position='fixed';
+  }
+
+
+
+    componentWillUnmount() {
+      document.body.style.overflow = "auto"; // ADD THIS LINE
+        document.body.style.height = "auto"; // ADD THIS LINE
+         document.body.style.position='auto';
+  }
+
+    // TODO: Need to fix slider styling
   showImages() {
     const imageMeta = this.props.imageMeta;
     const workshop = this.props.workshop;
@@ -52,25 +86,109 @@ export default class ImageCard extends React.Component {
     const { object, onClose, type, imageMetas, similarWorkshops } = this.props;
 
     return (
-      <Card handleClose={onClose}>
-        <div className="card__content">
+        <>
+
+        <Desktop>
+          <Card handleClose={onClose}>
+
           {type === 'workshop' ? (
+            <div className="fixed object-card">
             <Workshop
               workshop={object}
               imageMetas={imageMetas}
               // imageSrc={null}
               similarWorkshops={similarWorkshops}
+              handleClose={onClose}
             />
+              </div>
+
           ) : (
+              <div className="fixed object-card-archive">
+
             <Archive
               archive={object}
               imageMetas={imageMetas}
               // imageSrc={thumbnailSrc}
               similarArchives={similarWorkshops}
+              handleClose={onClose}
             />
+              </div>
+
           )}
-        </div>
+
       </Card>
+          </Desktop>
+
+          <Tablet>
+          <Card handleClose={onClose}>
+
+          {type === 'workshop' ? (
+            <div className="fixed object-card slide-up">
+            <Workshop
+              workshop={object}
+              imageMetas={imageMetas}
+              // imageSrc={null}
+              similarWorkshops={similarWorkshops}
+              handleClose={onClose}
+            />
+              </div>
+
+          ) : (
+              <div className="fixed object-card-archive slide-up">
+
+            <Archive
+              archive={object}
+              imageMetas={imageMetas}
+              // imageSrc={thumbnailSrc}
+              similarArchives={similarWorkshops}
+              handleClose={onClose}
+            />
+              </div>
+
+          )}
+
+      </Card>
+          </Tablet>
+
+      <Mobile>
+
+        <div className="card ">
+                          <div className="card__cover">
+                            <div className="card__wrapper">
+        {type === 'workshop' ? (
+            <div className="fixed object-card ">
+            <Workshop
+              workshop={object}
+              imageMetas={imageMetas}
+              // imageSrc={null}
+              similarWorkshops={similarWorkshops}
+              handleClose={onClose}
+            />
+              </div>
+
+          ) : (
+              <div className="fixed object-card-archive ">
+
+            <Archive
+              archive={object}
+              imageMetas={imageMetas}
+              // imageSrc={thumbnailSrc}
+              similarArchives={similarWorkshops}
+              handleClose={onClose}
+            />
+              </div>
+
+          )}
+                            </div>
+                          </div>
+        </div>
+
+      </Mobile>
+
+
+      </>
+
+
     );
   }
 }

@@ -4,7 +4,7 @@ const About = () => {
   return (
     <>
       <Head>
-        <title>About | Intangible Heritage Atlas</title>
+        <title>About | Living Heritage Atlas</title>
       </Head>
       <div className="container">
         <div className="title-card">

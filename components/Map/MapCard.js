@@ -324,7 +324,7 @@ export default class MapCard extends React.Component {
             if (object.thumb_img_id) {
                 return(
 
-                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={this.clickExplore}/>)
+                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={this.clickExplore} onError={this.handleOnError}/>)
 
             } else {
                 return null
@@ -451,8 +451,6 @@ export default class MapCard extends React.Component {
                 </Tablet>
 
                 <Mobile>
-
-
 
                             <div className={'mapCard-drag-container'}>
 

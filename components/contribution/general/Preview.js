@@ -56,28 +56,30 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
 
     // INFO: If this form was for a workshop, show the workshop preview
     if (formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME) {
-      const { workshop, imageMeta, imageData } =
+      const { workshop, imageMeta, imageDataOriginal } =
         convertWorkshopContributionToSchema(formData, formSchema);
       console.debug('Returning workshop to preview:', workshop);
+      console.debug('Returning image to preview:', imageDataOriginal);
       return (
         <Workshop
           workshop={workshop}
           imageMetas={imageMeta && [imageMeta]}
-          imageSrc={imageData?.data}
+          imageSrc={imageDataOriginal?.data}
         />
       );
     }
 
     // INFO: If this form was for an archive, show the archive preview
     if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
-      const { archive, imageMeta, imageData } =
+      const { archive, imageMeta, imageDataOriginal } =
         convertArchiveContributionToSchema(formData, formSchema);
       console.debug('Returning archive to preview:', archive);
+      console.debug('Returning image to preview:', imageDataOriginal);
       return (
         <Archive
           archive={archive}
           imageMetas={imageMeta && [imageMeta]}
-          imageSrc={imageData?.data}
+          imageSrc={imageDataOriginal?.data}
         />
       );
     }
