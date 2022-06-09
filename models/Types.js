@@ -225,8 +225,9 @@
  * about the archival information.
  *
  * @property {string} code - The sticker code
- * @property {string} response_id - The associated archive information ID
- * @property {string} content - The content of the sticker (the story)
+ * @property {string} img_id - The associated image ID
+ * @property {string} caption_EN - The caption of the image (English)
+ * @property {string} caption_AR - The caption of the image (Arabic)
  */
 
 module.exports = {};

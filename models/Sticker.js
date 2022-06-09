@@ -6,10 +6,13 @@ const { Sticker } = require('./Types');
  *
  * @type {Sticker}
  */
+
+
 const StickerSchema = new mongoose.Schema({
   code: String,
-  response_id: String,
-  content: String,
+  img_id: String,
+  caption_EN: String,
+  caption_AR: String,
 });
 
 module.exports =

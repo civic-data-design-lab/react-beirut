@@ -10,6 +10,7 @@ import os
 
 dotenv.load_dotenv()
 
+# Note: Filtering for different columns is not required. Columns matching the names in the schema will be the only ones updated to the database.
 
 def arrayify(
     record,

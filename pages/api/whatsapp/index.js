@@ -1,5 +1,6 @@
 const { MessagingResponse } = require('twilio').twiml;
 const { StatusCodes } = require('http-status-codes');
+import { twiml } from 'twilio';
 import { getStickerData } from '../../../lib/apiUtils';
 import dbConnect from '../../../lib/dbConnect';
 
@@ -28,14 +29,19 @@ Body > raw > json
 
 // Responds to POST request with a test twilio message
 const sendTestMessage = (req, res) => {
-  // Send test message
+  sendMessage(req, res, `This is a test message from /api/whatsapp.`);
+};
+
+const sendMessage = (req, res, body, media) => {
   const twiMLResponse = new MessagingResponse().message();
-  // twiMLResponse.body(`This is a test message from /api/whatsapp.\nYour previous message said: ${req.body.Body}`);
-  twiMLResponse.body(`This is a test message from /api/whatsapp.`);
-  // twiMLResponse.media('https://demo.twilio.com/owl.png');
-  // twiMLResponse.body([...Array(1600)].map(()=>{return 'a'}).join(''));
+  twiMLResponse.body(body);
+  if (media != undefined) {
+    twiMLResponse.media(media);
+  }
   res.setHeader('Content-Type', 'text/xml').send(twiMLResponse.toString());
 };
+
+const HOST_URL = 'https://13a8-18-31-19-194.ngrok.io';
 
 export default async (req, res) => {
   switch (req.method) {
@@ -45,7 +51,7 @@ export default async (req, res) => {
         '\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯\nTWILIO WEBHOOK LOGS\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯'
       );
       // console.debug(req.body);
-      console.debug(req.body);
+      console.debug('Received Message:', req.body);
       const code = req.body.Body;
 
       // Send test message if body of text is "test"
@@ -54,29 +60,53 @@ export default async (req, res) => {
         return;
       }
 
-      const twiMLResponse = new MessagingResponse().message();
+      // INFO: Get and validate the code
+      const [sticker_id, language] = [
+        code.slice(0, 2),
+        code.slice(2, 4).toLowerCase(),
+      ];
+      
+      if (isNaN(sticker_id) || code.length > 4) {
+        sendMessage(
+          req,
+          res,
+          'The code you entered was invalid. Please enter a code with two digits and two letters. Ex: 01EN for English or 01AR for Arabic.'
+        );
+        return;
+      }
+
       const { stickerData, message } = await getStickerData(code);
 
       // INFO: Get sticker data using code or return error if getting sticker data fails.
       if (!stickerData) {
-        twiMLResponse.body(message);
-        res
-          // .status(StatusCodes.NOT_FOUND)
-          .setHeader('Content-Type', 'text/xml')
-          .send(twiMLResponse.toString());
+        sendMessage(req, res, message);
         return;
       }
 
-      // INFO: Create and return a response using the sticker data
-      twiMLResponse.body(stickerData.body);
-      // twiMLResponse.media('https://demo.twilio.com/owl.png');
-      // twiMLResponse.media(
-      //   'https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg'
-      // );
-      console.debug(stickerData.imageSrc);
-      twiMLResponse.media(stickerData.imageSrc);
-      res.setHeader('Content-Type', 'text/xml');
-      res.send(twiMLResponse.toString());
+      // INFO: Get image source from imageMeta (cannot grab file directly because unsure of file extension, ie: jpg, png, etc.)
+      const imageMeta = (
+        await fetch(`${HOST_URL}/api/images/${stickerData.img_id}`).then(
+          (result) => result.json()
+        )
+      )[0];
+      // Change during deployment. Only using localhost because Heroku is not up to date.
+      const temp = imageMeta.src.split('/');
+      const img_src = `${HOST_URL}/api/images/${temp[temp.length - 1]}`;
+
+      let body;
+      if (language == 'en') {
+        body = stickerData.caption_EN;
+      } else if (language == 'ar') {
+        body = stickerData.caption_AR;
+      } else {
+        sendMessage(
+          req,
+          res,
+          `Language code invalid: only English (EN) and Arabic (AR) are accepted. Please enter either ${sticker_id}EN or ${sticker_id}AR.`
+        );
+        return;
+      }
+      sendMessage(req, res, body, img_src);
       return;
 
     //?? If method was not 'POST', the acceptable methods allowed by this resource to post and returns an error.

@@ -22,7 +22,7 @@ metadata associated with the response.
     ```
     python3 scripts/archive_csv_to_json.py <path> <type>
     ```
-   where `<path>` is the path to the CSV file and `<type>` is either `archive` or `sticker`.
+   where `<path>` is the path to the CSV file and `<type>` is either `archive` or `stickers`.
 3. The script will create appropriate JSON files in `scripts/data/tmp`, which
    can then be uploaded to the database using the [upload script](#uploadjs).
 

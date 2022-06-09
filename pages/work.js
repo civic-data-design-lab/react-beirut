@@ -26,7 +26,7 @@ const WorkPage = () => {
             <button className="btn-pill">Download as CSV</button>
             <button className="btn-pill">Download as JSON</button>
           </div>
-          <div>
+          {/* <div>
             <h3>Image Metas</h3>
             <button className="btn-pill">Download as CSV</button>
             <button className="btn-pill">Download as JSON</button>
@@ -34,7 +34,7 @@ const WorkPage = () => {
           <div>
             <h3>Images</h3>
             <button className="btn-pill">Download ZIP Folder</button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

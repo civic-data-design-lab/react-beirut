@@ -5,6 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: csv_to_json test",
+            "type": "python",
+            "request": "launch",
+            "program": "scripts/csv_to_json.py",
+            "args": [
+                "scripts/data/ReAct_Beirut_Craft_Workshops_and_Craftspeople - Stickers_Stories.csv",
+                "stickers"                                                                                                                                                 
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "command": "npm run dev",
             "name": "Debug in development mode",
             "request": "launch",
