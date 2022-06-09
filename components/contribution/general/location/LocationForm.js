@@ -1,6 +1,23 @@
 import InputField from '../InputField';
 import LocationSelect from './LocationSelect';
 import { useState, useEffect } from 'react';
+import { BEIRUT_ZONES } from '../../../../lib/utils';
+
+const sortByStringAttribute = (array, attributeName) => {
+  return array.sort((a, b) => {
+    const nameA = a[attributeName].toUpperCase(); // ignore upper and lowercase
+    const nameB = b[attributeName].toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+
+    // names must be equal
+    return 0;
+  });
+};
 
 const LocationForm = ({
   onUpdate,
@@ -14,24 +31,6 @@ const LocationForm = ({
 
   const page = formSchema.pages.location;
   const fields = page.fields;
-
-  useEffect(() => {
-    console.info('fetching');
-
-    // TODO: For a few seconds, the quarters and sectors don't show up because this fetch is so slow.
-    // TODO: ... so fix this fetch being
-
-    Promise.all([fetch('/api/workshops'), fetch('/api/archive')]).then(
-      ([workshopsResponse, archiveResponse]) => {
-        Promise.all([workshopsResponse.json(), archiveResponse.json()]).then(
-          ([workshopsData, archiveData]) => {
-            setWorkshops(workshopsData.response);
-            setArchive(archiveData.response);
-          }
-        );
-      }
-    );
-  }, []);
 
   const handleUpdate = (data) => {
     const newLocation = { lat: data.lat, lng: data.lng };
@@ -85,101 +84,53 @@ const LocationForm = ({
               onUpdate={onUpdate}
               required={fields.street.required ? true : false}
             />
-            {/* These shouldn't need to load. TODO: Fix loading time. */}
-            {!workshops[0] ? (
-              <>
-                <div className="loader"></div>
-                <p style={{margin: "0 auto"}}>Loading options...</p>
-              </>
-            ) : (
-              <>
-                <InputField
-                  title={fields.quarter.title}
-                  type="select-with-other"
-                  fieldName={fields.quarter.field_name}
-                  key={fields.quarter.field_name}
-                  value={formData[fields.quarter.field_name]}
-                  onUpdate={onUpdate}
-                  required={fields.quarter.required ? true : false}
-                >
-                  {[
-                    ...new Set(
-                      workshops.map((workshop) => {
-                        return workshop.location.adm3;
-                      })
-                    ),
-                  ]
-                    .filter((workshop) => workshop)
-                    .sort()
-                    .map((quarter) => {
-                      return (
-                        <option key={quarter} value={quarter}>
-                          {quarter}
-                        </option>
-                      );
-                    })}
-                  ;
-                </InputField>
-                <InputField
-                  title={fields.sector.title}
-                  type="select-with-other"
-                  fieldName={fields.sector.field_name}
-                  key={fields.sector.field_name}
-                  value={formData[fields.sector.field_name]}
-                  onUpdate={onUpdate}
-                  required={fields.sector.required ? true : false}
-                >
-                  {[
-                    ...new Set(
-                      workshops.map((workshop) => {
-                        return workshop.location.adm4;
-                      })
-                    ),
-                  ]
-                    .filter((workshop) => workshop)
-                    .sort()
-                    .map((sector) => {
-                      return (
-                        <option key={sector} value={sector}>
-                          {sector}
-                        </option>
-                      );
-                    })}
-                  ;
-                </InputField>
-              </>
-            )}
-            {/* {!workshops[0] && <p>Loading options...</p>} */}
-            {/* Reference: https://www.lebanesearabicinstitute.com/areas-beirut/#Sectors_of_Beirut */}
-            {/* <div>
-            <label htmlFor="building-number-ar">
-              Arabic House/Building number
-            </label>
-            <input
-              type="text"
-              name="building-number-ar"
-              id="building-number-ar"
-              value={formData.buildingNumberAr || ''}
-              onChange={(e) => onUpdate({ buildingNumberAr: e.target.value })}
-            />
 
-            <label htmlFor="street-ar">Arabic Street name/number</label>
-            <input
-              type="text"
-              name="street-ar"
-              id="street-ar"
-              value={formData.streetAr || ''}
-              onChange={(e) => onUpdate({ streetAr: e.target.value })}
-            />
-            <label htmlFor="municipality-ar">Arabic Municipality</label>
-            <input
-              type="text"
-              name="municipality-ar"
-              id="municipality-ar"
-              value={formData.municipalityAr || ''}
-              onChange={(e) => onUpdate({ municipalityAr: e.target.value })}
-            />
-          </div> */}
+            {/* TODO: Update quarter/sector automatically with an answer from either. Ie: selecting quarter filters sectors. Selecting sector also selects quarter. */}
+            <InputField
+              title={fields.quarter.title}
+              type="select-with-other"
+              fieldName={fields.quarter.field_name}
+              key={fields.quarter.field_name}
+              value={formData[fields.quarter.field_name]}
+              onUpdate={(newData) => {
+                  onUpdate(newData)
+                }
+              }
+              required={fields.quarter.required ? true : false}
+            >
+              {sortByStringAttribute(BEIRUT_ZONES.quarters, 'EN')
+                .map((quarter) => {
+                  return (
+                    <option key={quarter.EN} value={quarter.EN}>
+                      {quarter.EN}
+                    </option>
+                  );
+                })}
+            </InputField>
+            <InputField
+              title={fields.sector.title}
+              type="select-with-other"
+              fieldName={fields.sector.field_name}
+              key={fields.sector.field_name}
+              value={formData[fields.sector.field_name]}
+              onUpdate={onUpdate}
+              required={fields.sector.required ? true : false}
+            >
+              {sortByStringAttribute(
+                BEIRUT_ZONES.quarters
+                  // Filter if a quarter is selected
+                  .filter((quarter) => formData[fields.quarter.field_name] ? quarter.EN == formData[fields.quarter.field_name] : true)
+                  .map((quarter) => quarter.sectors)
+                  .flat(),
+                'EN'
+              ).map((sector) => {
+                return (
+                  <option key={sector.EN} value={sector.EN}>
+                    {sector.EN}
+                  </option>
+                );
+              })}
+            </InputField>
           </div>
         </div>
         <div className="LocationForm-location-select">

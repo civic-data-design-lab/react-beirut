@@ -39,6 +39,12 @@ const InputField = (props) => {
     ...rest
   } = props;
 
+
+  // Only a single child was given. Convert to array.
+  if (children != undefined) {
+    if (children[0] == undefined) children = [children]
+  }
+
   let validationPattern;
   let errorString;
   const [focused, setFocused] = useState(false);
@@ -160,7 +166,7 @@ const InputField = (props) => {
               value={
                 [
                   null,
-                  ...children[0].map((option) => option.props.value),
+                  ...children.map((option) => option.props.value),
                 ].includes(value)
                   ? value || ''
                   : 'OTHER'
