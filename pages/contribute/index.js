@@ -187,8 +187,8 @@ const Contribute = () => {
                             data gathering activities are still scheduled to happen during
                             participatory mapping workshops in late June and others will
                             continue throughout summer 2022 through our website “Contribute”
-                            tab.
-                            <br/>
+                            tab. </p>
+                        <p>
 
                             The overall goal of our data collection strategy and methodology
                             is to maximes the inclusiveness of our data gathering methods and

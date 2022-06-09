@@ -68,15 +68,13 @@
   justify-content: center;
   align-items: center;
   padding: 12px;
-  gap: 4px;
-  //width: 97px;
-  //height: 48px;
-
   /* off-white */
   background: #FAF8F6;
   /* bronze */
   border: 0.5px solid #471E10;
   border-radius: 2px;
+
+
 }
 
 .cancel-label {
@@ -85,16 +83,10 @@
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
-  /* identical to box height, or 150% */
-
-  display: flex;
-  align-items: center;
-  text-align: center;
-
-  /* bronze */
-
   color: #471E10;
+  margin: 0px;
+
+
 }
 
 .accept-button {
@@ -105,7 +97,7 @@
   justify-content: center;
   align-items: center;
   padding: 12px;
-  gap: 4px;
+  //gap: 4px;
   border-width: 0px;
   //width: 119px;
   //height: 48px;
@@ -124,12 +116,10 @@
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  line-height: 24px;
   /* identical to box height, or 150% */
+  margin: 0px;
 
-  display: flex;
-  align-items: center;
-  text-align: center;
+
 
   /* off-white */
 
