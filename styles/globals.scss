@@ -6,6 +6,7 @@
 @import 'setup/normalize';
 @import 'setup/typography';
 @import 'setup/variables';
+@import '~bootstrap/scss/bootstrap';
 
 // === BASICS ===
 @import 'basics/button';
@@ -38,6 +39,7 @@
 @import 'pages/contribute';
 @import 'pages/discover.scss';
 @import 'pages/explore.scss';
+@import 'pages/download.scss';
 
 *,
 *::before,
