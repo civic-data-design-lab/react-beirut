@@ -206,13 +206,42 @@
  */
 
 /**
- * @typedef {Object} ImageData
+ * @typedef {Object} ImageDataOriginal
  *
- * Defines the image data object. An image data object simply contains the
- * image data in the form of a binary buffer.
+ * Defines the image data original object which contains the
+ * originally uploaded image data in the form of a binary buffer.
+ * Generally, this high quality image is only for downloads and not for website display.
  *
  * @property {string} img_id - The image ID this image is associated with
- * @property {string} filename - The full file name with the extension
+ * @property {string} from_survey - What survey the image is from (e.g. "archival_info")
+ * @property {string} filename - The full file name with the extension (ex: 138936398_1_original.jpg)
+ * @property {Buffer} data
+ *
+ */
+
+/**
+ * @typedef {Object} ImageData
+ *
+ * Defines the image data object which contains the
+ * compressed image data in the form of a binary buffer to be used across the website.
+ *
+ * @property {string} img_id - The image ID this image is associated with
+ * @property {string} from_survey - What survey the image is from (e.g. "archival_info")
+ * @property {string} filename - The full file name with the extension (ex: 138936398_1.jpg)
+ * @property {Buffer} data
+ *
+ */
+
+/**
+ * @typedef {Object} ImageDataThumbnail
+ *
+ * Defines the image data thumbnail object which contains
+ * an even more compressed version of original image data in 
+ * the form of a binary buffer to be used for smaller images across the website.
+ *
+ * @property {string} img_id - The image ID this image is associated with
+ * @property {string} from_survey - What survey the image is from (e.g. "archival_info")
+ * @property {string} filename - The full file name with the extension (ex: 138936398_1_thumbnail.jpg)
  * @property {Buffer} data
  *
  */

@@ -227,14 +227,10 @@ const WorkshopContribution = () => {
 
   const onSubmit = () => {
     // Prepare the form data for submission
-    const { workshop, imageMeta, imageData } =
+    const { workshop, imageMeta, imageDataOriginal } =
       convertWorkshopContributionToSchema(form, formSchema);
 
-    // console.log(workshop);
-    // console.log(imageMeta);
-    // console.log(imageData);
-
-    const data = { workshop, imageMetas: [imageMeta], imageData: [imageData] };
+    const data = { workshop, imageMetas: [imageMeta], imageDataOriginal: [imageDataOriginal] };
 
     console.group('Database Submission');
     console.info('Here is all the data being uploaded to the server:', data);
@@ -308,13 +304,13 @@ const WorkshopContribution = () => {
       <Head>
         {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WP8TMP9M0"></script>
-        <script>
+        {/* <script>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-8WP8TMP9M0');
-        </script>
+        </script> */}
         <title>Workshop Contribution | Intangible Heritage Atlas</title>
       </Head>
       {dialog && (

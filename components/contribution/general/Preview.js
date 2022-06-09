@@ -56,14 +56,15 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
 
     // INFO: If this form was for a workshop, show the workshop preview
     if (formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME) {
-      const { workshop, imageMeta, imageData } =
+      const { workshop, imageMeta, imageDataOriginal } =
         convertWorkshopContributionToSchema(formData, formSchema);
       console.debug('Returning workshop to preview:', workshop);
+      console.debug('Returning image to preview:', imageDataOriginal);
       return (
         <Workshop
           workshop={workshop}
           imageMetas={imageMeta && [imageMeta]}
-          imageSrc={imageData?.data}
+          imageSrc={imageDataOriginal?.data}
         />
       );
     }

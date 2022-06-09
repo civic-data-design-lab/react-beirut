@@ -58,10 +58,10 @@ export default class MiniMap extends React.Component {
                 firstCraft.style.pointerEvents = 'none';
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
-                firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0]]}`;
+                firstCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[0]]}`;
                 firstCraft.style.width = `7.5px`;
                 firstCraft.style.height = `15px`;
-                secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1]]}`
+                secondCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[1]]}`
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
@@ -108,10 +108,10 @@ export default class MiniMap extends React.Component {
                 firstCraft.style.pointerEvents = 'none';
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
-                firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0]]}`;
+                firstCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[0]]}`;
                 firstCraft.style.width = `7.5px`;
                 firstCraft.style.height = `15px`;
-                secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1]]}`
+                secondCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[1]]}`
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
