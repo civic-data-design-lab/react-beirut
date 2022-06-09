@@ -7,6 +7,26 @@ import {
   WORKSHOP_CONTRIBUTION_NAME,
 } from '../../lib/utils';
 
+import { useMediaQuery } from 'react-responsive';
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 650 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
+
+
 const Contribute = () => {
   const router = useRouter();
 
@@ -202,46 +222,63 @@ const Contribute = () => {
       </Head>
       {modal && (
         <Card handleClose={() => setModal(null)}>
-          <div className="card__content">{showModal()}</div>
+          <div className="card__content slide-up">{showModal()}</div>
         </Card>
       )}
-      <div className="Contribute drop-shadow__black">
-        <div className="Contribute-index">
-          <h1>
-            Contribute to the Living Heritage Atlas! <br /> Add a current craft
-            workshop or upload an archival image to the database.
-          </h1>
-          <div className="Contribute-types">
-            <button
-              className="Contribute-type-select "
-              onClick={() => setSelection('archive')}
-              disabled={selection === 'archive'}
+      <div className={'Contribute-container'}>
+          <div className="Contribute drop-shadow__black">
+          <div className={'Contribute-index'}>
+            <div className={'Contribute-landing-text-container'}>
+
+              <div className={'contribute-landing-text-section'}>
+                <h1 className={'Contribute-landing-title'}>Contribute to the Living Heritage Atlas!</h1>
+                <p className={'Contribute-landing-text'}>Add a current craft workshop or upload an archival image to the database.</p>
+                <a className={'Contribute-info-link'} onClick={() => setModal('archive')}>What is this?</a>
+              </div>
+
+            <div className="Contribute-types">
+              <button
+                className="Contribute-type-select "
+                onClick={() => setSelection('archive')}
+                disabled={selection === 'archive'}
+              >
+                <h3>
+                  Add an <b>Archival Image</b>
+                </h3>
+              </button>
+              <div className={'Contribute-landing-divider'}><hr className={'half-hr'}/><p>or</p><hr className={'half-hr'}/></div>
+              <button
+                className="Contribute-type-select"
+                onClick={() => setSelection('workshop')}
+                disabled={selection === 'workshop'}
+              >
+                <h3>
+                  Add a <b>Craft Workshop</b>
+                </h3>
+              </button>
+            </div>
+              <div className={'Contribute-type-submit-container'}>
+                <button
+              className="Contribute-type-submit"
+              disabled={selection === null}
+              onClick={navigateToSelection}
             >
-              <h3>
-                Add an <b>Archival Image</b>
-              </h3>
-              <a onClick={() => setModal('archive')}>What is this?</a>
+              Next
             </button>
-            <button
-              className="Contribute-type-select"
-              onClick={() => setSelection('workshop')}
-              disabled={selection === 'workshop'}
-            >
-              <h3>
-                Add a <b>Craft Workshop</b>
-              </h3>
-              <a onClick={() => setModal('workshop')}>What is this?</a>
-            </button>
+              </div>
+
+              </div>
           </div>
-          <button
-            className="Contribute-type-submit"
-            disabled={selection === null}
-            onClick={navigateToSelection}
-          >
-            Next
-          </button>
+
+            <Desktop>
+              <div className="Contribute-index">
+            <div className={'Contribute-image'}></div>
+          </div>
+            </Desktop>
+
         </div>
       </div>
+
     </>
   );
 };
