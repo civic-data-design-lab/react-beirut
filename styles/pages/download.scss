@@ -1,0 +1,31 @@
+.download-card {
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: $c-black;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    color: $c-primary-mid;
+    cursor: pointer;
+  }
+}
+
+/* Medium devices (large desktops, 1200px and up) */
+@media (min-width: 651px) {
+  .download-card div p,
+  .download-card div ul {
+    max-width: 550px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .download-card div p,
+  .download-card div ul {
+    max-width: 800px;
+  }
+}
