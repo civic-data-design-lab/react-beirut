@@ -23,6 +23,7 @@ const test = () => {
             <SingleImageUpload
               handleUpdateImage={(imageBuffer, extension) => {
                 setImage(imageBuffer);
+                console.log(imageBuffer);
                 // debugger
               }}
               currentImage={image}
