@@ -5,8 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "nodemon-independent-tests": "nodemon testing/test.js",
-    "independent-tests": "node testing/test.js"
+    "nodemon-img-comp-test": "nodemon testing/img-compression/app.js",
+    "img-comp-test": "node testing/img-compression/app.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
