@@ -306,15 +306,6 @@ const WorkshopContribution = () => {
   return (
     <>
       <Head>
-        {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WP8TMP9M0"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-8WP8TMP9M0');
-        </script>
         <title>Workshop Contribution | Intangible Heritage Atlas</title>
       </Head>
       {dialog && (
