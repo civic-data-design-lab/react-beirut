@@ -5,6 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm run nodemon-img-comp-test",
+            "name": "Run img-comp-test independent of main project (nodemon)",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "npm run img-comp-test",
+            "name": "Run img-comp-test independent of main project",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "name": "Python: csv_to_json test",
             "type": "python",
             "request": "launch",
