@@ -1,0 +1,153 @@
+.dialogue-container {
+  min-height: 20vh;
+  min-width: 30vw;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  gap: 10px;
+  background: #FFFFFF;
+  border: 1px solid #404044;
+  border-radius: 4px;
+  position:relative;
+}
+
+.dialogue-title {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 31px;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  color: #262626;
+
+}
+
+.dialogue-content {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #262626;
+}
+
+.card-cover {
+    position: fixed;
+    overflow-y: auto;
+    z-index: 1000000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+
+.cancel-button {
+  box-sizing: border-box;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  gap: 4px;
+  //width: 97px;
+  //height: 48px;
+
+  /* off-white */
+  background: #FAF8F6;
+  /* bronze */
+  border: 0.5px solid #471E10;
+  border-radius: 2px;
+}
+
+.cancel-label {
+  /* action */
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  /* bronze */
+
+  color: #471E10;
+}
+
+.accept-button {
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  gap: 4px;
+  border-width: 0px;
+  //width: 119px;
+  //height: 48px;
+
+  /* bronze */
+
+  background: #471E10;
+  border-radius: 4px;
+
+}
+
+.accept-label {
+  /* action */
+
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  /* off-white */
+
+  color: #FAF8F6;
+}
+
+.dialogue-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding: 16px;
+}
+
+.dialogue-close-btn {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+}
+

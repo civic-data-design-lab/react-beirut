@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Card from '../../components/Card';
+import Dialogue from "../../components/contribution/general/Dialogue";
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import {
@@ -8,6 +9,7 @@ import {
 } from '../../lib/utils';
 
 import { useMediaQuery } from 'react-responsive';
+
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -83,131 +85,170 @@ const Contribute = () => {
     switch (modal) {
       case 'existing-workshop-form':
         return (
-          <>
-            <h2>You have an unsubmitted workshop contribution</h2>
+          <div className={'card-cover'}>
+    <div className={'dialogue-container'}>
 
-            {/* TODO: Show preview here */}
-            {/* <code>{getExistingForms()['workshop']}</code> */}
 
-            <form
-              className="Contribute-existing-form"
-              onSubmit={handleExistingFormSubmit}
-              id="modal-options"
-            >
-              <label htmlFor="modal-options">
-                Would you like to continue with your existing record or discard
-                it?
-              </label>
-              <span className="Contribute-modal-options">
-                <button
-                  type="submit"
-                  name="discard"
-                  className="btn-pill secondary"
-                >
-                  Discard Record
-                </button>
-                <button type="submit" name="continue" className="btn-pill">
-                  Continue Record
-                </button>
-              </span>
-            </form>
-          </>
-        );
+        <div className={'dialogue-title'}>You have an unsubmitted workshop contribution</div>
+        <button className={'close-card-btn dialogue-close-btn'} onClick={() => setModal(null)}>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#404044"/>
+            </svg>
+        </button>
+
+        <form
+            className="Contribute-existing-form"
+            onSubmit={handleExistingFormSubmit}
+            id="modal-options"
+        >
+          <label htmlFor="modal-options" className={'dialogue-content'}>
+            Would you like to continue with your existing record or discard it?
+          </label>
+          <span className="dialogue-buttons">
+            <button
+                type="submit"
+                name="discard"
+                className="cancel-button">
+              <p className={'cancel-label'}>Discard Record</p>
+            </button>
+            <button
+                type="submit"
+                name="continue"
+                className="accept-button">
+              <p className={'accept-label'}> Continue Record </p>
+            </button>
+          </span>
+        </form>
+    </div>
+</div>
+
+
+
+ );
 
       case 'existing-archive-form':
         return (
-          <>
-            <h2>You have an unsubmitted archive contribution</h2>
+          <div className={'card-cover'}>
+    <div className={'dialogue-container'}>
 
-            {/* TODO: Show preview here */}
-            {/* <code>{getExistingForms()['workshop']}</code> */}
 
-            <form
-              className="Contribute-existing-form"
-              onSubmit={handleExistingFormSubmit}
-              id="modal-options"
-            >
-              <label htmlFor="modal-options">
-                Would you like to continue with your existing record or discard
-                it?
-              </label>
-              <span className="Contribute-modal-options">
-                <button
-                  type="submit"
-                  name="discard"
-                  className="btn-pill secondary"
-                >
-                  Discard Record
-                </button>
-                <button type="submit" name="continue" className="btn-pill">
-                  Continue Record
-                </button>
-              </span>
-            </form>
-          </>
+        <div className={'dialogue-title'}>You have an unsubmitted archive contribution</div>
+        <button className={'close-card-btn dialogue-close-btn'} onClick={() => setModal(null)}>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#404044"/>
+            </svg>
+        </button>
+
+        <form
+            className="Contribute-existing-form"
+            onSubmit={handleExistingFormSubmit}
+            id="modal-options"
+        >
+          <label htmlFor="modal-options" className={'dialogue-content'}>
+            Would you like to continue with your existing record or discard it?
+          </label>
+          <div className="dialogue-buttons">
+            <button
+                type="submit"
+                name="discard"
+                className="cancel-button">
+              <p className={'cancel-label'}>Discard Record</p>
+            </button>
+            <button
+                type="submit"
+                name="continue"
+                className="accept-button">
+              <p className={'accept-label'}> Continue Record </p>
+            </button>
+          </div>
+        </form>
+    </div>
+</div>
         );
       case 'workshop':
         return (
           <>
-            {/* TODO: Update this */}
-            <h2>
-              <b>About</b> | Ongoing Workshop Data Collection
-            </h2>
-            <p>
-              The research team of the “Intangible Heritage Atlas | Crafts” has
-              conducted multiple data collections initiatives through
-              interviews, desk-research, archival research and surveys. Some
-              data gathering activities are still scheduled to happen during
-              participatory mapping workshops in late June and others will
-              continue throughout summer 2022 through our website “Contribute”
-              tab.
-            </p>
-            <br />
-            <p>
-              The overall goal of our data collection strategy and methodology
-              is to maximes the inclusiveness of our data gathering methods and
-              sources. More specifically, the data collected by our team
-              includes both oral stories, persona photos from craftspeople
-              workshops but also visual material collected from libraries and
-              private collections. In light of this unique patchwork of data,
-              our team strongly believe that the “Intangible Heritage Atlas |
-              Crafts” has the potential to enrich the narrative on craftsmanship
-              in the city of Beirut and shed light onto those cultural practices
-              that do not usually make it to relevant policy decisions and
-              documents.
-            </p>
+
+              <div className={'card-cover'}>
+                <div className={'dialogue-container'}>
+
+
+                    <div className={'dialogue-title'}> About | Ongoing Workshop Data Collection</div>
+                    <button className={'close-card-btn dialogue-close-btn'} onClick={() => setModal(null)}>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#404044"/>
+                        </svg>
+                    </button>
+
+                    <div className={'dialogue-content'}>
+                        <p> The research team of the “Intangible Heritage Atlas | Crafts” has
+                            conducted multiple data collections initiatives through
+                            interviews, desk-research, archival research and surveys. Some
+                            data gathering activities are still scheduled to happen during
+                            participatory mapping workshops in late June and others will
+                            continue throughout summer 2022 through our website “Contribute”
+                            tab.
+                            <br/>
+
+                            The overall goal of our data collection strategy and methodology
+                            is to maximes the inclusiveness of our data gathering methods and
+                            sources. More specifically, the data collected by our team
+                            includes both oral stories, persona photos from craftspeople
+                            workshops but also visual material collected from libraries and
+                            private collections. In light of this unique patchwork of data,
+                            our team strongly believe that the “Intangible Heritage Atlas |
+                            Crafts” has the potential to enrich the narrative on craftsmanship
+                            in the city of Beirut and shed light onto those cultural practices
+                            that do not usually make it to relevant policy decisions and
+                            documents.
+                        </p>
+                    </div>
+                </div>
+              </div>
           </>
+
         );
       case 'archive':
         return (
           <>
-            {/* TODO: Update this */}
-            <h2>
-              <b>About</b> | Ongoing Archival Information Collection
-            </h2>
-            <p>
-              The research team of the “Intangible Heritage Atlas | Crafts” has
-              conducted multiple data collections initiatives through
-              interviews, desk-research, archival research and surveys. Some
-              data gathering activities are still scheduled to happen during
-              participatory mapping workshops in late June and others will
-              continue throughout summer 2022 through our website “Contribute”
-              tab.
-            </p>
-            <br />
-            <p>
-              The overall goal of our data collection strategy and methodology
-              is to maximes the inclusiveness of our data gathering methods and
-              sources. More specifically, the data collected by our team
-              includes both oral stories, persona photos from craftspeople
-              workshops but also visual material collected from libraries and
-              private collections. In light of this unique patchwork of data,
-              our team strongly believe that the “Intangible Heritage Atlas |
-              Crafts” has the potential to enrich the narrative on craftsmanship
-              in the city of Beirut and shed light onto those cultural practices
-              that do not usually make it to relevant policy decisions and
-              documents.
-            </p>
+
+              <div className={'card-cover'}>
+                <div className={'dialogue-container'}>
+
+
+                    <div className={'dialogue-title'}> About | Ongoing Workshop Data Collection</div>
+                    <button className={'close-card-btn dialogue-close-btn'} onClick={() => setModal(null)}>
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#404044"/>
+                        </svg>
+                    </button>
+                    <hr/>
+
+                    <div className={'dialogue-content'}>
+                        <p> The research team of the “Intangible Heritage Atlas | Crafts” has
+                            conducted multiple data collections initiatives through
+                            interviews, desk-research, archival research and surveys. Some
+                            data gathering activities are still scheduled to happen during
+                            participatory mapping workshops in late June and others will
+                            continue throughout summer 2022 through our website “Contribute”
+                            tab.
+                            <br/>
+
+                            The overall goal of our data collection strategy and methodology
+                            is to maximes the inclusiveness of our data gathering methods and
+                            sources. More specifically, the data collected by our team
+                            includes both oral stories, persona photos from craftspeople
+                            workshops but also visual material collected from libraries and
+                            private collections. In light of this unique patchwork of data,
+                            our team strongly believe that the “Intangible Heritage Atlas |
+                            Crafts” has the potential to enrich the narrative on craftsmanship
+                            in the city of Beirut and shed light onto those cultural practices
+                            that do not usually make it to relevant policy decisions and
+                            documents.
+                        </p>
+                    </div>
+                </div>
+              </div>
           </>
         );
       default:
@@ -219,21 +260,12 @@ const Contribute = () => {
     <>
       <Head>
         {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WP8TMP9M0"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
 
-          gtag('config', 'G-8WP8TMP9M0');
-        </script>
         <title>Contribute | Intangible Heritage Atlas</title>
       </Head>
-      {modal && (
-        <Card handleClose={() => setModal(null)}>
-          <div className="card__content slide-up">{showModal()}</div>
-        </Card>
-      )}
+
+
+      {modal && showModal()}
       <div className={'Contribute-container'}>
           <div className="Contribute drop-shadow__black">
           <div className={'Contribute-index'}>
