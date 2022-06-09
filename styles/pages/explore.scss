@@ -1,4 +1,4 @@
-#map {
+.exploreMap {
   position: absolute;
   left: 0;
   right:0;
@@ -43,6 +43,10 @@
 
 .hoverMarker--cuisine {
   box-shadow: 0 0 0 7px $c-cuisine
+}
+
+.hoverMarker--white {
+  box-shadow: 0 0 0 5px $c-white
 }
 
 
@@ -172,6 +176,9 @@
   border-radius: 20px;
   border-width: 0px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  //flex-grow: 1;
+  //width: 100%;
 }
 
 .view-map-label {
@@ -203,12 +210,15 @@
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
 }
 
-.zoom-in-btn {
 
+
+.slidingCard-container {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
 }
 
-.zoom-out-btn {
-
+.slidingCard-container::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
 }
 
 

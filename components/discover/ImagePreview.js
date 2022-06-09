@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import ImageFilter from "react-image-filter";
 
-const ImagePreview = ({ workshop, thumbnailSrc }) => {
+const ImagePreview = ({ workshop, thumbnailSrc, grayscale }) => {
   const imgSrc = workshop.thumb_img_id
     ? `/api/images/${workshop.thumb_img_id}.jpg`
     : thumbnailSrc || null;
@@ -33,10 +33,16 @@ const ImagePreview = ({ workshop, thumbnailSrc }) => {
             <Link href="/discover/[id]" as={`/discover/${workshop.ID}`} scroll={false}>
               {/* <img src={imgSrc} alt={imgAlt} style={{filter: "url(#architectural)"}}/> */}
               {/* <div className="img architectural" style={{backgroundImage: "url(" + imgSrc + ")"}}></div> */}
+
+              {grayscale ?
+              <ImageFilter image={imgSrc} filter={'grayscale'}/> :
               <ImageFilter image={imgSrc} filter={"duotone"} preserveAspectRatio="cover"
                 colorOne={imgDuotone.one}
                 colorTwo={imgDuotone.two}
-              />
+              />}
+
+
+
             </Link>
             <div className="overlay">
               <div className="shop-info">

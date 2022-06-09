@@ -48,6 +48,7 @@
     justify-content: space-between;
     align-items: center;
 
+
     @media (max-width: 820px) {
       height: auto;
       flex-direction: row;
@@ -84,6 +85,10 @@
 
 
 
+
+
+
+
 .close-card-btn :focus {
   outline: none;
 }
@@ -98,12 +103,21 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
 }
 
 .card-section {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  width: 100%;
+}
+
+.card-section-centered {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
 }
 
 .closeIcon {

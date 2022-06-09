@@ -22,19 +22,27 @@ const ImageFeed = ({ objects, imageFilterData }) => {
         const end = imageFilterData['filteredEndYear'];
         let withinInterval = null;
 
-        if (object.year_established == null) {
-            if (start <= 2010 && end >= 2010 ) {
+        if (!object.year_established && !object.primary_year && !object.primary_decade) {
+            withinInterval = false;
+        } else if (object.year_established) {
+            if (start <= object.year_established && object.year_established<-end) {
                 withinInterval = true;
-            } else {
-                withinInterval = false;
+            } else if (!object.primary_decade && !object.primary_year) {
+                if (start <= 2010 && end >= 2010 ) {
+                    withinInterval = true;
+                } else {
+                    withinInterval = false;
+                }
             }
-        } else {
-            if (start <= object.year_established && object.year_established <= end) {
+        } else if (object.primary_decade || object.primary_year) {
+            if ((start <= object.primary_year || start <= object.primary_decade[0]) &&
+                (object.primary_year <= end || start<object.primary_year <= end)) {
                 withinInterval = true;
             } else {
-                withinInterval = false;
+                withinInterval = false
             }
         }
+
 
         if ((indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
             if (imageFilterData['filteredToggleStatus'] && object.shop_status!=="open") {
@@ -57,7 +65,7 @@ const ImageFeed = ({ objects, imageFilterData }) => {
           (object) =>
             filter(object) &&  (
               <div className="image-container" key={object.ID}>
-                <ImagePreview workshop={object}/>
+                <ImagePreview workshop={object} grayscale={false}/>
               </div>
             )
         )}

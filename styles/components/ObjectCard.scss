@@ -1,0 +1,358 @@
+//// DISCOVER WORKSHOP & ARCHIVE CARD
+.object-card {
+
+  //min-width: 100vw;
+  width:100%;
+  height: 90vh;
+  padding: 2vw;
+
+  position: absolute;
+  left: 0;
+  //bottom:0px;
+  top: 10vh;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: $c-white-off;
+  border-radius: 20px 20px 0px 0px;
+  transition: all 0.3s ease;
+
+
+  @media screen and (min-width: 688px) and (max-width: 991px)  {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 160vh;
+    top:10vh;}
+
+  @media screen and (max-width: 688px) {
+    height:140vh;
+    width: 100%;
+    background-color: $c-white-off;
+    z-index: 200;
+    position: absolute;
+    bottom:0px;
+    top:0px;
+    border-radius: 0px 0px 0px 0px;
+    padding:0px;
+    font-size: 0px;
+
+  }
+}
+
+.object-mobile-heading {
+  top:0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 24px;
+  border-bottom: 1px solid #CFCFCF;
+  z-index: 300;
+  background-color: $c-white-off;
+  box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
+  height: 12vh;
+
+}
+
+.object-mobile-title {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 18px;
+  color: #333333;
+}
+
+.object-mobile-subtitle {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #AEAEAE;
+}
+
+.object-card-archive {
+
+  //min-width: 100vw;
+  width:100%;
+  height: 90vh;
+  padding: 2vw;
+
+  position: absolute;
+  left: 0;
+  //bottom:0px;
+  top: 10vh;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: $c-white-off;
+  border-radius: 20px 20px 0px 0px;
+  transition: all 0.3s ease;
+
+  @media screen and (min-width: 688px) and (max-width: 991px)  {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 110vh;
+    top:10vh;}
+
+  @media screen and (max-width: 688px) {
+    height:120vh;
+    width: 100%;
+    background-color: $c-white-off;
+    z-index: 200;
+    position: absolute;
+    bottom:0px;
+    top:0px;
+    border-radius: 0px 0px 0px 0px;
+    padding:0px;
+    font-size: 0px;
+
+
+  }
+
+
+
+}
+
+
+
+.object-slider-section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  bottom:0px;
+}
+
+.object-slider-section-tablet {
+  position: relative;
+  width: 92vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //aspect-ratio: 1/1;
+  margin-top: 16px;
+  height:92vw;
+
+  @media screen and (max-width: 688px) {
+    width: 100vw;
+    height: 100vw;
+    padding: 0px;
+    //margin: 0px;
+    margin-top: 0px;
+    font-size: 0px;
+
+  }
+
+}
+
+.object-name {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 40px;
+  color: $c-primary-dark;
+}
+
+.object-subtitle {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 18px;
+  color: $c-primary-dark;
+}
+
+.object-caption {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 18px;
+  color: $c-primary-dark;
+  @media screen and (max-width: 688px) {
+    color: $c-black;
+  }
+}
+
+.object-img {
+  border-radius: 0px;
+  @media screen and (max-width: 688px) {
+    margin:0px;
+    padding: 0px;
+  }
+}
+
+.objectSlider-img {
+  border-radius: 0px;
+  @media screen and (max-width: 688px) {
+    margin:0px;
+    padding: 0px;
+    border-radius: 0px 0px 0px 0px;
+  }
+
+}
+
+.popup-section {
+  height: 100%;
+  //width:45vw;
+  //flex: 1 1 0;
+  flex: 1;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media screen and (max-width: 688px) {
+    padding:0px;
+    justify-content: flex-start;
+    font-size: 0px;
+  }
+
+}
+
+.archival-card-section {
+  justify-content: flex-end;
+  row-gap: 24px;
+}
+
+.object-mobile-section {
+  padding: 12px 24px;
+  margin: 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+
+
+.object-title-section {
+  @media screen and (min-width: 688px) and (max-width: 991px) {
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+
+}
+
+.object-text-section {
+  height: 30%;
+  text-align: left;
+}
+
+.object-map-section {
+  height: 40%;
+  @media screen and (min-width: 688px) and (max-width: 991px) {
+    height: 40vh;
+    padding-top: 4vh;
+  }
+  @media screen and (max-width: 688px) {
+    height: 36vh;
+  }
+}
+
+
+
+.object-suggestion-container {
+  height: 90%;
+  overflow: clip;
+}
+
+.object-mobile-close {
+  position: absolute;
+  top:0px;
+  height: 12vh;
+  padding: 24px;
+  z-index: 400;
+  width: 12vh;
+
+}
+
+
+.object-suggestion-section {
+  width: 100%;
+  position: relative;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (min-width: 688px) and (max-width: 991px) {
+    height: 20vh;
+    margin-top: 5vh;
+  }
+
+  @media screen and (max-width: 688px) {
+    height: 25vh;
+  }
+
+
+}
+
+.object-suggestion-parent {
+    position: relative;
+    //flex: 1 1;
+    //min-height: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    //bottom: 0px;
+    height: 100%;
+    //padding: 8px;
+
+
+}
+
+.object-img {
+        display: inline-block;
+        //height: 120px;
+        //width: 120px;
+        //margin-right: 10px;
+
+        padding: 4px;
+        object-fit: cover;
+        width: 30%;
+        height: 100%;
+        //aspect-ratio: 1/1;
+
+        border-radius: 10px;
+  @media screen and (max-width: 688px) {
+    //padding: 0px;
+  }
+
+  @media screen and (max-width: 688px) {
+    //padding: 0px;
+    width: 40%;
+  }
+}
+
+
+.miniMap {
+
+  position: relative;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 10px;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+

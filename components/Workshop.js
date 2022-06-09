@@ -4,6 +4,24 @@ import Slider from './Slider';
 import { Workshop as WorkshopType, ImageMeta } from '../models/Types';
 import MiniMap from "./discover/MiniMap";
 import {useEffect, useRef, useState} from "react";
+import { useMediaQuery } from 'react-responsive';
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 688 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 const mainSliderStyle = {
   sliderContainer: 'mapSlider-container',
@@ -28,7 +46,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops}) => {
+const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose}) => {
 
 
   const getImages = () => {
@@ -90,14 +108,14 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops}) => {
 
         if (currentMetaData) {
             if (currentMetaData.caption) {
-                return <p>{currentMetaData.caption}</p>
+                return <p className={'object-caption'}>{currentMetaData.caption}</p>
             } else if (currentMetaData.type.length === 1) {
                 if (viewSet.has(currentMetaData.type[0])) {
-                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} view of {getShopName()}. </p>
+                    return <p className={'object-caption'}>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} view of {getShopName()}. </p>
                 } else if (currentMetaData.type[0] === "crafts" || currentMetaData.type[0] === "craft") {
-                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} produced by {getShopName()}</p>
+                    return <p className={'object-caption'}>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} produced by {getShopName()}</p>
                 } else if (currentMetaData.type[0] === "craftsperson") {
-                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} of {getShopName()}</p>
+                    return <p className={'object-caption'}>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} of {getShopName()}</p>
                 }
             } else if (currentMetaData.type.length === 2) {
                 const craftspersonIndex = currentMetaData.type.indexOf("craftsperson")
@@ -111,18 +129,64 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops}) => {
                     return currentMetaData.type.indexOf(word)>-1
                 })
                 if (craftspersonIndex>-1 && storefrontIndex>-1) {
-                    return <p>Craftsperson in front of {getShopName()}.</p>
+                    return <p className={'object-caption'}>Craftsperson in front of {getShopName()}.</p>
                 } else if (craftspersonIndex>-1 && indoorMap.indexOf(true)>-1) {
-                    return <p>Craftsperson inside {getShopName()}.</p>
+                    return <p className={'object-caption'}>Craftsperson inside {getShopName()}.</p>
                 } else if (craftMap.indexOf(true)>-1 && indoorMap.indexOf(true)>-1) {
-                    return <p>Crafts produced in {getShopName()}.</p>
+                    return <p className={'object-caption'}>Crafts produced in {getShopName()}.</p>
                 } else if (craftMap.indexOf(true)>-1 && currentMetaData.type.indexOf('storefront')>-1) {
-                    return <p>Crafts displayed in storefront of {getShopName()}.</p>
+                    return <p className={'object-caption'}>Crafts displayed in storefront of {getShopName()}.</p>
                 }
 
             }
         }
     }
+
+
+  const getSubtitle = () => {
+        let craftsList = []
+        let otherList = []
+        workshop.craft_discipline.forEach(craft =>
+            {
+            if (craft.toUpperCase() === "OTHER") {
+                if (workshop.craft_discipline_other) {
+                    const other = workshop.craft_discipline_other.charAt(0).toUpperCase() + workshop.craft_discipline_other.slice(1).toLowerCase()
+                    if (craftsList.indexOf(other) < 0) {
+                        otherList.push(workshop.craft_discipline_other.toLowerCase())
+                        if (craftsList.length < 1) {
+                            craftsList.push(other)
+                        } else {
+                            craftsList.push(" | " + other)
+                        }
+                    }
+                }
+            } else {
+                if (craftsList.length<1) {
+                    craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                } else {
+                    //console.log("subtitle debug ", craftsList, otherList, craft.toLowerCase())
+                    //console.log(otherList.indexOf(craft.toLowerCase()))
+                    if (otherList.indexOf(craft.toLowerCase())<0)
+                    craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                }
+            }
+        }
+        )
+        return craftsList
+ }
+
+ const getDecadeEstablished = () => {
+        if (!workshop.decade_established) {
+            return null
+        }
+        //console.log(this.props.type)
+
+        if (workshop.decade_established[0]) {
+            return `Since ${workshop.decade_established[0]} | `
+        } else {
+                return null
+            }
+        }
 
 
 
@@ -134,13 +198,14 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops}) => {
       return (
         <img
           key={image.img_id}
-          className="mapCard-img"
+          className="mapCard-img objectSlider-img"
           style={{
             width: '100%',
             height: '100%',
             marginRight: '10px',
             objectFit: 'cover',
             scrollSnapAlign: 'center',
+            borderRadius: '0px'
           }}
           src={imageSrc || image.src}
           alt=""
@@ -151,52 +216,151 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops}) => {
 
   return (
     <>
-      <div className="card__item">
-        <div className="container__preview-content">
-          {imageMetas?.length > 0 && (
-            <MapCardSlider
-              handleScroll={onScroll}
-              children={showImages()}
-              sliderStyle={mainSliderStyle}
-            />
-          )}
-        </div>
-      </div>
-      <div className="card__item">
-        <div className="container__preview-content">
-          <div className="container__text">
-            <div className="container__title">
-              <h1>
-                {workshop.shop_name.content || workshop.shop_name.content_orig}
-              </h1>
-              <p className="type">
-                {workshop.craft_discipline_category.join(' | ')}
-              </p>
+
+        <Desktop>
+
+            <div className={'popup-section'}>
+                <div className={'object-slider-section'}>
+                {imageMetas?.length > 0 && (
+                    <MapCardSlider
+                        handleScroll={onScroll}
+                        children={showImages()}
+                        sliderStyle={mainSliderStyle}
+                    />
+                )}
             </div>
-            <div>
-                {getCaption()}
             </div>
-          </div>
-          <div className="container__map">
-             <p>See it on map</p>
-            <div className="map">
-              <MiniMap workshop={workshop} type={'workshop'}/>
+
+            <div className={'popup-section'}>
+                <div className={'object-title-section'}>
+                        <h1 className={'object-name'}>{getShopName()}</h1>
+                        <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
+                        <br/>
+                        <p className={'object-caption'}>{getCaption()}</p>
+                </div>
+
+
+                <div className={'object-map-section'}>
+                    <p className={'object-caption'}>Locate this craft workshop on the map </p>
+                        <MiniMap workshop={workshop} type={'workshop'}/>
+                </div>
+
+                <div className={"object-suggestion-section"}>
+                    <p className={'object-caption'}>
+                        Discover similar craft workshops
+                    </p>
+                    <div className={'object-suggestion-container'}>
+                    <div className={'object-suggestion-parent'}>
+                        <Slider>
+                      {similarWorkshops?.map((shop) => (
+                        <div key={shop.ID} className="object-img">
+                          <ImagePreview workshop={shop} grayscale={true} />
+                        </div>
+                      ))}
+                    </Slider>
+                    </div>
+                        </div>
+                </div>
             </div>
-          </div>
-          <div className="container__suggestion">
-            <p>Explore similar shops</p>
-            <div className="parent">
-              <Slider>
-                {similarWorkshops?.map((shop) => (
-                  <div key={shop.ID} className="container__img">
-                    <ImagePreview workshop={shop} />
-                  </div>
-                ))}
-              </Slider>
+        </Desktop>
+
+        <Tablet>
+            <div className={'popup-section'}>
+                <div className={'object-title-section'}>
+                <h1 className={'object-name'}>{getShopName()}</h1>
+                <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
+                <br/>
+                <p className={'object-caption'}>{getCaption()}</p>
+                </div>
+
+                <div className={'object-slider-section-tablet'}>
+                {imageMetas?.length > 0 && (
+                    <MapCardSlider
+                        handleScroll={onScroll}
+                        children={showImages()}
+                        sliderStyle={mainSliderStyle}
+                    />
+                )}
             </div>
-          </div>
-        </div>
-      </div>
+            <div className={'object-map-section'}>
+                    <p className={'object-caption'}>Locate this craft workshop on the map </p>
+                        <MiniMap workshop={workshop} type={'workshop'}/>
+            </div>
+            <div className={"object-suggestion-section"}>
+                    <p className={'object-caption'}>
+                        Discover similar craft workshops
+                    </p>
+                    <div className={'object-suggestion-container'}>
+                    <div className={'object-suggestion-parent'}>
+                        <Slider>
+                      {similarWorkshops?.map((shop) => (
+                        <div key={shop.ID} className="object-img">
+                          <ImagePreview workshop={shop} grayscale={true} />
+                        </div>
+                      ))}
+                    </Slider>
+                    </div>
+                        </div>
+                </div>
+            </div>
+        </Tablet>
+
+        <Mobile>
+            <div className={'popup-section'}>
+                <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300}}>
+                <button className={'close-card-btn object-mobile-close'} onClick={handleClose}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z" fill="#333333"/>
+                    </svg>
+                </button>
+                <div className={'object-mobile-heading'}>
+                    <p className={'object-mobile-title'}>{getShopName()}</p>
+                    <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
+                </div>
+                </div>
+
+                <div className={'object-slider-section-tablet'}>
+                {imageMetas?.length > 0 && (
+                    <MapCardSlider
+                        handleScroll={onScroll}
+                        children={showImages()}
+                        sliderStyle={mainSliderStyle}
+                    />
+                )}
+            </div>
+                <div className={'object-mobile-section'}>
+                    <p>{getCaption()}</p>
+                </div>
+
+                <div className={'object-mobile-section object-map-section'}>
+                    <p className={'card-section-labels'}>Locate this craft workshop on the map </p>
+                        <MiniMap workshop={workshop} type={'workshop'}/>
+                </div>
+
+                <div className={'object-mobile-section object-suggestion-section'}>
+                    <p className={'card-section-labels'}>
+                        Discover similar craft workshops
+                    </p>
+                    <div className={'object-suggestion-container'}>
+                    <div className={'object-suggestion-parent'}>
+                        <Slider>
+                      {similarWorkshops?.map((shop) => (
+                        <div key={shop.ID} className="object-img">
+                          <ImagePreview workshop={shop} grayscale={true} />
+                        </div>
+                      ))}
+                    </Slider>
+                    </div>
+                        </div>
+                </div>
+            </div>
+        </Mobile>
+
+
+
+
+
+
     </>
   );
 };
