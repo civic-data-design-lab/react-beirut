@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-const WorkPage = () => {
+const DownloadPage = () => {
   return (
     <>
       <Head>
@@ -8,46 +8,37 @@ const WorkPage = () => {
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WP8TMP9M0"></script>
         <script>
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
+          function gtag(){dataLayer.push(arguments)}
           gtag('js', new Date());
 
           gtag('config', 'G-8WP8TMP9M0');
         </script>
-        <title>Work | Intangible Heritage Atlas</title>
+        <title>Download | Living Heritage Atlas</title>
       </Head>
 
       <div className="container">
         <div className="title-card">
           <div className="text-container">
-            <h1>Work</h1>
-            <p>Work with our data.</p>
+            <h1>Download</h1>
+            <p>Download data from the Living Heritage Atlas.</p>
           </div>
         </div>
         <hr />
         <div className="container">
           <div>
-            <h3>Workshops Information</h3>
+            <h3>Craft Workshop Data</h3>
             <button className="btn-pill">Download as CSV</button>
             <button className="btn-pill">Download as JSON</button>
           </div>
           <div>
-            <h3>Archives Information</h3>
+            <h3>Archival Information Data</h3>
             <button className="btn-pill">Download as CSV</button>
             <button className="btn-pill">Download as JSON</button>
           </div>
-          {/* <div>
-            <h3>Image Metas</h3>
-            <button className="btn-pill">Download as CSV</button>
-            <button className="btn-pill">Download as JSON</button>
-          </div>
-          <div>
-            <h3>Images</h3>
-            <button className="btn-pill">Download ZIP Folder</button>
-          </div> */}
         </div>
       </div>
     </>
   );
 };
 
-export default WorkPage;
+export default DownloadPage;

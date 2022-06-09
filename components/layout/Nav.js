@@ -108,9 +108,9 @@ const Nav = () => {
               onClick={() => {
                 setIsMenuOpen(false);
               }}
-              className={router.pathname === '/work' ? 'active' : ''}
+              className={router.pathname === '/download' ? 'active' : ''}
             >
-              <Link href="/work">Work</Link>
+              <Link href="/download">Download</Link>
             </li>
             <li
               onClick={() => {
