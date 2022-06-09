@@ -4,7 +4,7 @@ const Index = () => (
       <div className="container__landing">
         <div className="container__title">
           <div className="title">
-            Intangible <br /> Heritage Atlas - Crafts
+            Living <br /> Heritage Atlas - Crafts
           </div>
           <div>The craft heritage of Beirut.</div>
         </div>

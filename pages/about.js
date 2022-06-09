@@ -14,7 +14,7 @@ const About = () => {
           gtag('config', 'G-8WP8TMP9M0');
         </script> */}
         
-        <title>About | Intangible Heritage Atlas</title>
+        <title>About | Living Heritage Atlas</title>
       </Head>
       <div className="container">
         <div className="title-card">

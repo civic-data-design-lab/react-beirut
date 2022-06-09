@@ -311,7 +311,7 @@ const WorkshopContribution = () => {
 
           gtag('config', 'G-8WP8TMP9M0');
         </script> */}
-        <title>Workshop Contribution | Intangible Heritage Atlas</title>
+        <title>Workshop Contribution | Living Heritage Atlas</title>
       </Head>
       {dialog && (
         <Card handleClose={() => setDialog(null)}>
