@@ -4,17 +4,7 @@ const About = () => {
   return (
     <>
       <Head>
-      {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-8WP8TMP9M0"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-8WP8TMP9M0');
-        </script>
-        
-        <title>About | Intangible Heritage Atlas</title>
+        <title>About | Living Heritage Atlas</title>
       </Head>
       <div className="container">
         <div className="title-card">

@@ -259,9 +259,9 @@ const Contribute = () => {
   return (
     <>
       <Head>
-        {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
 
-        <title>Contribute | Intangible Heritage Atlas</title>
+        <title>Contribute | Living Heritage Atlas</title>
+
       </Head>
 
 

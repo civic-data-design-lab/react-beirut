@@ -224,9 +224,9 @@ export default class Explore extends React.Component {
         return (
                 <>
                     <Head>
-                        {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}
 
-                        <title>Map | Intangible Heritage Atlas</title>
+                        <title>Map | Living Heritage Atlas</title>
+
                     </Head>
                     <div className={"explore-page-container"}>
                         <Map mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />

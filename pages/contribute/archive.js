@@ -249,10 +249,10 @@ const ArchiveContribution = () => {
 
   const onSubmit = () => {
     // INFO: Prepare the form data for submission
-    const { archive, imageMeta, imageData } =
+    const { archive, imageMeta, imageDataOriginal } =
       convertArchiveContributionToSchema(form, formSchema);
 
-    const data = { archive, imageMetas: [imageMeta], imageData: [imageData] };
+    const data = { archive, imageMetas: [imageMeta], imageDataOriginal: [imageDataOriginal] };
 
     console.group('Database Submission');
     console.info('Here is all the data being uploaded to the server:', data);
@@ -309,7 +309,8 @@ const ArchiveContribution = () => {
     <>
       <Head>
 
-        <title>Archive Contribution | Intangible Heritage Atlas</title>
+        <title>Archive Contribution | Living Heritage Atlas</title>
+
       </Head>
       {dialog && (
         <Card handleClose={() => setDialog(null)}>
