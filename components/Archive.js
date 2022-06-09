@@ -11,11 +11,11 @@ const Desktop = ({ children }) => {
   return isDesktop ? children : null
 }
 const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
   return isTablet ? children : null
 }
 const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 688 })
+  const isMobile = useMediaQuery({ maxWidth: 650 })
   return isMobile ? children : null
 }
 const Default = ({ children }) => {
@@ -209,7 +209,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
       return (
         <img
           key={image.img_id}
-          className="mapCard-img"
+          className="mapCard-img objectSlider-img"
           style={{
             width: '100%',
             height: '100%',

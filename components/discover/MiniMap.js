@@ -84,7 +84,7 @@ export default class MiniMap extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps !== this.props) {
+        if (prevProps.workshop !== this.props.workshop) {
             if (this.state.marker) {
             this.state.marker.remove()
 

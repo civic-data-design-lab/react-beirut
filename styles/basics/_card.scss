@@ -1,9 +1,15 @@
+
+
 .card {
   text-align: left;
   text-decoration: none;
 
   position: absolute;
   transition: color 0.15s ease, border-color 0.15s ease;
+
+
+
+
 
   .card__cover {
     position: fixed;
@@ -20,6 +26,7 @@
     align-items: center;
     justify-content: center;
     transition: opacity 0.3s ease;
+
   }
 
   .card__wrapper {
@@ -123,4 +130,37 @@
 .closeIcon {
   color: $c-black;
 }
+
+
+.slide-up{
+  -webkit-animation: slide-up 2s forwards;
+    -moz-animation: slide-up 2s forwards;
+    animation: slide-up 2s forwards;
+    @-webkit-keyframes slide-up {
+      0% {
+        top: 100vh;
+      }
+      100% {
+        top: 10vh;
+      }
+    }
+    @-moz-keyframes slide-up {
+      0% {
+        top:100vh;
+      }
+      100% {
+        top: 10vh;
+      }
+    }
+    @keyframes slide-up {
+      0% {
+        top:100vh;
+      }
+      100% {
+        top: 10vh;
+      }
+    }
+}
+
+
 

@@ -9,11 +9,11 @@ const Desktop = ({ children }) => {
   return isDesktop ? children : null
 }
 const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
   return isTablet ? children : null
 }
 const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 688 })
+  const isMobile = useMediaQuery({ maxWidth: 650 })
   return isMobile ? children : null
 }
 const Default = ({ children }) => {
@@ -123,7 +123,7 @@ export default class ImageCard extends React.Component {
           <Card handleClose={onClose}>
 
           {type === 'workshop' ? (
-            <div className="fixed object-card">
+            <div className="fixed object-card slide-up">
             <Workshop
               workshop={object}
               imageMetas={imageMetas}
@@ -134,7 +134,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive">
+              <div className="fixed object-card-archive slide-up">
 
             <Archive
               archive={object}
@@ -152,11 +152,11 @@ export default class ImageCard extends React.Component {
 
       <Mobile>
 
-        <div className="card">
+        <div className="card ">
                           <div className="card__cover">
                             <div className="card__wrapper">
         {type === 'workshop' ? (
-            <div className="fixed object-card">
+            <div className="fixed object-card ">
             <Workshop
               workshop={object}
               imageMetas={imageMetas}
@@ -167,7 +167,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive">
+              <div className="fixed object-card-archive ">
 
             <Archive
               archive={object}

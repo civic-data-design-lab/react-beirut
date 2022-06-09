@@ -11,11 +11,11 @@ const Desktop = ({ children }) => {
   return isDesktop ? children : null
 }
 const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 687, maxWidth: 991 })
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
   return isTablet ? children : null
 }
 const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 688 })
+  const isMobile = useMediaQuery({ maxWidth: 650 })
   return isMobile ? children : null
 }
 const Default = ({ children }) => {
@@ -319,6 +319,8 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 </div>
                 </div>
 
+                <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between"}}>
+
                 <div className={'object-slider-section-tablet'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
@@ -354,6 +356,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         </div>
                 </div>
             </div>
+                </div>
         </Mobile>
 
 
