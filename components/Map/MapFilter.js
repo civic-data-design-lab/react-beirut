@@ -70,7 +70,7 @@ export default class MapFilter extends React.Component {
                                   resetToggle={this.props.resetToggle}/>
                 </div>
                 <hr/>
-                <div className={'reset-section'}>
+                <div className={'card-section-centered'}>
                     <button className={'reset-btn card-labels'} onClick = {this.props.reset}> Reset Filters </button>
                 </div>
             </>
@@ -104,11 +104,14 @@ export default class MapFilter extends React.Component {
                         <div className="card">
                           <div className="card__cover">
                             <div className="card__wrapper">
+
                               <div className="filterCard animateCard">
                                   {this.filterCardContent()}
-                                  <button className={'btn-pill view-map-btn'} onClick={this.props.closeFilter}>
+                                  <div className={'card-section-centered'}>
+                                      <button className={'btn-pill view-map-btn'} onClick={this.props.closeFilter}>
                                       <span className={'view-map-label'}>View Map</span>
-                                  </button>
+                                        </button>
+                                  </div>
                               </div>
                             </div>
                           </div>

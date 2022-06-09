@@ -66,6 +66,7 @@ export default class MiniMap extends React.Component {
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
+
             } else {
                 const craft = this.props.workshop.craft_discipline_category[0];
                 el.style.backgroundColor = this.colorMap[craft];
@@ -76,13 +77,14 @@ export default class MiniMap extends React.Component {
         el.style.height = '10px';
         el.style.backgroundColor = this.colorMap[craft];
         el.style.borderRadius = '50%';
+        el.className = 'hoverMarker--white';
         el.id = this.state.workshop.ID;
         let marker = new mapboxGl.Marker(el).setLngLat(geos).addTo(map.current);
         this.setState({marker:marker})
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps !== this.props) {
+        if (prevProps.workshop !== this.props.workshop) {
             if (this.state.marker) {
             this.state.marker.remove()
 
@@ -127,6 +129,7 @@ export default class MiniMap extends React.Component {
             el.style.backgroundColor = this.colorMap[craft];
             el.style.borderRadius = '50%';
             el.id = this.state.workshop.ID;
+            el.className = 'hoverMarker--white';
 
             let marker = new mapboxGl.Marker(el).setLngLat(geos).addTo(map.current);
             this.setState({marker:marker})
@@ -143,14 +146,7 @@ export default class MiniMap extends React.Component {
                 <div
     ref={this.mapContainer}
     id="map"
-    style={{
-        position: 'relative',
-        top: 0,
-        bottom: 0,
-        width: '100%',
-        height: '100%',
-
-    }}
+    className={'miniMap'}
     />
 
 

@@ -138,11 +138,13 @@ export default class Explore extends React.Component {
                             fetch(`/api/workshops/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
+                                .then(()=>console.log("clicked on ", this.state.workshop))
                             .then(()=> this.setState({coords:[this.state.workshop.location.geo['lng'], this.state.workshop.location.geo['lat']]}))
                         } else {
                             fetch(`/api/archive/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
+                                .then(()=>console.log("clicked on ", this.state.workshop))
                             .then(()=> this.setState({coords:[this.state.workshop.primary_location.geo['lng'], this.state.workshop.primary_location.geo['lat']]}))
                         }
 
