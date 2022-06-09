@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT"
+    "start": "next start -p $PORT",
+    "independent-tests": "nodemon testing/test.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -22,23 +23,26 @@
     "electron-to-chromium": "^1.4.140",
     "headlessui": "^0.0.0",
     "http-status-codes": "^2.2.0",
+    "imagemin": "^8.0.1",
     "mapbox-gl": "^2.8.2",
     "mime": "^3.0.0",
     "mongoose": "^6.0.11",
     "next": "latest",
+    "nodemon": "^2.0.16",
     "prop-types": "^15.8.1",
     "rc-slider": "^10.0.0-alpha.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-draggable": "^4.4.5",
     "react-image-filter": "^0.1.2",
     "react-responsive": "9.0.0-beta.8",
     "react-toastify": "^9.0.1",
     "react-toggle-slider": "^0.4.0",
     "sass": "^1.51.0",
+    "sharp": "^0.30.6",
     "swr": "^1.0.1",
     "twilio": "^3.77.1",
-    "y": "^0.3.2",
-    "react-draggable": "^4.4.5"
+    "y": "^0.3.2"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.17.12",

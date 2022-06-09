@@ -5,6 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "command": "npm run independent-tests",
+            "name": "Run tests independent of main project",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "name": "Python: csv_to_json test",
             "type": "python",
             "request": "launch",
