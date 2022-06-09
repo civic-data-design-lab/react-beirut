@@ -33,7 +33,7 @@ const mainSliderStyle = {
 
 /**
  * This component can be used to display a generic workshop, either on the
- * Discover page or the Explore page, or as the workshop preview in the
+ * Discover page or the Map page, or as the workshop preview in the
  * contribution page.
  *
  * @param {object} props - Props

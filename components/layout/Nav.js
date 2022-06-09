@@ -8,7 +8,7 @@ import { useState, useRef, useEffect } from 'react';
 
 const Nav = () => {
   const router = useRouter();
-  const [isMenu, setIsMenu] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Add drop shadow effect when scrolled to a certain position
   const [isActive, setIsActive] = useState(false);
@@ -40,12 +40,12 @@ const Nav = () => {
 
   const hideBg = () => {
     const path = getPath();
-    if (path === '' || path === 'explore') return true;
+    if (path === '' || path === 'map') return true;
     return false;
   };
 
   const toggleMenu = (isMenu) => {
-    setIsMenu(isMenu);
+    setIsMenuOpen(isMenu);
   };
 
   return (
@@ -53,9 +53,9 @@ const Nav = () => {
       <header
         ref={headerRef}
         id="header"
-        className={`container ${isMenu || hideBg() ? ' hide-background' : ''} ${
-          isActive ? 'active' : ''
-        }`}
+        className={`container ${
+          isMenuOpen || hideBg() ? ' hide-background' : ''
+        } ${isActive ? 'active' : ''}`}
       >
         <Link href="/">
           <a
@@ -65,10 +65,10 @@ const Nav = () => {
           >
             <div className="container-logo">
               <div
-                className={isMenu ? 'logo-icon light' : 'logo-icon dark'}
+                className={isMenuOpen ? 'logo-icon light' : 'logo-icon dark'}
               ></div>
               <img
-                src={isMenu ? '/logo-light.png' : '/logo.png'}
+                src={isMenuOpen ? '/logo-light.png' : '/logo.png'}
                 className="logo-text"
               />
             </div>
@@ -78,33 +78,35 @@ const Nav = () => {
           {getPath() ? '|' : ''} {getPath()}
         </div>
         <div
-          className={isMenu ? 'container-lang light' : 'container-lang dark'}
+          className={
+            isMenuOpen ? 'container-lang light' : 'container-lang dark'
+          }
         >
           <button className="btn-language active">En</button>
           <button className="btn-language">عربي</button>
         </div>
         <button
-          className={isMenu ? 'toggle-menu active' : 'toggle-menu'}
-          onClick={() => toggleMenu(!isMenu)}
+          className={isMenuOpen ? 'toggle-menu active' : 'toggle-menu'}
+          onClick={() => toggleMenu(!isMenuOpen)}
         >
           <span></span>
         </button>
       </header>
 
-      <div id="menu" className={isMenu ? 'container open' : 'container'}>
+      <div id="menu" className={isMenuOpen ? 'open' : ''}>
         <nav className="main-nav">
           <ul>
             <li
               onClick={() => {
-                setIsMenu(false);
+                setIsMenuOpen(false);
               }}
-              className={router.pathname === '/explore' ? 'active' : ''}
+              className={router.pathname === '/map' ? 'active' : ''}
             >
-              <Link href="/explore">Explore</Link>
+              <Link href="/map">Map</Link>
             </li>
             <li
               onClick={() => {
-                setIsMenu(false);
+                setIsMenuOpen(false);
               }}
               className={router.pathname === '/work' ? 'active' : ''}
             >
@@ -112,7 +114,7 @@ const Nav = () => {
             </li>
             <li
               onClick={() => {
-                setIsMenu(false);
+                setIsMenuOpen(false);
               }}
               className={router.pathname === '/discover' ? 'active' : ''}
             >
@@ -120,7 +122,7 @@ const Nav = () => {
             </li>
             <li
               onClick={() => {
-                setIsMenu(false);
+                setIsMenuOpen(false);
               }}
               className={router.pathname === '/contribute' ? 'active' : ''}
             >
@@ -128,7 +130,7 @@ const Nav = () => {
             </li>
             <li
               onClick={() => {
-                setIsMenu(false);
+                setIsMenuOpen(false);
               }}
               className={router.pathname === '/about' ? 'active' : ''}
             >
@@ -139,7 +141,29 @@ const Nav = () => {
 
         <footer className="menu-footer">
           <nav className="footer-nav">
-            <ul>
+            <div>
+              <a href="https://civicdatadesignlab.mit.edu/" target="_blank">
+                <img id="CDDL-Logo" src="/CDDL Logo.png" />
+              </a>
+              <a href="https://www.futureheritagelab.com/" target="_blank">
+                <img id="FHL-Logo" src="/FHL Logo.png" />
+              </a>
+              <a href="https://sap.mit.edu/" target="_blank">
+                <img id="SAP-Logo" src="/MIT SA+P Logo.png" />
+              </a>
+            </div>
+            <br />
+            Contact us at{' '}
+            <a href="mailto:livingheritage@mit.edu">
+              livingheritage@mit.edu
+            </a>{' '}
+            with any questions or comments about the Living Heritage Atlas |
+            Beirut.
+            <br />
+            <small>
+              &copy; 2022 Living Heritage Atlas 2022. All rights reserved.
+            </small>
+            {/* <ul>
               <li>
                 <a href="#">
                   <i className="fa fa-twitter fa-fw"></i>
@@ -152,7 +176,7 @@ const Nav = () => {
                   Subscribe
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </nav>
         </footer>
       </div>

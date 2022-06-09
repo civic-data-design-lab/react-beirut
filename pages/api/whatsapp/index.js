@@ -1,28 +1,114 @@
 const { MessagingResponse } = require('twilio').twiml;
 const { StatusCodes } = require('http-status-codes');
+import { twiml } from 'twilio';
 import { getStickerData } from '../../../lib/apiUtils';
+import dbConnect from '../../../lib/dbConnect';
+
+/*
+POSTMAN TEST RESPONSE
+
+POST to localhost:3000/api/whatsapp
+Body > raw > json
+{
+  "SmsMessageSid": "SMab6c7b45a9e55af39466ff773ffb626f",
+  "NumMedia": "0",
+  "ProfileName": "Gatlen Culp",
+  "SmsSid": "SMab6c7b45a9e55af39466ff773ffb626f",
+  "WaId": "18437540521",
+  "SmsStatus": "received",
+  "Body": "LHA01",
+  "To": "whatsapp:+14155238886",
+  "NumSegments": "1",
+  "ReferralNumMedia": "0",
+  "MessageSid": "SMab6c7b45a9e55af39466ff773ffb626f",
+  "AccountSid": "AC932a15a14dc2feb88c584b6c2dd14750",
+  "From": "whatsapp:+18437540521",
+  "ApiVersion": "2010-04-01"
+}
+*/
+
+// Responds to POST request with a test twilio message
+const sendTestMessage = (req, res) => {
+  sendMessage(req, res, `This is a test message from /api/whatsapp.`);
+};
+
+const sendMessage = (req, res, body, media) => {
+  const twiMLResponse = new MessagingResponse().message();
+  twiMLResponse.body(body);
+  if (media != undefined) {
+    twiMLResponse.media(media);
+  }
+  res.setHeader('Content-Type', 'text/xml').send(twiMLResponse.toString());
+};
+
+const HOST_URL = 'https://13a8-18-31-19-194.ngrok.io';
 
 export default async (req, res) => {
   switch (req.method) {
     case 'POST':
-      console.debug(req.body);
+      await dbConnect();
+      console.debug(
+        '\n\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯\nTWILIO WEBHOOK LOGS\n⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯'
+      );
+      // console.debug(req.body);
+      console.debug('Received Message:', req.body);
       const code = req.body.Body;
 
-      // INFO: Get sticker data using code or return error if getting sticker data fails.
-      const { stickerData, message } = await getStickerData(code);
-      if (!stickerData) {
-        res.status(StatusCodes.NOT_FOUND).send({ message });
+      // Send test message if body of text is "test"
+      if (code == 'test') {
+        sendTestMessage(req, res);
         return;
       }
 
-      // INFO: Create and return a response using the sticker data
-      const twiMLResponse = new MessagingResponse().message();
-      twiMLResponse.body(stickerData.body);
-      twiMLResponse.media(stickerData.imageSrc);
-      res.setHeader('Content-Type', 'text/xml');
-      res.send(twiMLResponse.toString());
+      // INFO: Get and validate the code
+      const [sticker_id, language] = [
+        code.slice(0, 2),
+        code.slice(2, 4).toLowerCase(),
+      ];
+      
+      if (isNaN(sticker_id) || code.length > 4) {
+        sendMessage(
+          req,
+          res,
+          'The code you entered was invalid. Please enter a code with two digits and two letters. Ex: 01EN for English or 01AR for Arabic.'
+        );
+        return;
+      }
+
+      const { stickerData, message } = await getStickerData(code);
+
+      // INFO: Get sticker data using code or return error if getting sticker data fails.
+      if (!stickerData) {
+        sendMessage(req, res, message);
+        return;
+      }
+
+      // INFO: Get image source from imageMeta (cannot grab file directly because unsure of file extension, ie: jpg, png, etc.)
+      const imageMeta = (
+        await fetch(`${HOST_URL}/api/images/${stickerData.img_id}`).then(
+          (result) => result.json()
+        )
+      )[0];
+      // Change during deployment. Only using localhost because Heroku is not up to date.
+      const temp = imageMeta.src.split('/');
+      const img_src = `${HOST_URL}/api/images/${temp[temp.length - 1]}`;
+
+      let body;
+      if (language == 'en') {
+        body = stickerData.caption_EN;
+      } else if (language == 'ar') {
+        body = stickerData.caption_AR;
+      } else {
+        sendMessage(
+          req,
+          res,
+          `Language code invalid: only English (EN) and Arabic (AR) are accepted. Please enter either ${sticker_id}EN or ${sticker_id}AR.`
+        );
+        return;
+      }
+      sendMessage(req, res, body, img_src);
       return;
-    
+
     //?? If method was not 'POST', the acceptable methods allowed by this resource to post and returns an error.
     default:
       res.setHeader('Allow', ['POST']);

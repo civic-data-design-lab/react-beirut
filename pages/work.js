@@ -11,13 +11,31 @@ const WorkPage = () => {
         <div className="title-card">
           <div className="text-container">
             <h1>Work</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis.
-            </p>
+            <p>Work with our data.</p>
           </div>
         </div>
         <hr />
+        <div className="container">
+          <div>
+            <h3>Workshops Information</h3>
+            <button className="btn-pill">Download as CSV</button>
+            <button className="btn-pill">Download as JSON</button>
+          </div>
+          <div>
+            <h3>Archives Information</h3>
+            <button className="btn-pill">Download as CSV</button>
+            <button className="btn-pill">Download as JSON</button>
+          </div>
+          {/* <div>
+            <h3>Image Metas</h3>
+            <button className="btn-pill">Download as CSV</button>
+            <button className="btn-pill">Download as JSON</button>
+          </div>
+          <div>
+            <h3>Images</h3>
+            <button className="btn-pill">Download ZIP Folder</button>
+          </div> */}
+        </div>
       </div>
     </>
   );

@@ -77,6 +77,7 @@ $icon-zindex: 1000;
 }
 
 .btn-pill {
+  margin: 10px 5px;
   background-color: $c-primary-dark;
   text-decoration: none;
   border: 1px solid $c-primary-dark;
@@ -210,6 +211,86 @@ $icon-zindex: 1000;
   //box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
   border-radius: 10px;
 }
+
+.MultipageForm {
+  .hstg-btn-pill-small {
+    /* IsMobile=Off, IsActive=Off */
+  
+  
+  
+  
+    box-sizing: border-box;
+  
+    /* Auto layout */
+  
+    padding: 1px 11px;
+    margin: 3px;
+  
+    /* grey-mid */
+  
+    border: 0.5px solid #CFCFCF;
+    border-radius: 10px;
+  
+    background: #FFFFFF;
+  }
+  
+  
+  
+  
+  .hstg-btn-pill-small:hover {
+  
+    /* IsMobile=Off, IsActive=On */
+  
+    color: #9C6340;
+  
+    box-sizing: border-box;
+  
+    /* Auto layout */
+  
+    padding: 1px 11px;
+    margin: 3px;
+  
+    /* white */
+  
+    background: #FFFFFF;
+    /* orange */
+  
+    border: 0.5px solid #9C6340;
+    /* Btn Shadow Red */
+  
+    box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+    border-radius: 10px;
+  }
+
+  .hstg-btn-pill-small-selected {
+
+    /* IsMobile=Off, IsActive=On */
+  
+    color: #9C6340;
+    font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
+  
+    box-sizing: border-box;
+  
+    /* Auto layout */
+  
+    padding: 1px 11px;
+    margin: 3px;
+  
+    /* white */
+  
+    background: #FFFFFF;
+    /* orange */
+  
+    border: 0.5px solid #9C6340;
+    /* Btn Shadow Red */
+  
+    box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+    border-radius: 10px;
+  
+  }
+}
+
+
 
 .hstg-btn-pill-small--architectural:hover {
   color: $c-architectural;

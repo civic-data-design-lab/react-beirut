@@ -108,7 +108,7 @@ its [`README`](pages/api/README.md).
 
 
 ## Frontend Routes
-### `/explore` 
+### `/map` 
 Contains the map.
 
 ### `/contribute/workshop?page=<page>`

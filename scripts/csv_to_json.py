@@ -10,6 +10,7 @@ import os
 
 dotenv.load_dotenv()
 
+# Note: Filtering for different columns is not required. Columns matching the names in the schema will be the only ones updated to the database.
 
 def arrayify(
     record,
@@ -67,7 +68,8 @@ def main():
     elif datatype == "stickers":
         space_sep_fields = []
 
-    arrayified_df = df.apply(lambda record: arrayify(record, space_sep_fields), axis=1)
+    arrayified_df = df.apply(lambda record: arrayify(
+        record, space_sep_fields), axis=1)
 
     current_time = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 
