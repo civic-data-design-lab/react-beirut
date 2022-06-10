@@ -1,7 +1,7 @@
 
 
 const Dialogue = ({title, content, accept, cancel, acceptText, cancelText,
-                      cancelName, acceptName, handleCancel, handleClose}) => {
+                      handleCancel, handleAccept, handleClose}) => {
 
     return (
         <>

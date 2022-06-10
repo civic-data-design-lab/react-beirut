@@ -20,7 +20,7 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
   };
 
   return (
-    <div className="SingleImageUpload">
+    <div className="SingleImageUpload image-upload-container">
       {/* {currentImage && (
         <button type="button" title='Clear image' onClick={handleClearImage}>
           <FontAwesomeIcon icon={faTrash} />

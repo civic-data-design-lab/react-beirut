@@ -13,8 +13,13 @@ const WorkshopImageForm = ({
 
   return (
     <>
-      <h2>Craft Workshop Image Upload</h2>
-      <div className="WorkshopImageForm">
+        <div className={'form'}>
+            <div className={'form-title'}><h2>Craft Workshop Image Upload</h2></div>
+            <div className={'sections'}>
+
+
+      <div className="WorkshopImageForm section">
+
         <ImageUploadForm
           onUpdate={onUpdate}
           formData={formData}
@@ -25,7 +30,12 @@ const WorkshopImageForm = ({
           captionRequired={fields.caption.required}
         />
       </div>
+
       {/* TODO: Fix this ugly space that is here for whatever reason. */}
+                <div className={'vr'}></div>
+      <div className={'section'}>
+          <div className={'subsection'}>
+              <h3 className={'Contribute-form-section-heading'}>Image Tags</h3>
       <BooleanButtonForm
         onUpdate={
           // (obj) => {
@@ -50,6 +60,10 @@ const WorkshopImageForm = ({
         hasOtherField={true}
         required={fields.image_content.required}
       />
+              </div>
+        </div>
+            </div>
+            </div>
     </>
   );
 };

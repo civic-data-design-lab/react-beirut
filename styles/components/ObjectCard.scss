@@ -415,5 +415,17 @@
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+.contributeMap {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  min-width: 100%;
+  max-height: 60%;
+
+  border-radius: 10px;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
+
 
 

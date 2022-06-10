@@ -45,7 +45,8 @@ const ImageUploadForm = ({
 
   return (
     <form className="ImageUploadForm">
-      <h3>{title || 'Image Upload'}</h3>
+      <div className={'subsection'}>
+      <h3 className={'Contribute-form-section-heading'}> {title || 'Image Upload'}</h3>
       <div>
         <div>
           {maxNumberOfImages != 1 &&
@@ -94,6 +95,7 @@ const ImageUploadForm = ({
           </div>
         </span>
       </div>
+        </div>
     </form>
   );
 };

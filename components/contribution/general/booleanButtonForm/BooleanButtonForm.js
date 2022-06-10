@@ -91,15 +91,16 @@ const BooleanButtonForm = ({
     <div onKeyDown={onKeyDown} className="boolean-button-form">
       {/* <h3>{title}</h3> */}
       {/*TODO: Not sure why these are so close together. Put many line breaks.*/}
-      <br />
+
       <div>
         <label className={required ? 'required' : ''} htmlFor={dataLocation}>
           {label} {selectionsAllowed == 1 && `(Select one option)`}{' '}
           {selectionsAllowed > 1 &&
             `(Select up to ${selectionsAllowed} options)`}
         </label>
-        <br />
-        <br />
+
+        <div className={'Image-tags-container'}>
+
         {
           // INFO: Create a button for each default tag
           formData[dataLocation] &&
@@ -110,7 +111,7 @@ const BooleanButtonForm = ({
                   variable={tag}
                   key={tag}
                   onClick={onBooleanButtonClick}
-                  className="hstg-btn-pill-small-selected"
+                  className="hstg-btn-pill-small-selected sm-padding"
                 >
                   {tag}
                 </button>
@@ -120,7 +121,7 @@ const BooleanButtonForm = ({
                   variable={tag}
                   key={tag}
                   onClick={onBooleanButtonClick}
-                  className="hstg-btn-pill-small"
+                  className="hstg-btn-pill-small sm-padding"
                 >
                   {tag}
                 </button>
@@ -138,7 +139,7 @@ const BooleanButtonForm = ({
                   variable={tag}
                   key={tag}
                   onClick={onCustomTagClick}
-                  className="hstg-btn-pill-small-selected"
+                  className="hstg-btn-pill-small-selected sm-padding"
                 >
                   ⓧ {tag}
                 </button>
@@ -157,8 +158,11 @@ const BooleanButtonForm = ({
             ></OtherButton>
           )
         }
+
+        </div>
+
         {/* INFO: Show error message if applicable*/}
-        <br></br>
+
         {errorMessage && (
           <small className="input-error">* {errorMessage}</small>
         )}
