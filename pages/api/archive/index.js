@@ -9,6 +9,7 @@ export default async (req, res) => {
         message: 'Succesfully retrieved all archive information',
         response: archiveObjs,
       });
+      console.log(archiveObjs);
       break;
     case 'POST':
       const body = req.body;

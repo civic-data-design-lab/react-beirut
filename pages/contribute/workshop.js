@@ -248,9 +248,7 @@ const WorkshopContribution = () => {
     console.info(
       `imagemetas: {from_survey: '${WORKSHOP_CONTRIBUTION_NAME}', response_id: '${workshop.ID}'}`
     );
-    console.info(
-      `imagedatas: {img_id: '${data.imageMetas[0].img_id}'}`
-    );
+    console.info(`imagedatas: {img_id: '${data.imageMetas[0].img_id}'}`);
     console.groupEnd();
 
     fetch('/api/workshops', {
@@ -330,7 +328,7 @@ const WorkshopContribution = () => {
           />
           <WorkshopCraftTypeForm label="What type of crafts are produced in this workshop?" />
           <WorkshopImageForm label="Upload an image of the craft workshop" />
-          <Preview/>
+          <Preview />
         </MultipageForm>
       </div>
     </>
