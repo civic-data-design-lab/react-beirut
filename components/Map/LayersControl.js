@@ -94,7 +94,7 @@ export default class LayersControl extends React.Component {
                 <div className={'lc-buttons-section'}>
                     {this.getMapLayerButtons()}
                 </div>
-                <div className={'reset-section padded-lc-section'}>
+                <div className={'card-section-centered padded-lc-section'}>
                     <button className={'reset-btn'} onClick = {this.onReset}> Reset Maps </button>
                 </div>
             </>
@@ -133,9 +133,11 @@ export default class LayersControl extends React.Component {
                             <div className="card__wrapper">
                                   <div className={'layersControlCard'}>
                                         {this.layersControlContent()}
+                                      <div className={'card-section-centered'}>
                                         <button className={'btn-pill lc-showMap-btn view-map-btn'} onClick={this.props.closeLayersControl}>
                                             <span className={'view-map-label'}>View Map</span>
                                         </button>
+                                          </div>
 
                                   </div>
                             </div>

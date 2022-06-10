@@ -427,7 +427,7 @@ export default class App extends React.PureComponent {
             const end = this.props.filterSearchData['endYearParent'];
             let withinInterval = null;
 
-            if (start <= archive.primary_year && archive.primary_year <= end) {
+            if ((start <= archive.primary_year || start <= archive.primary_decade[0])  && (archive.primary_year <= end || archive.primary_decade[0] <= end)) {
                     withinInterval = true;
             } else {
                     withinInterval = false;
@@ -467,7 +467,7 @@ export default class App extends React.PureComponent {
 
         return (
             <>
-            <div ref={this.mapContainer} id="map"/>
+            <div ref={this.mapContainer} id="map" className={'exploreMap'}/>
                 {this.state.width>688 ?
                     <div className={"nav-ctr-container"}>
                         <button className={"nav-ctr-btn zoom-in-btn"} onClick={this.handleClickZoomIn}>

@@ -8,6 +8,7 @@ const { ImageData } = require('./Types');
  */
 const ImageDataSchema = new mongoose.Schema({
   img_id: String,
+  from_survey: String,
   filename: String,
   data: Buffer,
 });

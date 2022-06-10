@@ -227,14 +227,10 @@ const WorkshopContribution = () => {
 
   const onSubmit = () => {
     // Prepare the form data for submission
-    const { workshop, imageMeta, imageData } =
+    const { workshop, imageMeta, imageDataOriginal } =
       convertWorkshopContributionToSchema(form, formSchema);
 
-    // console.log(workshop);
-    // console.log(imageMeta);
-    // console.log(imageData);
-
-    const data = { workshop, imageMetas: [imageMeta], imageData: [imageData] };
+    const data = { workshop, imageMetas: [imageMeta], imageDataOriginal: [imageDataOriginal] };
 
     console.group('Database Submission');
     console.info('Here is all the data being uploaded to the server:', data);
@@ -304,7 +300,7 @@ const WorkshopContribution = () => {
   return (
     <>
       <Head>
-        <title>Workshop Contribution | Intangible Heritage Atlas</title>
+        <title>Workshop Contribution | Living Heritage Atlas</title>
       </Head>
       {dialog && (
         <Card handleClose={() => setDialog(null)}>
