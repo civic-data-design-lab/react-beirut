@@ -32,7 +32,7 @@ const LocationSelect = ({ onUpdate }) => {
     marker.on('dragend', onDragEnd);
   }, []);
 
-  return <div id="map"></div>;
+  return <div id="map" className={'contributeMap'}></div>;
 };
 
 export default LocationSelect;

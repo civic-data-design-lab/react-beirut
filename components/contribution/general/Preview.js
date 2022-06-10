@@ -7,6 +7,7 @@ import {
 import Archive from '../../Archive';
 import Workshop from '../../Workshop';
 import InputField from './InputField';
+import PreviewCard from "../PreviewCard";
 
 const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
   console.debug(formSchema);
@@ -26,7 +27,8 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
     if (missingFields.length > 0) {
       return (
         <div>
-          <h3>You are missing some necessary fields!</h3>
+
+          <h3 className={'Contribute-form-section-heading'}>You are missing some necessary fields!</h3>
           <p>
             Please go back and fill in the required fields (*) before being able
             to see the preview and submit.
@@ -34,7 +36,6 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
           {missingFieldPages.map((page) => {
             return (
               <div key={page}>
-                <br />
                 <h4>{page}</h4>
                 <ul>
                   {missingFields
@@ -61,11 +62,12 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
       console.debug('Returning workshop to preview:', workshop);
       console.debug('Returning image to preview:', imageDataOriginal);
       return (
-        <Workshop
-          workshop={workshop}
-          imageMetas={imageMeta && [imageMeta]}
-          imageSrc={imageDataOriginal?.data}
-        />
+        <PreviewCard
+            object={workshop}
+            imageMetas={imageMeta && [imageMeta]}
+            imageSrc={imageDataOriginal?.data}
+            objType={'workshop'} />
+
       );
     }
 
@@ -86,29 +88,41 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
   };
 
   return (
-    <div>
-      <h2>Preview</h2>
-      {getPreview()}
-      <br />
-      <InputField
-        title={fields.consent.title}
-        fieldName={fields.consent.field_name}
-        key={fields.consent.field_name}
-        value={formData[fields.consent.field_name]}
-        type="checkbox"
-        onUpdate={onUpdate}
-        required={fields.consent.required}
-        label={
-          formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME
-            ? `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview above.
-        Checking this box indicates that you consent to sharing information and photo(s) about your craft workshop with the Living Heritage Atlas.
-        Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`
-            : `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your information and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview above.
-        Checking this box indicates that you consent to sharing information and photo(s) with the Living Heritage Atlas.
-        Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`
-        }
-      />
+
+    <div className={'previewForm'}>
+        <div className={'form-title'}><h2>Preview</h2></div>
+          <div className={'sections'}>
+            <div className={'section'}>
+              <div className={'subsection'}>
+                <InputField
+            title={fields.consent.title}
+            fieldName={fields.consent.field_name}
+            key={fields.consent.field_name}
+            value={formData[fields.consent.field_name]}
+            type="checkbox"
+            onUpdate={onUpdate}
+            required={fields.consent.required}
+            label={
+              formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME
+                ? `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below.
+            Checking this box indicates that you consent to sharing information and photo(s) about your craft workshop with the Living Heritage Atlas.
+            Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`
+                : `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your information and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below.
+            Checking this box indicates that you consent to sharing information and photo(s) with the Living Heritage Atlas.
+            Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`
+            }
+          />
+              </div>
+            </div>
+            <div className={'section'}>
+              <div className={'subsection preview-subsection'}>
+                {getPreview()}
+              </div>
+            </div>
+
+            </div>
     </div>
+
   );
 };
 

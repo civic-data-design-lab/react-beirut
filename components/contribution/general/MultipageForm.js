@@ -289,9 +289,12 @@ const MultipageForm = ({
           <div className="card__content">{showDialogContent()}</div>
         </Card>
       )}
+
+
+
       <div className="MultipageForm">
         {!(submitted || submitting) && (
-          <nav className="header drop-shadow__black">
+          <nav className="header drop-shadow__black stick">
             {pageTitles?.map((title, idx) => (
               <Link href={`${router.basePath}?page=${idx}`} key={idx}>
                 <a className={idx === page ? 'active' : ''}>
@@ -365,6 +368,7 @@ const MultipageForm = ({
           )}
         </div>
       </div>
+
     </>
   );
 };

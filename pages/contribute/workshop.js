@@ -6,6 +6,8 @@ import WorkshopCraftTypeForm from '../../components/contribution/workshop/Worksh
 import WorkshopImageForm from '../../components/contribution/workshop/WorkshopImageForm';
 import WorkshopAboutForm from '../../components/contribution/workshop/WorkshopAboutForm';
 import Preview from '../../components/contribution/general/Preview';
+import Dialogue from "../../components/contribution/general/Dialogue";
+
 import {
   convertWorkshopContributionToSchema,
   WORKSHOP_CONTRIBUTION_NAME,
@@ -312,10 +314,18 @@ const WorkshopContribution = () => {
 
   const showDialogContent = () => {
     return (
-      <div>
-        <h1>Failed to submit!</h1>
-        <h4>{dialog}</h4>
-      </div>
+        <>
+      <Dialogue
+        title={'Failed to submit!'}
+        content={dialog}
+        accept={false}
+        cancel={false}
+        handleClose={() => setDialog(null)}
+        acceptText={''}
+        cancelText={''}
+        handleCancel={null}
+        handleAccept={null} />
+          </>
     );
   };
 
@@ -324,11 +334,11 @@ const WorkshopContribution = () => {
       <Head>
         <title>Workshop Contribution | Living Heritage Atlas</title>
       </Head>
-      {dialog && (
-        <Card handleClose={() => setDialog(null)}>
-          <div className="card__content">{showDialogContent()}</div>
-        </Card>
-      )}
+
+
+      {dialog && showDialogContent()}
+
+    <div className={'Contribute-container'}>
       <div className="Contribute drop-shadow__black">
         <MultipageForm
           name={WORKSHOP_CONTRIBUTION_NAME}
@@ -348,6 +358,7 @@ const WorkshopContribution = () => {
           <WorkshopImageForm label="Upload an image of the craft workshop" />
           <Preview />
         </MultipageForm>
+      </div>
       </div>
     </>
   );

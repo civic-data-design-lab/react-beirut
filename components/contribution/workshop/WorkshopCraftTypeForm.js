@@ -26,9 +26,11 @@ const CraftDisciplineForm = ({
 
   return (
     <form className="CraftTypeForm">
-      <h2>{page.title}</h2>
-      <br/>
-      <div>
+        <div className={'form-title'}><h2>{page.title}</h2></div>
+
+      <div className={'sections'}>
+          <div className={'section'}>
+              <div className={'subsection'}>
         <BooleanButtonForm
           onUpdate={onUpdate}
           formData={formData}
@@ -39,6 +41,10 @@ const CraftDisciplineForm = ({
           defaultTags={CRAFT_CATEGORIES}
           required={fields.craft_category.required ? true : false}
         />
+                  </div>
+      </div>
+          <div className={'section'}>
+              <div className={'subsection'}>
         <BooleanButtonForm
           onUpdate={onUpdate}
           formData={formData}
@@ -50,6 +56,8 @@ const CraftDisciplineForm = ({
           hasOtherField={true}
         />
       </div>
+          </div>
+          </div>
     </form>
   );
 };

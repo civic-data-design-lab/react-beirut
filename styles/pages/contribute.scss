@@ -126,10 +126,10 @@
 }
 
 .boolean-button-form {
-  max-width: 700px;
+  //max-width: 700px;
   padding: 0;
   div {
-    display: inline-block;
+    //display: inline-block;
   }
 }
 
@@ -242,23 +242,33 @@
 }
 
 .WorkshopAboutForm,
-.ArchiveAboutForm {
+.ArchiveAboutForm, {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
 
   h2 {
-    margin-bottom: 2rem;
+    //margin-bottom: 2rem;
   }
 
   .sections {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+
 
     .section {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      justify-content: flex-start;
+      padding: 16px;
+      width: 30%;
+
+      .subsection {
+        padding: 16px;
+      }
 
       div {
         display: flex;
@@ -268,6 +278,48 @@
     }
   }
 }
+
+.LocationForm,
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+
+  h2 {
+    //margin-bottom: 2rem;
+  }
+
+  .sections {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-height: 100%;
+
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 16px;
+      width: 30%;
+      flex: 1 1 0;
+      max-height: 100%;
+
+      .subsection {
+        padding: 16px;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+    }
+  }
+}
+
+
 
 @media (min-width: 768px) {
   .Contribute-index {
@@ -289,17 +341,54 @@
     }
   }
 
+
+.previewForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+
+  h2 {
+    //margin-bottom: 2rem;
+  }
+
+
+
+  .sections {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    //max-height: 100%;
+
+
+    .section {
+      //display: flex;
+      //flex-direction: column;
+      //justify-content: flex-start;
+      padding: 32px;
+      //width: 30%;
+      //flex: 1 1 0;
+      //max-height: 100%;
+
+
+    }
+  }
+}
+
   .WorkshopAboutForm,
   .ArchiveAboutForm {
     // min-width: 60vw;
 
+    min-height: 100%;
+
     .sections {
       width: 100%;
       flex-direction: row;
-      gap: 3rem;
+      //gap: 3rem;
+      justify-content: space-between;
 
       input {
-        min-width: 200px;
+        //min-width: 200px;
       }
     }
   }
@@ -323,5 +412,105 @@
   :only-child {
     // background-color: black;
     padding: 5px;
+  }
+}
+
+.Contribute-form-section-heading {
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #AEAEAE;
+  text-transform: uppercase;
+}
+
+.stick {
+  position: sticky;
+  top: 80px;
+  background-color: $c-white;
+}
+
+.form-title {
+  padding-left: 32px;
+}
+
+.vr {
+  color: #AEAEAE;
+}
+
+.Image-tags-container {
+  display: flex;
+  flex-direction: column;
+  //flex-wrap: wrap;
+  justify-content: space-between;
+  //align-items: center;
+  padding: 48px;
+
+}
+
+.sm-padding {
+  //padding: 8px;
+}
+
+.ImageUploadForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.image-upload-container {
+  padding: 48px;
+}
+
+
+.preview-card {
+  background-color: $c-white-off;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.CraftTypeForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+
+  h2 {
+    //margin-bottom: 2rem;
+  }
+
+  .sections {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 100%;
+
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 16px;
+      //width: 30%;
+      //flex: 1 1 0;
+      max-height: 100%;
+
+      .subsection {
+        padding: 16px;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        //gap: 0.25rem;
+      }
+    }
   }
 }
