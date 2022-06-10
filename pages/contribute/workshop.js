@@ -230,23 +230,40 @@ const WorkshopContribution = () => {
     const { workshop, imageMeta, imageDataOriginal } =
       convertWorkshopContributionToSchema(form, formSchema);
 
-    const data = { workshop, imageMetas: [imageMeta], imageDataOriginal: [imageDataOriginal] };
+    const data = {
+      workshop,
+      imageMetas: [imageMeta],
+      imageDataOriginal: [imageDataOriginal],
+    };
 
     console.group('Database Submission');
+
     console.info('Here is all the data being uploaded to the server:', data);
     console.info(
       `When uploaded, your workshop will be visible at http://localhost:3000/discover/${workshop.ID}`
     );
-    console.info('Find these entries on MongoDB with the filters:');
+
+    console.group('Find these entries on MongoDB with the filters:');
     console.info(
       `workshops: {survey_origin: '${WORKSHOP_CONTRIBUTION_NAME}', response_id: '${workshop.ID}'}`
     );
     console.info(
       `imagemetas: {from_survey: '${WORKSHOP_CONTRIBUTION_NAME}', response_id: '${workshop.ID}'}`
     );
+    console.info(`imagedatas: {img_id: '${data.imageMetas[0].img_id}'}`);
+    console.groupEnd();
+
+    console.group(`Find the images here:`);
+    const img_id = imageMeta.img_id;
     console.info(
-      `imagedatas: {img_id: '${data.imageMetas[0].img_id}'}`
+      `Original: http://localhost:3000/api/original_images/${img_id}_original.jpeg -- May error if not actually a jpeg, didn't check file type.`
     );
+    console.info(`Regular: http://localhost:3000/api/images/${img_id}.jpeg`);
+    console.info(
+      `Thumbnail: http://localhost:3000/api/thumbnail_images/${img_id}_thumbnail.jpeg`
+    );
+    console.groupEnd();
+
     console.groupEnd();
 
     fetch('/api/workshops', {
@@ -273,7 +290,10 @@ const WorkshopContribution = () => {
         // setForm({});
         // localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
       })
-      .catch((err) => setDialog(err));
+      .catch((err) => {
+        setDialog(err);
+        location.href = '/contribute/workshop';
+      });
   };
 
   const onUpdate = (data) => {
@@ -302,9 +322,7 @@ const WorkshopContribution = () => {
   return (
     <>
       <Head>
-
         <title>Workshop Contribution | Living Heritage Atlas</title>
-
       </Head>
       {dialog && (
         <Card handleClose={() => setDialog(null)}>
@@ -328,7 +346,7 @@ const WorkshopContribution = () => {
           />
           <WorkshopCraftTypeForm label="What type of crafts are produced in this workshop?" />
           <WorkshopImageForm label="Upload an image of the craft workshop" />
-          <Preview/>
+          <Preview />
         </MultipageForm>
       </div>
     </>
