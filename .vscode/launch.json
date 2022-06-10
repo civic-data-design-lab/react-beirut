@@ -17,6 +17,12 @@
             "type": "node-terminal"
         },
         {
+            "command": "npm run reprocess-db-images",
+            "name": "Run reprocess-db-images.js independent of main project",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "name": "Python: csv_to_json test",
             "type": "python",
             "request": "launch",
