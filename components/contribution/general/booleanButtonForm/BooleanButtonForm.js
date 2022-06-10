@@ -111,7 +111,7 @@ const BooleanButtonForm = ({
                   variable={tag}
                   key={tag}
                   onClick={onBooleanButtonClick}
-                  className="hstg-btn-pill-small-selected sm-padding"
+                  className="hstg-btn-pill-small-selected"
                 >
                   {tag}
                 </button>
@@ -121,7 +121,7 @@ const BooleanButtonForm = ({
                   variable={tag}
                   key={tag}
                   onClick={onBooleanButtonClick}
-                  className="hstg-btn-pill-small sm-padding"
+                  className="hstg-btn-pill-small"
                 >
                   {tag}
                 </button>
@@ -139,7 +139,7 @@ const BooleanButtonForm = ({
                   variable={tag}
                   key={tag}
                   onClick={onCustomTagClick}
-                  className="hstg-btn-pill-small-selected sm-padding"
+                  className="hstg-btn-pill-small-selected"
                 >
                   ⓧ {tag}
                 </button>

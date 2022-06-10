@@ -7,6 +7,7 @@ import {
 import Archive from '../../Archive';
 import Workshop from '../../Workshop';
 import InputField from './InputField';
+import PreviewCard from "../PreviewCard";
 
 const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
   console.debug(formSchema);
@@ -61,12 +62,12 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
       console.debug('Returning workshop to preview:', workshop);
       console.debug('Returning image to preview:', imageDataOriginal);
       return (
-        <Workshop
-          workshop={workshop}
-          imageMetas={imageMeta && [imageMeta]}
-          imageSrc={imageDataOriginal?.data}
-          includeSuggestion={false}
-        />
+        <PreviewCard
+            object={workshop}
+            imageMetas={imageMeta && [imageMeta]}
+            imageSrc={imageDataOriginal?.data}
+            objType={'workshop'} />
+
       );
     }
 
@@ -103,10 +104,10 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
             required={fields.consent.required}
             label={
               formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME
-                ? `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview above.
+                ? `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below.
             Checking this box indicates that you consent to sharing information and photo(s) about your craft workshop with the Living Heritage Atlas.
             Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`
-                : `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your information and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview above.
+                : `Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your information and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below.
             Checking this box indicates that you consent to sharing information and photo(s) with the Living Heritage Atlas.
             Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`
             }
@@ -114,7 +115,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
               </div>
             </div>
             <div className={'section'}>
-              <div className={'subsection'}>
+              <div className={'subsection preview-subsection'}>
                 {getPreview()}
               </div>
             </div>

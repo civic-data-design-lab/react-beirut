@@ -284,7 +284,9 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
             </div>
             <div className={'object-map-section'}>
                     <p className={'object-caption'}>Locate this craft workshop on the map </p>
+                    <div className={'miniMap-container'}>
                         <MiniMap workshop={workshop} type={'workshop'}/>
+                        </div>
             </div>
             <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
