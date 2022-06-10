@@ -61,21 +61,26 @@ export default async (req, res) => {
       }
 
       // INFO: Get and validate the code
-      const [sticker_id, language] = [
-        code.slice(0, 2),
-        code.slice(2, 4).toLowerCase(),
-      ];
+      // const [sticker_id, language] = [
+      //   code.slice(0, 2),
+      //   code.slice(2, 4).toLowerCase(),
+      // ];
+      const split_code = code.match(/[a-zA-Z]+|[0-9]+/g)
+      const sticker_id = split_code[0].length == 1 ? '0' + split_code[0] : split_code[0];
+      const language = split_code[1] ? split_code[1].toLowerCase() : undefined;
+
+      console.log(sticker_id);
       
-      if (isNaN(sticker_id) || code.length > 4) {
+      if (isNaN(sticker_id) || split_code.length > 2 || language == undefined) {
         sendMessage(
           req,
           res,
-          'The code you entered was invalid. Please enter a code with two digits and two letters. Ex: 01EN for English or 01AR for Arabic.'
+          'The code you entered was invalid. Please enter a code with digits and a two letter language code. Ex: 01EN for English or 01AR for Arabic.'
         );
         return;
       }
 
-      const { stickerData, message } = await getStickerData(code);
+      const { stickerData, message } = await getStickerData(sticker_id + language);
 
       // INFO: Get sticker data using code or return error if getting sticker data fails.
       if (!stickerData) {
@@ -94,9 +99,9 @@ export default async (req, res) => {
       const img_src = `${HOST_URL}/api/images/${temp[temp.length - 1]}`;
 
       let body;
-      if (language == 'en') {
+      if (language == 'en' || language == 'english') {
         body = stickerData.caption_EN;
-      } else if (language == 'ar') {
+      } else if (language == 'ar' || language == 'arabic') {
         body = stickerData.caption_AR;
       } else {
         sendMessage(
