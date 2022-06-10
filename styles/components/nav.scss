@@ -10,7 +10,7 @@
   left: 0;
   right: 0;
   background-color: $c-white-off;
-  z-index: 100;
+  z-index: 1200;
 
   transition: all 0.3s ease-in-out;
 
@@ -131,7 +131,7 @@ $hamburger-zindex: $menu-zindex + 10;
   opacity: 0;
   overflow: hidden;
   position: fixed;
-  text-align: center;
+  text-align: left;
   top: 0;
   transition: all 0.7s ease-in-out;
   // For some sweet fadez
@@ -160,6 +160,8 @@ $hamburger-zindex: $menu-zindex + 10;
     }
   }
 
+
+
   ul {
     &:hover {
       a {
@@ -176,6 +178,7 @@ $hamburger-zindex: $menu-zindex + 10;
         opacity: 1;
       }
     }
+    
   }
 
   .main-nav {
@@ -246,6 +249,53 @@ $hamburger-zindex: $menu-zindex + 10;
       // text-transform: uppercase;
     }
   }
+
+  .container {
+    display: grid;
+    grid-template-columns: 0.25rem auto;
+    grid-template-rows: auto auto;
+    row-gap: 5px;
+    column-gap: 10px;
+  }
+
+  .container:hover .item-line {
+    display: block;
+  }
+
+  .container:hover .item-text-2 {
+    display: block;
+  }
+
+  .item-line {
+    grid-column-start: 1;
+    grid-column-end:  2;
+    grid-row-start:  1;
+    grid-row-end:  3;
+    background: white;
+    display: none;
+    transition: 0.3s;
+  }
+
+  .item-text-1 {
+    grid-column-start: 2;
+    grid-column-end:  3;
+    grid-row-start:  1;
+    grid-row-end:  2;
+    font-size:  1rem;
+  }
+
+  .item-text-2 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end:  3;
+    display: none;
+    font-size: 1rem;
+    color: white;
+  }
+
+
+
 }
 
 // Hamburger menu toggler stuff below
