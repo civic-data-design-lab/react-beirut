@@ -255,18 +255,33 @@ const ArchiveContribution = () => {
     const data = { archive, imageMetas: [imageMeta], imageDataOriginal: [imageDataOriginal] };
 
     console.group('Database Submission');
+
     console.info('Here is all the data being uploaded to the server:', data);
     console.info(
-      `When uploaded, your archive will be visible at http://localhost:3000/discover/${archive.ID}`
+      `When uploaded, your workshop will be visible at http://localhost:3000/discover/${archive.ID}`
     );
-    console.info('Find these entries on MongoDB with the filters:');
+
+    console.group('Find these entries on MongoDB with the filters:');
     console.info(
-      `archives: {info_type: '${ARCHIVE_CONTRIBUTION_NAME}', ID: '${archive.ID}'}`
+      `workshops: {survey_origin: '${ARCHIVE_CONTRIBUTION_NAME}', response_id: '${archive.ID}'}`
     );
     console.info(
       `imagemetas: {from_survey: '${ARCHIVE_CONTRIBUTION_NAME}', response_id: '${archive.ID}'}`
     );
     console.info(`imagedatas: {img_id: '${data.imageMetas[0].img_id}'}`);
+    console.groupEnd();
+
+    console.group(`Find the images here:`);
+    const img_id = imageMeta.img_id;
+    console.info(
+      `Original: http://localhost:3000/api/original_images/${img_id}_original.jpeg -- May error if not actually a jpeg, didn't check file type.`
+    );
+    console.info(`Regular: http://localhost:3000/api/images/${img_id}.jpeg`);
+    console.info(
+      `Thumbnail: http://localhost:3000/api/thumbnail_images/${img_id}_thumbnail.jpeg`
+    );
+    console.groupEnd();
+
     console.groupEnd();
 
     fetch('/api/archive', {

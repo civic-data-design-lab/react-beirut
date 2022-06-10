@@ -64,11 +64,8 @@ const Nav = () => {
             }}
           >
             <div className="container-logo">
-              <div
-                className={isMenuOpen ? 'logo-icon light' : 'logo-icon dark'}
-              ></div>
               <img
-                src={isMenuOpen ? '/logo-light.png' : '/logo.png'}
+                src={isMenuOpen ? '/LHA_logo-horiz-invert.png' : '/LHA_logo-horiz.png'}
                 className="logo-text"
               />
             </div>
@@ -95,22 +92,18 @@ const Nav = () => {
 
       <div id="menu" className={isMenuOpen ? 'open' : ''}>
         <nav className="main-nav">
-          <ul>
+          <div className='justify-content-center d-flex' style={{margin: "auto"}}><ul>
             <li
               onClick={() => {
                 setIsMenuOpen(false);
               }}
               className={router.pathname === '/map' ? 'active' : ''}
             >
-              <Link href="/map">Map</Link>
-            </li>
-            <li
-              onClick={() => {
-                setIsMenuOpen(false);
-              }}
-              className={router.pathname === '/download' ? 'active' : ''}
-            >
-              <Link href="/download">Download</Link>
+              <div className='container'>
+                <div className='item-line'></div>
+                <div className='item-text-1'><Link href="/map">Map</Link></div>
+                <div className='item-text-2'> the spatial presence of craftsmanship in Beirut </div>
+              </div>
             </li>
             <li
               onClick={() => {
@@ -118,7 +111,11 @@ const Nav = () => {
               }}
               className={router.pathname === '/discover' ? 'active' : ''}
             >
-              <Link href="/discover">Discover</Link>
+              <div className="container">
+                <div className='item-line'></div>
+                <div className='item-text-1'><Link href="/discover">Discover</Link></div>
+                <div className='item-text-2'> current workshops and archival images of craftsmanship </div>
+              </div>
             </li>
             <li
               onClick={() => {
@@ -126,7 +123,23 @@ const Nav = () => {
               }}
               className={router.pathname === '/contribute' ? 'active' : ''}
             >
-              <Link href="/contribute">Contribute</Link>
+              <div className='container'>
+                <div className='item-line'></div>
+                <div className='item-text-1'><Link href="/contribute">Contribute</Link></div>
+                <div className='item-text-2'> to the Living Heritage Atlas with photos of craftsmanship </div>
+              </div>
+            </li>
+            <li
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
+              className={router.pathname === '/download' ? 'active' : ''}
+            >
+              <div className='container'>
+                <div className='item-line'></div>
+                <div className='item-text-1'><Link href="/download">Download</Link></div>
+                <div className='item-text-2'> data from the Living Heritage Atlas </div>
+              </div>
             </li>
             <li
               onClick={() => {
@@ -134,9 +147,13 @@ const Nav = () => {
               }}
               className={router.pathname === '/about' ? 'active' : ''}
             >
-              <Link href="/about">About</Link>
+              <div className='container'>
+                <div className='item-line'></div>
+                <div className='item-text-1'><Link href="/about">About</Link></div>
+                <div className='item-text-2'> the Living Heritage Atlas | Beirut </div>
+              </div>
             </li>
-          </ul>
+          </ul></div>
         </nav>
 
         <footer className="menu-footer">
