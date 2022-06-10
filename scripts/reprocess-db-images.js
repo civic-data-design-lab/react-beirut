@@ -5,9 +5,11 @@ const fs = require('fs');
 require('dotenv').config(); // allows for access to dotenv file
 const ImageMetaSchema = require('../models/ImageMeta');
 const ImageDataSchema = require('../models/ImageData');
-const WorkshopSchema = require('../models/Workshop');
-const ArchiveSchema = require('../models/Archive');
-const StickerSchema = require('../models/Sticker');
+const ImageDataOriginalSchema = require('../models/ImageDataOriginal');
+const ImageDataThumbnailSchema = require('../models/ImageDataThumbnail');
+const getImageCompressions = require('../lib/getImageCompressions');
+
+const DEBUG_ID = '138936398_1';
 
 /**
  * script to pull each of the imagemetas and respective imagedataBackups from MongoDB and essentially
@@ -24,7 +26,7 @@ if (args.includes('--help') || args.includes('-h')) {
 
   console.log('\nOptions:');
   console.log(
-    '\t-o, --overwrite\tCompletely overwrite existing objects.\n',
+    '\t-o, --overwrite\tCompletely overwrite existing objects. (Does not do anything yet)\n',
     '\t-v, --verbose\tPrint additional information.'
   );
 
@@ -42,15 +44,17 @@ if (args.includes('--help') || args.includes('-h')) {
 const overwrite = args.includes('--overwrite') || args.includes('-o');
 const verbose = args.includes('--verbose') || args.includes('-v');
 
-const ImageDataBackupSchema = new mongoose.Schema({
+const GeneralImageSchema = new mongoose.Schema({
   img_id: String,
   from_survey: String,
   filename: String,
   data: Buffer,
 });
 
-module.exports =
-  mongoose.models.ImageData || mongoose.model('ImageData', ImageDataSchema);
+const ImageDataBackupSchema = mongoose.model(
+  'imagedatabackup',
+  GeneralImageSchema
+);
 
 const printProgress = (progress) => {
   process.stdout.clearLine();
@@ -64,7 +68,7 @@ const printProgress = (progress) => {
  * @returns {object[]} imageMetas - List of documents from the imagemetas collection
  */
 const fetchImageMetas = async (img_id) => {
-  console.group('> Fetching imagemetas...');
+  console.log('> Fetching imagemetas...');
   let imageMetas = [];
   if (img_id) {
     imageMetas = [await ImageMetaSchema.findOne({ img_id: img_id })];
@@ -79,7 +83,6 @@ const fetchImageMetas = async (img_id) => {
 
   if (verbose) console.log(`(VERBOSE) First document: ${imageMetas[0]}`);
 
-  console.groupEnd();
   return imageMetas;
 };
 
@@ -91,7 +94,7 @@ const fetchImageMetas = async (img_id) => {
  */
 const fetchCorrespondingImageDataBackup = async (imageMeta) => {
   const img_id = imageMeta.img_id;
-  const imageData = await ImageDataSchema.findOne({ img_id: img_id });
+  const imageData = await ImageDataBackupSchema.findOne({ img_id: img_id });
   if (!imageData) {
     console.warn(`Could not find corresponding imageData for img_id ${img_id}`);
   }
@@ -99,42 +102,95 @@ const fetchCorrespondingImageDataBackup = async (imageMeta) => {
   return imageData;
 };
 
+const saveNewImage = async (imgMeta, imgDataOrig) => {
+  debugger;
+
+  // console.log(imgDataOrig);
+  // imgDataOrig.data = imgDataOrig.data.split(',').pop();
+  // imgDataOrig.data = Buffer.from(imgDataOrig.data, 'base64');
+
+  // INFO: Save original image
+  const newImageDataOriginal = new ImageDataOriginalSchema(imgDataOrig);
+  newImageDataOriginal._id = imgDataOrig._id;
+  newImageDataOriginal.filename = `${imgDataOrig.img_id}_original.${
+    imgDataOrig.filename.split('.')[1]
+  }`;
+  newImageDataOriginal.from_survey = imgMeta.from_survey;
+  newImageDataOriginal.isNew = true;
+  debugger;
+  const resOrig = await newImageDataOriginal.save();
+
+  // INFO: Get compressions
+  const { imageBuffer, imageBufferThumbnail } = await getImageCompressions(
+    imgDataOrig.data,
+    true
+  );
+  // INFO: Save regular picture
+  // let imgData = imgDataOrig;
+  // imgData.filename = `${imgData.img_id}.jpeg`;
+  // imgData.data = imageBuffer;
+  // const newImageData = new ImageData(imgData);
+  // newImageData.from_survey = imgMeta.from_survey;
+  // newImageData._id = imgDataOrig._id;
+  // newImageData.isNew = true;
+  // const res = await newImageData.save();
+  // await ImageDataSchema.findOneAndReplace({img_id: })
+
+  debugger;
+
+  // INFO: Save thumbnail picture
+  let imgDataThumbnail = imgDataOrig;
+  imgDataThumbnail.filename = `${imgDataOrig.img_id}_thumbnail.jpeg`;
+  imgDataThumbnail.data = imageBufferThumbnail;
+  const newImageThumbnail = new ImageDataThumbnailSchema(imgDataThumbnail);
+  newImageThumbnail.from_survey = imgMeta.from_survey;
+  newImageThumbnail._id = imgDataOrig._id;
+  newImageThumbnail.isNew = true;
+  const resThumbnail = await newImageThumbnail.save();
+
+  debugger;
+
+  return { resOrig, res, resThumbnail };
+};
+
 // -------------------------
 // RUN THE MAIN SCRIPT LOGIC
 // -------------------------
 const main = async () => {
-  const DEBUG_ID = '138936398_1';
   console.log('> reprocess-db-images script starting...');
 
   // Connect to the database
-  console.group('> Connecting to database...');
+  console.log('> Connecting to database...');
   const MONGODB_URI = process.env.MONGODB_URI;
   if (!MONGODB_URI) {
     throw new Error(
       'Please define the MONGODB_URI environment variable inside .env'
     );
   }
-
   conn = mongoose.connect(MONGODB_URI);
   console.log('Successfully connected to database.');
-  console.groupEnd();
 
+  // Fetch imagemetas
   const imageMetas = await fetchImageMetas(DEBUG_ID);
 
-  console.group(`> Fetching corresponding imageDatas...`);
+  // Perform uploads + compression for each corresponding imagedata
+  console.log(`> Fetching corresponding imageDatas...`);
   let imageDatasUploaded = 0;
   let imageData = null;
   for (const imageMeta of [imageMetas[0]]) {
     if (verbose && imageDatasUploaded == 0)
       console.log(`(VERBOSE) Printing results of first imagedata:`);
-    if (verbose && imageDatasUploaded == 0) console.log('(VERBOSE)', imageMeta);
+    if (verbose && imageDatasUploaded == 0)
+      console.log(`(VERBOSE) ${JSON.stringify(imageMeta)}`);
     imageData = await fetchCorrespondingImageDataBackup(imageMeta);
     if (verbose && imageDatasUploaded == 0) {
-      console.log(`(VERBOSE) JSON.stringify(imageData).substring(0, 500)...`);
+      console.log(
+        `(VERBOSE) ${JSON.stringify(imageData).substring(0, 500)}...`
+      );
+      await saveNewImage(imageMeta, imageData);
     }
     imageDatasUploaded++;
   }
-  console.groupEnd();
 
   process.exit(0);
 };

@@ -41,7 +41,7 @@ const sendMessage = (req, res, body, media) => {
   res.setHeader('Content-Type', 'text/xml').send(twiMLResponse.toString());
 };
 
-const HOST_URL = 'https://13a8-18-31-19-194.ngrok.io';
+const HOST_URL = 'https://cddl-beirut.herokuapp.com';
 
 export default async (req, res) => {
   switch (req.method) {
