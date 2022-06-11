@@ -3,7 +3,7 @@ import ImageFilter from "react-image-filter";
 
 const ImagePreview = ({ workshop, thumbnailSrc, grayscale }) => {
   const imgSrc = workshop.thumb_img_id
-    ? `/api/images/${workshop.thumb_img_id}.jpg`
+    ? `/api/thumbnail_images/${workshop.thumb_img_id}_thumbnail.jpeg`
     : thumbnailSrc || null;
 
   const imgAlt = workshop.thumb_img_id
