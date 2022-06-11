@@ -136,6 +136,7 @@ const Discover = ({ children }) => {
   return (
     <>
 
+
           <Head>
             <title>Discover | Living Heritage Atlas</title>
           </Head>
@@ -174,6 +175,7 @@ const Discover = ({ children }) => {
               </button>
             </div>
             <hr />
+              <div className={'discover-card'}>
             {showFilter ?
                 <ImageFilter
                   filteredCrafts={filteredCraftsImage}
@@ -197,6 +199,7 @@ const Discover = ({ children }) => {
               imageFilterData={filterData}
 
             />
+                  </div>
           </div>
           {children}
 

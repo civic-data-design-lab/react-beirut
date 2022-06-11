@@ -136,7 +136,7 @@ $hamburger-zindex: $menu-zindex + 10;
   transition: all 0.7s ease-in-out;
   // For some sweet fadez
   visibility: hidden;
-  width: 100%;
+  width: 100vw;
   z-index: $menu-zindex;
 
   &.open {
