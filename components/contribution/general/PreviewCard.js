@@ -1,7 +1,7 @@
-import MapCardSlider from "../Map/MapCardSlider";
-import Workshop from "../Workshop";
+import MapCardSlider from "../../Map/MapCardSlider";
+import Workshop from "../../Workshop";
 
-const PreviewCard = ({object, imageMetas, imageSrc, objType}) => {
+const PreviewCard = ({object, imageMetas, imageSrc, objType, includeSuggestions}) => {
 
     const getObjectPreview = () => {
         if (objType==="workshop") {

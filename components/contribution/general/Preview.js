@@ -7,7 +7,7 @@ import {
 import Archive from '../../Archive';
 import Workshop from '../../Workshop';
 import InputField from './InputField';
-import PreviewCard from "../PreviewCard";
+import PreviewCard from "./PreviewCard";
 
 const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
   console.debug(formSchema);
@@ -66,7 +66,9 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
             object={workshop}
             imageMetas={imageMeta && [imageMeta]}
             imageSrc={imageDataOriginal?.data}
-            objType={'workshop'} />
+            objType={'workshop'}
+            includeSuggestions={false}
+        />
 
       );
     }

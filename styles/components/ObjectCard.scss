@@ -87,6 +87,7 @@
   font-size: 20px;
   line-height: 18px;
   color: #333333;
+  margin: 0px;
 }
 
 .object-mobile-subtitle {
@@ -96,6 +97,7 @@
   font-size: 12px;
   line-height: 18px;
   color: #AEAEAE;
+  margin:0px;
 }
 
 .object-card-archive {
@@ -309,7 +311,8 @@
 }
 
 .object-map-section {
-  height: 40%;
+  padding: 8px 0px;
+  height: 40vh;
   @media screen and (min-width: 651px) and (max-width: 991px) {
     height: 40vh;
     padding-top: 4vh;

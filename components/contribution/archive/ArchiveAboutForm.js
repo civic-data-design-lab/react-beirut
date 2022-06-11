@@ -31,7 +31,7 @@ const ArchiveAboutForm = ({
   const fields = page.fields;
 
   return (
-    <form className="ArchiveAboutForm">
+    <form className="ArchiveAboutForm form">
       <h2>{page.title}</h2>
       <div className="sections">
         <div className="section">

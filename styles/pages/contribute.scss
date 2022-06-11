@@ -514,3 +514,43 @@
     }
   }
 }
+
+
+
+.ArchivalImageForm, {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+
+  h2 {
+    //margin-bottom: 2rem;
+  }
+
+  .sections {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 16px;
+      //width: 40%;
+
+      .subsection {
+        padding: 16px;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        //gap: 0.25rem;
+      }
+    }
+  }
+}

@@ -9,8 +9,14 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
 
   return (
     <>
-      <h2>{page.title}</h2>
-      <div className="WorkshopImageForm">
+
+
+
+      <div className="ArchivalImageForm">
+          <div className={'form-title'}><h2>{page.title}</h2></div>
+          <div className={'sections'}>
+              <div className={'section'}>
+
         <ImageUploadForm
           onUpdate={onUpdate}
           formData={formData}
@@ -20,9 +26,13 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
           imageRequired={true}
           captionRequired={fields.caption.required}
         />
-      </div>
+              </div>
+
+              <div className={'vr'}></div>
+
       <div className="section">
-        <h3>Image Information</h3>
+          <div className={'subsection'}>
+        <h3 className={'Contribute-form-section-heading'}>Image Information</h3>
         <InputField
           title="What is the image showing?"
           fieldName={fields.image_type.field_name}
@@ -127,7 +137,9 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
             );
           })()}
       </div>
-      <div>
+
+      <div className={'subsection'}>
+        <h3 className={'Contribute-form-section-heading'}>Craft Information</h3>
         <BooleanButtonForm
           onUpdate={onUpdate}
           formData={formData}
@@ -148,6 +160,9 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
           required={fields.type_of_craft.required ? true : false}
           hasOtherField={true}
         />
+      </div>
+          </div>
+          </div>
       </div>
     </>
   );

@@ -46,7 +46,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose}) => {
+const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, includeSuggestion}) => {
 
 
   const getImages = () => {
@@ -247,6 +247,8 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </div>
                 </div>
 
+                {includeSuggestion ?
+
                 <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
                         Discover similar craft workshops
@@ -262,7 +264,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </Slider>
                     </div>
                         </div>
-                </div>
+                </div> : null }
             </div>
         </Desktop>
 
@@ -290,6 +292,8 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <MiniMap workshop={workshop} type={'workshop'}/>
                         </div>
             </div>
+
+                { includeSuggestion ?
             <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
                         Discover similar craft workshops
@@ -305,7 +309,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </Slider>
                     </div>
                         </div>
-                </div>
+                </div> : null }
             </div>
         </Tablet>
 
@@ -343,7 +347,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <MiniMap workshop={workshop} type={'workshop'}/>
                 </div>
 
-                <div className={'object-mobile-section object-suggestion-section'}>
+                { includeSuggestion ? <div className={'object-mobile-section object-suggestion-section'}>
                     <p className={'card-section-labels'}>
                         Discover similar craft workshops
                     </p>
@@ -358,7 +362,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </Slider>
                     </div>
                         </div>
-                </div>
+                </div> : null }
             </div>
                 </div>
         </Mobile>

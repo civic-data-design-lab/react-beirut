@@ -101,6 +101,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={null}
               similarWorkshops={similarWorkshops}
               handleClose={onClose}
+              includeSuggestion={true}
             />
               </div>
 
@@ -132,6 +133,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={null}
               similarWorkshops={similarWorkshops}
               handleClose={onClose}
+              includeSuggestion={true}
             />
               </div>
 
@@ -165,6 +167,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={null}
               similarWorkshops={similarWorkshops}
               handleClose={onClose}
+              includeSuggestion={true}
             />
               </div>
 
