@@ -9,7 +9,8 @@ const ImageDataOriginalSchema = require('../models/ImageDataOriginal');
 const ImageDataThumbnailSchema = require('../models/ImageDataThumbnail');
 const getImageCompressions = require('../lib/getImageCompressions');
 
-const DEBUG_ID = '138936398_1';
+const DEBUG_ID = '138936839_1';
+const HOST_URL = 'http://localhost:3000';
 
 /**
  * script to pull each of the imagemetas and respective imagedataBackups from MongoDB and essentially
@@ -21,7 +22,7 @@ const args = process.argv.slice(2);
 // Check for the -h/--help flag
 if (args.includes('--help') || args.includes('-h')) {
   console.log(
-    'Usage: node scripts/reprocess-db-images.js [--help|-h] [-o|--overwrite] [-v|--verbose]'
+    'Usage: node scripts/reprocess-db-images.js [--help|-h] [-v|--verbose]'
   );
 
   console.log('\nOptions:');
@@ -34,7 +35,8 @@ if (args.includes('--help') || args.includes('-h')) {
   console.log('$ node scripts/reprocess-db-images.js -o');
   console.log(
     `\tOverwrites the imagedatas, imagedataoriginals, and imagethumbnails in the database.
-    \tusing the function defined within the script itself.`
+    \tusing the function defined within the script itself. Do not use this unless you know
+    \thow the script itself works.`
   );
 
   process.exit(0);
@@ -103,22 +105,33 @@ const fetchCorrespondingImageDataBackup = async (imageMeta) => {
 };
 
 const saveNewImage = async (imgMeta, imgDataOrig) => {
-  debugger;
 
   // console.log(imgDataOrig);
   // imgDataOrig.data = imgDataOrig.data.split(',').pop();
   // imgDataOrig.data = Buffer.from(imgDataOrig.data, 'base64');
 
   // INFO: Save original image
-  const newImageDataOriginal = new ImageDataOriginalSchema(imgDataOrig);
-  newImageDataOriginal._id = imgDataOrig._id;
-  newImageDataOriginal.filename = `${imgDataOrig.img_id}_original.${
-    imgDataOrig.filename.split('.')[1]
-  }`;
-  newImageDataOriginal.from_survey = imgMeta.from_survey;
-  newImageDataOriginal.isNew = true;
-  debugger;
-  const resOrig = await newImageDataOriginal.save();
+  let resOrig = undefined;
+  try {
+    const newImageDataOriginal = new ImageDataOriginalSchema(imgDataOrig);
+    newImageDataOriginal._id = imgDataOrig._id;
+    newImageDataOriginal.filename = `${imgDataOrig.img_id}_original.${
+      imgDataOrig.filename.split('.')[1]
+    }`;
+    newImageDataOriginal.from_survey = imgMeta.from_survey;
+    newImageDataOriginal.isNew = true;
+
+    resOrig = await newImageDataOriginal.save();
+  } catch (error) {
+    console.error('Likely already one in database');
+    console.error(error);
+  }
+  if (verbose)
+    console.log(
+      `${HOST_URL}/api/original_images/${imgDataOrig.img_id}_original.${
+        imgDataOrig.filename.split('.')[1]
+      } should now be online`
+    );
 
   // INFO: Get compressions
   const { imageBuffer, imageBufferThumbnail } = await getImageCompressions(
@@ -134,21 +147,40 @@ const saveNewImage = async (imgMeta, imgDataOrig) => {
   // newImageData._id = imgDataOrig._id;
   // newImageData.isNew = true;
   // const res = await newImageData.save();
-  // await ImageDataSchema.findOneAndReplace({img_id: })
+  await ImageDataSchema.findOneAndReplace(
+    { img_id: imgDataOrig.img_id },
+    {
+      img_id: imgDataOrig.img_id,
+      filename: `${imgDataOrig.img_id}.jpeg`,
+      from_survey: imgMeta.from_survey,
+      data: imageBuffer,
+    }
+  );
+  let res = undefined;
+  if (verbose)
+    console.log(
+      `${HOST_URL}/api/images/${imgDataOrig.img_id}.jpeg should now be online`
+    );
 
-  debugger;
-
-  // INFO: Save thumbnail picture
-  let imgDataThumbnail = imgDataOrig;
-  imgDataThumbnail.filename = `${imgDataOrig.img_id}_thumbnail.jpeg`;
-  imgDataThumbnail.data = imageBufferThumbnail;
-  const newImageThumbnail = new ImageDataThumbnailSchema(imgDataThumbnail);
-  newImageThumbnail.from_survey = imgMeta.from_survey;
-  newImageThumbnail._id = imgDataOrig._id;
-  newImageThumbnail.isNew = true;
-  const resThumbnail = await newImageThumbnail.save();
-
-  debugger;
+  let resThumbnail = undefined;
+  try {
+    // INFO: Save thumbnail picture
+    let imgDataThumbnail = imgDataOrig;
+    imgDataThumbnail.filename = `${imgDataOrig.img_id}_thumbnail.jpeg`;
+    imgDataThumbnail.data = imageBufferThumbnail;
+    const newImageThumbnail = new ImageDataThumbnailSchema(imgDataThumbnail);
+    newImageThumbnail.from_survey = imgMeta.from_survey;
+    newImageThumbnail._id = imgDataOrig._id;
+    newImageThumbnail.isNew = true;
+    resThumbnail = await newImageThumbnail.save();
+  } catch (error) {
+    console.error('Likely already one in database');
+    console.error(error);
+  }
+  if (verbose)
+    console.log(
+      `${HOST_URL}/api/thumbnail_images/${imgDataOrig.img_id}_thumbnail.jpeg should now be online`
+    );
 
   return { resOrig, res, resThumbnail };
 };
@@ -190,7 +222,10 @@ const main = async () => {
       await saveNewImage(imageMeta, imageData);
     }
     imageDatasUploaded++;
+    console.log(`Uploaded ${imageMeta.img_id}: ${imageDatasUploaded}/${imageMetas.length} images.`)
   }
+
+  console.log(`reprocess-db-images was successful! 🎉🎉🎉 Have a great day 🤠`);
 
   process.exit(0);
 };
