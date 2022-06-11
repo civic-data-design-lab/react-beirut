@@ -5,6 +5,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import Card from '../../Card';
 import { isProperlyTruthy } from '../../../lib/utils';
+import Dialogue from "./Dialogue";
 
 /**
  * Component handling mulitpage forms.
@@ -248,33 +249,33 @@ const MultipageForm = ({
       // Shows the missing fields dialog content for each page
       const missingFields = getMissingFields(page).map((field) => field.title);
       return (
-        <div className="MultipageForm-missing-fields">
-          <h2>Missing Required Fields</h2>
-          <div>
-            <h3>You are missing the following fields (marked with *):</h3>
-            <ul>
-              {missingFields.map((field) => (
-                <li key={field}>{field}</li>
-              ))}
+
+          <Dialogue
+            title={'Missing Required Fields'}
+            content={
+                <>
+                  <p>You are missing the following fields (marked with *):</p>
+                  <ul className={'missing-fields-list'}>
+                    <p>{missingFields.map((field) => (
+                        <li key={field}>{field}</li>
+                    ))}</p>
             </ul>
-          </div>
-          <span>
-            <button
-              className="btn-pill secondary"
-              onClick={() => {
+                </>
+            }
+
+            handleClose={handleCloseDialog}
+            cancel={true}
+            accept={true}
+            cancelText={'Go Back'}
+            acceptText={'Continue Anyways'}
+            handleCancel={handleCloseDialog}
+            handleAccept={() => {
                 router.push(`${router.basePath}?page=${page + 1}`, undefined, {
                   shallow: true,
                 });
                 handleCloseDialog();
-              }}
-            >
-              Continue Anyways
-            </button>
-            <button className="btn-pill" onClick={handleCloseDialog}>
-              Go Back
-            </button>
-          </span>
-        </div>
+              }} />
+
       );
     }
 
@@ -284,11 +285,7 @@ const MultipageForm = ({
 
   return (
     <>
-      {dialog && (
-        <Card handleClose={handleCloseDialog}>
-          <div className="card__content">{showDialogContent()}</div>
-        </Card>
-      )}
+      {dialog && showDialogContent()}
 
 
 

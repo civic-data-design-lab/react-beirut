@@ -258,13 +258,20 @@
     justify-content: space-between;
     height: 100%;
 
+    @media screen and (max-width: 991px) {
+      flex-direction: column;
+
+    }
+
 
     .section {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       padding: 16px;
-      width: 30%;
+      //width: 30%;
+
+
 
       .subsection {
         padding: 16px;
@@ -278,6 +285,8 @@
     }
   }
 }
+
+
 
 .LocationForm,
 .form {
@@ -295,6 +304,10 @@
     flex-direction: row;
     justify-content: space-between;
     max-height: 100%;
+    @media screen and (max-width: 991px) {
+      flex-direction: column;
+
+    }
 
 
     .section {
@@ -302,19 +315,15 @@
       flex-direction: column;
       justify-content: flex-start;
       padding: 16px;
-      width: 30%;
-      flex: 1 1 0;
+      width: 100%;
+      //flex: 1 1 0;
       max-height: 100%;
 
       .subsection {
         padding: 16px;
       }
 
-      div {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-      }
+
     }
   }
 }
@@ -374,24 +383,6 @@
     }
   }
 }
-
-  .WorkshopAboutForm,
-  .ArchiveAboutForm {
-    // min-width: 60vw;
-
-    min-height: 100%;
-
-    .sections {
-      width: 100%;
-      flex-direction: row;
-      //gap: 3rem;
-      justify-content: space-between;
-
-      input {
-        //min-width: 200px;
-      }
-    }
-  }
 }
 
 .UploadedImage {
@@ -441,11 +432,12 @@
 
 .Image-tags-container {
   display: flex;
-  flex-direction: column;
-  //flex-wrap: wrap;
-  justify-content: space-between;
-  //align-items: center;
-  padding: 48px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  //justify-content: space-between;
+  align-items: flex-start;
+  //padding: 16px;
+  margin: 16px 0px;
 
 }
 
@@ -488,9 +480,13 @@
 
   .sections {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: flex-start;
     max-height: 100%;
+    @media (max-width: 991px) {
+      flex-direction: column;
+    }
 
 
     .section {
@@ -503,14 +499,12 @@
       max-height: 100%;
 
       .subsection {
+        //width: 100%;
         padding: 16px;
       }
 
-      div {
-        display: flex;
-        flex-direction: column;
-        //gap: 0.25rem;
-      }
+
+
     }
   }
 }
@@ -553,4 +547,16 @@
       }
     }
   }
+}
+
+.contributeMap {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  min-width: 100%;
+  max-height: 60%;
+
+  border-radius: 10px;
+  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 3;
 }
