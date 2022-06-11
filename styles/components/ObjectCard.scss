@@ -203,7 +203,6 @@
 }
 
 .object-subtitle {
-  margin: 0px;
   font-family: $font-main;
   font-style: normal;
   font-weight: 350;
@@ -213,13 +212,13 @@
 }
 
 .object-caption {
+  margin: 0px;
   font-family: $font-main;
   font-style: normal;
   font-weight: 350;
   font-size: 14px;
   line-height: 18px;
   color: $c-primary-dark;
-  margin: 0px;
   @media screen and (max-width: 650px) {
     color: $c-black;
   }
@@ -248,10 +247,9 @@
 }
 
 .popup-section {
-  min-height: 100%;
+  height: 100%;
   //width:45vw;
   //flex: 1 1 0;
-  max-width: 50%;
   flex: 1;
   padding: 2vw;
   display: flex;
@@ -324,7 +322,6 @@
     height: 36vh;
   }
 }
-
 
 
 
@@ -406,12 +403,6 @@
   }
 }
 
-.miniMap-container {
-  height: 100%;
-  width: 100%;
-  padding: 0px;
-}
-
 
 .miniMap {
 
@@ -420,9 +411,13 @@
   bottom: 0;
   width: 100%;
   height: 100%;
-  padding: 0px;
+
   border-radius: 10px;
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.miniMap-container {
+  height: 90%;
 }
 
 .contributeMap {

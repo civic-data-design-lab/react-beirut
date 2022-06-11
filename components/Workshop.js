@@ -46,7 +46,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, includeSuggestion}) => {
+const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose}) => {
 
 
   const getImages = () => {
@@ -242,10 +242,12 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
                 <div className={'object-map-section'}>
                     <p className={'object-caption'}>Locate this craft workshop on the map </p>
+                    <div className={'miniMap-container'}>
                         <MiniMap workshop={workshop} type={'workshop'}/>
+                    </div>
                 </div>
 
-                {includeSuggestion ? <div className={"object-suggestion-section"}>
+                <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
                         Discover similar craft workshops
                     </p>
@@ -260,7 +262,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </Slider>
                     </div>
                         </div>
-                </div> : null}
+                </div>
             </div>
         </Desktop>
 

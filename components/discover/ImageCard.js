@@ -38,6 +38,7 @@ export default class ImageCard extends React.Component {
 
 
   componentDidMount() {
+      console.log('mounting');
       document.body.style.overflow = "hidden"; // ADD THIS LINE
       document.body.style.height = "100%"; // ADD THIS LINE
       document.body.style.position='fixed';
@@ -46,9 +47,10 @@ export default class ImageCard extends React.Component {
 
 
     componentWillUnmount() {
+      console.log('unmounting');
       document.body.style.overflow = "auto"; // ADD THIS LINE
         document.body.style.height = "auto"; // ADD THIS LINE
-         document.body.style.position='auto';
+         document.body.style.position='static';
   }
 
     // TODO: Need to fix slider styling

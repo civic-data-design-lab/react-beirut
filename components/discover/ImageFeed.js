@@ -59,7 +59,7 @@ const ImageFeed = ({ objects, imageFilterData }) => {
   //TODO: Adjust css to fit the width of the page
 
   return (
-    <div className="container">
+
       <div className="image-feed">
         {objects && objects.map(
           (object) =>
@@ -69,7 +69,7 @@ const ImageFeed = ({ objects, imageFilterData }) => {
               </div>
             )
         )}
-        </div>
+
     </div>
         )}
 
