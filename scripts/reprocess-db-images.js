@@ -64,6 +64,22 @@ const printProgress = (progress) => {
   process.stdout.write(progress);
 };
 
+const getTime = () => {
+  var currentdate = new Date(); 
+  var datetime = + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getDate() + "/"
+                + currentdate.getFullYear() + " @ "  
+                + zeroPad(currentdate.getHours(), 2) + ":"  
+                + zeroPad(currentdate.getMinutes(), 2) + ":" 
+                + zeroPad(currentdate.getSeconds(), 2);
+  return datetime;
+}
+
+function zeroPad(num, places) {
+  var zero = places - num.toString().length + 1;
+  return Array(+(zero > 0 && zero)).join("0") + num;
+}
+
 /**
  * Returns all the documents in the imagemetas collection
  *
@@ -135,8 +151,7 @@ const saveNewImage = async (imgMeta, imgDataOrig) => {
 
   // INFO: Get compressions
   const { imageBuffer, imageBufferThumbnail } = await getImageCompressions(
-    imgDataOrig.data,
-    true
+    imgDataOrig.data
   );
   // INFO: Save regular picture
   // let imgData = imgDataOrig;
@@ -203,26 +218,37 @@ const main = async () => {
   console.log('Successfully connected to database.');
 
   // Fetch imagemetas
-  const imageMetas = await fetchImageMetas(DEBUG_ID);
+  const imageMetas = await fetchImageMetas();
 
+
+  // Errored on 473-479 Could not find corresponding imageData for img_id 146736171_ref_location_A
+// Likely already one in database
+// TypeError: Cannot read properties of null (reading '_id')
+//     at saveNewImage (/Users/hugz/Library/CloudStorage/OneDrive-Personal/Desktop/1.Projects-Halagr/Beirut-UROP/react-beirut/scripts/reprocess-db-images.js:133:44)
+  const uploadPast_i = 583;  
   // Perform uploads + compression for each corresponding imagedata
   console.log(`> Fetching corresponding imageDatas...`);
   let imageDatasUploaded = 0;
   let imageData = null;
-  for (const imageMeta of [imageMetas[0]]) {
-    if (verbose && imageDatasUploaded == 0)
-      console.log(`(VERBOSE) Printing results of first imagedata:`);
-    if (verbose && imageDatasUploaded == 0)
-      console.log(`(VERBOSE) ${JSON.stringify(imageMeta)}`);
-    imageData = await fetchCorrespondingImageDataBackup(imageMeta);
-    if (verbose && imageDatasUploaded == 0) {
-      console.log(
-        `(VERBOSE) ${JSON.stringify(imageData).substring(0, 500)}...`
-      );
+  for (const imageMeta of imageMetas) {
+    if (imageDatasUploaded >= uploadPast_i) {
+      if (verbose && imageDatasUploaded == 0)
+        console.log(`(VERBOSE) Printing results of first imagedata:`);
+      if (verbose && imageDatasUploaded == 0)
+        console.log(`(VERBOSE) ${JSON.stringify(imageMeta)}`);
+      imageData = await fetchCorrespondingImageDataBackup(imageMeta);
+      if (verbose && imageDatasUploaded == 0) {
+        console.log(
+          `(VERBOSE) ${JSON.stringify(imageData).substring(0, 500)}...`
+        );
+      }
       await saveNewImage(imageMeta, imageData);
     }
     imageDatasUploaded++;
-    console.log(`Uploaded ${imageMeta.img_id}: ${imageDatasUploaded}/${imageMetas.length} images.`)
+    console.log(`[${getTime()}] Uploaded ${imageMeta.img_id}: ${imageDatasUploaded}/${imageMetas.length} images.`)
+    // if (imageDataUploaded % 10 == 9) {
+    //   x = 5;
+    // }
   }
 
   console.log(`reprocess-db-images was successful! 🎉🎉🎉 Have a great day 🤠`);
