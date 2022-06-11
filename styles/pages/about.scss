@@ -1,0 +1,82 @@
+.about-card {
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: $c-black;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    color: $c-primary-mid;
+    cursor: pointer;
+  }
+}
+
+.t-1,
+.t-2,
+.t-3,
+.t-4,
+.t-5,
+.t-6,
+.t-7 {
+  border: solid 2px $c-white;
+}
+.t-3,
+.t-4,
+.t-5,
+.t-6,
+.t-7 {
+  color: $c-white;
+
+  p {
+    font-size: 0.8rem;
+    line-height: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  hr {
+    border-color: $c-white;
+    margin: 0.5rem 0rem;
+  }
+
+  .border-right {
+    border-right: solid 0.5px rgba(255,255,255,0.25);
+  }
+}
+.t-1 {
+  background-color: $c-orange-1;
+}
+.t-2 {
+  background-color: $c-orange-2;
+}
+.t-3 {
+  background-color: $c-orange-3;
+}
+.t-4 {
+  background-color: $c-orange-4;
+}
+.t-5 {
+  background-color: $c-orange-5;
+}
+.t-6 {
+  background-color: $c-orange-6;
+}
+.t-7 {
+  background-color: $c-orange-7;
+}
+
+/* Medium devices (large desktops, 1200px and up) */
+// @media (min-width: 651px) {
+//   .about-card p {
+//     max-width: 550px;
+//   }
+// }
+
+/* Large devices (desktops, 992px and up) */
+// @media (min-width: 992px) {
+//   .about-card p {
+//     max-width: 800px;
+//   }
+// }
