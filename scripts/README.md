@@ -20,7 +20,7 @@ metadata associated with the response.
 1. Download the CSV data from the Google Sheet as a CSV and save it to a known location, preferably within the [`scripts/data`](/scripts/data) folder.
 2. Run the script with the following command:  
     ```
-    python3 scripts/archive_csv_to_json.py <path> <type>
+    python3 scripts/csv_to_json.py <path> <type>
     ```
    where `<path>` is the path to the CSV file and `<type>` is either `archive` or `stickers`.
 3. The script will create appropriate JSON files in `scripts/data/tmp`, which

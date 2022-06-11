@@ -65,19 +65,25 @@ const printProgress = (progress) => {
 };
 
 const getTime = () => {
-  var currentdate = new Date(); 
-  var datetime = + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getDate() + "/"
-                + currentdate.getFullYear() + " @ "  
-                + zeroPad(currentdate.getHours(), 2) + ":"  
-                + zeroPad(currentdate.getMinutes(), 2) + ":" 
-                + zeroPad(currentdate.getSeconds(), 2);
+  var currentdate = new Date();
+  var datetime =
+    +(currentdate.getMonth() + 1) +
+    '/' +
+    currentdate.getDate() +
+    '/' +
+    currentdate.getFullYear() +
+    ' @ ' +
+    zeroPad(currentdate.getHours(), 2) +
+    ':' +
+    zeroPad(currentdate.getMinutes(), 2) +
+    ':' +
+    zeroPad(currentdate.getSeconds(), 2);
   return datetime;
-}
+};
 
 function zeroPad(num, places) {
   var zero = places - num.toString().length + 1;
-  return Array(+(zero > 0 && zero)).join("0") + num;
+  return Array(+(zero > 0 && zero)).join('0') + num;
 }
 
 /**
@@ -99,7 +105,7 @@ const fetchImageMetas = async (img_id) => {
   }
   console.log(`Loaded ${imageMetas.length} documents from imagemetas.`);
 
-  if (verbose) console.log(`(VERBOSE) First document: ${imageMetas[0]}`);
+  if (verbose) console.log(`\t(VERBOSE) First document: ${imageMetas[0]}`);
 
   return imageMetas;
 };
@@ -121,7 +127,6 @@ const fetchCorrespondingImageDataBackup = async (imageMeta) => {
 };
 
 const saveNewImage = async (imgMeta, imgDataOrig) => {
-
   // console.log(imgDataOrig);
   // imgDataOrig.data = imgDataOrig.data.split(',').pop();
   // imgDataOrig.data = Buffer.from(imgDataOrig.data, 'base64');
@@ -137,14 +142,21 @@ const saveNewImage = async (imgMeta, imgDataOrig) => {
     newImageDataOriginal.from_survey = imgMeta.from_survey;
     newImageDataOriginal.isNew = true;
 
-    resOrig = await newImageDataOriginal.save();
+    resOrig = await newImageDataOriginal.save((err) => {
+      if (err.name === 'MongoServerError' && err.code === 11000) {
+        console.log(
+          `\tMongoServerError Code 11000 caught. ${imgDataOrig._id} already exists in database under collection imagedataoriginal.`
+        );
+      }
+    });
   } catch (error) {
-    console.error('Likely already one in database');
-    console.error(error);
+    // console.log('TEST');
+    // console.error('Likely already one in database');
+    // console.error(error);
   }
   if (verbose)
     console.log(
-      `${HOST_URL}/api/original_images/${imgDataOrig.img_id}_original.${
+      `\t (VERBOSE) ${HOST_URL}/api/original_images/${imgDataOrig.img_id}_original.${
         imgDataOrig.filename.split('.')[1]
       } should now be online`
     );
@@ -174,7 +186,7 @@ const saveNewImage = async (imgMeta, imgDataOrig) => {
   let res = undefined;
   if (verbose)
     console.log(
-      `${HOST_URL}/api/images/${imgDataOrig.img_id}.jpeg should now be online`
+      `\t (VERBOSE) ${HOST_URL}/api/images/${imgDataOrig.img_id}.jpeg should now be online`
     );
 
   let resThumbnail = undefined;
@@ -187,14 +199,20 @@ const saveNewImage = async (imgMeta, imgDataOrig) => {
     newImageThumbnail.from_survey = imgMeta.from_survey;
     newImageThumbnail._id = imgDataOrig._id;
     newImageThumbnail.isNew = true;
-    resThumbnail = await newImageThumbnail.save();
+    resThumbnail = await newImageThumbnail.save((err) => {
+      if (err.name === 'MongoServerError' && err.code === 11000) {
+        console.log(
+          `\tMongoServerError Code 11000 caught. ${imgDataOrig._id} already exists in database under collection imagedatathumbnail.`
+        );
+      }
+    });
   } catch (error) {
-    console.error('Likely already one in database');
-    console.error(error);
+    // console.error('Likely already one in database');
+    // console.error(error);
   }
   if (verbose)
     console.log(
-      `${HOST_URL}/api/thumbnail_images/${imgDataOrig.img_id}_thumbnail.jpeg should now be online`
+      `\t (VERBOSE) ${HOST_URL}/api/thumbnail_images/${imgDataOrig.img_id}_thumbnail.jpeg should now be online`
     );
 
   return { resOrig, res, resThumbnail };
@@ -220,12 +238,13 @@ const main = async () => {
   // Fetch imagemetas
   const imageMetas = await fetchImageMetas();
 
+  // Errored on 473-479 Could not find corresponding imageData for img_id 146736171_ref_location_A or somethign around then.
+  // Likely already one in database
+  // TypeError: Cannot read properties of null (reading '_id')
+  //     at saveNewImage (/Users/hugz/Library/CloudStorage/OneDrive-Personal/Desktop/1.Projects-Halagr/Beirut-UROP/react-beirut/scripts/reprocess-db-images.js:133:44)
 
-  // Errored on 473-479 Could not find corresponding imageData for img_id 146736171_ref_location_A
-// Likely already one in database
-// TypeError: Cannot read properties of null (reading '_id')
-//     at saveNewImage (/Users/hugz/Library/CloudStorage/OneDrive-Personal/Desktop/1.Projects-Halagr/Beirut-UROP/react-beirut/scripts/reprocess-db-images.js:133:44)
-  const uploadPast_i = 583;  
+  // Errored on 613 - 615 ish? and 782 - 787
+  const uploadPast_i = 610;
   // Perform uploads + compression for each corresponding imagedata
   console.log(`> Fetching corresponding imageDatas...`);
   let imageDatasUploaded = 0;
@@ -233,19 +252,23 @@ const main = async () => {
   for (const imageMeta of imageMetas) {
     if (imageDatasUploaded >= uploadPast_i) {
       if (verbose && imageDatasUploaded == 0)
-        console.log(`(VERBOSE) Printing results of first imagedata:`);
+        console.log(`\t(VERBOSE) Printing results of first imagedata:`);
       if (verbose && imageDatasUploaded == 0)
-        console.log(`(VERBOSE) ${JSON.stringify(imageMeta)}`);
+        console.log(`\t(VERBOSE) ${JSON.stringify(imageMeta)}`);
       imageData = await fetchCorrespondingImageDataBackup(imageMeta);
       if (verbose && imageDatasUploaded == 0) {
         console.log(
-          `(VERBOSE) ${JSON.stringify(imageData).substring(0, 500)}...`
+          `\t(VERBOSE) ${JSON.stringify(imageData).substring(0, 500)}...`
         );
       }
       await saveNewImage(imageMeta, imageData);
     }
     imageDatasUploaded++;
-    console.log(`[${getTime()}] Uploaded ${imageMeta.img_id}: ${imageDatasUploaded}/${imageMetas.length} images.`)
+    console.log(
+      `[${getTime()}] Uploaded ${imageMeta.img_id}: ${imageDatasUploaded}/${
+        imageMetas.length
+      } images.`
+    );
     // if (imageDataUploaded % 10 == 9) {
     //   x = 5;
     // }
