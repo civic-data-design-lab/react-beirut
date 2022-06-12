@@ -137,6 +137,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
             );
           })()}
       </div>
+          <hr/>
 
       <div className={'subsection'}>
         <h3 className={'Contribute-form-section-heading'}>Craft Information</h3>

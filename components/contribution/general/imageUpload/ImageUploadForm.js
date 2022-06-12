@@ -47,8 +47,7 @@ const ImageUploadForm = ({
     <form className="ImageUploadForm">
       <div className={'subsection'}>
       <h3 className={'Contribute-form-section-heading'}> {title || 'Image Upload'}</h3>
-      <div>
-        <div>
+
           {maxNumberOfImages != 1 &&
             [...Array(maxNumberOfImages).keys()].map((i) => {
               return (
@@ -60,8 +59,7 @@ const ImageUploadForm = ({
               );
             })}
         </div>
-        <span>
-          <div>
+          <div className={'subsection'}>
             <label className={imageRequired ? 'required' : ''}>{label || 'Upload an image'}</label>
             <SingleImageUpload
               handleUpdateImage={(imagebuffer, extension) => {
@@ -82,7 +80,7 @@ const ImageUploadForm = ({
             />
           </div>
 
-          <div>
+          <div className={'subsection'}>
             <label className={captionRequired ? 'required' : ''} htmlFor="caption">
               Enter a caption or a story associated with this image.
             </label>
@@ -93,9 +91,8 @@ const ImageUploadForm = ({
               onChange={(e) => onUpdate({ caption: e.target.value })}
             />
           </div>
-        </span>
-      </div>
-        </div>
+
+
     </form>
   );
 };

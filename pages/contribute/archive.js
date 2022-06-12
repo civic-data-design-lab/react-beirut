@@ -332,7 +332,8 @@ const ArchiveContribution = () => {
           <div className="card__content">{showDialogContent()}</div>
         </Card>
       )}
-      <div className="Contribute drop-shadow__black">
+      <div className={'Contribute-container'}>
+        <div className="Contribute drop-shadow__black">
         <MultipageForm
           name={ARCHIVE_CONTRIBUTION_NAME}
           formData={form}
@@ -357,6 +358,7 @@ const ArchiveContribution = () => {
           />
           <Preview onUpdate={onUpdate} />
         </MultipageForm>
+      </div>
       </div>
     </>
   );

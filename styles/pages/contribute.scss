@@ -31,6 +31,7 @@
   padding: 40px;
   @media screen and (max-width: 650px) {
     padding: 20px;
+    width: 95vw;
   }
 }
 
@@ -248,6 +249,10 @@
   justify-content: space-between;
   padding: 24px;
 
+  @media screen and (max-width: 650px){
+    padding: 12px;
+  }
+
   h2 {
     //margin-bottom: 2rem;
   }
@@ -270,11 +275,17 @@
       justify-content: flex-start;
       padding: 16px;
       //width: 30%;
+      @media screen and (max-width: 650px){
+        padding: 8px;
+  }
 
 
 
       .subsection {
         padding: 16px;
+        @media screen and (max-width: 650px){
+    padding: 8px;
+  }
       }
 
       div {
@@ -295,6 +306,10 @@
   justify-content: space-between;
   padding: 24px;
 
+  @media screen and (max-width: 650px){
+    padding: 12px;
+  }
+
   h2 {
     //margin-bottom: 2rem;
   }
@@ -310,17 +325,28 @@
     }
 
 
+
     .section {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       padding: 16px;
-      width: 100%;
+      width: 40%;
       //flex: 1 1 0;
       max-height: 100%;
 
+      @media screen and (max-width: 991px) {
+      width: 100%;
+        @media screen and (max-width: 650px) {
+      padding: 0px;
+
+    }
+
+    }
+
       .subsection {
         padding: 16px;
+        //width: 100%;
       }
 
 
@@ -349,6 +375,7 @@
       width: inherit;
     }
   }
+}
 
 
 .previewForm {
@@ -357,33 +384,120 @@
   justify-content: space-between;
   padding: 24px;
 
-  h2 {
-    //margin-bottom: 2rem;
+  @media screen and (max-width: 650px) {
+    padding: 12px;
   }
-
-
 
   .sections {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
     //max-height: 100%;
+
+    .preview-section {
+      width: 100%;
+      @media screen and (max-width: 991px) {
+        .object-slider-section-tablet {
+          width: 100%;
+          aspect-ratio: 1/1;
+        }
+      }
+      .subsection {
+        padding: 16px;
+
+        .preview-info-card {
+          display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: $c-white;
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
+        width: 100%;
+          padding: 16px;
+
+        @media screen and (max-width: 650px) {
+          border-radius: 20px 20px 0px 0px;
+        }
+        }
+
+
+      .preview-card {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: $c-white;
+        border-radius: 20px 20px 20px 20px;
+        box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
+        width: 100%;
+
+        @media screen and (max-width: 650px) {
+          border-radius: 20px 20px 0px 0px;
+        }
+
+
+        .popup-section {
+          height: 100%;
+          width: 100%;
+          // flex: 1 1 0;
+          // flex: 1;
+          padding: 2vw;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+
+          -ms-overflow-style: none; /* IE and Edge */
+          scrollbar-width: none; /* Firefox */
+          @media screen and (min-width: 651px) and (max-width: 991px) {
+            width: 100%;
+            @media screen and (min-aspect-ratio: 1/1) {
+              justify-content: space-between;
+            }
+          }
+
+          @media screen and (min-width: 991px) {
+            width: 50%;
+          }
+
+          @media screen and (max-width: 650px) {
+            padding: 0px;
+            justify-content: flex-start;
+            font-size: 0px;
+            width: 100%;
+          }
+
+        }
+
+        .object-map-section {
+          height: 30vh;
+        }
+
+        .object-slider-section-tablet {
+          width: 100%;
+          aspect-ratio: 1/1;
+        }
+      }
+      }
+    }
 
 
     .section {
       //display: flex;
       //flex-direction: column;
       //justify-content: flex-start;
-      padding: 32px;
-      //width: 30%;
+      padding: 16px;
+      width: 100%;
       //flex: 1 1 0;
       //max-height: 100%;
-
-
+      .subsection {
+        padding: 16px;
+      }
     }
   }
 }
-}
+
+
 
 .UploadedImage {
   aspect-ratio: 1;
@@ -424,6 +538,10 @@
 
 .form-title {
   padding-left: 32px;
+
+  @media screen and (max-width: 650px) {
+    padding-left: 16px;
+  }
 }
 
 .vr {
@@ -437,7 +555,7 @@
   //justify-content: space-between;
   align-items: flex-start;
   //padding: 16px;
-  margin: 16px 0px;
+  margin: 24px 0px;
 
 }
 
@@ -450,29 +568,31 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+
+  .subsection {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 8px;
+  }
 }
 
 .image-upload-container {
-  padding: 48px;
+  //padding: 48px;
 }
 
 
-.preview-card {
-  background-color: $c-white-off;
-  box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 16px;
-}
+
 
 .CraftTypeForm {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 24px;
+
+  @media screen and (max-width: 650px){
+    padding: 24px;
+  }
 
   h2 {
     //margin-bottom: 2rem;
@@ -497,10 +617,16 @@
       //width: 30%;
       //flex: 1 1 0;
       max-height: 100%;
+      @media screen and (max-width: 650px){
+    padding: 8px;
+  }
 
       .subsection {
         //width: 100%;
         padding: 16px;
+        @media screen and (max-width: 650px){
+    padding: 8px;
+  }
       }
 
 
@@ -527,6 +653,11 @@
     justify-content: space-between;
     align-items: flex-start;
     height: 100%;
+    width: 100%;
+    @media screen and (max-width: 990px) {
+      flex-direction: column;
+
+    }
 
 
     .section {
@@ -534,16 +665,14 @@
       flex-direction: column;
       justify-content: flex-start;
       padding: 16px;
-      //width: 40%;
+      width: 100%;
 
       .subsection {
         padding: 16px;
-      }
-
-      div {
         display: flex;
         flex-direction: column;
-        //gap: 0.25rem;
+        //justify-content: space-between;
+        row-gap: 16px;
       }
     }
   }
@@ -554,8 +683,7 @@
   top: 0;
   bottom: 0;
   min-width: 100%;
-  max-height: 60%;
-
+  height: 45vh;
   border-radius: 10px;
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 3;

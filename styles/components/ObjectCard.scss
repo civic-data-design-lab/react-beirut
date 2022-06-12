@@ -1,6 +1,10 @@
 //// DISCOVER WORKSHOP & ARCHIVE CARD
 .object-card {
 
+  h1, h2, h3, h4, p {
+    margin: 0px;
+  }
+
   //min-width: 100vw;
   width:100%;
   height: 90vh;
@@ -40,7 +44,7 @@
   }
 
   @media screen and (max-width: 650px) {
-    height:140vh;
+    min-height:140vh;
     width: 100%;
     background-color: $c-white-off;
     z-index: 200;
@@ -124,11 +128,12 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 
+
   @media screen and (min-width: 651px) and (max-width: 991px)  {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 110vh;
+    min-height: 115vh;
     top:10vh;
 
     @media screen and (min-aspect-ratio: 1/1) {
@@ -136,6 +141,7 @@
       justify-content: flex-start;
 
   }
+
   }
 
 .object-card-archive::-webkit-scrollbar {
@@ -143,7 +149,7 @@
 }
 
   @media screen and (max-width: 650px) {
-    height:120vh;
+    min-height:112vh;
     width: 100%;
     background-color: $c-white-off;
     z-index: 200;
@@ -214,13 +220,15 @@
 }
 
 .object-caption {
-  margin: 0px;
+  margin-top: 0px;
+  margin-bottom: 8px;
   font-family: $font-main;
   font-style: normal;
   font-weight: 350;
   font-size: 14px;
   line-height: 18px;
   color: $c-primary-dark;
+  word-wrap:break-word;
   @media screen and (max-width: 650px) {
     color: $c-black;
   }
@@ -311,8 +319,8 @@
 }
 
 .object-map-section {
-  padding: 8px 0px;
-  height: 40vh;
+  //padding: 8px 0px;
+  height: 35vh;
   @media screen and (min-width: 651px) and (max-width: 991px) {
     height: 40vh;
     padding-top: 4vh;
@@ -422,6 +430,7 @@
 .miniMap-container {
   height: 90%;
 }
+
 
 
 

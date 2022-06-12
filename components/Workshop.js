@@ -46,7 +46,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, includeSuggestion}) => {
+const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose}) => {
 
 
   const getImages = () => {
@@ -247,7 +247,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </div>
                 </div>
 
-                {includeSuggestion ?
+                {similarWorkshops ?
 
                 <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
@@ -293,7 +293,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         </div>
             </div>
 
-                { includeSuggestion ?
+                { similarWorkshops ?
             <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
                         Discover similar craft workshops
@@ -316,11 +316,11 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         <Mobile>
             <div className={'popup-section'}>
                 <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300}}>
-                <button className={'close-card-btn object-mobile-close'} onClick={handleClose}>
+                    {handleClose ? <button className={'close-card-btn object-mobile-close'} onClick={handleClose}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z" fill="#333333"/>
                     </svg>
-                </button>
+                </button> : null}
                 <div className={'object-mobile-heading'}>
                     <p className={'object-mobile-title'}>{getShopName()}</p>
                     <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
@@ -347,7 +347,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <MiniMap workshop={workshop} type={'workshop'}/>
                 </div>
 
-                { includeSuggestion ? <div className={'object-mobile-section object-suggestion-section'}>
+                { similarWorkshops ? <div className={'object-mobile-section object-suggestion-section'}>
                     <p className={'card-section-labels'}>
                         Discover similar craft workshops
                     </p>

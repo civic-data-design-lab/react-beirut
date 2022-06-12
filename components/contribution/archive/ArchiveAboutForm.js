@@ -31,11 +31,12 @@ const ArchiveAboutForm = ({
   const fields = page.fields;
 
   return (
-    <form className="ArchiveAboutForm form">
-      <h2>{page.title}</h2>
+    <form className="ArchiveAboutForm">
+      <div className={'form-title'}><h2>{page.title}</h2></div>
       <div className="sections">
         <div className="section">
-          <h3>General Information</h3>
+          <div className='subsection'>
+          <h3 className={'Contribute-form-section-heading'}>General Information</h3>
           <InputField
             title={
               <>
@@ -60,9 +61,12 @@ const ArchiveAboutForm = ({
             onUpdate={onUpdate}
             required={fields.owner_name.required}
           />
+            </div>
         </div>
+        <div className={'vr'}></div>
         <div className="section">
-          <h3>Reference Information</h3>
+          <div className={'subsection'}>
+          <h3 className={'Contribute-form-section-heading'}>Reference Information</h3>
           <InputField
             title={fields.type_of_reference.title}
             fieldName={fields.type_of_reference.field_name}
@@ -120,6 +124,7 @@ const ArchiveAboutForm = ({
             required={fields.reference_copyright.required}
           />
         </div>
+          </div>
       </div>
     </form>
   );

@@ -26,7 +26,8 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
     // INFO: Return list of missing fields if there are missing fields.
     if (missingFields.length > 0) {
       return (
-        <div>
+        <div className={'preview-info-card'}>
+
 
           <h3 className={'Contribute-form-section-heading'}>You are missing some necessary fields!</h3>
           <p>
@@ -51,7 +52,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
               </div>
             );
           })}
-        </div>
+            </div>
       );
     }
 
@@ -67,7 +68,6 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
             imageMetas={imageMeta && [imageMeta]}
             imageSrc={imageDataOriginal?.data}
             objType={'workshop'}
-            includeSuggestions={false}
         />
 
       );
@@ -80,10 +80,11 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
       console.debug('Returning archive to preview:', archive);
       console.debug('Returning image to preview:', imageDataOriginal);
       return (
-        <Archive
-          archive={archive}
-          imageMetas={imageMeta && [imageMeta]}
-          imageSrc={imageDataOriginal?.data}
+        <PreviewCard
+            object={archive}
+            imageMetas={imageMeta && [imageMeta]}
+            imageSrc={imageDataOriginal?.data}
+            objType={'archive'}
         />
       );
     }
@@ -116,10 +117,12 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
           />
               </div>
             </div>
-            <div className={'section'}>
-              <div className={'subsection preview-subsection'}>
+            <div className={'preview-section'}>
+              <div className={'subsection'}>
+
                 {getPreview()}
-              </div>
+                </div>
+
             </div>
 
             </div>

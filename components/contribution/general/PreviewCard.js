@@ -1,13 +1,14 @@
 import MapCardSlider from "../../Map/MapCardSlider";
 import Workshop from "../../Workshop";
+import Archive from "../../Archive";
 
 const PreviewCard = ({object, imageMetas, imageSrc, objType, includeSuggestions}) => {
 
     const getObjectPreview = () => {
         if (objType==="workshop") {
-            return <Workshop workshop={object} imageMetas={imageMetas} imageSrc={imageSrc} includeSuggestion={false}/>
+            return <Workshop workshop={object} imageMetas={imageMetas} imageSrc={imageSrc}/>
         } else {
-            return null
+            return <Archive archive={object} imageMetas={imageMetas} imageSrc={imageSrc}/>
         }
     }
 
@@ -18,9 +19,11 @@ const PreviewCard = ({object, imageMetas, imageSrc, objType, includeSuggestions}
 
 
     return (
-        <div className={'preview-card'}>
+
+            <div className={'preview-card'}>
             {getObjectPreview()}
         </div>
+
     )
 }
 
