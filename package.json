@@ -10,7 +10,8 @@
     "start": "next start -p $PORT",
     "nodemon-img-comp-test": "nodemon testing/img-compression/app.js",
     "img-comp-test": "node testing/img-compression/app.js",
-    "reprocess-db-images": "node scripts/reprocess-db-images.js -v"
+    "reprocess-db-images": "node scripts/reprocess-db-images.js",
+    "reprocess-db-images-v": "node scripts/reprocess-db-images.js -v"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",

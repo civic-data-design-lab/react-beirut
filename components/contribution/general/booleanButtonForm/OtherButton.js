@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
 
-// TODO: Fix black add button from not working on mobile.
-
 /**
  * Button that allows you to enter in custom tags
  *

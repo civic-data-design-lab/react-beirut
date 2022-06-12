@@ -13,9 +13,10 @@ export default async (req, res) => {
     await dbConnect();
 
     // INFO: Get the actual image data from the database
-    const filename = id;
+    let [filename, fileExtension] = id.split('.')
+    if (fileExtension == 'jpg') fileExtension = 'jpeg';
     const response = await ImageData.findOne({
-      filename,
+      filename: filename + '.' + fileExtension,
     });
 
     if (!response) {
@@ -24,7 +25,7 @@ export default async (req, res) => {
     }
 
     // INFO: Send the image
-    res.setHeader('Content-Type', mime.getType(filename));
+    res.setHeader('Content-Type', mime.getType(id));
     res.send(response.data);
     return;
   }
