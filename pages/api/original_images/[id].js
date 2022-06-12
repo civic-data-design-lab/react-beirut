@@ -14,7 +14,7 @@ export default async (req, res) => {
 
     // INFO: Get the actual image data from the database
     let [filename, fileExtension] = id.split('.')
-    if (fileExtension == 'jpg') fileExtension = 'jpeg';
+    // if (fileExtension == 'jpg') fileExtension = 'jpeg';
     const response = await ImageDataOriginal.findOne({
       filename: filename + '.' + fileExtension,
     });

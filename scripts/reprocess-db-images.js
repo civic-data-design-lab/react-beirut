@@ -156,9 +156,9 @@ const saveNewImage = async (imgMeta, imgDataOrig) => {
   }
   if (verbose)
     console.log(
-      `\t (VERBOSE) ${HOST_URL}/api/original_images/${imgDataOrig.img_id}_original.${
-        imgDataOrig.filename.split('.')[1]
-      } should now be online`
+      `\t (VERBOSE) ${HOST_URL}/api/original_images/${
+        imgDataOrig.img_id
+      }_original.${imgDataOrig.filename.split('.')[1]} should now be online`
     );
 
   // INFO: Get compressions
@@ -244,7 +244,7 @@ const main = async () => {
   //     at saveNewImage (/Users/hugz/Library/CloudStorage/OneDrive-Personal/Desktop/1.Projects-Halagr/Beirut-UROP/react-beirut/scripts/reprocess-db-images.js:133:44)
 
   // Errored on 613 - 615 ish? and 782 - 787
-  const uploadPast_i = 610;
+  const uploadPast_i = 780;
   // Perform uploads + compression for each corresponding imagedata
   console.log(`> Fetching corresponding imageDatas...`);
   let imageDatasUploaded = 0;
@@ -260,6 +260,10 @@ const main = async () => {
         console.log(
           `\t(VERBOSE) ${JSON.stringify(imageData).substring(0, 500)}...`
         );
+      }
+      if (!imageData) {
+        console.log(`imageData not found, skipping saving this image.`);
+        continue;
       }
       await saveNewImage(imageMeta, imageData);
     }
