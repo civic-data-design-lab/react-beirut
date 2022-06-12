@@ -2,6 +2,24 @@ import InputField from '../InputField';
 import LocationSelect from './LocationSelect';
 import { useState, useEffect } from 'react';
 import { BEIRUT_ZONES } from '../../../../lib/utils';
+import { useMediaQuery } from 'react-responsive';
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 650 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 const sortByStringAttribute = (array, attributeName) => {
   return array.sort((a, b) => {
@@ -136,7 +154,9 @@ const LocationForm = ({
               </div>
               </div>
           </div>
-            <div className={'vr'}></div>
+            <Desktop><div className={'vr'}></div></Desktop>
+              <Mobile><hr/></Mobile>
+              <Tablet><hr/></Tablet>
             <div className="LocationForm-location-select section">
               <div className={'subsection'}>
               <h3 className={'Contribute-form-section-heading'}>Point Location</h3>

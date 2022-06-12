@@ -1,5 +1,23 @@
 import ImageUploadForm from '../general/imageUpload/ImageUploadForm';
 import BooleanButtonForm from '../general/booleanButtonForm/BooleanButtonForm';
+import { useMediaQuery } from 'react-responsive';
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 650 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 const WorkshopImageForm = ({
   onUpdate,
@@ -32,7 +50,9 @@ const WorkshopImageForm = ({
       </div>
 
       {/* TODO: Fix this ugly space that is here for whatever reason. */}
-                <div className={'vr'}></div>
+                <Desktop><div className={'vr'}></div></Desktop>
+              <Mobile><hr/></Mobile>
+              <Tablet><hr/></Tablet>
       <div className={'section'}>
           <div className={'subsection'}>
               <h3 className={'Contribute-form-section-heading'}>Image Tags</h3>

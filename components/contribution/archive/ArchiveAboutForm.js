@@ -1,4 +1,22 @@
 import InputField from '../general/InputField';
+import { useMediaQuery } from 'react-responsive';
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 650 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 /**
  * The Archive about form updates the following fields:
@@ -63,7 +81,9 @@ const ArchiveAboutForm = ({
           />
             </div>
         </div>
-        <div className={'vr'}></div>
+        <Desktop><div className={'vr'}></div></Desktop>
+              <Mobile><hr/></Mobile>
+              <Tablet><hr/></Tablet>
         <div className="section">
           <div className={'subsection'}>
           <h3 className={'Contribute-form-section-heading'}>Reference Information</h3>

@@ -2,6 +2,24 @@ import ImageUploadForm from '../general/imageUpload/ImageUploadForm';
 import InputField from '../general/InputField';
 import { IMAGE_TYPES, VALID_DECADES, CRAFT_CATEGORIES, CRAFT_TYPES } from '../../../lib/utils';
 import BooleanButtonForm from '../general/booleanButtonForm/BooleanButtonForm';
+import { useMediaQuery } from 'react-responsive';
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  return isDesktop ? children : null
+}
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
+  return isTablet ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 650 })
+  return isMobile ? children : null
+}
+const Default = ({ children }) => {
+  const isNotMobile = useMediaQuery({ minWidth: 768 })
+  return isNotMobile ? children : null
+}
 
 const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
   const page = formSchema.pages.image_upload;
@@ -28,7 +46,9 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
         />
               </div>
 
-              <div className={'vr'}></div>
+              <Desktop><div className={'vr'}></div></Desktop>
+              <Mobile><hr/></Mobile>
+              <Tablet><hr/></Tablet>
 
       <div className="section">
           <div className={'subsection'}>
