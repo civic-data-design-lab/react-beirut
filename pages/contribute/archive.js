@@ -121,8 +121,8 @@ const formSchema = {
       },
     },
     about: {
-      title: 'About the Archive',
-      short_title: 'About the Archive',
+      title: 'Archival Information',
+      short_title: 'Archival Information',
       custom_reqs: {
         ref_source_req: {
           function: (formData) => {

@@ -123,16 +123,18 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
         archive.craft_discipline.forEach(craft =>
             {
             if (craft.toUpperCase() === "OTHER") {
-                if (archive.craft_discipline_other) {
-                    const other = archive.craft_discipline_other.charAt(0).toUpperCase() + archive.craft_discipline_other.slice(1).toLowerCase()
-                    if (craftsList.indexOf(other) < 0) {
-                        otherList.push(archive.craft_discipline_other.toLowerCase())
+                if (archive.craft_discipline_other && archive.craft_discipline_other.length>0) {
+                    archive.craft_discipline_other.map((craftOther)=>{
+                        const other = craftOther.charAt(0).toUpperCase() + craftOther.slice(1).toLowerCase()
+                        if (craftsList.indexOf(other) < 0) {
+                            otherList.push(craftOther.toLowerCase())
                         if (craftsList.length < 1) {
                             craftsList.push(other)
                         } else {
                             craftsList.push(" | " + other)
                         }
                     }
+                    })
                 }
             } else {
                 if (craftsList.length<1) {

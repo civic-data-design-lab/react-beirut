@@ -248,16 +248,18 @@ export default class MapCard extends React.Component {
         this.props.workshop.craft_discipline.forEach(craft =>
             {
             if (craft.toUpperCase() === "OTHER") {
-                if (this.props.workshop.craft_discipline_other) {
-                    const other = this.props.workshop.craft_discipline_other.charAt(0).toUpperCase() + this.props.workshop.craft_discipline_other.slice(1).toLowerCase()
-                    if (craftsList.indexOf(other) < 0) {
-                        otherList.push(this.props.workshop.craft_discipline_other.toLowerCase())
+                if (this.props.workshop.craft_discipline_other && this.props.workshop.craft_discipline_other.length>0) {
+                    this.props.workshop.craft_discipline_other.map((craftOther)=>{
+                        const other = craftOther.charAt(0).toUpperCase() + craftOther.slice(1).toLowerCase()
+                        if (craftsList.indexOf(other) < 0) {
+                            otherList.push(craftOther.toLowerCase())
                         if (craftsList.length < 1) {
                             craftsList.push(other)
                         } else {
                             craftsList.push(" | " + other)
                         }
                     }
+                    })
                 }
             } else {
                 if (craftsList.length<1) {

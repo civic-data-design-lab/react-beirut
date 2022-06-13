@@ -149,16 +149,18 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         workshop.craft_discipline.forEach(craft =>
             {
             if (craft.toUpperCase() === "OTHER") {
-                if (workshop.craft_discipline_other) {
-                    const other = workshop.craft_discipline_other.charAt(0).toUpperCase() + workshop.craft_discipline_other.slice(1).toLowerCase()
-                    if (craftsList.indexOf(other) < 0) {
-                        otherList.push(workshop.craft_discipline_other.toLowerCase())
+                if (workshop.craft_discipline_other && workshop.craft_discipline_other.length>0) {
+                    workshop.craft_discipline_other.map((craftOther)=>{
+                        const other = craftOther.charAt(0).toUpperCase() + craftOther.slice(1).toLowerCase()
+                        if (craftsList.indexOf(other) < 0) {
+                            otherList.push(craftOther.toLowerCase())
                         if (craftsList.length < 1) {
                             craftsList.push(other)
                         } else {
                             craftsList.push(" | " + other)
                         }
                     }
+                    })
                 }
             } else {
                 if (craftsList.length<1) {
