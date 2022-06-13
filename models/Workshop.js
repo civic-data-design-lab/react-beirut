@@ -29,7 +29,7 @@ const WorkshopSchema = new mongoose.Schema({
   decade_established: [Number],
   craft_discipline_category: [String],
   craft_discipline: [String],
-  craft_discipline_other: String,
+  craft_discipline_other: [String],
   location: {
     geo: { lat: Number, lng: Number },
     address: {
