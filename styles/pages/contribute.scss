@@ -274,6 +274,7 @@
       flex-direction: column;
       justify-content: flex-start;
       padding: 16px;
+      flex: 1 1 0;
       //width: 30%;
       @media screen and (max-width: 650px){
         padding: 8px;

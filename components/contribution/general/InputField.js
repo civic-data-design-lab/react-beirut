@@ -161,16 +161,17 @@ const InputField = (props) => {
         return (
           <>
             <select
+               value={'null'}
               name={title}
               id={fieldName}
-              value={
-                [
-                  null,
-                  ...children.map((option) => option.props.value),
-                ].includes(value)
-                  ? value || ''
-                  : 'OTHER'
-              }
+              //value={
+              //  [
+              //    null,
+              //    ...children.map((option) => option.props.value),
+              //  ].includes(value)
+              //    ? value || ''
+              //    : 'OTHER'
+              //}
               onChange={(e) => {
                 if (e.target.value == 'OTHER') {
                   setOtherSelected(true);
@@ -186,11 +187,12 @@ const InputField = (props) => {
               }}
               {...rest}
             >
-              <option defaultValue value="null">
+              <option disabled value="null">
                 {`--Select ${title}--`}
               </option>
               {children}
               <option value="OTHER"> ＋ OTHER</option>
+
             </select>
             {otherSelected && (
               <input

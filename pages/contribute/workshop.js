@@ -294,8 +294,8 @@ const WorkshopContribution = () => {
         setSubmitted(true);
         // TODO: UNCOMMENT THESE. ONLY UNCOMMENTED FOR TESTING.
         // INFO Clear the form data
-        // setForm({});
-        // localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+           setForm({});
+           localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
       })
       .catch((err) => {
         setDialog(err);

@@ -40,7 +40,7 @@ import {
   ARCHIVE_CONTRIBUTION_NAME,
   convertArchiveContributionToSchema,
   isProperlyTruthy,
-  CRAFT_CATEGORIES,
+  CRAFT_CATEGORIES, WORKSHOP_CONTRIBUTION_NAME,
 } from '../../lib/utils';
 import ArchiveAboutForm from '../../components/contribution/archive/ArchiveAboutForm';
 import Card from '../../components/Card';
