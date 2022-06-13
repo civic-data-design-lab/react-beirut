@@ -1,5 +1,7 @@
 import InputField from '../general/InputField';
 import { useMediaQuery } from 'react-responsive';
+import BooleanButtonForm from "../general/booleanButtonForm/BooleanButtonForm";
+import { CRAFT_CATEGORIES, CRAFT_TYPES } from '../../../lib/utils'
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -46,6 +48,7 @@ const WorkshopAboutForm = ({
               highlight={highlightedFields?.includes(fields.shop_name.field_name)}
             />
           </div>
+
           <div className={'subsection'}>
             <h3 className={'Contribute-form-section-heading'}>Operation</h3>
           {/* This input was changed from a date to numerical year. Check that data still works here. */}
@@ -76,11 +79,9 @@ const WorkshopAboutForm = ({
             </InputField>
           </div>
 
+
         </div>
 
-        <Desktop><div className={'vr'}></div></Desktop>
-              <Mobile><hr/></Mobile>
-              <Tablet><hr/></Tablet>
 
 
         <div className="section">
@@ -157,8 +158,34 @@ const WorkshopAboutForm = ({
             })()}
           </div>
         </div>
-        <div className={'vr'}></div>
-        <div className={'section'}></div>
+
+
+        <div className={'section'}>
+          <div className={'subsection'}>
+            <BooleanButtonForm
+              onUpdate={onUpdate}
+              formData={formData}
+              title={fields.craft_category.title}
+              dataLocation={fields.craft_category.field_name}
+              label="What category of crafts are produced in this workshop?"
+              selectionsAllowed="2"
+              defaultTags={CRAFT_CATEGORIES}
+              required={fields.craft_category.required ? true : false}
+            />
+          </div>
+          <div className={'subsection'}>
+            <BooleanButtonForm
+              onUpdate={onUpdate}
+              formData={formData}
+              title={fields.type_of_craft.title}
+              dataLocation={fields.type_of_craft.field_name}
+              label="What type of crafts are produced in this workshop? If entering a custom type, English is preferred."
+              defaultTags={CRAFT_TYPES}
+              required={fields.type_of_craft.required ? true : false}
+              hasOtherField={true}
+            />
+          </div>
+        </div>
       </div>
     </form>
   );

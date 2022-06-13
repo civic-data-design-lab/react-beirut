@@ -120,6 +120,16 @@ const formSchema = {
           title: 'Social Media',
           field_name: 'social_media',
         },
+        craft_category: {
+          title: 'Craft Category',
+          field_name: 'craft_category',
+          required: true,
+        },
+        type_of_craft: {
+          title: 'Type of Craft',
+          field_name: 'type_of_craft',
+          required: true,
+        },
       },
     },
     location: {
@@ -151,21 +161,6 @@ const formSchema = {
         lng: {
           title: 'Longitude',
           field_name: 'lng',
-        },
-      },
-    },
-    about_the_craft: {
-      title: 'About the Craft',
-      fields: {
-        craft_category: {
-          title: 'Craft Category',
-          field_name: 'craft_category',
-          required: true,
-        },
-        type_of_craft: {
-          title: 'Type of Craft',
-          field_name: 'type_of_craft',
-          required: true,
         },
       },
     },
@@ -354,7 +349,6 @@ const WorkshopContribution = () => {
               'Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.'
             }
           />
-          <WorkshopCraftTypeForm label="What type of crafts are produced in this workshop?" />
           <WorkshopImageForm label="Upload an image of the craft workshop" />
           <Preview />
         </MultipageForm>
