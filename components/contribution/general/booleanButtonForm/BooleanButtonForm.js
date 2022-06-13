@@ -46,38 +46,45 @@ const BooleanButtonForm = ({
 
   const onBooleanButtonClick = (e) => {
 
-    if (!formData[dataLocation]) {
-      let bbfData = {};
-      bbfData[dataLocation] = []
-      onUpdate(bbfData);
-    }
+    //if (!formData[dataLocation]) {
+    //  let bbfData = {};
+    //  bbfData[dataLocation] = []
+      //onUpdate(bbfData);
+    //}
 
     setErrorMessage('');
     let tag = e.target.getAttribute('variable');
     let bbfData = JSON.parse(JSON.stringify(formData));
-    let isSelected = bbfData[dataLocation].includes(tag);
-    // INFO: User is trying to make more than the allowed selections
-    if (
-      getTotalSelectionsMade() >= selectionsAllowed &&
-      isSelected == false &&
-      selectionsAllowed != 0
-    ) {
-      setErrorMessage(
-        selectionsAllowed == 1
-          ? `Please only select one option.`
-          : `Please only select up to ${selectionsAllowed} options.`
-      );
-      return;
+
+    if (bbfData[dataLocation]) {
+      let isSelected = bbfData[dataLocation].includes(tag);
+      // INFO: User is trying to make more than the allowed selections
+      if (
+        getTotalSelectionsMade() >= selectionsAllowed &&
+        isSelected == false &&
+        selectionsAllowed != 0
+      ) {
+        setErrorMessage(
+          selectionsAllowed == 1
+            ? `Please only select one option.`
+            : `Please only select up to ${selectionsAllowed} options.`
+        );
+        return;
+      }
+      // INFO: User is making a valid selection, and the button is currently selected so remove from list
+      if (isSelected) {
+        bbfData[dataLocation] = bbfData[dataLocation].filter(
+          (element) => element != tag
+        );
+      } else {
+        bbfData[dataLocation].push(tag);
+      }
+      onUpdate(bbfData);
+      } else {
+      bbfData[dataLocation]=[tag];
+      onUpdate(bbfData);
+
     }
-    // INFO: User is making a valid selection, and the button is currently selected so remove from list
-    if (isSelected) {
-      bbfData[dataLocation] = bbfData[dataLocation].filter(
-        (element) => element != tag
-      );
-    } else {
-      bbfData[dataLocation].push(tag);
-    }
-    onUpdate(bbfData);
   };
 
   const onCustomTagClick = (e) => {
@@ -110,7 +117,7 @@ const BooleanButtonForm = ({
 
         {
           // INFO: Create a button for each default tag
-          formData[dataLocation] &&
+           formData[dataLocation] ?
             defaultTags.map((tag) => {
               return formData[dataLocation].includes(tag) ? (
                 <button
@@ -133,7 +140,20 @@ const BooleanButtonForm = ({
                   {tag}
                 </button>
               );
-            })
+            }) :
+               defaultTags.map((tag)=> {
+                 return (
+                <button
+                  type="button"
+                  variable={tag}
+                  key={tag}
+                  onClick={onBooleanButtonClick}
+                  className="hstg-btn-pill-small"
+                >
+                  {tag}
+                </button>
+              )
+               })
         }
         {
           // INFO: Create a button for each custom tag

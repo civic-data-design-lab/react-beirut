@@ -217,7 +217,7 @@ const conditionalRequirements = [{}];
  */
 const WorkshopContribution = () => {
   const [form, setForm] = useState({
-    survey_origin: WORKSHOP_CONTRIBUTION_NAME,
+    survey_origin: WORKSHOP_CONTRIBUTION_NAME
   });
   const [dialog, setDialog] = useState(null);
   const [submitted, setSubmitted] = useState(false);
