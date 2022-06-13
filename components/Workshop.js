@@ -166,12 +166,22 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 } else {
                     //console.log("subtitle debug ", craftsList, otherList, craft.toLowerCase())
                     //console.log(otherList.indexOf(craft.toLowerCase()))
-                    if (otherList.indexOf(craft.toLowerCase())<0)
-                    craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                    if (otherList.indexOf(craft.toLowerCase())<0){
+                    craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());}
                 }
             }
         }
         )
+
+      if (Array.isArray(workshop.craft_discipline_other) && workshop.craft_discipline_other.length>0){
+          console.log("other ", workshop.craft_discipline_other)
+          workshop.craft_discipline_other.forEach(craft=>{
+          if (!craftsList) {
+              craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+          } else if (otherList.indexOf(craft.toLowerCase())<0){
+              craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());}
+
+      })}
         return craftsList
  }
 
