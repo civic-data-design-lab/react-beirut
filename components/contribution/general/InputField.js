@@ -161,9 +161,10 @@ const InputField = (props) => {
         return (
           <>
             <select
-               value={'null'}
+               //value={'null'}
               name={title}
               id={fieldName}
+              value={value}
               //value={
               //  [
               //    null,
@@ -187,7 +188,7 @@ const InputField = (props) => {
               }}
               {...rest}
             >
-              <option disabled value="null">
+              <option  value="null">
                 {`--Select ${title}--`}
               </option>
               {children}
