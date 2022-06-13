@@ -30,7 +30,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
 
 
 
-      <div className="ArchivalImageForm">
+      <form className="ArchivalImageForm">
           <div className={'form-title'}><h2>{page.title}</h2></div>
           <div className={'sections'}>
               <div className={'section'}>
@@ -46,9 +46,6 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
         />
               </div>
 
-              <Desktop><div className={'vr'}></div></Desktop>
-              <Mobile><hr/></Mobile>
-              <Tablet><hr/></Tablet>
 
       <div className="section">
           <div className={'subsection'}>
@@ -184,7 +181,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
       </div>
           </div>
           </div>
-      </div>
+      </form>
     </>
   );
 };

@@ -236,7 +236,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <h1 className={'object-name'}>{getShopName()}</h1>
                         <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
                         <br/>
-                        <p className={'object-caption'}>{getCaption()}</p>
+                        {getCaption()}
                 </div>
 
 
@@ -274,7 +274,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 <h1 className={'object-name'}>{getShopName()}</h1>
                 <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
                 <br/>
-                <p className={'object-caption'}>{getCaption()}</p>
+                {getCaption()}
                 </div>
 
                 <div className={'object-slider-section-tablet'}>

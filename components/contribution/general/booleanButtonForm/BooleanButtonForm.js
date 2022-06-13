@@ -28,16 +28,16 @@ const BooleanButtonForm = ({
 }) => {
 
   const [errorMessage, setErrorMessage] = useState('');
-  useEffect(() => {
+  //useEffect(() => {
     // INFO: If not already defined in the formData, instantiate it.
-    if (formData[dataLocation] != undefined) return;
+  //  if (formData[dataLocation] != undefined) return;
 
-    let bbfData = {};
-    bbfData[dataLocation] = [];
+  //  let bbfData = {};
+  //  bbfData[dataLocation] = [];
 
     // INFO: Update the global form data object
-    onUpdate(bbfData);
-  }, []);
+  //  onUpdate(bbfData);
+  //}, []);
 
   const getTotalSelectionsMade = () => {
     let bbfData = JSON.parse(JSON.stringify(formData));
@@ -45,6 +45,13 @@ const BooleanButtonForm = ({
   };
 
   const onBooleanButtonClick = (e) => {
+
+    if (!formData[dataLocation]) {
+      let bbfData = {};
+      bbfData[dataLocation] = []
+      onUpdate(bbfData);
+    }
+
     setErrorMessage('');
     let tag = e.target.getAttribute('variable');
     let bbfData = JSON.parse(JSON.stringify(formData));

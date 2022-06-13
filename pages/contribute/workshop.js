@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import LocationForm from '../../components/contribution/general/location/LocationForm';
 import MultipageForm from '../../components/contribution/general/MultipageForm';
 import WorkshopCraftTypeForm from '../../components/contribution/workshop/WorkshopCraftTypeForm';
@@ -222,6 +222,16 @@ const WorkshopContribution = () => {
   const [dialog, setDialog] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
+  useEffect(()=> {
+    const tryExistingForm = JSON.parse(localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME));
+    if (tryExistingForm) {
+      setForm(tryExistingForm)
+      console.log('existing form is true so setForm to ', tryExistingForm)
+    }
+  }, [])
+
+
+
   const onSubmit = () => {
     // Prepare the form data for submission
     const { workshop, imageMeta, imageDataOriginal } =
@@ -294,6 +304,8 @@ const WorkshopContribution = () => {
   };
 
   const onUpdate = (data) => {
+    console.log('onUpdate called')
+    console.log('printing data ', data);
     setForm((prevForm) => {
       const updatedFormData = { ...prevForm, ...data };
       console.info('setting form data to ', updatedFormData);
@@ -303,6 +315,9 @@ const WorkshopContribution = () => {
         WORKSHOP_CONTRIBUTION_NAME,
         JSON.stringify(updatedFormData)
       ); //!! This errors if cookies are disabled.
+
+      console.log("getting from local storage ", localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME))
+
       return updatedFormData;
     });
   };

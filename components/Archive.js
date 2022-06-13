@@ -246,7 +246,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
                         <h1 className={'object-name'}>{getShopName()}</h1>
                         <p className={'object-subtitle'}>{getPrimaryYear()||getPrimaryDecade()}{getSubtitle()}</p>
                         <br/>
-                        <p className={'object-caption'}>{getCaption()}</p>
+                        {getCaption()}
                 </div>
                 { similarArchives ?
                 <div className={"object-suggestion-section"}>
@@ -276,7 +276,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
                 <h1 className={'object-name'}>{getShopName()}</h1>
                 <p className={'object-subtitle'}>{getPrimaryDecade()||getPrimaryYear()}{getSubtitle()}</p>
                 <br/>
-                <p className={'object-caption'}>{getCaption()}</p>
+                {getCaption()}
                 </div>
 
                 <div className={'object-slider-section-tablet'}>
@@ -334,7 +334,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
                 )}
             </div>
                 <div className={'object-mobile-section'}>
-                    <p>{getCaption()}</p>
+                    {getCaption()}
                 </div>
                     {similarArchives ?
                 <div className={'object-mobile-section object-suggestion-section'}>
