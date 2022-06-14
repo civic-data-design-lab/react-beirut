@@ -238,12 +238,21 @@ const MultipageForm = ({
     });
   };
 
-  const getLinkBack = () => {
-    if (name===WORKSHOP_CONTRIBUTION_NAME) {
+  const getLinkBack = (destination) => {
+
+    if (destination === "home"){
+      return "/"
+    } else if (destination === "contribute") {
+      return "/contribute"
+    } else if (destination === "form") {
+      if (name===WORKSHOP_CONTRIBUTION_NAME) {
       return '/contribute/workshop?page=0'
     } else {
       return '/contribute/archive?page=0'
     }
+    }
+
+
   }
 
   const handleCloseDialog = () => {
@@ -335,11 +344,11 @@ const MultipageForm = ({
                   <p>
                     Click{' '}
                     <Link href="/contribute" >
-                      <a className="link" onClick={handleRedirect}>here</a>
+                      <a className="link" >here</a>
                     </Link>{' '}
                     to make another contribution, or click{' '}
                     <Link href="/" >
-                      <a onClick={handleRedirect} className="link">here</a>
+                      <a  className="link">here</a>
                     </Link>{' '}
                     to return to the main site.
                   </p>
@@ -350,7 +359,7 @@ const MultipageForm = ({
                   <h2>We could not process your response.</h2>
                   <p>
                     Click{' '}
-                    <Link href={getLinkBack()}>
+                    <Link href={getLinkBack("form")}>
                       <a onClick={handleRedirect} className="link">here</a>
                     </Link>{' '}
                     to return to your form.
