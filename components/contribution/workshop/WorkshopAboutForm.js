@@ -86,7 +86,7 @@ const WorkshopAboutForm = ({
 
         <div className="section">
           <div className={'subsection'}>
-            <h3 className="required Contribute-form-section-heading">Contact Information</h3>
+            <h3 className="required Contribute-form-section-heading">Business Contact Information</h3>
             {/* Removed per Ashley.
             <InputField
               title="Owner Name"
@@ -122,9 +122,7 @@ const WorkshopAboutForm = ({
               required={fields.email.required}
               highlight={highlightedFields?.includes(fields.email.field_name)}
             />
-            </div>
-          <div className={'subsection'}>
-            <h3 className="required Contribute-form-section-heading">Media Information</h3>
+
             <InputField
               title={fields.website.title}
               fieldName={fields.website.field_name}
@@ -162,6 +160,7 @@ const WorkshopAboutForm = ({
 
         <div className={'section'}>
           <div className={'subsection'}>
+            <h3 className="required Contribute-form-section-heading">Craft Information</h3>
             <BooleanButtonForm
               onUpdate={onUpdate}
               formData={formData}

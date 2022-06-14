@@ -33,6 +33,23 @@ let localStorageSize = function () {
  * @returns {object} requirementFulfilled: boolean, errorMessage: string -
  *  Says whether the current form data passes the requirement and an error to display if not.
  */
+
+const imageRequirement = (formData) => {
+  if (!formData.images || formData.images.length<1 || (!formData.images[0].imageData || !formData.images[0].imageExtension)) {
+     console.log('no formdata image detenceted');
+    return {
+      requirementFulfilled: false,
+      errorMessage: 'Image upload required',
+    };
+  } else {
+    console.log('uploaded image')
+    return {
+      requirementFulfilled: true,
+      errorMessage: '',
+    }
+  }
+}
+
 const contactRequirement = (formData) => {
   // INFO: No form of contact given
   if (
@@ -179,12 +196,7 @@ const formSchema = {
       short_title: 'Image Upload',
       custom_reqs: {
         image_req: {
-          function: (formData) => {
-            return {
-              requirementFulfilled: isProperlyTruthy(formData.images),
-              errorMessage: '',
-            };
-          },
+          function: imageRequirement,
           title: 'Image Upload',
         },
       },
@@ -192,7 +204,7 @@ const formSchema = {
         image: {
           title: 'Craft Workshop Image Upload',
           field_name: 'image',
-          // required: true, Need custom function to check for now.
+          //required: true, Need custom function to check for now.
         },
         caption: {
           title: 'Caption',

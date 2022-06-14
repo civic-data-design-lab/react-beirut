@@ -56,6 +56,22 @@ let localStorageSize = function () {
  return  (_lsTotal / 1024).toFixed(2);
 }
 
+const imageRequirement = (formData) => {
+  if (!formData.images || formData.images.length<1 || (!formData.images[0].imageData || !formData.images[0].imageExtension)) {
+     console.log('no formdata image detenceted');
+    return {
+      requirementFulfilled: false,
+      errorMessage: 'Image upload required',
+    };
+  } else {
+    console.log('uploaded image')
+    return {
+      requirementFulfilled: true,
+      errorMessage: '',
+    }
+  }
+}
+
 const formSchema = {
   pages: {
     image_upload: {
@@ -63,12 +79,7 @@ const formSchema = {
       short_title: 'Archive Upload',
       custom_reqs: {
         image_req: {
-          function: (formData) => {
-            return {
-              requirementFulfilled: isProperlyTruthy(formData.images),
-              errorMessage: '',
-            };
-          },
+          function: imageRequirement,
           title: 'Image Upload',
         },
         time_req: {

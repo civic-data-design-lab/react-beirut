@@ -50,6 +50,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
 
   const getImages = () => {
+
       const thumbImage = imageMetas.filter(
       (image) => image.img_id === workshop.thumb_img_id
         );
