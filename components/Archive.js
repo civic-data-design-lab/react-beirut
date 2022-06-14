@@ -148,6 +148,16 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
             }
         }
         )
+
+        if (Array.isArray(archive.craft_discipline_other) && archive.craft_discipline_other.length>0){
+          console.log("other ", archive.craft_discipline_other)
+          archive.craft_discipline_other.forEach(craft=>{
+          if (!craftsList) {
+              craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+          } else if (otherList.indexOf(craft.toLowerCase())<0){
+              craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());}
+
+      })}
         return craftsList
  }
 
