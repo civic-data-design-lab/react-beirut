@@ -39,7 +39,7 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
           type="file"
           name="image-upload"
           id="image-upload"
-          accept=".png,.jpeg,.jpg"
+          accept=".png,.jpeg,.jpg, .gif, .mp4, .mp3, m4a, .mov"
           onChange={handleUploadImage}
         />
       </label>

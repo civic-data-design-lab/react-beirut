@@ -60,7 +60,7 @@ const ImageUploadForm = ({
             })}
         </div>
           <div className={'subsection'}>
-            <label className={imageRequired ? 'required' : ''}>{label || 'Upload an image'}</label>
+            <label className={imageRequired ? 'required bbf-label' : 'bbf-label'}>{label || 'Upload an image'}</label>
             <SingleImageUpload
               handleUpdateImage={(imagebuffer, extension) => {
                 updateImageFormState({
@@ -81,7 +81,7 @@ const ImageUploadForm = ({
           </div>
 
           <div className={'subsection'}>
-            <label className={captionRequired ? 'required' : ''} htmlFor="caption">
+            <label className={captionRequired ? 'required bbf-label' : 'bbf-label'} htmlFor="caption">
               Enter a caption or a story associated with this image.
             </label>
             <textarea

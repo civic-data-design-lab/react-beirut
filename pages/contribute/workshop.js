@@ -16,6 +16,16 @@ import {
 } from '../../lib/utils';
 import Card from '../../components/Card';
 
+let localStorageSize = function () {
+   let _lsTotal = 0,_xLen, _x;
+   for (_x in localStorage) {
+   if (!localStorage.hasOwnProperty(_x)) continue;
+       _xLen = (localStorage[_x].length + _x.length) * 2;
+       _lsTotal += _xLen;
+   }
+ return  (_lsTotal / 1024).toFixed(2);
+}
+
 /**
  * Passed down to WorkshopAboutForm to display error. Passed down to MultipageForm to act as a requirement for the form.
  *
@@ -221,6 +231,8 @@ const WorkshopContribution = () => {
   });
   const [dialog, setDialog] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [dialogTitle, setDialogTitle] = useState(null);
+  const [localStorageFull, setLocalStorageFull] = useState(false)
 
   useEffect(()=> {
     const tryExistingForm = JSON.parse(localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME));
@@ -294,6 +306,7 @@ const WorkshopContribution = () => {
         setSubmitted(true);
         // TODO: UNCOMMENT THESE. ONLY UNCOMMENTED FOR TESTING.
         // INFO Clear the form data
+          setLocalStorageFull(false)
            setForm({});
            localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
       })
@@ -310,16 +323,29 @@ const WorkshopContribution = () => {
       const updatedFormData = { ...prevForm, ...data };
       console.info('setting form data to ', updatedFormData);
 
+      if (!localStorageFull) {
+      try {
+          localStorage.setItem(
+          WORKSHOP_CONTRIBUTION_NAME,
+          JSON.stringify(updatedFormData)
+        ); //!! This errors if cookies are disabled.
+
+      } catch (e) {
+          console.log(e)
+        setLocalStorageFull(true)
+        setDialogTitle('Ran out of local storage space!')
+        setDialog("Because your browser has exceeded its storage, it can no longer "+
+            "save any more additions you make to this form for you to return to later. "  +
+            "Please complete this submission within this session.")
+      }}
       // INFO: Update the local storage
-      localStorage.setItem(
-        WORKSHOP_CONTRIBUTION_NAME,
-        JSON.stringify(updatedFormData)
-      ); //!! This errors if cookies are disabled.
+
 
       console.log("getting from local storage ", localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME))
 
       return updatedFormData;
     });
+    console.log( `size: ${localStorageSize()}kb`)
   };
 
   const showDialogContent = () => {
@@ -346,7 +372,22 @@ const WorkshopContribution = () => {
       </Head>
 
 
-      {dialog && showDialogContent()}
+      {dialogTitle && dialog && (
+          <Dialogue
+            handleClose={() => {
+              setDialog(null)
+              setDialogTitle(null)
+            }}
+            cancel={false}
+            accept={false}
+            handleAccept={null}
+            handleCancel={null}
+            acceptText={null}
+            cancelText={null}
+            content={dialog}
+            title={dialogTitle} />
+
+      )}
 
     <div className={'Contribute-container'}>
       <div className="Contribute drop-shadow__black">

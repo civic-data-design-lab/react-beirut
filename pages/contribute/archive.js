@@ -36,6 +36,7 @@ import LocationForm from '../../components/contribution/general/location/Locatio
 import MultipageForm from '../../components/contribution/general/MultipageForm';
 import Preview from '../../components/contribution/general/Preview';
 import Head from 'next/head';
+import Dialogue from "../../components/contribution/general/Dialogue";
 import {
   ARCHIVE_CONTRIBUTION_NAME,
   convertArchiveContributionToSchema,
@@ -44,6 +45,16 @@ import {
 } from '../../lib/utils';
 import ArchiveAboutForm from '../../components/contribution/archive/ArchiveAboutForm';
 import Card from '../../components/Card';
+
+let localStorageSize = function () {
+   let _lsTotal = 0,_xLen, _x;
+   for (_x in localStorage) {
+   if (!localStorage.hasOwnProperty(_x)) continue;
+       _xLen = (localStorage[_x].length + _x.length) * 2;
+       _lsTotal += _xLen;
+   }
+ return  (_lsTotal / 1024).toFixed(2);
+}
 
 const formSchema = {
   pages: {
@@ -224,8 +235,11 @@ const ArchiveContribution = () => {
   const [form, setForm] = useState({
     survey_origin: ARCHIVE_CONTRIBUTION_NAME,
   });
+
   const [dialog, setDialog] = useState(null);
+  const [dialogTitle, setDialogTitle] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [localStorageFull, setLocalStorageFull] = useState(false)
 
   // INFO: Required fields for each page
   const [requiredFields, setRequiredFields] = useState({
@@ -239,12 +253,25 @@ const ArchiveContribution = () => {
     setForm((prevForm) => {
       const updatedFormData = { ...prevForm, ...data };
       console.info('setting form data to ', updatedFormData);
-      localStorage.setItem(
+
+      if (!localStorageFull) {
+      try {
+        localStorage.setItem(
         ARCHIVE_CONTRIBUTION_NAME,
         JSON.stringify(updatedFormData)
-      );
+        );
+      } catch (e) {
+        console.log(e)
+        setLocalStorageFull(true)
+        setDialogTitle('Ran out of local storage space!')
+        setDialog("Because your browser has exceeded its storage, it can no longer "+
+            "save any more additions you make to this form for you to return to later. "  +
+            "Please complete this submission within this session.")
+      } }
+
       return updatedFormData;
     });
+    console.log( `size: ${localStorageSize()}kb`)
   };
 
   const onSubmit = () => {
@@ -307,18 +334,15 @@ const ArchiveContribution = () => {
         // Clear the form data
         setForm({});
         localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
+        setLocalStorageFull(false);
       })
-      .catch((err) => setDialog(err));
+      .catch((err) => {
+        setDialog(err)
+        setDialogTitle('Failed to Submit!')
+      });
   };
 
-  const showDialogContent = () => {
-    return (
-      <div>
-        <h1>Failed to submit!</h1>
-        <h4>{dialog}</h4>
-      </div>
-    );
-  };
+
 
   return (
     <>
@@ -327,10 +351,21 @@ const ArchiveContribution = () => {
         <title>Archive Contribution | Living Heritage Atlas</title>
 
       </Head>
-      {dialog && (
-        <Card handleClose={() => setDialog(null)}>
-          <div className="card__content">{showDialogContent()}</div>
-        </Card>
+      {dialogTitle && dialog && (
+          <Dialogue
+            handleClose={() => {
+              setDialog(null)
+              setDialogTitle(null)
+            }}
+            cancel={false}
+            accept={false}
+            handleAccept={null}
+            handleCancel={null}
+            acceptText={null}
+            cancelText={null}
+            content={dialog}
+            title={dialogTitle} />
+
       )}
       <div className={'Contribute-container'}>
         <div className="Contribute drop-shadow__black">
