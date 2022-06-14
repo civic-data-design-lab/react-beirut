@@ -684,3 +684,13 @@
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 3;
 }
+
+.bbf-label {
+  margin: 0.5rem 0;
+  font-family: $font-main;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+  color: #471e10;
+}

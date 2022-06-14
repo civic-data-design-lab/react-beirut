@@ -107,7 +107,7 @@ const BooleanButtonForm = ({
       {/*TODO: Not sure why these are so close together. Put many line breaks.*/}
 
 
-        <label className={required ? 'required' : ''} htmlFor={dataLocation}>
+        <label className={required ? 'required bbf-label' : 'bbf-label'} htmlFor={dataLocation}>
           {label} {selectionsAllowed == 1 && `(Select one option)`}{' '}
           {selectionsAllowed > 1 &&
             `(Select up to ${selectionsAllowed} options)`}

@@ -50,21 +50,23 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
       <div className="section">
           <div className={'subsection'}>
         <h3 className={'Contribute-form-section-heading'}>Image Information</h3>
-        <InputField
-          title="What is the image showing?"
-          fieldName={fields.image_type.field_name}
-          type="select"
-          defaultValue="--Select a type--"
-          value={formData[fields.image_type.field_name]}
-          onUpdate={onUpdate}
-          required={fields.image_type.required}
-        >
-          {IMAGE_TYPES.map((type) => (
-            <option key={type.value} value={type.value}>
-              {type.name}
-            </option>
-          ))}
-        </InputField>
+
+              <BooleanButtonForm
+                  onUpdate={onUpdate}
+                  formData={formData}
+                  title={"What is the image showing?"}
+                  label={'What is the image showing?'}
+                  dataLocation={"image_type"}
+                  required={fields.image_type.required}
+                  defaultTags={[
+                      'Storefront',
+                      'Street view',
+                      'Craftsperson',
+                      'Craft object',
+                      'Other outdoor space',
+                    ]}
+                  hasOtherField={true}
+              />
         <InputField
           title="What year was the image taken?"
           fieldName={fields.year_taken.field_name}
