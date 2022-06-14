@@ -244,7 +244,10 @@ const WorkshopContribution = () => {
   const [dialog, setDialog] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [dialogTitle, setDialogTitle] = useState(null);
-  const [localStorageFull, setLocalStorageFull] = useState(false)
+  const [localStorageFull, setLocalStorageFull] = useState(false);
+  const [submitFail, setSubmitFail] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(()=> {
     const tryExistingForm = JSON.parse(localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME));
@@ -254,6 +257,12 @@ const WorkshopContribution = () => {
     }
   }, [])
 
+  const handleRedirect = () => {
+    setSubmitFail(false);
+    setSubmitSuccess(false);
+    setSubmitted(false);
+    setSubmitting(false);
+  }
 
 
   const onSubmit = () => {
@@ -307,28 +316,31 @@ const WorkshopContribution = () => {
       .then((res) => {
         if (!res.ok) {
           res.json().then((data) => setDialog(data.message));
+          setSubmitted(true);
+          setSubmitFail(true);
           return;
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (!data) {
-          return;
-        }
-        setSubmitted(true);
-        // TODO: UNCOMMENT THESE. ONLY UNCOMMENTED FOR TESTING.
-        // INFO Clear the form data
+        } else {
+          setSubmitted(true);
+          // TODO: UNCOMMENT THESE. ONLY UNCOMMENTED FOR TESTING.
+          // INFO Clear the form data
           setLocalStorageFull(false)
            setForm({});
            localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+           setSubmitted(true);
+           setSubmitSuccess(true);
+        }
+        return res.json();
       })
       .catch((err) => {
         setDialog(err);
-        location.href = '/contribute/workshop';
+        setDialogTitle('Failed to Submit!')
+        //location.href = '/contribute/workshop';
+
       });
   };
 
   const onUpdate = (data) => {
+    console.log('check submit status ', )
     console.log('onUpdate called')
     console.log('printing data ', data);
     setForm((prevForm) => {
@@ -410,6 +422,11 @@ const WorkshopContribution = () => {
           formSchema={formSchema}
           onSubmit={onSubmit}
           submitted={submitted}
+          submitFail={submitFail}
+          submitSuccess={submitSuccess}
+          handleRedirect={handleRedirect}
+          setSubmitting={setSubmitting}
+          submitting={submitting}
         >
           <WorkshopAboutForm />
           <LocationForm

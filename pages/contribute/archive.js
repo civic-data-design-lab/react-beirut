@@ -45,6 +45,7 @@ import {
 } from '../../lib/utils';
 import ArchiveAboutForm from '../../components/contribution/archive/ArchiveAboutForm';
 import Card from '../../components/Card';
+import {data} from "autoprefixer";
 
 let localStorageSize = function () {
    let _lsTotal = 0,_xLen, _x;
@@ -250,7 +251,11 @@ const ArchiveContribution = () => {
   const [dialog, setDialog] = useState(null);
   const [dialogTitle, setDialogTitle] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const [localStorageFull, setLocalStorageFull] = useState(false)
+  const [localStorageFull, setLocalStorageFull] = useState(false);
+  const [submitFail, setSubmitFail] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
 
   // INFO: Required fields for each page
   const [requiredFields, setRequiredFields] = useState({
@@ -259,6 +264,17 @@ const ArchiveContribution = () => {
     location: ['quarter', 'sector', 'lat', 'lng'],
     preview: ['consent'],
   });
+
+  useEffect(()=> {
+    console.log('check submit status ', submitSuccess, submitFail)
+  })
+
+  const handleRedirect = () => {
+    setSubmitFail(false);
+    setSubmitSuccess(false);
+    setSubmitted(false);
+    setSubmitting(false);
+  }
 
   const onUpdate = (data) => {
     setForm((prevForm) => {
@@ -331,21 +347,26 @@ const ArchiveContribution = () => {
     })
       .then((res) => {
         if (!res.ok) {
-          res.json().then((data) => setDialog(data.message));
+          console.log('failed to submit')
+          res.json().then((data) => {
+
+            //setDialog(data.message)
+            setSubmitted(true);
+            setSubmitFail(true);
+            //setDialogTitle('Failed to Submit!')
+          });
           return;
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (!data) {
-          return;
-        }
-        // console.log(data);
-        setSubmitted(true);
+        } else {
+          console.log('submitted')
+          setSubmitted(true);
+          setSubmitSuccess(true);
         // Clear the form data
         setForm({});
         localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
         setLocalStorageFull(false);
+
+        }
+        return res.json();
       })
       .catch((err) => {
         setDialog(err)
@@ -387,6 +408,11 @@ const ArchiveContribution = () => {
           onUpdate={onUpdate}
           onSubmit={onSubmit}
           submitted={submitted}
+          submitFail={submitFail}
+          submitSuccess={submitSuccess}
+          handleRedirect={handleRedirect}
+          setSubmitting={setSubmitting}
+          submitting={submitting}
         >
           <ArchiveImageForm
             title="Archival Image Upload"

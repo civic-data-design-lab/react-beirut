@@ -2,9 +2,10 @@ import { useState, useEffect, cloneElement } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import {faCircleXmark} from "@fortawesome/free-solid-svg-icons";
 import Link from 'next/link';
 import Card from '../../Card';
-import { isProperlyTruthy } from '../../../lib/utils';
+import {isProperlyTruthy, WORKSHOP_CONTRIBUTION_NAME} from '../../../lib/utils';
 import Dialogue from "./Dialogue";
 
 /**
@@ -48,11 +49,16 @@ const MultipageForm = ({
   onSubmit,
   submitted,
   children,
+  submitFail,
+  submitSuccess,
+  handleRedirect,
+  setSubmitting,
+  submitting
 }) => {
   const router = useRouter();
   const [dialog, setDialog] = useState(null);
   const [page, setPage] = useState(0);
-  const [submitting, setSubmitting] = useState(false);
+
 
   // INFO: Use the short_titles if available otherwise use titles.
   const pageTitles = Object.keys(formSchema.pages).map((p) => {
@@ -232,6 +238,14 @@ const MultipageForm = ({
     });
   };
 
+  const getLinkBack = () => {
+    if (name===WORKSHOP_CONTRIBUTION_NAME) {
+      return '/contribute/workshop?page=0'
+    } else {
+      return '/contribute/archive?page=0'
+    }
+  }
+
   const handleCloseDialog = () => {
     setDialog(null);
   };
@@ -313,20 +327,36 @@ const MultipageForm = ({
                 </div>
               ) : (
                 <div className="success">
-                  <FontAwesomeIcon icon={faCheckCircle} />
+                  {submitSuccess ?
+                  <>
+                    <FontAwesomeIcon icon={faCheckCircle} />
                   <h1>Upload success!</h1>
                   <h2>Your response has been recorded.</h2>
                   <p>
                     Click{' '}
-                    <Link href="/contribute">
-                      <a className="link">here</a>
+                    <Link href="/contribute" >
+                      <a className="link" onClick={handleRedirect}>here</a>
                     </Link>{' '}
                     to make another contribution, or click{' '}
-                    <Link href="/">
-                      <a className="link">here</a>
+                    <Link href="/" >
+                      <a onClick={handleRedirect} className="link">here</a>
                     </Link>{' '}
                     to return to the main site.
                   </p>
+                  </> :
+                  <>
+                    <FontAwesomeIcon icon={faCircleXmark} />
+                  <h1>Upload failed!</h1>
+                  <h2>We could not process your response.</h2>
+                  <p>
+                    Click{' '}
+                    <Link href={getLinkBack()}>
+                      <a onClick={handleRedirect} className="link">here</a>
+                    </Link>{' '}
+                    to return to your form.
+                  </p>
+
+                  </>}
                 </div>
               )}
             </div>
