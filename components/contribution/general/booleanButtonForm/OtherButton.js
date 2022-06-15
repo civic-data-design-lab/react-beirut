@@ -88,8 +88,9 @@ const OtherButton = ({
     let txtbox = otherButton.getElementsByClassName('additional-tag-txtbox')[0];
     let string = txtbox.value;
     txtbox.value = '';
-
-    if (!validateData(string.charAt(0).toUpperCase()+string.slice(1))) return;
+    string = string.trimStart().trimEnd()
+    string = string.charAt(0).toUpperCase()+string.slice(1)
+    if (!validateData(string)) return;
 
     let bbfData = JSON.parse(JSON.stringify(formData));
     bbfData[dataLocation].push(string);
@@ -158,7 +159,14 @@ const OtherButton = ({
   };
 
   const onKeyUp = (e) => {
+    if(e.keyCode === 13)
+    {
+        console.log("pressed enter ", e.target.parentElement.parentElement);
+        disableButton(e.target.parentElement.parentElement);
+        submitNewTag(e.target.parentElement.parentElement);
+    }
     e.preventDefault()
+
   }
 
   // TODO: Clean up this HTML after update.
