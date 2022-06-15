@@ -101,7 +101,7 @@ const Nav = () => {
             >
               <div className='container'>
                 <div className='item-line'></div>
-                <div className='item-text-1'><Link href="/map">Map</Link></div>
+                <div className='item-text-1'><Link  href="/map">Map</Link></div>
                 <div className='item-text-2'> the spatial presence of craftsmanship in Beirut </div>
               </div>
             </li>

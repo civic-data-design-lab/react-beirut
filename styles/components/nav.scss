@@ -153,6 +153,7 @@ $hamburger-zindex: $menu-zindex + 10;
       animation-duration: 1s;
       animation-fill-mode: both;
       animation-name: fadeInUp;
+      padding: 4px;
 
       &.active {
         opacity: 0.5;
@@ -163,6 +164,9 @@ $hamburger-zindex: $menu-zindex + 10;
 
 
   ul {
+    width: 320px;
+    //margin: 0 auto;
+    //left: 50%;
     &:hover {
       a {
         opacity: 0.5;
@@ -254,7 +258,7 @@ $hamburger-zindex: $menu-zindex + 10;
     display: grid;
     grid-template-columns: 0.25rem auto;
     grid-template-rows: auto auto;
-    row-gap: 5px;
+    //row-gap: 5px;
     column-gap: 10px;
   }
 
@@ -264,6 +268,9 @@ $hamburger-zindex: $menu-zindex + 10;
 
   .container:hover .item-text-2 {
     display: block;
+    padding-left: 1rem;
+    visibility: visible;
+    opacity: 1;
   }
 
   .item-line {
@@ -292,6 +299,9 @@ $hamburger-zindex: $menu-zindex + 10;
     display: none;
     font-size: 1rem;
     color: white;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
   }
 
 
