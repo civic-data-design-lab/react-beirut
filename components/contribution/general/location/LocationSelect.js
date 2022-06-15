@@ -4,13 +4,20 @@ import { MAPBOX_STYLE_URL } from '../../../../lib/utils';
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-const LocationSelect = ({ onUpdate }) => {
+const LocationSelect = ({ onUpdate, formData }) => {
   useEffect(() => {
+    let markerLocation
+    if (formData && formData.lat && formData.lng) {
+      markerLocation = [formData.lng, formData.lat]
+    } else {
+      markerLocation = [35.5, 33.893894]
+    }
+
     mapboxGl.accessToken = ACCESS_TOKEN;
     const map = new mapboxGl.Map({
       container: 'map', // container ID
       style: MAPBOX_STYLE_URL, // style URL
-      center: [35.5, 33.893894], // starting position [lng, lat]
+      center: markerLocation, // starting position [lng, lat]
       zoom: 12, // starting zoom
       // maxZoom: 15,
       minZoom: 10,
@@ -20,7 +27,7 @@ const LocationSelect = ({ onUpdate }) => {
       draggable: true,
       color: '#85cbd4',
     })
-      .setLngLat([35.5, 33.893894])
+      .setLngLat(markerLocation)
       .addTo(map);
 
     function onDragEnd() {
@@ -32,7 +39,7 @@ const LocationSelect = ({ onUpdate }) => {
     marker.on('dragend', onDragEnd);
   }, []);
 
-  return <div id="map" className={'contributeMap'}></div>;
+  return <div id="map" className={'contributeMap'}/>;
 };
 
 export default LocationSelect;

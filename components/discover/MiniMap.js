@@ -58,10 +58,10 @@ export default class MiniMap extends React.Component {
                 firstCraft.style.pointerEvents = 'none';
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
-                firstCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[0]]}`;
+                firstCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[0].toLowerCase()]}`;
                 firstCraft.style.width = `7.5px`;
                 firstCraft.style.height = `15px`;
-                secondCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[1]]}`
+                secondCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[1].toLowerCase()]}`
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
@@ -69,7 +69,7 @@ export default class MiniMap extends React.Component {
 
             } else {
                 const craft = this.props.workshop.craft_discipline_category[0];
-                el.style.backgroundColor = this.colorMap[craft];
+                el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
 
             }
         el.className = 'marker';
@@ -110,17 +110,17 @@ export default class MiniMap extends React.Component {
                 firstCraft.style.pointerEvents = 'none';
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
-                firstCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[0]]}`;
+                firstCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[0].toLowerCase()]}`;
                 firstCraft.style.width = `7.5px`;
                 firstCraft.style.height = `15px`;
-                secondCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[1]]}`
+                secondCraft.style.backgroundColor = `${this.colorMap[this.props.workshop.craft_discipline_category[1].toLowerCase()]}`
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
                 const craft = this.props.workshop.craft_discipline_category[0];
-                el.style.backgroundColor = this.colorMap[craft];
+                el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
 
             }
             el.className = 'marker';

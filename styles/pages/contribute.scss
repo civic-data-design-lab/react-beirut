@@ -694,3 +694,7 @@
   line-height: 18px;
   color: #471e10;
 }
+
+.prevent-pointer-events {
+  pointer-events: none;
+}

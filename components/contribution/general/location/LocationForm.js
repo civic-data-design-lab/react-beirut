@@ -162,7 +162,7 @@ const LocationForm = ({
               <h3 className={'Contribute-form-section-heading'}>Point Location</h3>
               {showLatLng()}
 
-              <LocationSelect onUpdate={handleUpdate} />
+              <LocationSelect onUpdate={handleUpdate} formData={formData} />
               <p className="location-select-hint">
                 Drag marker to change the location
               </p>

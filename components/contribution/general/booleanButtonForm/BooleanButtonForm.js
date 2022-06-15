@@ -121,6 +121,7 @@ const BooleanButtonForm = ({
             defaultTags.map((tag) => {
               return formData[dataLocation].includes(tag) ? (
                 <button
+                  id={`${tag}-boolean-button`}
                   type="button"
                   variable={tag}
                   key={tag}
@@ -131,6 +132,7 @@ const BooleanButtonForm = ({
                 </button>
               ) : (
                 <button
+                  id={`${tag}-boolean-button`}
                   type="button"
                   variable={tag}
                   key={tag}
