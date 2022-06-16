@@ -93,8 +93,15 @@ const OtherButton = ({
     if (!validateData(string)) return;
 
     let bbfData = JSON.parse(JSON.stringify(formData));
-    bbfData[dataLocation].push(string);
-    onUpdate(bbfData);
+    if (!bbfData[dataLocation]) {
+      bbfData[dataLocation] = [string]
+      onUpdate(bbfData);
+    } else {
+      bbfData[dataLocation].push(string);
+      onUpdate(bbfData);
+
+    }
+
   };
 
   const onClickInput= (e) => {
@@ -159,13 +166,24 @@ const OtherButton = ({
   };
 
   const onKeyUp = (e) => {
-    if(e.keyCode === 13)
-    {
-        console.log("pressed enter ", e.target.parentElement.parentElement);
-        disableButton(e.target.parentElement.parentElement);
-        submitNewTag(e.target.parentElement.parentElement);
-    }
+    //if(e.keyCode === 13)
+    //{
+    //    e.preventDefault()
+    //    console.log("pressed enter ", e.target.parentElement.parentElement);
+    //    disableButton(e.target.parentElement.parentElement);
+    //    submitNewTag(e.target.parentElement.parentElement);
+
+    //}
     e.preventDefault()
+
+  }
+
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      disableButton(e.target.parentElement.parentElement);
+      submitNewTag(e.target.parentElement.parentElement);
+    }
 
   }
 
@@ -183,6 +201,7 @@ const OtherButton = ({
           <input 
             //onKeyPress={onKeyPress}
               onKeyUp={onKeyUp}
+              onKeyDown={onKeyDown}
               //style={{padding:4}}
             onBlur={onBlur}
               onClick={onClickInput}

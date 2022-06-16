@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import Card from '../../components/Card';
-import Dialogue from "../../components/contribution/general/Dialogue";
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import {
@@ -28,8 +26,38 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init({
+    // the translations
+    // (tip move them in a JSON file and import them,
+    // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
+    resources: {
+      en: {
+        translation: {
+          "Add an Archival Image": "Add an Archival Image"
+        }
+      },
+      ar: {
+        translation: {
+            "Add an Archival Image": "أضف صورة أرشيفية"
+        }
+      }
+    },
+    lng: "en", // if you're using a language detector, do not define the lng option
+    fallbackLng: "en",
+
+    interpolation: {
+      escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    }
+  });
+
 
 const Contribute = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [selection, setSelection] = useState(null);
@@ -256,6 +284,7 @@ const Contribute = () => {
     }
   };
 
+
   return (
     <>
       <Head>
@@ -283,9 +312,10 @@ const Contribute = () => {
                 onClick={() => setSelection('archive')}
                 disabled={selection === 'archive'}
               >
-                <h3>
-                  Add an <b>Archival Image</b>
-                </h3>
+                  <Trans i18nKey="addArchiveImage">
+                      <h3> <b>{t('Add an Archival Image')}</b> </h3>
+                  </Trans>
+
               </button>
               <div className={'Contribute-landing-divider'}><hr className={'half-hr'}/><p>or</p><hr className={'half-hr'}/></div>
               <button

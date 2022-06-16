@@ -4,9 +4,6 @@ import { StatusCodes } from 'http-status-codes';
 
 
 export default async (req, res) => {
-
-
-
   switch (req.method) {
     case 'GET':
       const workshops = await getAllWorkshops();
@@ -25,9 +22,7 @@ export default async (req, res) => {
           message: 'No body provided',
         });
       }
-
       const result = await saveNewWorkshop(body);
-
       // Handle the case where the workshop was not saved.
       if (!result?.workshop) {
         res.status(StatusCodes.BAD_REQUEST).send({
@@ -36,7 +31,6 @@ export default async (req, res) => {
         });
         return;
       }
-
       res.send({
         message: 'Succesfully added new workshop and associated image metadata',
         response: result,
@@ -49,5 +43,7 @@ export default async (req, res) => {
         .end(`Method ${req.method} Not Allowed`);
   }
 };
+
+
 
 

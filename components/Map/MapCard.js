@@ -23,10 +23,41 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init({
+    // the translations
+    // (tip move them in a JSON file and import them,
+    // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
+    resources: {
+      en: {
+        translation: {
+          "Explore Similar Shops": "Explore Similar Shops"
+        }
+      },
+      ar: {
+        translation: {
+            "Explore Similar Shops": "اكتشف المحلات المشابهة"
+        }
+      }
+    },
+    lng: "en", // if you're using a language detector, do not define the lng option
+    fallbackLng: "en",
+
+    interpolation: {
+      escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    }
+  });
+
 
 
 // assumes workshop or archive is passed in as a prop
 export default class MapCard extends React.Component {
+
 
     constructor(props) {
         super(props);
@@ -376,7 +407,7 @@ export default class MapCard extends React.Component {
 
                         <hr/>
                     {this.state.similarObjects ? (this.getThumbnails().length>0 ? <>
-                            <p className={'exploreShops-label'}>Explore Similar Shops</p>
+                            <Trans><p className={'exploreShops-label'}>{t('Explore Similar Shops')}</p></Trans>
                             <div className={'exploreContainer'}>
                                 {this.state.similarObjects ? <Slider children={this.getThumbnails()}/> : null}
                             </div>
@@ -432,9 +463,8 @@ export default class MapCard extends React.Component {
 
 
     render() {
-        console.log("similarobjects ", this.state.similarObjects)
-        console.log("info ", this.state.validImages, this.state.imageMetaData)
-        console.log("meta ", this.state.imageMetaData)
+
+        const { t } = this.props;
 
 
 

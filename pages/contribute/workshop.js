@@ -306,6 +306,9 @@ const WorkshopContribution = () => {
 
     console.groupEnd();
 
+    console.log('-------------------------------------------------------------')
+    console.log(data)
+
     fetch('/api/workshops', {
       method: 'POST',
       headers: {
