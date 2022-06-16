@@ -60,6 +60,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
     if (formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME) {
       const { workshop, imageMeta, imageDataOriginal } =
         convertWorkshopContributionToSchema(formData, formSchema);
+      console.log("preview after conversion ", workshop)
       console.debug('Returning workshop to preview:', workshop);
       console.debug('Returning image to preview:', imageDataOriginal);
       return (
@@ -77,6 +78,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
     if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
       const { archive, imageMeta, imageDataOriginal } =
         convertArchiveContributionToSchema(formData, formSchema);
+      console.log("preview after conversion ", archive)
       console.debug('Returning archive to preview:', archive);
       console.debug('Returning image to preview:', imageDataOriginal);
       return (

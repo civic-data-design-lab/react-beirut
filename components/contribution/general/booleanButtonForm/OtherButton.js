@@ -183,7 +183,7 @@ const OtherButton = ({
           <input 
             //onKeyPress={onKeyPress}
               onKeyUp={onKeyUp}
-              style={{padding:4}}
+              //style={{padding:4}}
             onBlur={onBlur}
               onClick={onClickInput}
             onChange={onChange}

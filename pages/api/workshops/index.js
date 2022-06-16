@@ -1,13 +1,19 @@
 import { getAllWorkshops, saveNewWorkshop } from '../../../lib/apiUtils';
 import { StatusCodes } from 'http-status-codes';
 
+
+
 export default async (req, res) => {
+
+
+
   switch (req.method) {
     case 'GET':
       const workshops = await getAllWorkshops();
       res.send({
         message: 'Succesfully retrieved all workshops',
         response: workshops,
+
       });
       break;
     case 'POST':
@@ -43,3 +49,5 @@ export default async (req, res) => {
         .end(`Method ${req.method} Not Allowed`);
   }
 };
+
+
