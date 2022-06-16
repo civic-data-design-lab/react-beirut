@@ -56,6 +56,56 @@ const LocationForm = ({
     return;
   };
 
+
+  const findOther = (field) => {
+    if (field==='quarter') {
+        let quarters = BEIRUT_ZONES.quarters.map((obj)=> {return obj.EN})
+        if (formData.quarter && !quarters.includes(formData.quarter)) {
+          return true
+        } else {
+          return false
+        }
+    } else if (field === "sector") {
+      if (formData.quarter) {
+        console.log('case 1')
+        let filteredSectors = BEIRUT_ZONES.quarters
+            .filter((quarter) => quarter.EN === formData.quarter)
+            .map((quarter) => quarter.sectors)
+            .flat()
+            .map((sector) => {return sector.EN})
+
+        console.log('filtered sectors ', filteredSectors)
+
+        if (formData.sector && !filteredSectors.includes(formData.sector)) {
+          console.log("chech case 1 ", formData.sector, filteredSectors)
+          return true
+        } else {
+          return false
+        }
+      } else if (!formData.quarter) {
+        console.log('case 2')
+        let allSectors = BEIRUT_ZONES.quarters.map((obj) => {
+          obj.sectors.map((sector) => {
+            return sector
+          })
+        })
+        if (formData.sector && !allSectors.includes(formData.sector)) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
+  }
+
+  const [otherQuarterExists, setOtherQuarterExists] = useState(findOther('quarter'))
+  const [otherSectorExists, setOtherSectorExists] = useState(findOther('sector'))
+
+  //useEffect(()=>{
+  //  setOtherExists(findOther())
+  //  console.log("updated ", otherExists, formData.quarter||null)
+  //}, [])
+
   const showLatLng = () => {
     if (!formData.lat || !formData.lng) {
       return (
@@ -112,6 +162,8 @@ const LocationForm = ({
                   fieldName={fields.quarter.field_name}
                   key={fields.quarter.field_name}
                   value={formData[fields.quarter.field_name]}
+                  otherExists={otherQuarterExists}
+                  setOtherExists={setOtherQuarterExists}
                   onUpdate={(newData) => {
                       onUpdate(newData)
                     }
@@ -133,6 +185,8 @@ const LocationForm = ({
                   fieldName={fields.sector.field_name}
                   key={fields.sector.field_name}
                   value={formData[fields.sector.field_name]}
+                  otherExists={otherSectorExists}
+                  setOtherExists={setOtherSectorExists}
                   onUpdate={onUpdate}
                   required={fields.sector.required ? true : false}
                 >

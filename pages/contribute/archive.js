@@ -59,7 +59,7 @@ let localStorageSize = function () {
 
 const imageRequirement = (formData) => {
   if (!formData.images || formData.images.length<1 || (!formData.images[0].imageData || !formData.images[0].imageExtension)) {
-     console.log('no formdata image detenceted');
+     // console.log('no formdata image detenceted');
     return {
       requirementFulfilled: false,
       errorMessage: 'Image upload required',
@@ -265,9 +265,7 @@ const ArchiveContribution = () => {
     preview: ['consent'],
   });
 
-  useEffect(()=> {
-    console.log('check submit status ', submitSuccess, submitFail)
-  })
+
 
   const handleRedirect = () => {
     setSubmitFail(false);

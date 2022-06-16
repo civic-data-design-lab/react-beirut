@@ -35,6 +35,8 @@ const InputField = (props) => {
     required,
     label,
     defaultValue,
+    otherExists,
+    setOtherExists,
     children,
     ...rest
   } = props;
@@ -157,7 +159,8 @@ const InputField = (props) => {
         );
       case 'select-with-other':
         // onUpdate({ [fieldName]: null }); TODO: Learn how to make the null option the default. Enabling this line makes the page not load.
-        const [otherSelected, setOtherSelected] = useState(false);
+        console.log('check if other exists ', otherExists)
+        console.log("value ", value)
         return (
           <>
             <select
@@ -175,10 +178,10 @@ const InputField = (props) => {
               //}
               onChange={(e) => {
                 if (e.target.value == 'OTHER') {
-                  setOtherSelected(true);
+                  setOtherExists(true);
                   onUpdate({ [fieldName]: '' });
                 } else {
-                  setOtherSelected(false);
+                  setOtherExists(false);
                   onUpdate(
                     e.target.value == 'null'
                       ? { [fieldName]: null }
@@ -195,14 +198,17 @@ const InputField = (props) => {
               <option value="OTHER"> ＋ OTHER</option>
 
             </select>
-            {otherSelected && (
+            {otherExists && (
               <input
                 id={fieldName}
                 type="text"
                 required={required}
                 value={value}
                 placeholder={`Enter Other ${title}`}
-                onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
+                onChange={(e) => {
+                  console.log('valueee ', e.target.value)
+                  onUpdate({ [fieldName]: e.target.value })
+                }}
                 {...rest}
               />
             )}
