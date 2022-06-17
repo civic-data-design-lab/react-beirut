@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useMediaQuery } from 'react-responsive'
 
 const Desktop = ({ children }) => {
@@ -19,71 +19,57 @@ const Default = ({ children }) => {
 }
 
 
-export default class LayersControl extends React.Component {
+const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersControl}) => {
 
-    constructor(props) {
-        super(props);
-        this.clickLayerButton = this.clickLayerButton.bind(this)
-        this.state = {
-            selected:null,
-            currentLayer: this.props.currentLayer
-        }
+    const [selected, setSelected] = useState(null);
+    const [currentLayerState, setCurrentLayerState] = useState(currentLayer)
 
-    }
+    useEffect(()=>{
+        setCurrentLayerState(currentLayer)
+    }, [currentLayer])
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.currentLayer !== prevProps.currentLayer) {
-            this.setState({currentLayer: this.props.currentLayer})
-        }
-    }
 
-    clickLayerButton (e) {
+    const clickLayerButton = (e) => {
         let layerName = e.target.id;
-        this.props.updateMapLayer(layerName)
+        updateMapLayer(layerName)
 
     }
 
-    getClassName = (key) => {
-        console.log("here")
-        console.log("props ", this.props.currentLayer)
-        console.log("state ", this.state.currentLayer)
-        if (key === this.state.currentLayer) {
+    const getClassName = (key) => {
+        if (key === currentLayerState) {
             return "lc-button-labels-wrapper-selected"
         } else {
             return "lc-button-labels-wrapper"
         }
     }
 
-    getMapLayerButtons = () => {
+    const getMapLayerButtons = () => {
         let buttons = []
-        for (const [key, value] of Object.entries(this.props.allLayers)) {
+        for (const [key, value] of Object.entries(allLayers)) {
         buttons.push(
             <>
-
-                        <button className={`mapLayerButtons ${this.getClassName(key)}`} key ={key} id={`${key}-button`} onClick={this.clickLayerButton}>
-                        <p className={'lc-button-year map-name-label'} id={key} onClick={this.clickLayerButton}> {key} </p>
-                        <p className={'lc-button-ref map-name-reference'} id={key} onClick={this.clickLayerButton}> {value} </p>
-                        </button>
-                        <hr/>
-                </>
+                <button className={`mapLayerButtons ${getClassName(key)}`} key ={key} id={`${key}-button`} onClick={clickLayerButton}>
+                    <p className={'lc-button-year map-name-label'} id={key} onClick={clickLayerButton}> {key} </p>
+                    <p className={'lc-button-ref map-name-reference'} id={key} onClick={clickLayerButton}> {value} </p>
+                </button>
+                <hr/>
+            </>
         )
         }
-
         return buttons
     }
 
 
-    onReset = () => {
-        this.props.updateMapLayer(null)
-
+    const onReset = () => {
+        updateMapLayer(null)
     }
 
-    layersControlContent = () => {
+    const layersControlContent = () => {
         return (
             <>
                 <div className={'close-btn-container padded-lc-section'}>
                     <p className={'card-labels'}>Historic Maps</p>
-                    <button className={'close-card-btn'} onClick={this.props.closeLayersControl}>
+                    <button className={'close-card-btn'} onClick={closeLayersControl}>
                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
                          </svg>
@@ -92,38 +78,27 @@ export default class LayersControl extends React.Component {
                 <hr/>
 
                 <div className={'lc-buttons-section'}>
-                    {this.getMapLayerButtons()}
+                    {getMapLayerButtons()}
                 </div>
                 <div className={'card-section-centered padded-lc-section'}>
-                    <button className={'reset-btn'} onClick = {this.onReset}> Reset Maps </button>
+                    <button className={'reset-btn'} onClick = {onReset}> Reset Maps </button>
                 </div>
             </>
-
-
 
         )
 }
 
-
-
-
-
-
-
-    render () {
-
-
-        return (
+return (
             <>
             <Desktop>
                 <div className={'layersControlCard'}>
-                    {this.layersControlContent()}
+                    {layersControlContent()}
                 </div>
             </Desktop>
 
             <Tablet>
                 <div className={'layersControlCard'}>
-                    {this.layersControlContent()}
+                    {layersControlContent()}
                 </div>
             </Tablet>
 
@@ -132,9 +107,9 @@ export default class LayersControl extends React.Component {
                           <div className="card__cover">
                             <div className="card__wrapper">
                                   <div className={'layersControlCard'}>
-                                        {this.layersControlContent()}
+                                        {layersControlContent()}
                                       <div className={'card-section-centered'}>
-                                        <button className={'btn-pill lc-showMap-btn view-map-btn'} onClick={this.props.closeLayersControl}>
+                                        <button className={'btn-pill lc-showMap-btn view-map-btn'} onClick={closeLayersControl}>
                                             <span className={'view-map-label'}>View Map</span>
                                         </button>
                                           </div>
@@ -148,5 +123,6 @@ export default class LayersControl extends React.Component {
 
             </>
         )
-    }
 }
+
+export default LayersControl;
