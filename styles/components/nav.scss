@@ -125,6 +125,9 @@ $hamburger-height: 50px;
 $hamburger-zindex: $menu-zindex + 10;
 
 #menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: $menu-bg;
   height: 100%;
   left: 0;
@@ -187,8 +190,8 @@ $hamburger-zindex: $menu-zindex + 10;
 
   .main-nav {
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    //top: 50%;
+    //transform: translateY(-50%);
 
     ul {
       list-style: none;

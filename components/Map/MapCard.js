@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import Slider from "../Slider";
 import MapCardSlider from "./MapCardSlider";
 import { useMediaQuery } from 'react-responsive'
@@ -36,16 +36,20 @@ i18n
     resources: {
       en: {
         translation: {
-          "Explore Similar Shops": "Explore Similar Shops"
+          "Explore Similar Shops": "Explore Similar Shops",
+          "Food" : "Food",
+          "Artisanal bread" : "Artisinal bread"
         }
       },
       ar: {
         translation: {
-            "Explore Similar Shops": "اكتشف المحلات المشابهة"
+            "Explore Similar Shops": "اكتشف المحلات المشابهة",
+            "Food":"طعام",
+            "Artisanal bread" : "الخبز الحرفي"
         }
       }
     },
-    lng: "en", // if you're using a language detector, do not define the lng option
+    lng: "ar", // if you're using a language detector, do not define the lng option
     fallbackLng: "en",
 
     interpolation: {
@@ -56,61 +60,58 @@ i18n
 
 
 // assumes workshop or archive is passed in as a prop
-export default class MapCard extends React.Component {
+const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
 
+    const { t } = useTranslation();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            caption: null,
-            workshop : null,
-            similarObjects: null,
-            imageMetaData: [],
-            currentImageIndex: 0,
-            invalidImages: [],
-            mainSliderStyle : {
+    const [caption, setCaption] = useState(null);
+    //const [workshop, setWorkshop] = useState(null);
+    const [similarObjects, setSimilarObjects] = useState(null);
+    const [imageMetaData, setImageMetaData] = useState([]);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [invalidImages, setInvalidImages] = useState([]);
+    const [validImages, setValidImages] = useState([]);
+    const mainSliderStyle = {
             'sliderContainer': 'mapSlider-container',
             'buttonLabel': 'slider-btn-label',
             'prevButton': 'btn-prev',
             'nextButton': 'btn-next',
             'wrapperContainer': 'mapSlider-wrapper'
             }
-        }
 
-    }
 
-    onScroll = () => {
+    const onScroll = () => {
         const slider = document.querySelector('.mapCard-slider-container')
         const firstImage = document.querySelector('.mapCard-img')
         const parentPos = slider.getBoundingClientRect()
         const childPos = firstImage.getBoundingClientRect()
         const relativePos = parentPos.left - childPos.left;
         const parentWidth = parentPos.width;
-        this.setState({  currentImageIndex: Math.round(relativePos/parentWidth)});
+        setCurrentImageIndex(Math.round(relativePos/parentWidth));
         //console.log(" index ", this.state.currentImageIndex)
     }
 
 
 
 
-    async fetchSimilarWorkshops() {
-    const response = await fetch(`api/similarWorkshops/${this.props.workshop.ID}`);
-    const res = await response.json();
-    this.setState({similarObjects:res['response']});
-    }
-
-    async fetchSimilarArchives() {
-        const response = await fetch(`api/similarArchives/${this.props.workshop.ID}`);
+    const fetchSimilarWorkshops = async() => {
+        const response = await fetch(`api/similarWorkshops/${workshop.ID}`);
         const res = await response.json();
-        this.setState({similarObjects:res['response']});
+        setSimilarObjects(res['response']);
     }
 
-    async fetchImageMetaData() {
+    const fetchSimilarArchives = async() => {
+        const response = await fetch(`api/similarArchives/${workshop.ID}`);
+        const res = await response.json();
+        setSimilarObjects(res['response']);
+    }
 
-        const thumbImage = this.props.workshop.images.filter(
-            (image) => image.img_id === this.props.workshop.thumb_img_id);
-        const remainingImages = this.props.workshop.images.filter(
-            (image) => image.img_id !== this.props.workshop.thumb_img_id
+    const fetchImageMetaData = async() => {
+
+        const thumbImage = workshop.images.filter(
+            (image) => image.img_id === workshop.thumb_img_id);
+        const remainingImages = workshop.images.filter(
+            (image) => image.img_id !== workshop.thumb_img_id
         );
         const images = [...thumbImage, ...remainingImages];
         let validImages=[]
@@ -126,11 +127,13 @@ export default class MapCard extends React.Component {
 
                  }
              }
-        this.setState({imageMetaData:metaData, validImages:validImages})
+        setImageMetaData(metaData);
+        setValidImages(validImages)
+        //this.setState({imageMetaData:metaData, validImages:validImages})
         //console.log("metadata ", this.state.imageMetaData)
     }
 
-    getCaption = () => {
+    const getCaption = () => {
         //console.log('current images image metadata ', this.state.imageMetaData[this.state.currentImageIndex])
         //return <p>{this.state.currentImageIndex}</p>
         //let imageContainer = document.querySelector('.mapSlider-wrapper');
@@ -140,7 +143,7 @@ export default class MapCard extends React.Component {
         //    return <p>Image unavailable</p>
         //}
 
-        const currentMetaData = this.state.imageMetaData[this.state.currentImageIndex]
+        const currentMetaData = imageMetaData[currentImageIndex]
 
 
         //console.log("metadata ", currentMetaData)
@@ -153,11 +156,11 @@ export default class MapCard extends React.Component {
                 return <p>{currentMetaData.caption}</p>
             } else if (currentMetaData.type.length === 1) {
                 if (viewSet.has(currentMetaData.type[0])) {
-                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} view of {this.getShopName() || "shop"}. </p>
+                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} view of {getShopName() || "shop"}. </p>
                 } else if (currentMetaData.type[0] === "crafts" || currentMetaData.type[0] === "craft") {
-                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} produced by {this.getShopName() || "shop"}.</p>
+                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} produced by {getShopName() || "shop"}.</p>
                 } else if (currentMetaData.type[0] === "craftsperson") {
-                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} of {this.getShopName() || "shop"}.</p>
+                    return <p>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} of {getShopName() || "shop"}.</p>
                 } else if (currentMetaData.type[0] === "text") {
                     return <p>Text</p>
                 }
@@ -176,13 +179,13 @@ export default class MapCard extends React.Component {
                     return currentMetaData.type.indexOf(word)>-1
                 })
                 if (craftspersonIndex>-1 && storefrontIndex>-1) {
-                    return <p>Craftsperson in front of {this.getShopName()|| "shop"}.</p>
+                    return <p>Craftsperson in front of {getShopName()|| "shop"}.</p>
                 } else if (craftspersonIndex>-1 && indoorMap.indexOf(true)>-1) {
-                    return <p>Craftsperson inside {this.getShopName()|| "shop"}.</p>
+                    return <p>Craftsperson inside {getShopName()|| "shop"}.</p>
                 } else if (craftMap.indexOf(true)>-1 && indoorMap.indexOf(true)>-1) {
-                    return <p>Crafts produced in {this.getShopName()|| "shop"}.</p>
+                    return <p>Crafts produced in {getShopName()|| "shop"}.</p>
                 } else if (craftMap.indexOf(true)>-1 && currentMetaData.type.indexOf('storefront')>-1) {
-                    return <p>Crafts displayed in storefront of {this.getShopName()|| "shop"}.</p>
+                    return <p>Crafts displayed in storefront of {getShopName()|| "shop"}.</p>
                 }
 
             }
@@ -190,116 +193,111 @@ export default class MapCard extends React.Component {
     }
 
 
-
-    componentDidMount() {
-        window.addEventListener('resize', this.updateDimensions);
-        this.setState({invalidImages:[]})
-        if (this.props.type === "workshop") {
-            this.fetchSimilarWorkshops();
+    useEffect(()=>{
+        //window.addEventListener('resize', this.updateDimensions);
+        setInvalidImages([])
+        if (type === "workshop") {
+            fetchSimilarWorkshops();
         } else {
-            this.fetchSimilarArchives();
+            fetchSimilarArchives();
         }
 
-        if (this.props.workshop.images) {
-           this.fetchImageMetaData()
+        if (workshop.images) {
+           fetchImageMetaData()
         }
-    }
+    }, [])
 
-    componentDidUpdate(prevProps) {
-     if (prevProps.workshop.ID !== this.props.workshop.ID) {
+    useEffect(()=>{
 
-         this.setState({invalidImages:[]})
-         if (this.props.type === "workshop") {
-             this.fetchSimilarWorkshops();
+        setInvalidImages([])
+         if (type === "workshop") {
+             fetchSimilarWorkshops();
          } else {
-             this.fetchSimilarArchives();
+             fetchSimilarArchives();
          }
 
-         if (this.props.workshop.images) {
-             this.fetchImageMetaData()
+         if (workshop.images) {
+             fetchImageMetaData()
              //console.log("metaData ", metaData)
          }
-     }
-   }
-
-   componentWillUnmount() {
-        window.removeEventListener('resize', this.updateDimensions);
-   }
+    }, [workshop])
 
 
-    clickExplore = (e) => {
-        this.props.openMapCard(e.target.id, this.props.type)
+
+    const clickExplore = (e) => {
+        openMapCard(e.target.id, type)
     }
 
 
-    getShopName = () => {
+    const getShopName = () => {
 
-        if (this.props.workshop.shop_name['content']) {
-            return this.props.workshop.shop_name['content']
-        } else if (this.props.workshop.shop_name['content_orig']) {
-            return this.props.workshop.shop_name['content_orig']
+        if (workshop.shop_name['content']) {
+            return workshop.shop_name['content']
+        } else if (workshop.shop_name['content_orig']) {
+            return workshop.shop_name['content_orig']
         } else {
             return null
         }
     }
 
-    getReferenceName = () => {
-        return this.props.workshop.reference.name;
+    const getReferenceName = () => {
+        return workshop.reference.name;
     }
 
-    getDecadeEstablished = () => {
-        if (!this.props.workshop.decade_established) {
+    const getDecadeEstablished = () => {
+        if (!workshop.decade_established) {
             return null
         }
         //console.log(this.props.type)
 
-        if (this.props.workshop.decade_established[0]) {
-            return `EST. ${this.props.workshop.decade_established[0]} | `
+        if (workshop.decade_established[0]) {
+            return `EST. ${workshop.decade_established[0]} | `
         } else {
                 return null
             }
         }
 
-    getPrimaryDecade = () => {
-        if (!this.props.workshop.primary_decade) {
+    const getPrimaryDecade = () => {
+        if (!workshop.primary_decade) {
             return null
         }
 
-        if (this.props.workshop.primary_decade[0]) {
-            return `Taken ${this.props.workshop.primary_decade[0]} | `
+        if (workshop.primary_decade[0]) {
+            return `Taken ${workshop.primary_decade[0]} | `
         } else {
             return null
         }
 
         }
 
-    getSubtitle = () => {
+    const getSubtitle = () => {
         let craftsList = []
         let otherList = []
-        this.props.workshop.craft_discipline.forEach(craft =>
+        workshop.craft_discipline.forEach(craft =>
             {
             if (craft.toUpperCase() === "OTHER") {
-                if (this.props.workshop.craft_discipline_other && this.props.workshop.craft_discipline_other.length>0) {
-                    this.props.workshop.craft_discipline_other.map((craftOther)=>{
+                if (workshop.craft_discipline_other && workshop.craft_discipline_other.length>0) {
+                    workshop.craft_discipline_other.map((craftOther)=>{
                         const other = craftOther.charAt(0).toUpperCase() + craftOther.slice(1).toLowerCase()
                         if (craftsList.indexOf(other) < 0) {
                             otherList.push(craftOther.toLowerCase())
                         if (craftsList.length < 1) {
-                            craftsList.push(other)
+                            craftsList.push(t(other))
                         } else {
-                            craftsList.push(" | " + other)
+                            craftsList.push(" | " + t(other))
                         }
                     }
                     })
                 }
             } else {
+                const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase();
                 if (craftsList.length<1) {
-                    craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                    craftsList.push(t(craftStr));
                 } else {
                     //console.log("subtitle debug ", craftsList, otherList, craft.toLowerCase())
                     //console.log(otherList.indexOf(craft.toLowerCase()))
-                    if (otherList.indexOf(craft.toLowerCase())<0)
-                    craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                    if (otherList.indexOf(craft.toLowerCase())<0) {
+                    craftsList.push(" | " + t(craftStr))}
                 }
             }
         }
@@ -307,7 +305,7 @@ export default class MapCard extends React.Component {
         return craftsList
  }
 
-    handleOnError = (e) => {
+    const handleOnError = (e) => {
 
         let el = e.target
         console.log("key ", el.id)
@@ -322,7 +320,7 @@ export default class MapCard extends React.Component {
         el.onerror = null;
         el.alt = "Image Unavailable";
         el.title = "Image Unavailable";
-        console.log("metadata ", this.state.imageMetaData)
+        //console.log("metadata ", this.state.imageMetaData)
 
 
 
@@ -331,24 +329,24 @@ export default class MapCard extends React.Component {
 
 
 
-    getImages = () => {
+    const getImages = () => {
 
-        if (!this.props.workshop.images) {
+        if (!workshop.images) {
             return
         }
-        const thumbImage = this.props.workshop.images.filter(
-            (image) => image.img_id === this.props.workshop.thumb_img_id);
-        const remainingImages = this.props.workshop.images.filter(
-            (image) => image.img_id !== this.props.workshop.thumb_img_id
+        const thumbImage = workshop.images.filter(
+            (image) => image.img_id === workshop.thumb_img_id);
+        const remainingImages = workshop.images.filter(
+            (image) => image.img_id !== workshop.thumb_img_id
         );
         const images = [...thumbImage, ...remainingImages];
-        console.log('images ', images)
-        return images.map((image, index) => {return <img key={image} id={index} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" onError={this.handleOnError} />})
+        //console.log('images ', images)
+        return images.map((image, index) => {return <img key={image} id={index} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" onError={handleOnError} />})
 
     }
 
-    getThumbnails = () => {
-        return this.state.similarObjects.map((object) => {
+    const getThumbnails = () => {
+        return similarObjects.map((object) => {
             //console.log(object.thumb_img_id)
             //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]
             //return <div className={'exploreShop-div'}><img src={`/api/images/${workshop.thumb_img_id}.jpg`} className={'exploreShops-img'} key={workshop.thumb_img_id}/></div>
@@ -357,7 +355,7 @@ export default class MapCard extends React.Component {
             if (object.thumb_img_id) {
                 return(
 
-                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={this.clickExplore} onError={this.handleOnError}/>)
+                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={clickExplore} onError={handleOnError}/>)
 
             } else {
                 return null
@@ -370,20 +368,20 @@ export default class MapCard extends React.Component {
 
 
 
-    createMapCardContent = () => {
+    const createMapCardContent = () => {
 
-        if (this.props.type === "workshop") {
+        if (type === "workshop") {
             return (
                 <>
 
 
                         <div className={'close-btn-container'}>
                             <div>
-                                <p className={'shopName-text'}>{this.getShopName() || "Craft Shop (No name provided)"}</p>
-                                <p className={'shopSubtitle-text'}>{this.getDecadeEstablished()} {this.getSubtitle()} </p>
+                                <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
+                                <p className={'shopSubtitle-text'}>{getDecadeEstablished()} {getSubtitle()} </p>
                             </div>
 
-                            <button className={'close-card-btn close-mapcard'} onClick = {this.props.closeMapCard} >
+                            <button className={'close-card-btn close-mapcard'} onClick = {closeMapCard} >
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
                                 </svg>
@@ -394,22 +392,22 @@ export default class MapCard extends React.Component {
 
 
 
-                        {(this.props.workshop.images.length !== 0) ?
+                        {(workshop.images.length !== 0) ?
                             <>
                             <div className={'mapCard-slider-container'} >
-                                <MapCardSlider handleScroll={this.onScroll} children={this.getImages()} sliderStyle={this.state.mainSliderStyle} getImageData={this.getCaption()}/>
+                                <MapCardSlider handleScroll={onScroll} children={getImages()} sliderStyle={mainSliderStyle} getImageData={getCaption()}/>
                             </div>
                             <div>
-                                {this.getCaption()}
+                                {getCaption()}
                             </div>
                             </>
                             : null}
 
                         <hr/>
-                    {this.state.similarObjects ? (this.getThumbnails().length>0 ? <>
-                            <Trans><p className={'exploreShops-label'}>{t('Explore Similar Shops')}</p></Trans>
+                    {similarObjects ? (getThumbnails().length>0 ? <>
+                            <p className={'exploreShops-label'}>Explore Similar Shops</p>
                             <div className={'exploreContainer'}>
-                                {this.state.similarObjects ? <Slider children={this.getThumbnails()}/> : null}
+                                {similarObjects ? <Slider children={getThumbnails()}/> : null}
                             </div>
                         </> : null ) : null
                     }
@@ -422,11 +420,11 @@ export default class MapCard extends React.Component {
 
                         <div className={'close-btn-container'}>
                             <div>
-                                <p className={'shopName-text'}>{this.getShopName() || "Craft Shop (No name provided)"}</p>
-                                <p className={'shopSubtitle-text'}>{this.getPrimaryDecade()} {this.getSubtitle()} </p>
+                                <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
+                                <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle()} </p>
                             </div>
 
-                            <button className={'close-card-btn close-mapcard'} onClick = {this.props.closeMapCard} >
+                            <button className={'close-card-btn close-mapcard'} onClick = {closeMapCard} >
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
                                 </svg>
@@ -435,23 +433,23 @@ export default class MapCard extends React.Component {
 
                         </div>
 
-                        {(this.props.workshop.images.length !== 0) ?
+                        {(workshop.images.length !== 0) ?
                             <>
                             <div className={'mapCard-slider-container'} >
-                                <MapCardSlider children={this.getImages()} sliderStyle={this.state.mainSliderStyle}/>
+                                <MapCardSlider children={getImages()} sliderStyle={mainSliderStyle}/>
                             </div>
 
                             <div>
-                                {this.getCaption()}
+                                {getCaption()}
                             </div>
                             </>
                             : null}
 
                         <hr/>
-                        {this.state.similarObjects ? (this.getThumbnails().length>0 ? <>
+                        {similarObjects ? (getThumbnails().length>0 ? <>
                             <p className={'exploreShops-label'}>Explore Similar Images</p>
                             <div className={'exploreContainer'}>
-                                {this.state.similarObjects ? <Slider children={this.getThumbnails()}/> : null}
+                                {similarObjects ? <Slider children={getThumbnails()}/> : null}
                             </div>
                         </> : null ) : null
                     }
@@ -462,23 +460,17 @@ export default class MapCard extends React.Component {
 
 
 
-    render() {
-
-        const { t } = this.props;
-
-
-
-        return (
+    return (
             <>
                 <Desktop>
-                    <div className={'mapCard'} id={`mapCard${this.props.id}`}>
-                    {this.props.workshop && this.createMapCardContent()}
+                    <div className={'mapCard'} id={`mapCard${id}`}>
+                    {workshop && createMapCardContent()}
                     </div>
                 </Desktop>
 
                 <Tablet>
-                    <div className={'mapCard'} id={`mapCard${this.props.id}`}>
-                    {this.props.workshop && this.createMapCardContent()}
+                    <div className={'mapCard'} id={`mapCard${id}`}>
+                    {workshop && createMapCardContent()}
                     </div>
                 </Tablet>
 
@@ -487,13 +479,13 @@ export default class MapCard extends React.Component {
                             <div className={'mapCard-drag-container'}>
 
                                 <Draggable axis="y" bounds={".mapCard-drag-container"}>
-                                    <div className={'mapCard'} id={`mapCard${this.props.id}`}>
+                                    <div className={'mapCard'} id={`mapCard${id}`}>
                                     <div className={'mapCard-dragger'}>
                                         <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <line x1="1.5" y1="2.26367" x2="22.5" y2="2.26367" stroke="#CFCFCF" strokeWidth="3" strokeLinecap="round"/>
                                     </svg>
                                     </div>
-                                    {this.props.workshop && this.createMapCardContent()}
+                                    {workshop && createMapCardContent()}
                                         </div>
                                 </Draggable>
 
@@ -503,8 +495,9 @@ export default class MapCard extends React.Component {
 
             </>
         )
-    }
+
 }
+export default MapCard
 
 
 
