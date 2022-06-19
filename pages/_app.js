@@ -1,16 +1,30 @@
 import Layout from '../components/layout/Layout';
 import '../styles/globals.scss';
-import { useEffect } from 'react';
+import {useEffect, useState} from 'react';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 
-import i18next from "i18next";
-import { withNamespaces } from 'react-i18next';
+import {TRANSLATIONS} from "../lib/utils";
+
+import i18n from "i18next";
+import {initReactI18next} from "react-i18next";
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
 
 
 
 function MyApp({ Component, pageProps }) {
+
+  const [language, setLanguage] = useState('en');
+  const changeLanguage = (language)=> {
+    console.log(language)
+    i18n.changeLanguage(language);
+    setLanguage(language)
+
+  }
   
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
@@ -48,8 +62,8 @@ function MyApp({ Component, pageProps }) {
         `,
       }}
     /> 
-    <Layout>
-        <Component {...pageProps} />
+    <Layout changeLanguage={changeLanguage} lang={language} i18n={i18n}>
+        <Component {...pageProps} changeLanguage={changeLanguage} lang={language} i18n={i18n} />
     </Layout>
     </>
   );

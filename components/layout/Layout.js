@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Nav from './Nav';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, changeLanguage, i18n }) => {
   //? how to work on dual language css
   return (
     <>
@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
             rel="stylesheet"
           />
         </Head>
-        <Nav />
+        <Nav changeLanguage={changeLanguage} i18n={i18n} />
         <main className="main">{children}</main>
       </div>
     </>

@@ -23,15 +23,8 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
-import {TRANSLATIONS} from "/lib/utils";
+import { Trans, useTranslation } from "react-i18next";
 
-import i18n from "i18next";
-import { Trans, useTranslation, initReactI18next } from "react-i18next";
-
-
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init(TRANSLATIONS);
 
 const mainSliderStyle = {
   sliderContainer: 'mapSlider-container',
@@ -56,7 +49,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }) => {
+const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang }) => {
   const {t} =useTranslation();
   const getImages = () => {
       const thumbImage = imageMetas.filter(

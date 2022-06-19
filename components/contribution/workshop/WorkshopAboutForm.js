@@ -20,6 +20,8 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import { Trans, useTranslation} from "react-i18next";
+
 
 const WorkshopAboutForm = ({
   onUpdate,
@@ -27,21 +29,23 @@ const WorkshopAboutForm = ({
   formSchema,
   highlightedFields,
 }) => {
+
+  const {t} = useTranslation();
   const page = formSchema.pages.about;
   const fields = page.fields;
 
   return (
     <form className="WorkshopAboutForm">
-      <div className={'form-title'}><h2>{page.title}</h2></div>
+      <div className={'form-title'}><h2>{t(page.title)}</h2></div>
 
       <div className="sections">
         <div className="section">
           <div className={'subsection'}>
-            <h3 className={'Contribute-form-section-heading'}>Shop Name</h3>
+            <h3 className={'Contribute-form-section-heading'}>{t('Shop Name')}</h3>
             <InputField
-              title={fields.shop_name.title}
+              title={t(fields.shop_name.title)}
               fieldName={fields.shop_name.field_name}
-              value={formData[fields.shop_name.field_name]}
+              value={t(formData[fields.shop_name.field_name])}
               onUpdate={onUpdate}
               type="text"
               required={fields.shop_name.required}
@@ -50,12 +54,12 @@ const WorkshopAboutForm = ({
           </div>
 
           <div className={'subsection'}>
-            <h3 className={'Contribute-form-section-heading'}>Operation</h3>
+            <h3 className={'Contribute-form-section-heading'}>{t('Operation')}</h3>
           {/* This input was changed from a date to numerical year. Check that data still works here. */}
             <InputField
-              title={fields.year_established.title}
+              title={t(fields.year_established.title)}
               fieldName={fields.year_established.field_name}
-              value={formData[fields.year_established.field_name]}
+              value={t(formData[fields.year_established.field_name])}
               type="year"
               onUpdate={onUpdate}
               required={fields.year_established.required}
@@ -64,18 +68,18 @@ const WorkshopAboutForm = ({
               )}
             />
             <InputField
-              title={fields.status.title}
+              title={t(fields.status.title)}
               fieldName={fields.status.field_name}
-              value={formData[fields.status.field_name]}
+              value={t(formData[fields.status.field_name])}
               type="select"
               onUpdate={onUpdate}
               required={fields.status.required}
               highlight={highlightedFields?.includes(fields.status.field_name)}
             >
-              <option value="open">Open</option>
-              <option value="closed_temp">Closed (temporary)</option>
-              <option value="closed_perm">Closed (permanent)</option>
-              <option value="destroyed">Destroyed</option>
+              <option value="open">{t('Open')}</option>
+              <option value="closed_temp">{t('Closed (temporary)')}</option>
+              <option value="closed_perm">{t('Closed (permanent)')}</option>
+              <option value="destroyed">{t('Destroyed')}</option>
             </InputField>
           </div>
 
@@ -86,7 +90,7 @@ const WorkshopAboutForm = ({
 
         <div className="section">
           <div className={'subsection'}>
-            <h3 className="required Contribute-form-section-heading">Business Contact Information</h3>
+            <h3 className="required Contribute-form-section-heading">{t('Business Contact Information')}</h3>
             {/* Removed per Ashley.
             <InputField
               title="Owner Name"
@@ -98,14 +102,11 @@ const WorkshopAboutForm = ({
               highlight={highlightedFields?.includes('ownerName')}
             /> */}
 
-            <p>
-            This information will be publicly available on the <br />
-            Living Heritage Atlas | Beirut database and website.
-            </p>
+            <p>{t('This information will be publicly available on the Living Heritage Atlas | Beirut database and website.')}</p>
 
             {/* TODO: Make this into an info "i" note. */}
             <InputField
-              title={fields.phone.title}
+              title={t(fields.phone.title)}
               fieldName={fields.phone.field_name}
               type="tel"
               value={formData[fields.phone.field_name]}
@@ -114,7 +115,7 @@ const WorkshopAboutForm = ({
               highlight={highlightedFields?.includes(fields.phone.field_name)}
             />
             <InputField
-              title={fields.email.title}
+              title={t(fields.email.title)}
               fieldName={fields.email.field_name}
               type="email"
               value={formData[fields.email.field_name]}
@@ -124,7 +125,7 @@ const WorkshopAboutForm = ({
             />
 
             <InputField
-              title={fields.website.title}
+              title={t(fields.website.title)}
               fieldName={fields.website.field_name}
               type="url"
               value={formData[fields.website.field_name]}
@@ -133,7 +134,7 @@ const WorkshopAboutForm = ({
               highlight={highlightedFields?.includes(fields.website.field_name)}
             />
             <InputField
-              title={fields.social_media.title}
+              title={t(fields.social_media.title)}
               fieldName={fields.social_media.field_name}
               type="url"
               value={formData[fields.social_media.field_name]}
@@ -160,13 +161,13 @@ const WorkshopAboutForm = ({
 
         <div className={'section'}>
           <div className={'subsection'}>
-            <h3 className="required Contribute-form-section-heading">Craft Information</h3>
+            <h3 className="required Contribute-form-section-heading">{t('Craft Information')}</h3>
             <BooleanButtonForm
               onUpdate={onUpdate}
               formData={formData}
               title={fields.craft_category.title}
               dataLocation={fields.craft_category.field_name}
-              label="What category of crafts are produced in this workshop?"
+              label={t("What category of crafts are produced in this workshop?")}
               selectionsAllowed="2"
               defaultTags={CRAFT_CATEGORIES}
               required={fields.craft_category.required ? true : false}
@@ -178,7 +179,7 @@ const WorkshopAboutForm = ({
               formData={formData}
               title={fields.type_of_craft.title}
               dataLocation={fields.type_of_craft.field_name}
-              label="What type of crafts are produced in this workshop? If entering a custom type, English is preferred."
+              label={t("What type of crafts are produced in this workshop? If entering a custom type, English is preferred.")}
               defaultTags={CRAFT_TYPES}
               required={fields.type_of_craft.required ? true : false}
               hasOtherField={true}

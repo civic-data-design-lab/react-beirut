@@ -233,6 +233,19 @@ export default class App extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("print language in map ", this.props.lang)
+        if (this.props.lang !== prevProps.lang ) {
+            console.log('changing map language')
+            const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
+                'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
+            layouts.map((layout)=> {
+                map.current.setLayoutProperty(layout, 'text-field', [
+            'get',
+            `name_${this.props.lang}`
+            ]);
+            })
+
+        }
 
         if (this.props.coords && prevProps.coords !== this.props.coords) {
             if (this.props.coords[0] !== 35.5 && this.props.coords[1] !== 33.893894) {

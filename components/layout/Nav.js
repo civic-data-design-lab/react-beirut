@@ -2,19 +2,23 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useRef, useEffect } from 'react';
 
+import {useTranslation} from "react-i18next";
 
 
 /***
  * TODO: update dual language
  */
 
-const Nav = () => {
+const Nav = ({changeLanguage}) => {
+
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Add drop shadow effect when scrolled to a certain position
   const [isActive, setIsActive] = useState(false);
   const headerRef = useRef();
+
+  const {t} = useTranslation();
 
   useEffect(() => {
     const { offsetHeight } = headerRef.current;
@@ -81,8 +85,8 @@ const Nav = () => {
             isMenuOpen ? 'container-lang light' : 'container-lang dark'
           }
         >
-          <button className="btn-language active">En</button>
-          <button className="btn-language">عربي</button>
+          <button className="btn-language" onClick={()=>{changeLanguage('en')}}>En</button>
+          <button className="btn-language" onClick={()=>{changeLanguage('ar')}}>عربي</button>
         </div>
         <button
           className={isMenuOpen ? 'toggle-menu active' : 'toggle-menu'}
@@ -104,7 +108,7 @@ const Nav = () => {
               <div className='container'>
                 <div className='item-line'></div>
                 <div className='item-text-1'><Link  href="/map">Map</Link></div>
-                <div className='item-text-2'> the spatial presence of craftsmanship in Beirut </div>
+                <div className='item-text-2'> {t('the spatial presence of craftsmanship in Beirut')} </div>
               </div>
             </li>
             <li
@@ -116,7 +120,7 @@ const Nav = () => {
               <div className="container">
                 <div className='item-line'></div>
                 <div className='item-text-1'><Link href="/discover">Discover</Link></div>
-                <div className='item-text-2'> current workshops and archival images of craftsmanship </div>
+                <div className='item-text-2'> {t('current workshops and archival images of craftsmanship')} </div>
               </div>
             </li>
             <li
@@ -128,7 +132,7 @@ const Nav = () => {
               <div className='container'>
                 <div className='item-line'></div>
                 <div className='item-text-1'><Link href="/contribute">Contribute</Link></div>
-                <div className='item-text-2'> to the Living Heritage Atlas with photos of craftsmanship </div>
+                <div className='item-text-2'> {t('to the Living Heritage Atlas with photos of craftsmanship')} </div>
               </div>
             </li>
             <li
@@ -140,7 +144,7 @@ const Nav = () => {
               <div className='container'>
                 <div className='item-line'></div>
                 <div className='item-text-1'><Link href="/download">Download</Link></div>
-                <div className='item-text-2'> data from the Living Heritage Atlas </div>
+                <div className='item-text-2'> {t('data from the Living Heritage Atlas')} </div>
               </div>
             </li>
             <li
@@ -152,7 +156,7 @@ const Nav = () => {
               <div className='container'>
                 <div className='item-line'></div>
                 <div className='item-text-1'><Link href="/about">About</Link></div>
-                <div className='item-text-2'> the Living Heritage Atlas | Beirut </div>
+                <div className='item-text-2'> {t('the Living Heritage Atlas | Beirut')} </div>
               </div>
             </li>
           </ul></div>

@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useMediaQuery } from 'react-responsive'
-import i18n from "i18next";
-import {initReactI18next, useTranslation} from "react-i18next";
-import {TRANSLATIONS} from "../../lib/utils";
+import {useTranslation} from "react-i18next";
+
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -21,9 +20,6 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init(TRANSLATIONS);
 
 
 const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersControl}) => {

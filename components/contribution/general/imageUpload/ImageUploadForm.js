@@ -4,12 +4,8 @@ import UploadedImage from './UploadedImage';
 
 import { useState, useEffect } from 'react';
 
-import {TRANSLATIONS} from "/lib/utils";
-import i18n from "i18next";
-import { Trans, useTranslation, initReactI18next } from "react-i18next";
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init(TRANSLATIONS);
+import { Trans, useTranslation } from "react-i18next";
+
 
 /**
  * Image upload form component for the contribution page. Right now it only
@@ -91,7 +87,7 @@ const ImageUploadForm = ({
 
           <div className={'subsection'}>
             <label className={captionRequired ? 'required bbf-label' : 'bbf-label'} htmlFor="caption">
-              {t('Enter a caption or a story associated with this image.')}
+              {t('Enter a caption or story associated with the image.')}
             </label>
             <textarea
               name="caption"

@@ -52,7 +52,8 @@
     "twilio": "^3.77.1",
     "y": "^0.3.2",
     "react-i18next": "^11.17.2",
-    "i18next": "^21.8.10"
+    "i18next": "^21.8.10",
+    "next-i18next":"^11.0.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.17.12",

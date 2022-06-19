@@ -1,12 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import {TRANSLATIONS} from "/lib/utils";
-import i18n from "i18next";
-import { Trans, useTranslation, initReactI18next } from "react-i18next";
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init(TRANSLATIONS);
+
+import { Trans, useTranslation } from "react-i18next";
+
 
 const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
   const {t} = useTranslation();

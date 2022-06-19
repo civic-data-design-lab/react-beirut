@@ -1,11 +1,8 @@
 import React, {useState} from "react";
-import i18n from "i18next";
-import {initReactI18next, useTranslation} from "react-i18next";
+import {useTranslation} from "react-i18next";
 import {TRANSLATIONS} from "../../lib/utils";
 
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init(TRANSLATIONS);
+
 
 
 

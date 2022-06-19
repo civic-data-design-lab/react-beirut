@@ -6,15 +6,9 @@ import MiniMap from "./discover/MiniMap";
 import {useEffect, useRef, useState} from "react";
 import { useMediaQuery } from 'react-responsive';
 
-import {TRANSLATIONS} from "/lib/utils";
-
-import i18n from "i18next";
-import { Trans, useTranslation, initReactI18next } from "react-i18next";
+import { Trans, useTranslation} from "react-i18next";
 
 
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init(TRANSLATIONS);
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -56,7 +50,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose}) => {
+const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang}) => {
   const {t} = useTranslation();
   const getImages = () => {
 
@@ -267,7 +261,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 <div className={'object-map-section'}>
                     <p className={'object-caption'}>{t('Locate this craft workshop on the map')} </p>
                     <div className={'miniMap-container'}>
-                        <MiniMap workshop={workshop} type={'workshop'}/>
+                        <MiniMap workshop={workshop} type={'workshop'} lang={lang}/>
                     </div>
                 </div>
 
