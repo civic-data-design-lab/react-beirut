@@ -27,7 +27,16 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null;
 };
 
+import {TRANSLATIONS} from "../../lib/utils";
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 const Discover = ({ children }) => {
+  const {t} = useTranslation();
   const router = useRouter();
   const [workshops, setWorkshops] = useState([]);
   const [archive, setArchive] = useState([]);
@@ -145,10 +154,9 @@ const Discover = ({ children }) => {
       <div className="container">
         <div className="title-card">
           <div className="text-container">
-            <h1 className={'discover-text'}>DISCOVER</h1>
+            <h1 className={'discover-text'}>{t('Discover')}</h1>
             <p className={'discover-text'}>
-              Discover local workshops and archival images of craftsmanship in
-              the Living Heritage Atlas | Beirut database
+              {t('Discover local workshops and archival images of craftsmanship in the Living Heritage Atlas | Beirut database')}
             </p>
           </div>
 
@@ -158,7 +166,7 @@ const Discover = ({ children }) => {
           >
             <Desktop>
               <div className={'filter-section'}>
-                <p>Filter By</p>
+                <p>{t('Filter By')}</p>
               </div>
 
               <span className={'filter-section'}>

@@ -26,34 +26,15 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import {TRANSLATIONS} from "../../lib/utils";
+
 import i18n from "i18next";
 import { Trans, useTranslation, initReactI18next } from "react-i18next";
 
+
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
-  .init({
-    // the translations
-    // (tip move them in a JSON file and import them,
-    // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
-    resources: {
-      en: {
-        translation: {
-          "Add an Archival Image": "Add an Archival Image"
-        }
-      },
-      ar: {
-        translation: {
-            "Add an Archival Image": "أضف صورة أرشيفية"
-        }
-      }
-    },
-    lng: "en", // if you're using a language detector, do not define the lng option
-    fallbackLng: "en",
-
-    interpolation: {
-      escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
-    }
-  });
+  .init(TRANSLATIONS);
 
 
 const Contribute = () => {
@@ -301,9 +282,9 @@ const Contribute = () => {
             <div className={'Contribute-landing-text-container'}>
 
               <div className={'contribute-landing-text-section'}>
-                <h1 className={'Contribute-landing-title'}>Contribute to the Living Heritage Atlas!</h1>
-                <p className={'Contribute-landing-text'}>Add a current craft workshop or upload an archival image to the database.</p>
-                <a className={'Contribute-info-link'} onClick={() => setModal('archive')}>What is this?</a>
+                <h1 className={'Contribute-landing-title'}>{t('Contribute to the Living Heritage Atlas!')}</h1>
+                <p className={'Contribute-landing-text'}>{t('Add a current craft workshop or upload an archival image to the database.')}</p>
+                <a className={'Contribute-info-link'} onClick={() => setModal('archive')}>{t('What is this?')}</a>
               </div>
 
             <div className="Contribute-types">
@@ -323,9 +304,9 @@ const Contribute = () => {
                 onClick={() => setSelection('workshop')}
                 disabled={selection === 'workshop'}
               >
-                <h3>
-                  Add a <b>Craft Workshop</b>
-                </h3>
+                <Trans i18nKey="addCraftWorkshop">
+                      <h3> <b>{t('Add a Craft Workshop')}</b> </h3>
+                  </Trans>
               </button>
             </div>
               <div className={'Contribute-type-submit-container'}>
@@ -334,7 +315,7 @@ const Contribute = () => {
               disabled={selection === null}
               onClick={navigateToSelection}
             >
-              Next
+                    {t('Next')}
             </button>
               </div>
 

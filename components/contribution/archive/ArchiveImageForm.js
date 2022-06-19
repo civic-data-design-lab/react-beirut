@@ -21,7 +21,18 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import TRANSLATIONS from "/lib/utils";
+
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
+  const {t} = useTranslation();
   const page = formSchema.pages.image_upload;
   const fields = page.fields;
 
@@ -31,7 +42,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
 
 
       <form className="ArchivalImageForm">
-          <div className={'form-title'}><h2>{page.title}</h2></div>
+          <div className={'form-title'}><h2>{t(page.title)}</h2></div>
           <div className={'sections'}>
               <div className={'section'}>
 
@@ -40,7 +51,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
           formData={formData}
           dataLocation="images"
           title=""
-          label="Upload an archival image of a craft workshop"
+          label={t("Upload an archival image of a craft workshop")}
           imageRequired={true}
           captionRequired={fields.caption.required}
         />
@@ -49,13 +60,13 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
 
       <div className="section">
           <div className={'subsection'}>
-        <h3 className={'Contribute-form-section-heading'}>Image Information</h3>
+        <h3 className={'Contribute-form-section-heading'}>{t('Image Information')}</h3>
 
               <BooleanButtonForm
                   onUpdate={onUpdate}
                   formData={formData}
-                  title={"What is the image showing?"}
-                  label={'What is the image showing?'}
+                  title={t("What is the image showing?")}
+                  label={t('What is the image showing?')}
                   dataLocation={"image_type"}
                   required={fields.image_type.required}
                   defaultTags={[
@@ -68,7 +79,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
                   hasOtherField={true}
               />
         <InputField
-          title="What year was the image taken?"
+          title={t("What year was the image taken?")}
           fieldName={fields.year_taken.field_name}
           value={formData[fields.year_taken.field_name]}
           type="year"
@@ -84,7 +95,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
           required={fields.year_taken.required}
         />
         <div>
-          <label>If exact year is unknown, please provide a decade range</label>
+          <label>{t('If exact year is unknown, please provide a decade range')}</label>
           <span>
             <select
               name="decade-select-start"
@@ -150,7 +161,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
             return (
               !timeReq.requirementFulfilled && (
                 <small className="input-error">
-                  * {timeReq.errorMessage}
+                  * {t(timeReq.errorMessage)}
                 </small>
               )
             );
@@ -159,13 +170,13 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
           <hr/>
 
       <div className={'subsection'}>
-        <h3 className={'Contribute-form-section-heading'}>Craft Information</h3>
+        <h3 className={'Contribute-form-section-heading'}>{t('Craft Information')}</h3>
         <BooleanButtonForm
           onUpdate={onUpdate}
           formData={formData}
           title={fields.craft_category.title}
           dataLocation={fields.craft_category.field_name}
-          label="What category of crafts are produced in this workshop?"
+          label={t("What category of crafts are produced in this workshop?")}
           selectionsAllowed="2"
           defaultTags={CRAFT_CATEGORIES}
           required={fields.craft_category.required ? true : false}
@@ -175,7 +186,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
           formData={formData}
           title={fields.type_of_craft.title}
           dataLocation={fields.type_of_craft.field_name}
-          label="What type of crafts are produced in this workshop? If entering a custom type, English is preferred."
+          label={t("What type of crafts are produced in this workshop? If entering a custom type, English is preferred.")}
           defaultTags={CRAFT_TYPES}
           required={fields.type_of_craft.required ? true : false}
           hasOtherField={true}

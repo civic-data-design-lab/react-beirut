@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from "react";
 import { useMediaQuery } from 'react-responsive'
+import i18n from "i18next";
+import {initReactI18next, useTranslation} from "react-i18next";
+import {TRANSLATIONS} from "../../lib/utils";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -18,8 +21,14 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 
 const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersControl}) => {
+
+    const { t } = useTranslation();
 
     const [selected, setSelected] = useState(null);
     const [currentLayerState, setCurrentLayerState] = useState(currentLayer)
@@ -68,7 +77,7 @@ const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersCont
         return (
             <>
                 <div className={'close-btn-container padded-lc-section'}>
-                    <p className={'card-labels'}>Historic Maps</p>
+                    <p className={'card-labels'}>{t('Historical Maps')}</p>
                     <button className={'close-card-btn'} onClick={closeLayersControl}>
                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
@@ -81,7 +90,7 @@ const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersCont
                     {getMapLayerButtons()}
                 </div>
                 <div className={'card-section-centered padded-lc-section'}>
-                    <button className={'reset-btn'} onClick = {onReset}> Reset Maps </button>
+                    <button className={'reset-btn'} onClick = {onReset}>{t('Reset Maps')} </button>
                 </div>
             </>
 

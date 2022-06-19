@@ -3,47 +3,19 @@ import React, {useEffect, useState} from "react";
 
 
 
-
-export default class ActiveFilter extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            toggleStatus : this.props.toggleStatus,
-            resetToggle : this.props.resetToggle
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps !== this.props) {
-            this.setState({
-                toggleStatus: this.props.toggleStatus,
-                resetToggle : this.props.resetToggle
-            })
-        }
-
-        console.log("check state ", this.state)
-    }
+const ActiveFilter = ({toggleStatus, updateToggle, resetToggle}) => {
 
     // function changes state to match toggle
-    onToggle = (state) => {
-        this.setState({toggleStatus:state}, () => this.props.updateToggle(this.state.toggleStatus))
+    const onToggle = (state) => {
+        updateToggle(state)
     }
 
 
-
-
-
-    render() {
-
-
-
-
-        return (
+    return (
             <>
                 <ToggleSlider
-                    key={this.state.resetToggle}
-                    onToggle={(state) => this.onToggle(state)} active={this.state.toggleStatus}
+                    key={resetToggle}
+                    onToggle={(state) => onToggle(state)} active={toggleStatus}
                     draggable={false}
                     barBackgroundColorActive={"#9C6340"}
                     handleBackgroundColor={"#9C6340"}
@@ -54,19 +26,14 @@ export default class ActiveFilter extends React.Component {
                     barHeight={10}
                     barBorderRadius={50}
                     barBackgroundColor={"#f1f1ec"}
-
                     barStyles={{
                         borderWidth: 0.5,
                         borderStyle: "solid",
                         borderColor: "#9C6340"}
                     }
-
-
-
-
-
                 />
             </>
         )
-    }
 }
+
+export default ActiveFilter

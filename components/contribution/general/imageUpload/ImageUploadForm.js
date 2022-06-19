@@ -4,6 +4,13 @@ import UploadedImage from './UploadedImage';
 
 import { useState, useEffect } from 'react';
 
+import {TRANSLATIONS} from "/lib/utils";
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 /**
  * Image upload form component for the contribution page. Right now it only
  * accepts one image using the `SingleImageUpload` component. TODO: Add support
@@ -30,6 +37,8 @@ const ImageUploadForm = ({
   maxNumberOfImages = 1,
 }) => {
 
+  const {t} = useTranslation();
+
   const [imageFormState, setImageFormState] = useState({});
   const [imageIndex, setImageIndex] = useState(0); // TODO: Set up multi-image upload.
 
@@ -46,7 +55,7 @@ const ImageUploadForm = ({
   return (
     <form className="ImageUploadForm">
       <div className={'subsection'}>
-      <h3 className={'Contribute-form-section-heading'}> {title || 'Image Upload'}</h3>
+      <h3 className={'Contribute-form-section-heading'}> {t(title || 'Image Upload')}</h3>
 
           {maxNumberOfImages != 1 &&
             [...Array(maxNumberOfImages).keys()].map((i) => {
@@ -60,7 +69,7 @@ const ImageUploadForm = ({
             })}
         </div>
           <div className={'subsection'}>
-            <label className={imageRequired ? 'required bbf-label' : 'bbf-label'}>{label || 'Upload an image'}</label>
+            <label className={imageRequired ? 'required bbf-label' : 'bbf-label'}>{t(label || 'Upload an image')}</label>
             <SingleImageUpload
               handleUpdateImage={(imagebuffer, extension) => {
                 updateImageFormState({
@@ -82,7 +91,7 @@ const ImageUploadForm = ({
 
           <div className={'subsection'}>
             <label className={captionRequired ? 'required bbf-label' : 'bbf-label'} htmlFor="caption">
-              Enter a caption or a story associated with this image.
+              {t('Enter a caption or a story associated with this image.')}
             </label>
             <textarea
               name="caption"

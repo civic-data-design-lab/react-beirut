@@ -47,6 +47,16 @@ import ArchiveAboutForm from '../../components/contribution/archive/ArchiveAbout
 import Card from '../../components/Card';
 import {data} from "autoprefixer";
 
+import {TRANSLATIONS} from "/lib/utils";
+
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
+
+
 let localStorageSize = function () {
    let _lsTotal = 0,_xLen, _x;
    for (_x in localStorage) {

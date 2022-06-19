@@ -6,6 +6,7 @@ import Draggable from "react-draggable";
 
 
 
+
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
   return isDesktop ? children : null
@@ -23,39 +24,15 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import {TRANSLATIONS} from "../../lib/utils";
+
 import i18n from "i18next";
 import { Trans, useTranslation, initReactI18next } from "react-i18next";
 
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
-  .init({
-    // the translations
-    // (tip move them in a JSON file and import them,
-    // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
-    resources: {
-      en: {
-        translation: {
-          "Explore Similar Shops": "Explore Similar Shops",
-          "Food" : "Food",
-          "Artisanal bread" : "Artisinal bread"
-        }
-      },
-      ar: {
-        translation: {
-            "Explore Similar Shops": "اكتشف المحلات المشابهة",
-            "Food":"طعام",
-            "Artisanal bread" : "الخبز الحرفي"
-        }
-      }
-    },
-    lng: "ar", // if you're using a language detector, do not define the lng option
-    fallbackLng: "en",
-
-    interpolation: {
-      escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
-    }
-  });
+  .init(TRANSLATIONS);
 
 
 
@@ -98,6 +75,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
         const response = await fetch(`api/similarWorkshops/${workshop.ID}`);
         const res = await response.json();
         setSimilarObjects(res['response']);
+        //const crafts = await fetch('api/craftTypes');
     }
 
     const fetchSimilarArchives = async() => {
@@ -251,7 +229,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
         //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return `EST. ${workshop.decade_established[0]} | `
+            return t('Established') + `${workshop.decade_established[0]} | `
         } else {
                 return null
             }
@@ -263,7 +241,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
         }
 
         if (workshop.primary_decade[0]) {
-            return `Taken ${workshop.primary_decade[0]} | `
+            return t('Captured') + ` ${workshop.primary_decade[0]} | `
         } else {
             return null
         }
@@ -405,7 +383,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
 
                         <hr/>
                     {similarObjects ? (getThumbnails().length>0 ? <>
-                            <p className={'exploreShops-label'}>Explore Similar Shops</p>
+                            <p className={'exploreShops-label'}>{t('Explore Similar Shops')}</p>
                             <div className={'exploreContainer'}>
                                 {similarObjects ? <Slider children={getThumbnails()}/> : null}
                             </div>
@@ -447,7 +425,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
 
                         <hr/>
                         {similarObjects ? (getThumbnails().length>0 ? <>
-                            <p className={'exploreShops-label'}>Explore Similar Images</p>
+                            <p className={'exploreShops-label'}>{t('Explore Similar Images')}</p>
                             <div className={'exploreContainer'}>
                                 {similarObjects ? <Slider children={getThumbnails()}/> : null}
                             </div>

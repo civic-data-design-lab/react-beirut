@@ -3,6 +3,16 @@ import { REGEX_VALIDATION, VALID_DECADES } from '../../../lib/utils';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
+import {TRANSLATIONS} from "/lib/utils";
+
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 /**
  * Component handling inputs for the contribution page. It is used to handle a
  * lot of the actions an input would normall need such as updating the form data
@@ -41,7 +51,7 @@ const InputField = (props) => {
     ...rest
   } = props;
 
-
+  const {t} = useTranslation();
   // Only a single child was given. Convert to array.
   if (children != undefined) {
     if (children[0] == undefined) children = [children]
@@ -79,7 +89,7 @@ const InputField = (props) => {
                 {...rest}
               />
               <label style={{ margin: '10px' }} htmlFor={fieldName}>
-                {label}
+                {t(label)}
               </label>
             </span>
           </>

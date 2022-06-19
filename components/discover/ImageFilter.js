@@ -23,42 +23,58 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import {TRANSLATIONS} from "../../lib/utils";
 
-export default class ImageFilter extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filteredCrafts : this.props.filteredCrafts,
-            startYear : this.props.startYear,
-            endYear : this.props.endYear,
-            toggleStatus : this.props.toggleStatus,
-            reset : this.props.resetToggle}
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
 
-        }
 
-    getImageFilterContent = () => {
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
+
+
+
+const ImageFilter = ({
+                         filteredCrafts,
+                         startYear,
+                         endYear,
+                         toggleStatus,
+                         updateCrafts,
+                         updateYears,
+                         updateToggle,
+                         reset,
+                         resetToggle,
+                         close}) => {
+
+    const { t } = useTranslation();
+
+
+
+    const getImageFilterContent = () => {
         return (
             <>
                     <div className={'image-filter-section'} style={{flexBasis: '35%'}}>
-                        <p>Craft Type</p>
+                        <p>{t('Craft Type')}</p>
                         <hr/>
-                        <CraftFilter filteredCrafts={this.props.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
+                        <CraftFilter filteredCrafts={filteredCrafts} updateCrafts={updateCrafts}/>
                     </div>
                     <div className={'image-filter-section'} style={{flexBasis: '35%'}}>
-                        <p>Time Range</p>
+                        <p>{t('Time Range')}</p>
                         <hr/>
-                        <YearFilter startYear={this.props.startYear} endYear={this.props.endYear}
-                                    updateYears={this.props.updateYears}/>
+                        <YearFilter startYear={startYear} endYear={endYear}
+                                    updateYears={updateYears}/>
                     </div>
                     <div className={'image-filter-section image-filter-section-col'} style={{flexBasis: '30%'}}>
                         <div className={'image-filter-toggle-section'}>
-                            <p>Only Show Current Craft Workshops</p>
-                            <ActiveFilter toggleStatus={this.props.toggleStatus} updateToggle={this.props.updateToggle}
-                                          resetToggle={this.props.resetToggle}/>
+                            <p>{t('Only Show Active Businesses')}</p>
+                            <ActiveFilter toggleStatus={toggleStatus} updateToggle={updateToggle}
+                                          resetToggle={resetToggle}/>
                         </div>
 
                         <div >
-                            <button className={'reset-btn card-labels'} onClick={this.props.reset}>Reset Filter</button>
+                            <button className={'reset-btn card-labels'} onClick={reset}>{t('Reset Filters')}</button>
                         </div>
                     </div>
                 </>
@@ -66,20 +82,18 @@ export default class ImageFilter extends React.Component {
     }
 
 
-    render () {
-
         return (
             <>
                 <Desktop>
                     <div className={'image-filter-container detach'}>
-                    {this.getImageFilterContent()}
+                    {getImageFilterContent()}
                     </div>
 
                 </Desktop>
 
                 <Tablet>
                     <div className={'image-filter-container detach'}>
-                    {this.getImageFilterContent()}
+                    {getImageFilterContent()}
                     </div>
                 </Tablet>
 
@@ -90,7 +104,7 @@ export default class ImageFilter extends React.Component {
                                <div className={'image-filter-container'}>
                                    <div className={"close-btn-container"}>
                                        <p className={'card-section-labels'} style={{fontWeight:600}}>Filters</p>
-                                       <button className={'close-card-btn'} onClick={this.props.close}>
+                                       <button className={'close-card-btn'} onClick={close}>
                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
                                            </svg>
@@ -99,26 +113,26 @@ export default class ImageFilter extends React.Component {
                                    <hr/>
                                    <div className={'card-section'}>
                                        <p className={'card-section-labels'}>Craft Type</p>
-                                       <CraftFilter filteredCrafts={this.props.filteredCrafts} updateCrafts={this.props.updateCrafts}/>
+                                       <CraftFilter filteredCrafts={filteredCrafts} updateCrafts={updateCrafts}/>
                                    </div>
                                    <hr/>
                                    <div className={'card-section'}>
                                        <p className={'card-section-labels'}>Time Range</p>
-                                       <YearFilter startYear={this.props.startYear} endYear={this.props.endYear}
-                                    updateYears={this.props.updateYears}/>
+                                       <YearFilter startYear={startYear} endYear={endYear}
+                                    updateYears={updateYears}/>
                                    </div>
                                    <hr/>
                                    <div className={'toggle-section'}>
                                        <p className={'card-section-labels'}>Show Only Current Craft Workshops</p>
-                                       <ActiveFilter toggleStatus={this.props.toggleStatus} updateToggle={this.props.updateToggle}
-                                          resetToggle={this.props.resetToggle}/>
+                                       <ActiveFilter toggleStatus={toggleStatus} updateToggle={updateToggle}
+                                          resetToggle={resetToggle}/>
                                    </div>
                                    <hr/>
                                    <div className={'card-section-centered'}>
-                                       <button className={'reset-btn card-labels'} onClick={this.props.reset}>Reset</button>
+                                       <button className={'reset-btn card-labels'} onClick={reset}>Reset</button>
                                    </div>
                                    <div className={'card-section-centered'}>
-                                       <button className={'btn-pill view-map-btn'} onClick={this.props.close}><span className={'view-map-label'}>View Images</span></button>
+                                       <button className={'btn-pill view-map-btn'} onClick={close}><span className={'view-map-label'}>View Images</span></button>
                                    </div>
 
                                </div>
@@ -129,5 +143,7 @@ export default class ImageFilter extends React.Component {
 
             </>
         )
-    }
+
 }
+
+export default ImageFilter;

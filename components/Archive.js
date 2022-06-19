@@ -23,6 +23,16 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import {TRANSLATIONS} from "/lib/utils";
+
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 const mainSliderStyle = {
   sliderContainer: 'mapSlider-container',
   buttonLabel: 'slider-btn-label',
@@ -47,8 +57,7 @@ const mainSliderStyle = {
  * @returns {JSX.Element}
  */
 const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }) => {
-
-
+  const {t} =useTranslation();
   const getImages = () => {
       const thumbImage = imageMetas.filter(
       (image) => image.img_id === archive.thumb_img_id
@@ -111,7 +120,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
         }
 
         if (archive.primary_year) {
-            return `Taken ${archive.primary_year} | `
+            return t('Captured') + ` ${archive.primary_year} | `
         } else {
             return null
         }
@@ -129,21 +138,22 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
                         if (craftsList.indexOf(other) < 0) {
                             otherList.push(craftOther.toLowerCase())
                         if (craftsList.length < 1) {
-                            craftsList.push(other)
+                            craftsList.push(t(other))
                         } else {
-                            craftsList.push(" | " + other)
+                            craftsList.push(" | " + t(other))
                         }
                     }
                     })
                 }
             } else {
+                const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase()
                 if (craftsList.length<1) {
-                    craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                    craftsList.push(t(craftStr));
                 } else {
                     //console.log("subtitle debug ", craftsList, otherList, craft.toLowerCase())
                     //console.log(otherList.indexOf(craft.toLowerCase()))
                     if (otherList.indexOf(craft.toLowerCase())<0)
-                    craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                    craftsList.push(" | " + t(craftStr));
                 }
             }
         }
@@ -152,10 +162,11 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
         if (Array.isArray(archive.craft_discipline_other) && archive.craft_discipline_other.length>0){
           console.log("other ", archive.craft_discipline_other)
           archive.craft_discipline_other.forEach(craft=>{
+              const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase();
           if (!craftsList) {
-              craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+              craftsList.push(t(craftStr));
           } else if (otherList.indexOf(craft.toLowerCase())<0){
-              craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());}
+              craftsList.push(" | " + t(craftStr))}
 
       })}
         return craftsList
@@ -263,7 +274,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
                 { similarArchives ?
                 <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
-                        Discover similar archival images
+                        {t('Discover similar archival images')}
                     </p>
 
                     <div className={'object-suggestion-container'}>
@@ -304,7 +315,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
                 {similarArchives ?
             <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
-                        Discover similar archival images
+                        {t('Discover similar archival images')}
                     </p>
                     <div className={'object-suggestion-container'}>
                     <div className={'object-suggestion-parent'}>
@@ -351,7 +362,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose }
                     {similarArchives ?
                 <div className={'object-mobile-section object-suggestion-section'}>
                     <p className={'card-section-labels'}>
-                        Discover similar archival images
+                        {t('Discover similar archival images')}
                     </p>
                     <div className={'object-suggestion-container'}>
                     <div className={'object-suggestion-parent'}>

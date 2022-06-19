@@ -1,7 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 
+import {TRANSLATIONS} from "/lib/utils";
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
+  const {t} = useTranslation();
 
   const handleUploadImage = (e) => {
     const file = e.target.files[0];
@@ -32,7 +40,7 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
         ) : (
           <div className="SingleImageUpload-default">
             <FontAwesomeIcon icon={faImage} width="5em" />
-            <p>Click to upload image</p>
+            <p>{t('Click to upload image')}</p>
           </div>
         )}
         <input

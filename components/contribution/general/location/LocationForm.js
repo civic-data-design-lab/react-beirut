@@ -21,6 +21,13 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import {TRANSLATIONS} from "/lib/utils";
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 const sortByStringAttribute = (array, attributeName) => {
   return array.sort((a, b) => {
     const nameA = a[attributeName].toUpperCase(); // ignore upper and lowercase
@@ -44,6 +51,8 @@ const LocationForm = ({
   pageName,
   mapCaption,
 }) => {
+
+  const {t} = useTranslation();
   const [workshops, setWorkshops] = useState([]);
   const [archive, setArchive] = useState([]);
 
@@ -72,7 +81,7 @@ const LocationForm = ({
             .filter((quarter) => quarter.EN === formData.quarter)
             .map((quarter) => quarter.sectors)
             .flat()
-            .map((sector) => {return sector.EN})
+            .map((sector) => {return t(sector.EN)})
 
         console.log('filtered sectors ', filteredSectors)
 
@@ -86,7 +95,7 @@ const LocationForm = ({
         console.log('case 2')
         let allSectors = BEIRUT_ZONES.quarters.map((obj) => {
           obj.sectors.map((sector) => {
-            return sector
+            return t(sector)
           })
         })
         if (formData.sector && !allSectors.includes(formData.sector)) {
@@ -131,15 +140,15 @@ const LocationForm = ({
   return (
 
         <form className="LocationForm">
-          <div className={'form-title'}><h2>{page.title}</h2></div>
+          <div className={'form-title'}><h2>{t(page.title)}</h2></div>
           <div className="forms sections">
             <div className="address-form section">
               <div className={'subsection'}>
-              <h3 className={'Contribute-form-section-heading'}>Address</h3>
-              <small>(English Preferred)</small>
+              <h3 className={'Contribute-form-section-heading'}>{t('Address')}</h3>
+              <small>{t('(English Preferred)')}</small>
               <div className="address-form-inputs">
                 <InputField
-                  title={fields.building_number.title}
+                  title={t(fields.building_number.title)}
                   fieldName={fields.building_number.field_name}
                   key={fields.building_number.field_name}
                   value={formData[fields.building_number.field_name]}
@@ -147,7 +156,7 @@ const LocationForm = ({
                   required={fields.building_number.required ? true : false}
                 />
                 <InputField
-                  title={fields.street.title}
+                  title={t(fields.street.title)}
                   fieldName={fields.street.field_name}
                   key={fields.street.field_name}
                   value={formData[fields.street.field_name]}
@@ -157,7 +166,7 @@ const LocationForm = ({
 
                 {/* TODO: Update quarter/sector automatically with an answer from either. Ie: selecting quarter filters sectors. Selecting sector also selects quarter. */}
                 <InputField
-                  title={fields.quarter.title}
+                  title={t(fields.quarter.title)}
                   type="select-with-other"
                   fieldName={fields.quarter.field_name}
                   key={fields.quarter.field_name}
@@ -174,13 +183,13 @@ const LocationForm = ({
                     .map((quarter) => {
                       return (
                         <option key={quarter.EN} value={quarter.EN}>
-                          {quarter.EN}
+                          {t(quarter.EN)}
                         </option>
                       );
                     })}
                 </InputField>
                 <InputField
-                  title={fields.sector.title}
+                  title={t(fields.sector.title)}
                   type="select-with-other"
                   fieldName={fields.sector.field_name}
                   key={fields.sector.field_name}
@@ -200,7 +209,7 @@ const LocationForm = ({
                   ).map((sector) => {
                     return (
                       <option key={sector.EN} value={sector.EN}>
-                        {sector.EN}
+                        {t(sector.EN)}
                       </option>
                     );
                   })}
@@ -213,12 +222,12 @@ const LocationForm = ({
               <Tablet><hr/></Tablet>
             <div className="LocationForm-location-select section">
               <div className={'subsection'}>
-              <h3 className={'Contribute-form-section-heading'}>Point Location</h3>
+              <h3 className={'Contribute-form-section-heading'}>{t('Point Location')}</h3>
               {showLatLng()}
 
               <LocationSelect onUpdate={handleUpdate} formData={formData} />
               <p className="location-select-hint">
-                Drag marker to change the location
+                {t('Drag marker to change the location')}
               </p>
             </div>
           </div>

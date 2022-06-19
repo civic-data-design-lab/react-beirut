@@ -6,38 +6,16 @@ import 'rc-slider/assets/index.css';
 
 
 
-export default class YearFilter extends React.Component {
+const YearFilter = ({startYear, endYear, updateYears}) => {
 
-
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            startYear : this.props.startYear,
-            endYear : this.props.endYear
-        }
-    }
-
-
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        //console.log("component updated ", this.props.startYear, this.props.endYear)
-        if (prevProps !== this.props) {
-            //console.log("here")
-            this.setState({
-                startYear: this.props.startYear,
-                endYear: this.props.endYear})
-        }
-        //console.log("component updated ", this.state.startYear, this.state.endYear)
-    }
 
     // function that updates state based on slider changes
-    onSliderUpdate = (value) => {
-        this.setState({startYear:value[0], endYear:value[1]}, () => this.props.updateYears([this.state.startYear, this.state.endYear]))
+    const onSliderUpdate = (value) => {
+        updateYears([value[0], value[1]])
         // this.props.updateYears([value[0], value[1]])
     }
 
-    getCustomHandle = () => {
+    const getCustomHandle = () => {
         return (
             <div style={{backgroundColor: "black", height: 100, width: 100, borderRadius: "50%"}}/>
         )
@@ -47,21 +25,14 @@ export default class YearFilter extends React.Component {
 
 
 
-
-
-    render() {
-        //console.log("year filter values ", this.state.startYear, this.state.endYear)
-        //console.log("year filter values ", this.props.startYear, this.props.endYear)
-
-
-        return (
+    return (
             <>
 
                 <div className={"yearFilter-container"}>
 
                 <Slider range
 
-                value={[this.state.startYear, this.state.endYear]}
+                value={[startYear, endYear]}
                 dots={false}
                 marks={{
                     1890: '1890',
@@ -82,18 +53,18 @@ export default class YearFilter extends React.Component {
         }}
                 min={1890}
                 max={2030}
-                defaultValue={[this.state.startYear, this.state.endYear]}
+                defaultValue={[startYear, endYear]}
                 step={10}
                 allowCross = {false}
-                onChange = {(value) => this.onSliderUpdate(value)}
-                onAfterChange = {(value) => this.onSliderUpdate(value)}
+                onChange = {(value) => onSliderUpdate(value)}
+                onAfterChange = {(value) => onSliderUpdate(value)}
 
                 handleStyle={{backgroundColor:"#9C6340", opacity:"100%", borderColor:"#9C6340"}}
                 //handleStyleActive={{backgroundColor:"#9C6340", borderColor:"#9C6340"}}
 
                 trackStyle={{backgroundColor:"#9C6340"}}
                 railStyle={{backgroundColor:"#f1f1ec"}}
-                handle={this.getCustomHandle}
+                handle={getCustomHandle}
 
         />
 
@@ -104,5 +75,6 @@ export default class YearFilter extends React.Component {
 
             </>
         )
-    }
 }
+
+export default YearFilter

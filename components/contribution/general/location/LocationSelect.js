@@ -2,9 +2,18 @@ import mapboxGl from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
 import { MAPBOX_STYLE_URL } from '../../../../lib/utils';
 
+import {TRANSLATIONS} from "/lib/utils";
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const LocationSelect = ({ onUpdate, formData }) => {
+
+  const {t} = useTranslation();
   useEffect(() => {
     let markerLocation
     if (formData && formData.lat && formData.lng) {

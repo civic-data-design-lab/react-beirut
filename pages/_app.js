@@ -5,6 +5,10 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 
+import i18next from "i18next";
+import { withNamespaces } from 'react-i18next';
+
+
 
 function MyApp({ Component, pageProps }) {
   

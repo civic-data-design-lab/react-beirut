@@ -6,6 +6,16 @@ import MiniMap from "./discover/MiniMap";
 import {useEffect, useRef, useState} from "react";
 import { useMediaQuery } from 'react-responsive';
 
+import {TRANSLATIONS} from "/lib/utils";
+
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
   return isDesktop ? children : null
@@ -47,8 +57,7 @@ const mainSliderStyle = {
  * @returns {JSX.Element}
  */
 const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose}) => {
-
-
+  const {t} = useTranslation();
   const getImages = () => {
 
       const thumbImage = imageMetas.filter(
@@ -90,7 +99,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         } else if (workshop.shop_name['content_orig']) {
             return workshop.shop_name['content_orig']
         } else {
-            return 'Shop'
+            return t('Craft Shop (No name provided)')
         }
     }
 
@@ -156,21 +165,22 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         if (craftsList.indexOf(other) < 0) {
                             otherList.push(craftOther.toLowerCase())
                         if (craftsList.length < 1) {
-                            craftsList.push(other)
+                            craftsList.push(t(other))
                         } else {
-                            craftsList.push(" | " + other)
+                            craftsList.push(" | " + t(other))
                         }
                     }
                     })
                 }
             } else {
+                const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase()
                 if (craftsList.length<1) {
-                    craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+                    craftsList.push(t(craftStr));
                 } else {
                     //console.log("subtitle debug ", craftsList, otherList, craft.toLowerCase())
                     //console.log(otherList.indexOf(craft.toLowerCase()))
                     if (otherList.indexOf(craft.toLowerCase())<0){
-                    craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());}
+                    craftsList.push(" | " + t(craftStr))}
                 }
             }
         }
@@ -179,10 +189,11 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
       if (Array.isArray(workshop.craft_discipline_other) && workshop.craft_discipline_other.length>0){
           console.log("other ", workshop.craft_discipline_other)
           workshop.craft_discipline_other.forEach(craft=>{
+              const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase();
           if (!craftsList) {
-              craftsList.push(craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());
+              craftsList.push(t(craftStr));
           } else if (otherList.indexOf(craft.toLowerCase())<0){
-              craftsList.push(" | " + craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase());}
+              craftsList.push(" | " + t(craftStr))}
 
       })}
         return craftsList
@@ -195,7 +206,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return `Since ${workshop.decade_established[0]} | `
+            return t('Captured') +` ${workshop.decade_established[0]} | `
         } else {
                 return null
             }
@@ -254,7 +265,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
 
                 <div className={'object-map-section'}>
-                    <p className={'object-caption'}>Locate this craft workshop on the map </p>
+                    <p className={'object-caption'}>{t('Locate this craft workshop on the map')} </p>
                     <div className={'miniMap-container'}>
                         <MiniMap workshop={workshop} type={'workshop'}/>
                     </div>
@@ -264,7 +275,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
                 <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
-                        Discover similar craft workshops
+                        {t('Discover similar craft workshops')}
                     </p>
                     <div className={'object-suggestion-container'}>
                     <div className={'object-suggestion-parent'}>
@@ -300,7 +311,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 )}
             </div>
             <div className={'object-map-section'}>
-                    <p className={'object-caption'}>Locate this craft workshop on the map </p>
+                    <p className={'object-caption'}>{t('Locate this craft workshop on the map')}</p>
                     <div className={'miniMap-container'}>
                         <MiniMap workshop={workshop} type={'workshop'}/>
                         </div>
@@ -309,7 +320,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 { similarWorkshops ?
             <div className={"object-suggestion-section"}>
                     <p className={'object-caption'}>
-                        Discover similar craft workshops
+                        {t('Discover similar craft workshops')}
                     </p>
                     <div className={'object-suggestion-container'}>
                     <div className={'object-suggestion-parent'}>
@@ -356,13 +367,13 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 </div>
 
                 <div className={'object-mobile-section object-map-section'}>
-                    <p className={'card-section-labels'}>Locate this craft workshop on the map </p>
+                    <p className={'card-section-labels'}>{t('Locate this craft workshop on the map')} </p>
                         <MiniMap workshop={workshop} type={'workshop'}/>
                 </div>
 
                 { similarWorkshops ? <div className={'object-mobile-section object-suggestion-section'}>
                     <p className={'card-section-labels'}>
-                        Discover similar craft workshops
+                        {t('Discover similar craft workshops')}
                     </p>
                     <div className={'object-suggestion-container'}>
                     <div className={'object-suggestion-parent'}>
@@ -379,12 +390,6 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
             </div>
                 </div>
         </Mobile>
-
-
-
-
-
-
     </>
   );
 };

@@ -1,26 +1,21 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import i18n from "i18next";
+import {initReactI18next, useTranslation} from "react-i18next";
+import {TRANSLATIONS} from "../../lib/utils";
 
-export default class CraftFilter extends React.Component {
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
+const CraftFilter = ({filteredCrafts, updateCrafts}) => {
+    const { t } = useTranslation();
 
     // props to pass in: filteredCrafts: craftFilter state of parent, updateCrafts: callback from parent to update its state
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            filteredCrafts : this.props.filteredCrafts
-            };
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps !== this.props) {
-            this.setState({filteredCrafts: this.props.filteredCrafts})
-        }
-    }
 
     // function for handling when a craft button is selected, updates state accprdingly
-    selectedCraft = (craftType) => {
-        let craftsList = this.state.filteredCrafts;
+    const selectedCraft = (craftType) => {
+        let craftsList = filteredCrafts;
         let selectedAlready = craftsList.indexOf(craftType)
         if (selectedAlready > -1) {
             craftsList.splice(selectedAlready, 1)
@@ -33,11 +28,11 @@ export default class CraftFilter extends React.Component {
         }
 
         // callback passed as a prop from explore.js (map?) that passes state back up everytime a craft button is pressed
-        this.setState({filteredCrafts: craftsList}, () => this.props.updateCrafts(this.state.filteredCrafts))
+        updateCrafts(craftsList)
     };
 
-    determineCraftButtonClass = (craftName) => {
-        let index = this.state.filteredCrafts.indexOf(craftName);
+    const determineCraftButtonClass = (craftName) => {
+        let index = filteredCrafts.indexOf(craftName);
         if (index >-1) {
             return (`hstg-btn-pill-small-selected hstg-btn-pill-small-selected--${craftName}`)
         } else {
@@ -46,21 +41,21 @@ export default class CraftFilter extends React.Component {
     }
 
 
-    render () {
-        return (
+    return (
             <>
                 <div className={'craftFilter-container'}>
                     <div className={'craftFilter-buttons-container'}>
-                    <button id={'architectural-btn'} className={this.determineCraftButtonClass('architectural')} onClick={() => this.selectedCraft('architectural')}>Architectural</button>
-                    <button id={'cuisine-btn'} className={this.determineCraftButtonClass('cuisine')} onClick={() => this.selectedCraft('cuisine')}>Cuisine</button>
-                    <button id={'decorative-btn'} className={this.determineCraftButtonClass('decorative')} onClick={() => this.selectedCraft('decorative')}>Decorative</button>
-                    <button id={'fashion-btn'} className={this.determineCraftButtonClass('fashion')} onClick={() => this.selectedCraft('fashion')}>Fashion</button>
-                    <button id={'functional-btn'} className={this.determineCraftButtonClass('functional')} onClick={() => this.selectedCraft('functional')}>Functional</button>
-                    <button id={'furniture-btn'} className={this.determineCraftButtonClass('furniture')} onClick={() => this.selectedCraft('furniture')}>Furniture</button>
-                    <button id={'textiles-btn'} className={this.determineCraftButtonClass('textiles')} onClick={() => this.selectedCraft('textiles')}>Textiles</button>
+                    <button id={'architectural-btn'} className={determineCraftButtonClass('architectural')} onClick={() => selectedCraft('architectural')}>{t('Architectural')}</button>
+                    <button id={'cuisine-btn'} className={determineCraftButtonClass('cuisine')} onClick={() => selectedCraft('cuisine')}>{t('Cuisine')}</button>
+                    <button id={'decorative-btn'} className={determineCraftButtonClass('decorative')} onClick={() => selectedCraft('decorative')}>{t('Decorative')}</button>
+                    <button id={'fashion-btn'} className={determineCraftButtonClass('fashion')} onClick={() => selectedCraft('fashion')}>{t('Fashion')}</button>
+                    <button id={'functional-btn'} className={determineCraftButtonClass('functional')} onClick={() => selectedCraft('functional')}>{t('Functional')}</button>
+                    <button id={'furniture-btn'} className={determineCraftButtonClass('furniture')} onClick={() => selectedCraft('furniture')}>{t('Furniture')}</button>
+                    <button id={'textiles-btn'} className={determineCraftButtonClass('textiles')} onClick={() => selectedCraft('textiles')}>{t('Textiles')}</button>
                     </div>
                 </div>
             </>
         )
-    }
 }
+
+export default CraftFilter

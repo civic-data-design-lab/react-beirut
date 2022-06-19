@@ -18,6 +18,14 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null
 }
 
+import {TRANSLATIONS} from "/lib/utils";
+
+import i18n from "i18next";
+import { Trans, useTranslation, initReactI18next } from "react-i18next";
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init(TRANSLATIONS);
+
 /**
  * The Archive about form updates the following fields:
  * - imageType
@@ -47,18 +55,19 @@ const ArchiveAboutForm = ({
 
   const page = formSchema.pages.about;
   const fields = page.fields;
+  const {t} = useTranslation();
 
   return (
     <form className="ArchiveAboutForm">
-      <div className={'form-title'}><h2>{page.title}</h2></div>
+      <div className={'form-title'}><h2>{t(page.title)}</h2></div>
       <div className="sections">
         <div className="section">
           <div className='subsection'>
-          <h3 className={'Contribute-form-section-heading'}>General Information</h3>
+          <h3 className={'Contribute-form-section-heading'}>{t('General Information')}</h3>
           <InputField
             title={
               <>
-                Associated craft workshop name <br/> <small>(if applicable)</small>
+              {t('Associated craft workshop name')} <br/> <small>{t('if applicable')}</small>
               </>
             }
             fieldName={fields.workshop_name.field_name}
@@ -69,9 +78,9 @@ const ArchiveAboutForm = ({
           <InputField
             title={
               <>
-                Associated workshop owner Name
+                {t('Associated workshop owner name')}
                 <br/>
-                <small>(optional - name may be publicly displayed)</small>
+                <small>{t('(optional - name may be publicly displayed)')}</small>
               </>
             }
             fieldName={fields.owner_name.field_name}
@@ -86,7 +95,7 @@ const ArchiveAboutForm = ({
               <Tablet><hr/></Tablet>
         <div className="section">
           <div className={'subsection'}>
-          <h3 className={'Contribute-form-section-heading'}>Reference Information</h3>
+          <h3 className={'Contribute-form-section-heading'}>{t('Reference Information')}</h3>
           <InputField
             title={fields.type_of_reference.title}
             fieldName={fields.type_of_reference.field_name}
@@ -96,24 +105,22 @@ const ArchiveAboutForm = ({
             required={fields.type_of_reference.required}
           >
             <option value="Owner of personal photo">
-              Owner of personal photo (I have the rights to share this image)
+              {t('Owner of personal photo (I have the rights to share this image)')}
             </option>
             <option value="Print source">
-              Print source (book, newspaper, magazine, article, printed
-              periodical, etc.)
+              {t('Print source (book, newspaper, magazine, article, printed periodical, etc.)')}
             </option>
             <option value="Electronic source">
-              Electronic source (database, website, blog, social media, etc.)
+              {t('Electronic source (database, website, blog, social media, etc.)')}
             </option>
           </InputField>
           {formData[fields.type_of_reference.field_name] == 'Owner of personal photo' && (
             <InputField
               title={
                 <>
-                  Name of person submitting the photo <br />{' '}
+                  {t('Name of person submitting the photo')} <br />{' '}
                   <small>
-                    (optional - if no name is included, the photo will be
-                    submitted anonymously)
+                    {t('(optional - if no name is included, the photo will be submitted anonymously)')}
                   </small>
                 </>
               }
@@ -136,7 +143,7 @@ const ArchiveAboutForm = ({
             />
           )}
           <InputField
-            title="Any additional copyright information?"
+            title={t('Any additional copyright information?')}
             type="textarea"
             fieldName={fields.reference_copyright.field_name}
             value={formData[fields.reference_copyright.field_name]}
