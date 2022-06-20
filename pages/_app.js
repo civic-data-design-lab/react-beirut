@@ -20,7 +20,7 @@ i18n
 
 function MyApp({ Component, pageProps }) {
 
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(null);
   const changeLanguage = (language)=> {
     console.log(language)
     i18n.changeLanguage(language);
