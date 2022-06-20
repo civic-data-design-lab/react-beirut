@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Card from '../../Card';
 import {isProperlyTruthy, WORKSHOP_CONTRIBUTION_NAME} from '../../../lib/utils';
 import Dialogue from "./Dialogue";
+import {useTranslation} from "next-i18next";
 
 /**
  * Component handling mulitpage forms.
@@ -55,6 +56,7 @@ const MultipageForm = ({
   setSubmitting,
   submitting
 }) => {
+  const {t} = useTranslation();
   const router = useRouter();
   const [dialog, setDialog] = useState(null);
   const [page, setPage] = useState(0);
@@ -209,7 +211,7 @@ const MultipageForm = ({
       if (missingFields.length > 0) {
         // TODO: Show a more helpful error message if the user is missing fields
         alert(
-          `Please fill in the following fields: ${missingFields
+          t(`Please fill in the following fields: `) + `${missingFields
             .map((field) => field.title)
             .join(', ')}`
         );
@@ -278,7 +280,7 @@ const MultipageForm = ({
             title={'Missing Required Fields'}
             content={
                 <>
-                  <p>You are missing the following fields (marked with *):</p>
+                  <p>{t('You are missing the following fields (marked with *):')}</p>
                   <ul className={'missing-fields-list'}>
                     <p>{missingFields.map((field) => (
                         <li key={field}>{field}</li>
@@ -290,8 +292,8 @@ const MultipageForm = ({
             handleClose={handleCloseDialog}
             cancel={true}
             accept={true}
-            cancelText={'Go Back'}
-            acceptText={'Continue Anyways'}
+            cancelText={t('Go Back')}
+            acceptText={t('Continue Anyways')}
             handleCancel={handleCloseDialog}
             handleAccept={() => {
                 router.push(`${router.basePath}?page=${page + 1}`, undefined, {
@@ -339,30 +341,30 @@ const MultipageForm = ({
                   {submitSuccess ?
                   <>
                     <FontAwesomeIcon icon={faCheckCircle} />
-                  <h1>Upload success!</h1>
-                  <h2>Your response has been recorded.</h2>
+                  <h1>{t('Upload success!')}</h1>
+                  <h2>{t('Your response has been recorded.')}</h2>
                   <p>
-                    Click{' '}
+                    {t('Click')+' '}
                     <Link href="/contribute" >
-                      <a className="link" >here</a>
+                      <a className="link" >{t('here')}</a>
                     </Link>{' '}
-                    to make another contribution, or click{' '}
+                    {t('to make another contribution, or click')+ ' ' }
                     <Link href="/" >
-                      <a  className="link">here</a>
+                      <a  className="link">{t('here')}</a>
                     </Link>{' '}
-                    to return to the main site.
+                    {t('to return to the main site.')}
                   </p>
                   </> :
                   <>
                     <FontAwesomeIcon icon={faCircleXmark} />
-                  <h1>Upload failed!</h1>
-                  <h2>We could not process your response.</h2>
+                  <h1>{t('to return to the main site.')}</h1>
+                  <h2>{t('We could not process your response.')}</h2>
                   <p>
-                    Click{' '}
+                    {t('Click')+' '}
                     <Link href={getLinkBack("form")}>
-                      <a onClick={handleRedirect} className="link">here</a>
+                      <a onClick={handleRedirect} className="link">{t('here')}</a>
                     </Link>{' '}
-                    to return to your form.
+                    {t('to return to your form.')}
                   </p>
 
                   </>}
@@ -388,7 +390,7 @@ const MultipageForm = ({
                   disabled={page === 0}
                   onClick={onBack}
                 >
-                  Back
+                  {t('Back')}
                 </button>
                 <button
                   className="btn-nav"
@@ -398,7 +400,7 @@ const MultipageForm = ({
                     getMissingFields().length > 0
                   }
                 >
-                  {page === children.length - 1 ? 'Submit' : 'Next'}
+                  {page === children.length - 1 ? t('Submit') : t('Next')}
                 </button>
               </span>
             </>

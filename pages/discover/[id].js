@@ -8,7 +8,7 @@ import {
   getWorkshopOrArchive, getSimilarArchives,
 } from '../../lib/apiUtils';
 
-const CardPage = ({ object, type, similarWorkshops, imageMetas }) => {
+const CardPage = ({ object, type, similarWorkshops, imageMetas, lang, i18n }) => {
   const router = useRouter();
 
 
@@ -16,8 +16,8 @@ const CardPage = ({ object, type, similarWorkshops, imageMetas }) => {
     router.push('/discover', undefined, { shallow: true, scroll: false });
   };
 
-  console.log('checking what iamgeMetas is ', imageMetas)
-
+ // console.log('checking what iamgeMetas is ', imageMetas)
+    console.log('lang  in id.js is ', lang)
 
 
   return (
@@ -28,6 +28,8 @@ const CardPage = ({ object, type, similarWorkshops, imageMetas }) => {
       isExpanded={true}
       onClose={handleClose}
       imageMetas={imageMetas}
+      lang={lang}
+      i18n={i18n}
     />
   );
 };

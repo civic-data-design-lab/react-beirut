@@ -237,7 +237,7 @@ const conditionalRequirements = [{}];
  * Workshop Contribution MultipageForm
  *
  */
-const WorkshopContribution = () => {
+const WorkshopContribution = ({lang, i18n}) => {
   const [form, setForm] = useState({
     survey_origin: WORKSHOP_CONTRIBUTION_NAME
   });
@@ -308,6 +308,10 @@ const WorkshopContribution = () => {
 
     console.log('-------------------------------------------------------------')
     console.log(data)
+
+    console.log('stringifying data now ')
+    console.log(JSON.stringify(data))
+    console.log('finished stringifying')
 
     fetch('/api/workshops', {
       method: 'POST',
@@ -436,9 +440,10 @@ const WorkshopContribution = () => {
             mapCaption={
               'Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.'
             }
+            i18n={i18n}
           />
           <WorkshopImageForm label="Upload an image of the craft workshop" />
-          <Preview />
+          <Preview lang={lang} i18n={i18n}/>
         </MultipageForm>
       </div>
       </div>

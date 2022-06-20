@@ -93,7 +93,7 @@ const Contribute = () => {
     <div className={'dialogue-container'}>
 
 
-        <div className={'dialogue-title'}>You have an unsubmitted workshop contribution</div>
+        <div className={'dialogue-title'}>{t('You have an unsubmitted workshop contribution')}</div>
         <button className={'close-card-btn dialogue-close-btn'} onClick={() => setModal(null)}>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#404044"/>
@@ -106,20 +106,20 @@ const Contribute = () => {
             id="modal-options"
         >
           <label htmlFor="modal-options" className={'dialogue-content'}>
-            Would you like to continue with your existing record or discard it?
+              {t('Would you like to continue with your existing record or discard it?')}
           </label>
           <span className="dialogue-buttons">
             <button
                 type="submit"
                 name="discard"
                 className="cancel-button">
-              <p className={'cancel-label'}>Discard Record</p>
+              <p className={'cancel-label'}>{t('Discard Record')}</p>
             </button>
             <button
                 type="submit"
                 name="continue"
                 className="accept-button">
-              <p className={'accept-label'}> Continue Record </p>
+              <p className={'accept-label'}> {t('Continue Record')} </p>
             </button>
           </span>
         </form>
@@ -136,7 +136,7 @@ const Contribute = () => {
     <div className={'dialogue-container'}>
 
 
-        <div className={'dialogue-title'}>You have an unsubmitted archive contribution</div>
+        <div className={'dialogue-title'}>{t('You have an unsubmitted archive contribution')}</div>
         <button className={'close-card-btn dialogue-close-btn'} onClick={() => setModal(null)}>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#404044"/>
@@ -149,20 +149,20 @@ const Contribute = () => {
             id="modal-options"
         >
           <label htmlFor="modal-options" className={'dialogue-content'}>
-            Would you like to continue with your existing record or discard it?
+              {t('Would you like to continue with your existing record or discard it?')}
           </label>
           <div className="dialogue-buttons">
             <button
                 type="submit"
                 name="discard"
                 className="cancel-button">
-              <p className={'cancel-label'}>Discard Record</p>
+              <p className={'cancel-label'}>{t('Discard Record')}</p>
             </button>
             <button
                 type="submit"
                 name="continue"
                 className="accept-button">
-              <p className={'accept-label'}> Continue Record </p>
+              <p className={'accept-label'}> {t('Continue Record ')}</p>
             </button>
           </div>
         </form>

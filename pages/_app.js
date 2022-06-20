@@ -5,6 +5,8 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 
+import LngDetector from 'i18next-browser-languagedetector';
+
 import {TRANSLATIONS} from "../lib/utils";
 
 import i18n from "i18next";

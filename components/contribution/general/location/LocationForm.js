@@ -46,6 +46,7 @@ const LocationForm = ({
   formSchema,
   pageName,
   mapCaption,
+  i18n
 }) => {
 
   const {t} = useTranslation();
@@ -72,23 +73,23 @@ const LocationForm = ({
         }
     } else if (field === "sector") {
       if (formData.quarter) {
-        console.log('case 1')
+        //console.log('case 1')
         let filteredSectors = BEIRUT_ZONES.quarters
             .filter((quarter) => quarter.EN === formData.quarter)
             .map((quarter) => quarter.sectors)
             .flat()
             .map((sector) => {return t(sector.EN)})
 
-        console.log('filtered sectors ', filteredSectors)
+        //console.log('filtered sectors ', filteredSectors)
 
         if (formData.sector && !filteredSectors.includes(formData.sector)) {
-          console.log("chech case 1 ", formData.sector, filteredSectors)
+          //console.log("chech case 1 ", formData.sector, filteredSectors)
           return true
         } else {
           return false
         }
       } else if (!formData.quarter) {
-        console.log('case 2')
+        //console.log('case 2')
         let allSectors = BEIRUT_ZONES.quarters.map((obj) => {
           obj.sectors.map((sector) => {
             return t(sector)
@@ -221,7 +222,7 @@ const LocationForm = ({
               <h3 className={'Contribute-form-section-heading'}>{t('Point Location')}</h3>
               {showLatLng()}
 
-              <LocationSelect onUpdate={handleUpdate} formData={formData} />
+              <LocationSelect onUpdate={handleUpdate} formData={formData} i18n={i18n} />
               <p className="location-select-hint">
                 {t('Drag marker to change the location')}
               </p>

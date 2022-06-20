@@ -9,7 +9,7 @@ import Workshop from '../../Workshop';
 import InputField from './InputField';
 import PreviewCard from "./PreviewCard";
 
-const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
+const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) => {
   console.debug(formSchema);
   const missingFieldPages = [
     ...new Set(missingFields.map((field) => field.parent)),
@@ -69,6 +69,8 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields }) => {
             imageMetas={imageMeta && [imageMeta]}
             imageSrc={imageDataOriginal?.data}
             objType={'workshop'}
+            lang={lang}
+            i18n={i18n}
         />
 
       );

@@ -50,8 +50,10 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang}) => {
+const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang, i18n}) => {
   const {t} = useTranslation();
+  console.log("lang from workshop si ", lang)
+  console.log("getting lan using i18-n ", i18n.language)
   const getImages = () => {
 
       const thumbImage = imageMetas.filter(
@@ -102,7 +104,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
   const getCaption = () => {
         console.log('current images image metadata ', images[index])
         //return <p>{this.state.currentImageIndex}</p>
-        //let imageContainer = document.querySelector('.mapSlider-wrapper');
+        //let imageContainer = document.querySelector('.mafpSlider-wrapper');
         //return (<p>{imageContainer.offsetWidth}</p>)
 
         const currentMetaData = images[index]
@@ -261,7 +263,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 <div className={'object-map-section'}>
                     <p className={'object-caption'}>{t('Locate this craft workshop on the map')} </p>
                     <div className={'miniMap-container'}>
-                        <MiniMap workshop={workshop} type={'workshop'} lang={lang}/>
+                        <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
                     </div>
                 </div>
 
@@ -307,7 +309,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
             <div className={'object-map-section'}>
                     <p className={'object-caption'}>{t('Locate this craft workshop on the map')}</p>
                     <div className={'miniMap-container'}>
-                        <MiniMap workshop={workshop} type={'workshop'}/>
+                        <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
                         </div>
             </div>
 
@@ -362,7 +364,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
                 <div className={'object-mobile-section object-map-section'}>
                     <p className={'card-section-labels'}>{t('Locate this craft workshop on the map')} </p>
-                        <MiniMap workshop={workshop} type={'workshop'}/>
+                        <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
                 </div>
 
                 { similarWorkshops ? <div className={'object-mobile-section object-suggestion-section'}>

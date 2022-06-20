@@ -38,6 +38,7 @@ export default class ImageCard extends React.Component {
 
 
   componentDidMount() {
+      console.log('lang in imagecard is ', this.props.lang)
       console.log('mounting');
       document.body.style.overflow = "hidden"; // ADD THIS LINE
       document.body.style.height = "100%"; // ADD THIS LINE
@@ -102,6 +103,8 @@ export default class ImageCard extends React.Component {
               similarWorkshops={similarWorkshops}
               handleClose={onClose}
               includeSuggestion={true}
+              lang={this.props.lang}
+              i18n={this.props.i18n}
             />
               </div>
 
@@ -134,6 +137,8 @@ export default class ImageCard extends React.Component {
               similarWorkshops={similarWorkshops}
               handleClose={onClose}
               includeSuggestion={true}
+              lang={this.props.lang}
+              i18n={this.props.i18n}
             />
               </div>
 
@@ -168,6 +173,8 @@ export default class ImageCard extends React.Component {
               similarWorkshops={similarWorkshops}
               handleClose={onClose}
               includeSuggestion={true}
+              lang={this.props.lang}
+              i18n={this.props.i18n}
             />
               </div>
 
