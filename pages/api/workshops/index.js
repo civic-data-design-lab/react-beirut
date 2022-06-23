@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 
 export default async (req, res) => {
+  console.log('made it to the workshop api at least')
   switch (req.method) {
     case 'GET':
       const workshops = await getAllWorkshops();
@@ -14,6 +15,7 @@ export default async (req, res) => {
       });
       break;
     case 'POST':
+      console.log('MADE IT TO THE POST REQUEST !!!!!')
       const body = req.body;
       console.log('Here is the post request. Be sure to check out body:', req);
 
@@ -23,6 +25,7 @@ export default async (req, res) => {
         });
       }
       const result = await saveNewWorkshop(body);
+      console.log('finished calling SaveNewWorkshop which returned ', result)
       // Handle the case where the workshop was not saved.
       if (!result?.workshop) {
         res.status(StatusCodes.BAD_REQUEST).send({
@@ -44,6 +47,13 @@ export default async (req, res) => {
   }
 };
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '4mb',
+    },
+  },
+}
 
 
 

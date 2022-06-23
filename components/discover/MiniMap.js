@@ -177,7 +177,7 @@ export default class MiniMap extends React.Component {
             `name_${this.props.i18n.language}`
             ]);
              })
-    }, 200);
+    }, 400);
     return;
   } else {
              const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',

@@ -41,3 +41,11 @@ export default async (req, res) => {
         .end(`Method ${req.method} Not Allowed`);
   }
 };
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '4mb',
+    },
+  },
+}
