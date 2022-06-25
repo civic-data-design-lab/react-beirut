@@ -165,32 +165,32 @@ export default class MiniMap extends React.Component {
         }
         }
 
-        let check = this.checkIfMapboxStyleIsLoaded();
-         if (!check) {
+   //     let check = this.checkIfMapboxStyleIsLoaded();
+   //      if (!check) {
              // It's not safe to manipulate layers yet, so wait 200ms and then check again
-    setTimeout(() => {
-      const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
-                'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
-            layouts.map((layout)=> {
-                map.current.setLayoutProperty(layout, 'text-field', [
-            'get',
-            `name_${this.props.i18n.language}`
-            ]);
-             })
-    }, 400);
-    return;
-  } else {
-             const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
-                'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
-            layouts.map((layout)=> {
-                map.current.setLayoutProperty(layout, 'text-field', [
-            'get',
-            `name_${this.props.i18n.language}`
-            ]);
+    //setTimeout(() => {
+  //    const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
+  //              'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
+   //         layouts.map((layout)=> {
+  //              map.current.setLayoutProperty(layout, 'text-field', [
+ //           'get',
+  //          `name_${this.props.i18n.language}`
+  //          ]);
+  //           })
+  //  }, 400);
+  //  return;
+ // } else {
+ //            const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
+ //               'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
+ //           layouts.map((layout)=> {
+ //               map.current.setLayoutProperty(layout, 'text-field', [
+ //           'get',
+ //           `name_${this.props.i18n.language}`
+ //           ]);
 
 
-             })
-         }
+  //           })
+  //       }
 
 }
 

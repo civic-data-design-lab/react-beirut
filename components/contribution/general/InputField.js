@@ -157,7 +157,7 @@ const InputField = (props) => {
             {...rest}
           >
             <option defaultValue value="null">
-              {defaultValue ? defaultValue : `--Select ${title}--`}
+              {defaultValue ? defaultValue : `--${t('Select')} ${title}--`}
             </option>
             {children}
           </select>
@@ -200,7 +200,7 @@ const InputField = (props) => {
                 {`--Select ${title}--`}
               </option>
               {children}
-              <option value="OTHER"> ＋ OTHER</option>
+              <option value="OTHER"> ＋ {t('Other')}</option>
 
             </select>
             {otherExists && (

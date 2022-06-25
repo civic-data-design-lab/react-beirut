@@ -322,7 +322,7 @@ const MultipageForm = ({
               <Link href={`${router.basePath}?page=${idx}`} key={idx}>
                 <a className={idx === page ? 'active' : ''}>
                   <div className="bubble">{idx + 1}</div>
-                  <div> {title}</div>
+                  <div> {t(title)}</div>
                 </a>
               </Link>
             ))}

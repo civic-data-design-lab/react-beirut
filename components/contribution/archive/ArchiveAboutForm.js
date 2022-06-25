@@ -93,7 +93,7 @@ const ArchiveAboutForm = ({
           <div className={'subsection'}>
           <h3 className={'Contribute-form-section-heading'}>{t('Reference Information')}</h3>
           <InputField
-            title={fields.type_of_reference.title}
+            title={t(fields.type_of_reference.title)}
             fieldName={fields.type_of_reference.field_name}
             type="select"
             value={formData[fields.type_of_reference.field_name]}

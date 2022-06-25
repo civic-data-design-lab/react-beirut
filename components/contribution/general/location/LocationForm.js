@@ -123,13 +123,13 @@ const LocationForm = ({
         >
           {mapCaption
             ? mapCaption
-            : 'Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.'}
+            : t('Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.')}
         </label>
       );
     }
     return (
       <small key="LatitudeAndLongitude">
-        Current: {`(${formData.lat.toFixed(6)}, ${formData.lng.toFixed(6)})`}
+         {`${t('Current')}: (${formData.lat.toFixed(6)}, ${formData.lng.toFixed(6)})`}
       </small>
     );
   };

@@ -108,7 +108,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
                 </option>
               ) : (
                 <>
-                  <option value=""> --Start decade-- </option>
+                  <option value=""> --{t('Start Decade')}-- </option>
                   {VALID_DECADES.map((decade) => (
                     <option key={decade} value={decade}>
                       {decade}
@@ -132,7 +132,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
                 </option>
               ) : (
                 <>
-                  <option value=""> --End decade-- </option>
+                  <option value=""> --{t('End Decade')}-- </option>
                   {VALID_DECADES.map((decade) => (
                     <option
                       key={decade}

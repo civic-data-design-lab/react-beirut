@@ -1,6 +1,7 @@
 import ImageUploadForm from '../general/imageUpload/ImageUploadForm';
 import BooleanButtonForm from '../general/booleanButtonForm/BooleanButtonForm';
 import { useMediaQuery } from 'react-responsive';
+import {useTranslation} from "next-i18next";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -28,11 +29,12 @@ const WorkshopImageForm = ({
 }) => {
   const page = formSchema.pages.image_upload;
   const fields = page.fields;
+  const { t } = useTranslation();
 
   return (
     <>
         <div className={'form'}>
-            <div className={'form-title'}><h2>Craft Workshop Image Upload</h2></div>
+            <div className={'form-title'}><h2>{t('Craft Workshop Image Upload')}</h2></div>
             <div className={'sections'}>
 
 
@@ -43,7 +45,7 @@ const WorkshopImageForm = ({
           formData={formData}
           dataLocation="images"
           title=""
-          label="Upload an image of the craft workshop"
+          label={t("Upload an image of the craft workshop")}
           imageRequired={true}
           captionRequired={fields.caption.required}
         />
@@ -55,7 +57,7 @@ const WorkshopImageForm = ({
               <Tablet><hr/></Tablet>
       <div className={'section'}>
           <div className={'subsection'}>
-              <h3 className={'Contribute-form-section-heading'}>Image Tags</h3>
+              <h3 className={'Contribute-form-section-heading'}>{t('Image Tags')}</h3>
       <BooleanButtonForm
         onUpdate={
           // (obj) => {
@@ -69,7 +71,7 @@ const WorkshopImageForm = ({
         formData={formData}
         dataLocation="image_content"
         title="Image Content"
-        label="What is shown in this image?"
+        label={t("What is shown in this image?")}
         defaultTags={[
           'Storefront',
           'Street view',
