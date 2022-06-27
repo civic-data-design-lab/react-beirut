@@ -134,7 +134,7 @@ $hamburger-zindex: $menu-zindex + 10;
   opacity: 0;
   overflow: hidden;
   position: fixed;
-  text-align: left;
+  //text-align: left;
   top: 0;
   transition: all 0.7s ease-in-out;
   // For some sweet fadez
@@ -167,7 +167,8 @@ $hamburger-zindex: $menu-zindex + 10;
 
 
   ul {
-    width: 400px;
+    // width: 400px;
+    width: fit-content;
     //margin: 0 auto;
     //left: 50%;
     &:hover {
@@ -214,6 +215,7 @@ $hamburger-zindex: $menu-zindex + 10;
   }
 
   .menu-footer {
+    direction: ltr;
     padding: 2rem;
     bottom: 0;
     left: 0;
@@ -271,7 +273,7 @@ $hamburger-zindex: $menu-zindex + 10;
 
   .container:hover .item-text-2 {
     display: block;
-    padding-left: 1rem;
+    padding: 0 1rem;
     visibility: visible;
     opacity: 1;
   }

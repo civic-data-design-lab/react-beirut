@@ -108,6 +108,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         //return (<p>{imageContainer.offsetWidth}</p>)
 
         const currentMetaData = images[index]
+        console.log('meta ', currentMetaData)
         const viewKeywords = ["storefront", "street", "interior", "indoor"];
         const interiorKeywords = ["interior", "inside", "indoor"]
         const viewSet = new Set(viewKeywords);

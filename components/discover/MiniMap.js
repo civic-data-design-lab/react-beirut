@@ -50,17 +50,17 @@ export default class MiniMap extends React.Component {
            //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
        });
 
-        map.current.on('load', ()=>{
+        //map.current.on('load', ()=>{
             //console.log("lang is ", this.props.lang)
-            const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
-                'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
-            layouts.map((layout)=> {
-                map.current.setLayoutProperty(layout, 'text-field', [
-            'get',
-            `name_${this.props.i18n.language}`
-            ]);
-            })
-        })
+       //     const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
+       //         'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
+       //     layouts.map((layout)=> {
+       //         map.current.setLayoutProperty(layout, 'text-field', [
+       //     'get',
+       //     `name_${this.props.i18n.language}`
+       //     ]);
+       //     })
+       // })
 
         const el = document.createElement('div');
             const craft = this.props.workshop.craft_discipline_category[0];
