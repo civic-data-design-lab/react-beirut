@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 
 export default class Slider extends React.Component {
   constructor(props) {
@@ -49,7 +52,7 @@ export default class Slider extends React.Component {
             this.checkChildren(offsetWidthValue, scrollWidthValue);
           }}
         >
-          {'<'}
+          <FontAwesomeIcon icon={faChevronLeft} width={8}/>
         </div>
         <div
           className={`btn next ${this.state.nextDisable ? 'disable' : ''}`}
@@ -59,7 +62,7 @@ export default class Slider extends React.Component {
             this.checkChildren(offsetWidthValue, scrollWidthValue);
           }}
         >
-          {'>'}
+          <FontAwesomeIcon icon={faChevronRight} width={8}/>
         </div>
       </div>
     );

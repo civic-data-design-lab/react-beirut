@@ -43,6 +43,10 @@ function MyApp({ Component, pageProps }) {
     }
   }, [router.events])
 
+  useEffect(() => {
+    document.dir = i18n.dir();
+  }, [i18n, i18n.language]);
+
   return (
     <>
     {/* Global Site Tag (gtag.js) - Google Analytics */}

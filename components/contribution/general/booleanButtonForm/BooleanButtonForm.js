@@ -72,8 +72,8 @@ const BooleanButtonForm = ({
       ) {
         setErrorMessage(
           selectionsAllowed == 1
-            ? `Please only select one option.`
-            : `Please only select up to ${selectionsAllowed} options.`
+            ? t(`Please only select one option.`)
+            : t(`Please only select up to`) + ` ${selectionsAllowed} ` + t(`options.`)
         );
         return;
       }

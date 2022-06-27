@@ -12,7 +12,7 @@ import {
   convertWorkshopContributionToSchema,
   WORKSHOP_CONTRIBUTION_NAME,
   REGEX_VALIDATION,
-  isProperlyTruthy,
+  isProperlyTruthy, ARCHIVE_CONTRIBUTION_NAME,
 } from '../../lib/utils';
 import Card from '../../components/Card';
 
@@ -441,6 +441,7 @@ const WorkshopContribution = ({lang, i18n}) => {
               'Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.'
             }
             i18n={i18n}
+            name={ARCHIVE_CONTRIBUTION_NAME}
           />
           <WorkshopImageForm label="Upload an image of the craft workshop" />
           <Preview lang={lang} i18n={i18n}/>

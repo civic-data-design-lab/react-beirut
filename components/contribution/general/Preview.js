@@ -31,20 +31,19 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) 
         <div className={'preview-info-card'}>
 
 
-          <h3 className={'Contribute-form-section-heading'}>You are missing some necessary fields!</h3>
+          <h3 className={'Contribute-form-section-heading'}>{t('You are missing some necessary fields!')}</h3>
           <p>
-            Please go back and fill in the required fields (*) before being able
-            to see the preview and submit.
+            {t('Please go back and fill in the required fields (*) before being able to see the preview and submit.')}
           </p>
           {missingFieldPages.map((page) => {
             return (
               <div key={page}>
-                <h4>{page}</h4>
+                <h4>{t(page)}</h4>
                 <ul>
                   {missingFields
                     .map((field) =>
                       field.parent == page ? (
-                        <li key={field.field_name}>{field.title}</li>
+                        <li style={{listStylePosition:'inside'}} key={field.field_name}>{t(field.title)}</li>
                       ) : null
                     )
                     .filter((field) => {
@@ -104,7 +103,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) 
             <div className={'section'}>
               <div className={'subsection'}>
                 <InputField
-            title={fields.consent.title}
+            title={t(fields.consent.title)}
             fieldName={fields.consent.field_name}
             key={fields.consent.field_name}
             value={formData[fields.consent.field_name]}
@@ -113,12 +112,8 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) 
             required={fields.consent.required}
             label={
               formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME
-                ? t(`Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below.
-            Checking this box indicates that you consent to sharing information and photo(s) about your craft workshop with the Living Heritage Atlas.
-            Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`)
-                : t(`Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your information and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below.
-            Checking this box indicates that you consent to sharing information and photo(s) with the Living Heritage Atlas.
-            Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`)
+                ? t(`Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below. Checking this box indicates that you consent to sharing information and photo(s) about your craft workshop with the Living Heritage Atlas. Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`)
+                : t(`Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your information and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below. Checking this box indicates that you consent to sharing information and photo(s) with the Living Heritage Atlas. Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`)
             }
           />
               </div>

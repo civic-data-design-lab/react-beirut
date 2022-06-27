@@ -12,7 +12,7 @@ const ActiveFilter = ({toggleStatus, updateToggle, resetToggle}) => {
 
 
     return (
-            <>
+            <div className={'toggle-container'}>
                 <ToggleSlider
                     key={resetToggle}
                     onToggle={(state) => onToggle(state)} active={toggleStatus}
@@ -32,7 +32,7 @@ const ActiveFilter = ({toggleStatus, updateToggle, resetToggle}) => {
                         borderColor: "#9C6340"}
                     }
                 />
-            </>
+            </div>
         )
 }
 

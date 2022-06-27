@@ -237,7 +237,7 @@ const Discover = ({ children, i18n}) => {
             <>
               <div className="loader" />
               <br />
-              <p>Loading Workshops and Archival Images</p>
+              <p>{t('Loading Workshops and Archival Images')}</p>
             </>
           )}
         </div>

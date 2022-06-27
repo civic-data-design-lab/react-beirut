@@ -209,7 +209,7 @@ const InputField = (props) => {
                 type="text"
                 required={required}
                 value={value}
-                placeholder={`Enter Other ${title}`}
+                placeholder={t(`Enter Other`) + t(title)}
                 onChange={(e) => {
                   console.log('valueee ', e.target.value)
                   onUpdate({ [fieldName]: e.target.value })

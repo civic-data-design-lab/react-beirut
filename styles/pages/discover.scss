@@ -8,6 +8,7 @@
   grid-gap: 1rem;
   align-items: center;
   justify-content: center;
+  direction: ltr;
 
   @media screen and (min-width: 400px) and (max-width: 500px) {
     padding:0px;

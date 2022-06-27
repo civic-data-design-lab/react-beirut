@@ -249,7 +249,7 @@ export default class Explore extends React.Component {
                             </button>
                         </div>
 
-                        { (this.state.showMapCard && this.state.workshop && this.state.workshop.images) ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard} openMapCard={this.openMapCard}/> : null}
+                        { (this.state.showMapCard && this.state.workshop && this.state.workshop.images) ? <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop} closeMapCard={this.closeMapCard} openMapCard={this.openMapCard} i18n={this.props.i18n}/> : null}
 
                         { this.state.showLayersControl ? <LayersControl currentLayer={this.state.mapLayer} allLayers={this.state.allLayers} updateMapLayer={this.updateMapLayer} closeLayersControl={this.closeLayersControl}/> : null}
 

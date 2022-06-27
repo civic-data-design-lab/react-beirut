@@ -239,7 +239,7 @@ const formSchema = {
       title: 'Preview',
       fields: {
         consent: {
-          title: 'Consent',
+          title: 'Consent to Publish Data',
           field_name: 'consent',
           required: true,
         },
@@ -430,6 +430,7 @@ const ArchiveContribution = () => {
             title="Location of Archival Image"
             mapCaption="Locate where this image was taken on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."
             requiredFields={requiredFields.location}
+            name={ARCHIVE_CONTRIBUTION_NAME}
           />
           <Preview onUpdate={onUpdate} />
         </MultipageForm>

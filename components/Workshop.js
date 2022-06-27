@@ -117,11 +117,11 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 return <p className={'object-caption'}>{currentMetaData.caption}</p>
             } else if (currentMetaData.type.length === 1) {
                 if (viewSet.has(currentMetaData.type[0])) {
-                    return <p className={'object-caption'}>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} view of {getShopName()}. </p>
+                    return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of ')} {getShopName()}</p>
                 } else if (currentMetaData.type[0] === "crafts" || currentMetaData.type[0] === "craft") {
-                    return <p className={'object-caption'}>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} produced by {getShopName()}</p>
+                    return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' produced by ')} {getShopName()}</p>
                 } else if (currentMetaData.type[0] === "craftsperson") {
-                    return <p className={'object-caption'}>{currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase()} of {getShopName()}</p>
+                    return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' of ')} {getShopName()}</p>
                 }
             } else if (currentMetaData.type.length === 2) {
                 const craftspersonIndex = currentMetaData.type.indexOf("craftsperson")
@@ -135,13 +135,13 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     return currentMetaData.type.indexOf(word)>-1
                 })
                 if (craftspersonIndex>-1 && storefrontIndex>-1) {
-                    return <p className={'object-caption'}>Craftsperson in front of {getShopName()}.</p>
+                    return <p className={'object-caption'}>{t('Craftsperson in front of ')} {getShopName()}</p>
                 } else if (craftspersonIndex>-1 && indoorMap.indexOf(true)>-1) {
-                    return <p className={'object-caption'}>Craftsperson inside {getShopName()}.</p>
+                    return <p className={'object-caption'}> {t('Craftsperson inside ')} {getShopName()}</p>
                 } else if (craftMap.indexOf(true)>-1 && indoorMap.indexOf(true)>-1) {
-                    return <p className={'object-caption'}>Crafts produced in {getShopName()}.</p>
+                    return <p className={'object-caption'}>{t('Crafts produced in ')} {getShopName()}</p>
                 } else if (craftMap.indexOf(true)>-1 && currentMetaData.type.indexOf('storefront')>-1) {
-                    return <p className={'object-caption'}>Crafts displayed in storefront of {getShopName()}.</p>
+                    return <p className={'object-caption'}>{t('Crafts displayed in storefront of ')} {getShopName()}</p>
                 }
 
             }

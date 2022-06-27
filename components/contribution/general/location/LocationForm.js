@@ -3,6 +3,8 @@ import LocationSelect from './LocationSelect';
 import { useState, useEffect } from 'react';
 import { BEIRUT_ZONES } from '../../../../lib/utils';
 import { useMediaQuery } from 'react-responsive';
+import {ARCHIVE_CONTRIBUTION_NAME} from "../../../../lib/utils";
+import {WORKSHOP_CONTRIBUTION_NAME} from "../../../../lib/utils";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -46,6 +48,7 @@ const LocationForm = ({
   formSchema,
   pageName,
   mapCaption,
+  name,
   i18n
 }) => {
 
@@ -121,8 +124,8 @@ const LocationForm = ({
           }
           key="LatLngLabel"
         >
-          {mapCaption
-            ? mapCaption
+          {name===ARCHIVE_CONTRIBUTION_NAME
+            ? t('Locate where this image was taken on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.')
             : t('Locate the craft workshop on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly.')}
         </label>
       );

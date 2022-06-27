@@ -1,5 +1,6 @@
 import React, { createRef } from 'react';
 
+
 export default class MapCardSlider extends React.Component {
   constructor(props) {
     super(props);

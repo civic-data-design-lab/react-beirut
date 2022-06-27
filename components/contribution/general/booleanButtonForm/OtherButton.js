@@ -120,16 +120,13 @@ const OtherButton = ({
     }
 
     if (e.target.classList.contains('other-btn')) {
-      console.log('first condition')
       enableButton(e.target);
       let txtbox = e.target.getElementsByClassName('additional-tag-txtbox')[0];
       txtbox.focus();
     } else if (e.target.classList.contains('other-btn-selected')) {
-      console.log('second condition')
       disableButton(e.target);
       submitNewTag(e.target);
     } else if (e.target.classList.contains('submit-new-tag-btn')) {
-      console.log('third condition')
       let otherButton = e.target.parentElement.parentElement;
       submitNewTag(otherButton);
       disableButton(otherButton);
@@ -157,7 +154,7 @@ const OtherButton = ({
   const onChange = (e) => {
 
     setErrorMessage('');
-    console.log("printing on change ", e.target.value)
+    // console.log("printing on change ", e.target.value)
     let otherButton = e.target.parentElement.parentElement;
     console.assert(otherButton != undefined, 'otherButton is undefined');
     //if (e.target.value.includes(' ')) {

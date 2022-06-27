@@ -41,6 +41,7 @@ const Nav = ({changeLanguage}) => {
       pageLocation = '';
     }
 
+
     return pageLocation;
   };
 
@@ -78,7 +79,7 @@ const Nav = ({changeLanguage}) => {
           </a>
         </Link>
         <div className="page-location">
-          {getPath() ? '|' : ''} {getPath()}
+          {getPath() ? '|' : ''} {t(getPath().charAt(0).toUpperCase()+getPath().slice(1))}
         </div>
         <div
           className={
@@ -107,7 +108,7 @@ const Nav = ({changeLanguage}) => {
             >
               <div className='container'>
                 <div className='item-line'></div>
-                <div className='item-text-1'><Link  href="/map">Map</Link></div>
+                <div className='item-text-1'><Link  href="/map">{t('Map')}</Link></div>
                 <div className='item-text-2'> {t('the spatial presence of craftsmanship in Beirut')} </div>
               </div>
             </li>
@@ -119,7 +120,7 @@ const Nav = ({changeLanguage}) => {
             >
               <div className="container">
                 <div className='item-line'></div>
-                <div className='item-text-1'><Link href="/discover">Discover</Link></div>
+                <div className='item-text-1'><Link href="/discover">{t('Discover')}</Link></div>
                 <div className='item-text-2'> {t('current workshops and archival images of craftsmanship')} </div>
               </div>
             </li>
@@ -131,7 +132,7 @@ const Nav = ({changeLanguage}) => {
             >
               <div className='container'>
                 <div className='item-line'></div>
-                <div className='item-text-1'><Link href="/contribute">Contribute</Link></div>
+                <div className='item-text-1'><Link href="/contribute">{t('Contribute')}</Link></div>
                 <div className='item-text-2'> {t('to the Living Heritage Atlas with photos of craftsmanship')} </div>
               </div>
             </li>
@@ -143,7 +144,7 @@ const Nav = ({changeLanguage}) => {
             >
               <div className='container'>
                 <div className='item-line'></div>
-                <div className='item-text-1'><Link href="/download">Download</Link></div>
+                <div className='item-text-1'><Link href="/download">{t('Download')}</Link></div>
                 <div className='item-text-2'> {t('data from the Living Heritage Atlas')} </div>
               </div>
             </li>
@@ -155,7 +156,7 @@ const Nav = ({changeLanguage}) => {
             >
               <div className='container'>
                 <div className='item-line'></div>
-                <div className='item-text-1'><Link href="/about">About</Link></div>
+                <div className='item-text-1'><Link href="/about">{t('About')}</Link></div>
                 <div className='item-text-2'> {t('the Living Heritage Atlas | Beirut')} </div>
               </div>
             </li>

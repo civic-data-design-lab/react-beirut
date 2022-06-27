@@ -283,7 +283,7 @@ const MultipageForm = ({
                   <p>{t('You are missing the following fields (marked with *):')}</p>
                   <ul className={'missing-fields-list'}>
                     <p>{missingFields.map((field) => (
-                        <li key={field}>{field}</li>
+                        <li key={field}>{t(field)}</li>
                     ))}</p>
             </ul>
                 </>
@@ -357,7 +357,7 @@ const MultipageForm = ({
                   </> :
                   <>
                     <FontAwesomeIcon icon={faCircleXmark} />
-                  <h1>{t('to return to the main site.')}</h1>
+                  <h1>{t('Upload Failed!')}</h1>
                   <h2>{t('We could not process your response.')}</h2>
                   <p>
                     {t('Click')+' '}
