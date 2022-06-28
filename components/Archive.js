@@ -74,7 +74,12 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
         const childPos = firstImage.getBoundingClientRect()
         const relativePos = parentPos.left - childPos.left;
         const parentWidth = parentPos.width;
-        setIndex(Math.round(relativePos/parentWidth))
+        if (i18n.language === "en") {
+            setIndex(Math.round(relativePos/parentWidth));
+        } else {
+            setIndex(-(Math.round(relativePos/parentWidth)));
+            // console.log(currentImageIndex)
+        }
     }
 
 
@@ -88,10 +93,10 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
 
         if (archive.shop_name['content']) {
             return archive.shop_name['content']
-        } else if (archive.shop_name['content_orig']) {
+        } else if (archivep.shop_name['content_orig']) {
             return archive.shop_name['content_orig']
         } else {
-            return 'Shop'
+            return t('Craft Shop (No name provided)')
         }
     }
 
@@ -185,6 +190,11 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
                 return <p className={'object-caption'}>{currentMetaData.caption}</p>
             } else if (currentMetaData.type.length === 1) {
                 if (viewSet.has(currentMetaData.type[0])) {
+                    if (currentMetaData.type[0] === 'street') {
+                        let arabic = t('Street view of ')
+                        let interpolated = arabic.replace('X', t(getShopName()))
+                        return <p>{interpolated}</p>
+                    }
                     return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of ')} {getShopName()}</p>
                 } else if (currentMetaData.type[0] === "crafts" || currentMetaData.type[0] === "craft") {
                     return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' produced by ')} {getShopName()}</p>

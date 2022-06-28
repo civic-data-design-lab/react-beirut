@@ -134,6 +134,11 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                 return <p className={'object-caption'}>{currentMetaData.caption}</p>
             } else if (currentMetaData.type.length === 1) {
                 if (viewSet.has(currentMetaData.type[0])) {
+                    if (currentMetaData.type[0] === 'street') {
+                        let arabic = t('Street view of ')
+                        let interpolated = arabic.replace('X', t(getShopName()))
+                        return <p>{interpolated}</p>
+                    }
                     // console.log('currentMetaData ', currentMetaData.type[0])
                     // console.log('translation ', t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of '))
                     return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of ')} {getShopName()}</p>
@@ -206,12 +211,14 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     const getShopName = () => {
 
+        console.log("workshop name object ", workshop.shop_name)
+
         if (workshop.shop_name['content']) {
             return workshop.shop_name['content']
         } else if (workshop.shop_name['content_orig']) {
             return workshop.shop_name['content_orig']
         } else {
-            return null
+            return t("Craft Shop (No name provided)")
         }
     }
 
@@ -226,7 +233,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return t('Established') + `${workshop.decade_established[0]} | `
+            return t('Established ') + `${workshop.decade_established[0]} | `
         } else {
                 return null
             }
