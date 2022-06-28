@@ -110,17 +110,14 @@ export default class App extends React.PureComponent {
         }
         });
 
-        console.log('changing map language from minimap')
-            const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
-                'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
-            layouts.map((layout)=> {
-                map.current.setLayoutProperty(layout, 'text-field', [
-            'get',
-            `name_${this.props.i18n.language}`
-            ]);
-
-
-             })
+        map.current.getStyle().layers.forEach((layer) => {
+            if (layer.layout && layer.layout['text-field']) {
+                map.current.setLayoutProperty(layer.id, 'text-field', [
+                    'get',
+                    `name_${this.props.i18n.language}`
+                ]);
+            }
+        });
 
         });
 
@@ -248,15 +245,15 @@ export default class App extends React.PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("print language in map ", this.props.i18n.language)
 
-            console.log('changing map language')
-            const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
-                'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
-            layouts.map((layout)=> {
-                map.current.setLayoutProperty(layout, 'text-field', [
-            'get',
-            `name_${this.props.i18n.language}`
-            ]);
-            })
+        map.current.getStyle().layers.forEach((layer) => {
+            if (layer.layout && layer.layout['text-field']) {
+                map.current.setLayoutProperty(layer.id, 'text-field', [
+                    'get',
+                    `name_${this.props.i18n.language}`
+                ]);
+            }
+        });
+
 
 
 

@@ -19,10 +19,11 @@
 
   @media screen and (min-width: 688px) and (max-width: 991px) {
       border-radius: 10px 10px 10px 10px;
-      position: absolute;
+      position: fixed;
       top: 45%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      //left: 25vw;
+      right: 25vw;
+      transform: translate(0%, -50%);
       width: 50vw;
       height: 60vh;
     }
@@ -30,6 +31,7 @@
   @media screen and (max-width: 688px) {
       position: absolute;
       border-radius: 10px 10px 0px 0px;
+      right: 0px;
       left: 0px;
       width: 100vw;
       height: 90vh;

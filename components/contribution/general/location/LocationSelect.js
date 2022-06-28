@@ -33,16 +33,16 @@ export default class LocationSelect extends React.Component {
       minZoom: 10,
     });
 
-    //  map.current.on('load', ()=>{
-    //  const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
-    //            'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
-    //        layouts.map((layout)=> {
-    //            map.current.setLayoutProperty(layout, 'text-field', [
-    //        'get',
-    //        `name_${this.props.i18n.language}`
-    //        ]);
-    //        })
-    //})
+     map.current.on('load', ()=>{
+                map.current.getStyle().layers.forEach((layer) => {
+                if (layer.layout && layer.layout['text-field']) {
+                    map.current.setLayoutProperty(layer.id, 'text-field', [
+                        'get',
+                        `name_${this.props.i18n.language}`
+                    ]);
+                }
+            });
+            })
 
     const marker = new mapboxGl.Marker({
       draggable: true,
@@ -60,25 +60,22 @@ export default class LocationSelect extends React.Component {
     marker.on('dragend', onDragEnd);
     }
 
-   // componentDidUpdate(prevProps, prevState, snapshot) {
-    //
-    //
-//
-  //    const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
-    //            'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
-    //      layouts.map((layout)=> {
-    //        map.current.setLayoutProperty(layout, 'text-field', [
-    //        'get',
-    //        `name_${this.props.i18n.language}`
-    //       ]);
-    //        })
-
-    //    }
+   componentDidUpdate(prevProps, prevState, snapshot) {
+       map.current.getStyle().layers.forEach((layer) => {
+           if (layer.layout && layer.layout['text-field']) {
+               map.current.setLayoutProperty(layer.id, 'text-field', [
+                   'get',
+                   `name_${this.props.i18n.language}`
+               ]);
+           }
+       });
+   }
 
 
     render () {
-      return <div id="map" className={'contributeMap'}/>;
-    }
+               return <div id="map" className={'contributeMap'}/>;
+           }
+
 
 }
 

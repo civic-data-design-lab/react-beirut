@@ -90,6 +90,7 @@
   border: none;
   display: flex;
   flex-direction: row;
+  direction: ltr;
 
   @media screen and (max-width: 688px) {
     display: flex;

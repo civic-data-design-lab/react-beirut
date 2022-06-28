@@ -10,7 +10,7 @@ export default class MiniMap extends React.Component {
             workshop: this.props.workshop,
             marker: null,
         }
-        this.mapContainer = React.createRef();
+        // this.mapContainer = React.createRef();
         this.mappedMarkers = [];
         this.colorMap = {
             "architectural": '#91B0D1',
@@ -25,7 +25,7 @@ export default class MiniMap extends React.Component {
     }
 
      checkIfMapboxStyleIsLoaded() {
-        return !!map.current.isStyleLoaded();
+        return !!map.isStyleLoaded();
     }
 
     componentDidMount() {
@@ -42,25 +42,25 @@ export default class MiniMap extends React.Component {
         console.log("geos ", geos);
 
         mapboxGl.accessToken = ACCESS_TOKEN;
-        map.current = new mapboxGl.Map({
-           container: this.mapContainer.current,
-           style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
-           center: geos, // starting position [lng, lat]
-           zoom: 12.2, // starting zoom
-           //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
-       });
+        let map = new mapboxGl.Map({
+            container: 'map', //this.mapContainer.current,
+            style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
+            center: geos, // starting position [lng, lat]
+            zoom: 12.2, // starting zoom
+            //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
+        });
 
-        //map.current.on('load', ()=>{
-            //console.log("lang is ", this.props.lang)
-       //     const layouts = ['country-label', 'state-label', 'settlement-subdivision-label', 'airport-label',
-       //         'poi-label', 'water-point-label', 'water-line-label', 'natural-point-label', 'natural-line-label', 'waterway-label' , 'road-label' ]
-       //     layouts.map((layout)=> {
-       //         map.current.setLayoutProperty(layout, 'text-field', [
-       //     'get',
-       //     `name_${this.props.i18n.language}`
-       //     ]);
-       //     })
-       // })
+        map.on('load', ()=>{
+            map.getStyle().layers.forEach((layer) => {
+            if (layer.layout && layer.layout['text-field']) {
+                map.setLayoutProperty(layer.id, 'text-field', [
+                    'get',
+                    `name_${this.props.i18n.language}`
+                ]);
+            }
+        });
+        })
+
 
         const el = document.createElement('div');
             const craft = this.props.workshop.craft_discipline_category[0];
@@ -96,7 +96,7 @@ export default class MiniMap extends React.Component {
         el.style.borderRadius = '50%';
         el.className = 'hoverMarker--white';
         el.id = this.state.workshop.ID;
-        let marker = new mapboxGl.Marker(el).setLngLat(geos).addTo(map.current);
+        let marker = new mapboxGl.Marker(el).setLngLat(geos).addTo(map);
         this.setState({marker:marker})
 
 
@@ -108,6 +108,7 @@ export default class MiniMap extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+
 
 
 
@@ -124,6 +125,26 @@ export default class MiniMap extends React.Component {
                 geos = [lng, lat]
             }
             console.log("geos ", geos);
+
+            mapboxGl.accessToken = ACCESS_TOKEN;
+            let map = new mapboxGl.Map({
+                container: 'map', //this.mapContainer.current,
+                style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
+                center: geos, // starting position [lng, lat]
+                zoom: 12.2, // starting zoom
+                //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
+            });
+
+            map.on('load', ()=>{
+                map.getStyle().layers.forEach((layer) => {
+                if (layer.layout && layer.layout['text-field']) {
+                    map.setLayoutProperty(layer.id, 'text-field', [
+                        'get',
+                        `name_${this.props.i18n.language}`
+                    ]);
+                }
+            });
+            })
 
             const el = document.createElement('div');
             const craft = this.props.workshop.craft_discipline_category[0];
@@ -159,9 +180,9 @@ export default class MiniMap extends React.Component {
             el.id = this.state.workshop.ID;
             el.className = 'hoverMarker--white';
 
-            let marker = new mapboxGl.Marker(el).setLngLat(geos).addTo(map.current);
+            let marker = new mapboxGl.Marker(el).setLngLat(geos).addTo(map);
             this.setState({marker:marker})
-            map.current.flyTo({center:geos});
+            map.flyTo({center:geos});
         }
         }
 
@@ -205,7 +226,7 @@ export default class MiniMap extends React.Component {
 
 
                 <div
-    ref={this.mapContainer}
+    // ref={this.mapContainer}
     id="map"
     className={'miniMap'}
     />

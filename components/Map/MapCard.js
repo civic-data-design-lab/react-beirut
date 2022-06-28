@@ -33,7 +33,7 @@ import { Trans, useTranslation} from "react-i18next";
 
 
 // assumes workshop or archive is passed in as a prop
-const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
+const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     const { t } = useTranslation();
 
@@ -60,8 +60,12 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
         const childPos = firstImage.getBoundingClientRect()
         const relativePos = parentPos.left - childPos.left;
         const parentWidth = parentPos.width;
-        setCurrentImageIndex(Math.round(relativePos/parentWidth));
-        //console.log(" index ", this.state.currentImageIndex)
+        if (i18n.language === "en") {
+            setCurrentImageIndex(Math.round(relativePos/parentWidth));
+        } else {
+            setCurrentImageIndex(-(Math.round(relativePos/parentWidth)));
+            // console.log(currentImageIndex)
+        }
     }
 
 
@@ -119,7 +123,9 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard}) => {
 
         const currentMetaData = imageMetaData[currentImageIndex]
 
-const viewKeywords = ["storefront", "street", "interior", "indoor"];
+        // console.log('image metaData ', imageMetaData[currentImageIndex])
+
+        const viewKeywords = ["storefront", "street", "interior", "indoor"];
         const interiorKeywords = ["interior", "inside", "indoor"]
         const viewSet = new Set(viewKeywords);
 
@@ -128,6 +134,8 @@ const viewKeywords = ["storefront", "street", "interior", "indoor"];
                 return <p className={'object-caption'}>{currentMetaData.caption}</p>
             } else if (currentMetaData.type.length === 1) {
                 if (viewSet.has(currentMetaData.type[0])) {
+                    // console.log('currentMetaData ', currentMetaData.type[0])
+                    // console.log('translation ', t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of '))
                     return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of ')} {getShopName()}</p>
                 } else if (currentMetaData.type[0] === "crafts" || currentMetaData.type[0] === "craft") {
                     return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' produced by ')} {getShopName()}</p>
@@ -317,6 +325,7 @@ const viewKeywords = ["storefront", "street", "interior", "indoor"];
             //console.log(object.thumb_img_id)
             //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]
             //return <div className={'exploreShop-div'}><img src={`/api/images/${workshop.thumb_img_id}.jpg`} className={'exploreShops-img'} key={workshop.thumb_img_id}/></div>
+
 
 
             if (object.thumb_img_id) {
