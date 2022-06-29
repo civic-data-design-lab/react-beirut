@@ -1,5 +1,6 @@
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
+import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 
@@ -78,7 +79,30 @@ export default class App extends React.PureComponent {
         window.addEventListener('resize', this.handleResize);
 
         //console.log('map.js ', this.props.filterSearchData)
+
+
         mapboxGl.accessToken = ACCESS_TOKEN;
+
+        console.log("printing plgin status ", mapboxGl.getRTLTextPluginStatus())
+
+        if (mapboxGL.getRTLTextPluginStatus !== 'loaded' && mapboxGL.getRTLTextPluginStatus !== 'deferred') {
+            mapboxGl.setRTLTextPlugin(
+            'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+            null,
+            true // Lazy load the plugin
+        );
+        }
+
+
+
+        console.log("printing plgin status ", mapboxGl.getRTLTextPluginStatus())
+
+
+
+
+
+
+
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
            style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
