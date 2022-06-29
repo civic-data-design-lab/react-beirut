@@ -21,7 +21,7 @@ a {
 .t-5,
 .t-6,
 .t-7 {
-  border: solid 2px $c-white;
+  border: solid 2px #faf8f6;
 }
 .t-3,
 .t-4,
@@ -30,7 +30,7 @@ a {
 .t-7 {
   color: $c-white;
 
-  p {
+  p, ol {
     font-size: 0.8rem;
     line-height: 1rem;
     margin-bottom: 0.5rem;
@@ -67,6 +67,40 @@ a {
   background-color: $c-orange-7;
 }
 
+.t-event {
+  color: $c-primary-dark;
+
+  a {
+    color: $c-primary-dark;
+  }
+
+  .row:not(:last-child) {
+    border-bottom: solid 1px $c-primary-dark;
+  }
+}
+
+ol.groups li::marker {
+    font-weight: bold;
+}
+
+#logo-fhl {
+  width: 80%;
+}
+
+// STYLE FOR LANGUAGE SETTING RTL
+ol.en {
+  padding-left: 1rem;
+}
+ol.ar {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+// RESPONSIVE DESIGN
+.col-lg-1 {
+  display: none;
+}
+
 /* Medium devices (large desktops, 1200px and up) */
 // @media (min-width: 651px) {
 //   .about-card p {
@@ -75,8 +109,8 @@ a {
 // }
 
 /* Large devices (desktops, 992px and up) */
-// @media (min-width: 992px) {
-//   .about-card p {
-//     max-width: 800px;
-//   }
-// }
+@media (min-width: 992px) {
+  .col-lg-1 {
+    display: block;
+  }
+}
