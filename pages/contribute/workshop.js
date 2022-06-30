@@ -248,14 +248,19 @@ const WorkshopContribution = ({lang, i18n}) => {
   const [submitFail, setSubmitFail] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [cookiesEnabled, setCookiesEnabled] = useState(null);
 
   useEffect(()=> {
-    const tryExistingForm = JSON.parse(localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME));
+    setCookiesEnabled(navigator.cookieEnabled);
+    if (navigator.cookieEnabled) {
+      const tryExistingForm = JSON.parse(localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME));
     if (tryExistingForm) {
       setForm(tryExistingForm)
       console.log('existing form is true so setForm to ', tryExistingForm)
     }
+    }
   }, [])
+
 
   const handleRedirect = () => {
     setSubmitFail(false);
@@ -330,9 +335,14 @@ const WorkshopContribution = ({lang, i18n}) => {
         } else {
           // TODO: UNCOMMENT THESE. ONLY UNCOMMENTED FOR TESTING.
           // INFO Clear the form data
-          setLocalStorageFull(false)
+          console.log('cookies status ', cookiesEnabled)
+          if (cookiesEnabled) {
+              console.log('in try')
+              setLocalStorageFull(false)
+              localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+          }
+           console.log('in set form')
            setForm({});
-           localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
            setSubmitted(true);
            setSubmitSuccess(true);
         }
@@ -354,7 +364,7 @@ const WorkshopContribution = ({lang, i18n}) => {
       const updatedFormData = { ...prevForm, ...data };
       console.info('setting form data to ', updatedFormData);
 
-      if (!localStorageFull) {
+      if (cookiesEnabled && !localStorageFull) {
       try {
           localStorage.setItem(
           WORKSHOP_CONTRIBUTION_NAME,
@@ -372,11 +382,11 @@ const WorkshopContribution = ({lang, i18n}) => {
       // INFO: Update the local storage
 
 
-      console.log("getting from local storage ", localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME))
+      // console.log("getting from local storage ", localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME))
 
       return updatedFormData;
     });
-    console.log( `size: ${localStorageSize()}kb`)
+    //console.log( `size: ${localStorageSize()}kb`)
   };
 
   const showDialogContent = () => {
@@ -434,6 +444,7 @@ const WorkshopContribution = ({lang, i18n}) => {
           handleRedirect={handleRedirect}
           setSubmitting={setSubmitting}
           submitting={submitting}
+          cookiesEnabled={cookiesEnabled}
         >
           <WorkshopAboutForm />
           <LocationForm

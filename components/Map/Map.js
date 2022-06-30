@@ -86,11 +86,13 @@ export default class App extends React.PureComponent {
         console.log("printing plgin status ", mapboxGl.getRTLTextPluginStatus())
 
         if (mapboxGL.getRTLTextPluginStatus !== 'loaded' && mapboxGL.getRTLTextPluginStatus !== 'deferred') {
-            mapboxGl.setRTLTextPlugin(
-            'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-            null,
-            true // Lazy load the plugin
-        );
+            if (mapboxGl.getRTLTextPluginStatus === 'unavailable'){
+                mapboxGl.setRTLTextPlugin(
+                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                null,
+                true // Lazy load the plugin
+            );
+            }
         }
 
 
@@ -117,22 +119,26 @@ export default class App extends React.PureComponent {
 
         map.current.on('load', () => {
 
-        const source1920 = map.current.getSource('1920');
-        if (!source1920) {
-            map.current.addSource('1920', {
-            'type': 'raster',
-            'url': 'mapbox://mitcivicdata.ddxxt2r8'
-             });
-        }
-
-        map.current.addLayer({
-        'id': '1920',
-        'source': '1920',
-        'type': 'raster',
-        'layout': {
-            'visibility': 'none'
-        }
-        });
+            for (const [key, value] of Object.entries(this.props.allLayers)) {
+                const checkSourceAdded = map.current.getSource(`${value[0]}`);
+                if (!checkSourceAdded) {
+                    map.current.addSource(value[0], {
+                        'type': 'raster',
+                        'url': `mapbox://mitcivicdata.${value[2]}`
+                    });
+                }
+                map.current.addLayer({
+                    'id': value[0],
+                    'source': value[0],
+                    'type': 'raster',
+                    'layout': {
+                        'visibility': 'none'
+                    },
+                    'paint':{
+                        'raster-opacity': 0.7
+                    }
+                });
+            }
 
         map.current.getStyle().layers.forEach((layer) => {
             if (layer.layout && layer.layout['text-field']) {
@@ -268,6 +274,7 @@ export default class App extends React.PureComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("print language in map ", this.props.i18n.language)
+        console.log("detected map layer ", this.props.mapLayer)
 
         map.current.getStyle().layers.forEach((layer) => {
             if (layer.layout && layer.layout['text-field']) {
@@ -314,6 +321,7 @@ export default class App extends React.PureComponent {
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})
             } else {
+                console.log('hi')
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})}
         } else if (this.state.activeLayer) {

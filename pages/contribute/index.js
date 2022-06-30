@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import {
   ARCHIVE_CONTRIBUTION_NAME,
   WORKSHOP_CONTRIBUTION_NAME,
@@ -28,6 +28,7 @@ const Default = ({ children }) => {
 
 
 import { Trans, useTranslation } from "react-i18next";
+import Dialogue from "../../components/contribution/general/Dialogue";
 
 
 
@@ -38,8 +39,20 @@ const Contribute = () => {
 
   const [selection, setSelection] = useState(null);
   const [modal, setModal] = useState(null);
+  const [cookiesEnabled, setCookiesEnabled] = useState(null);
+  const [showCookiesModal, setShowCookiesModal] = useState(null);
+
+
+  useEffect(()=> {
+      console.log(navigator.cookieEnabled)
+      setCookiesEnabled(navigator.cookieEnabled)
+      if (!navigator.cookieEnabled) {
+          setShowCookiesModal(true);
+      }
+  }, [])
 
   const getExistingForms = () => {
+      console.log('getExistingForms triggered');
     const existingForms = {
       workshop: localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME),
       archive: localStorage.getItem(ARCHIVE_CONTRIBUTION_NAME),
@@ -50,13 +63,18 @@ const Contribute = () => {
 
   const navigateToSelection = () => {
     if (!selection) {
+        console.log('no selection')
       return;
     }
 
-    const existingForms = getExistingForms();
-    if (existingForms[selection]) {
-      setModal(`existing-${selection}-form`);
-      return;
+    console.log('selection')
+
+    if (cookiesEnabled){
+        const existingForms = getExistingForms();
+        if (existingForms[selection]) {
+          setModal(`existing-${selection}-form`);
+          return;
+        }
     }
 
     router.push(`/contribute/${selection}`);
@@ -162,7 +180,7 @@ const Contribute = () => {
                 type="submit"
                 name="continue"
                 className="accept-button">
-              <p className={'accept-label'}> {t('Continue Record ')}</p>
+              <p className={'accept-label'}> {t('Continue Record')}</p>
             </button>
           </div>
         </form>
@@ -260,6 +278,25 @@ const Contribute = () => {
     }
   };
 
+  const getCookiesModal = () => {
+      console.log('hiii')
+      console.log(showCookiesModal)
+      if (!showCookiesModal) {
+          return <></>
+      }
+      return (<Dialogue
+          title={"Your cookies are disabled!"}
+          content={'cookies explanation'}
+          accept={true}
+          // cancel={true}
+          acceptText={'I understand'}
+          // cancelText={'Disable Cookies'}
+          handleCancel={null}
+          handleAccept={()=>{setShowCookiesModal(false)}}
+          handleClose={()=>{setShowCookiesModal(false)}}/>)
+  }
+
+
 
   return (
     <>
@@ -270,7 +307,10 @@ const Contribute = () => {
       </Head>
 
 
+
+
       {modal && showModal()}
+      {showCookiesModal && getCookiesModal()}
       <div className={'Contribute-container'}>
           <div className="Contribute drop-shadow__black">
           <div className={'Contribute-index'}>
@@ -294,6 +334,7 @@ const Contribute = () => {
 
               </button>
               <div className={'Contribute-landing-divider'}><hr className={'half-hr'}/><p>or</p><hr className={'half-hr'}/></div>
+
               <button
                 className="Contribute-type-select"
                 onClick={() => setSelection('workshop')}

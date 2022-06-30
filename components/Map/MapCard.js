@@ -72,16 +72,31 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
 
     const fetchSimilarWorkshops = async() => {
-        const response = await fetch(`api/similarWorkshops/${workshop.ID}`);
+        const response = await fetch(`api/similarArchives/${workshop.ID}`);
         const res = await response.json();
-        setSimilarObjects(res['response']);
-        //const crafts = await fetch('api/craftTypes');
+        const similarWorkshops = (res['response']);
+        let validSimilarWorkshops = [];
+        for (const similarWorkshop of similarWorkshops) {
+            const similarWorkshopResponse = await fetch(`api/images/${similarWorkshop.thumb_img_id}.jpg`)
+            if (similarWorkshopResponse.ok) {
+                validSimilarWorkshops.push(similarWorkshop)
+            }
+        }
+        setSimilarObjects(validSimilarWorkshops)
     }
 
     const fetchSimilarArchives = async() => {
         const response = await fetch(`api/similarArchives/${workshop.ID}`);
         const res = await response.json();
-        setSimilarObjects(res['response']);
+        const similarArchives = (res['response']);
+        let validSimilarArchives = [];
+        for (const similarArchive of similarArchives) {
+            const similarArchiveResponse = await fetch(`api/images/${similarArchive.thumb_img_id}.jpg`)
+            if (similarArchiveResponse.ok) {
+                validSimilarArchives.push(similarArchive)
+            }
+        }
+        setSimilarObjects(validSimilarArchives)
     }
 
     const fetchImageMetaData = async() => {
@@ -106,7 +121,8 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                  }
              }
         setImageMetaData(metaData);
-        setValidImages(validImages)
+        setValidImages(validImages);
+        console.log("metadata ", metaData)
         //this.setState({imageMetaData:metaData, validImages:validImages})
         //console.log("metadata ", this.state.imageMetaData)
     }
@@ -211,7 +227,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     const getShopName = () => {
 
-        console.log("workshop name object ", workshop.shop_name)
+        console.log(workshop)
 
         if (workshop.shop_name['content']) {
             return workshop.shop_name['content']

@@ -248,7 +248,7 @@ const formSchema = {
   },
 };
 
-const ArchiveContribution = () => {
+const ArchiveContribution = ({i18n}) => {
   const [form, setForm] = useState({
     survey_origin: ARCHIVE_CONTRIBUTION_NAME,
   });
@@ -260,6 +260,19 @@ const ArchiveContribution = () => {
   const [submitFail, setSubmitFail] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [cookiesEnabled, setCookiesEnabled] = useState(null);
+
+  useEffect(()=> {
+    setCookiesEnabled(navigator.cookieEnabled);
+    if (navigator.cookieEnabled) {
+      const tryExistingForm = JSON.parse(localStorage.getItem(ARCHIVE_CONTRIBUTION_NAME));
+    if (tryExistingForm) {
+      setForm(tryExistingForm)
+      console.log('existing form is true so setForm to ', tryExistingForm)
+    }
+    }
+  }, [])
+
 
 
   // INFO: Required fields for each page
@@ -284,7 +297,7 @@ const ArchiveContribution = () => {
       const updatedFormData = { ...prevForm, ...data };
       console.info('setting form data to ', updatedFormData);
 
-      if (!localStorageFull) {
+      if (cookiesEnabled && !localStorageFull) {
       try {
         localStorage.setItem(
         ARCHIVE_CONTRIBUTION_NAME,
@@ -301,7 +314,7 @@ const ArchiveContribution = () => {
 
       return updatedFormData;
     });
-    console.log( `size: ${localStorageSize()}kb`)
+    // console.log( `size: ${localStorageSize()}kb`)
   };
 
   const onSubmit = () => {
@@ -365,8 +378,10 @@ const ArchiveContribution = () => {
           setSubmitSuccess(true);
         // Clear the form data
         setForm({});
-        localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
-        setLocalStorageFull(false);
+        if (cookiesEnabled) {
+            setLocalStorageFull(false)
+            localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+          }
 
         }
         return res.json();
@@ -416,6 +431,8 @@ const ArchiveContribution = () => {
           handleRedirect={handleRedirect}
           setSubmitting={setSubmitting}
           submitting={submitting}
+          cookiesEnabled={cookiesEnabled}
+          i18n={i18n}
         >
           <ArchiveImageForm
             title="Archival Image Upload"
@@ -431,6 +448,7 @@ const ArchiveContribution = () => {
             mapCaption="Locate where this image was taken on the map. Please zoom in and move the pin to adjust for accuracy and to confirm that the pin is located correctly."
             requiredFields={requiredFields.location}
             name={ARCHIVE_CONTRIBUTION_NAME}
+            i18n={i18n}
           />
           <Preview onUpdate={onUpdate} />
         </MultipageForm>
