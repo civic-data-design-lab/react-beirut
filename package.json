@@ -33,6 +33,7 @@
     "i18next": "^21.8.10",
     "i18next-browser-languagedetector": "^6.1.4",
     "imagemin": "^8.0.1",
+    "json2csv": "^5.0.7",
     "mapbox-gl": "^2.8.2",
     "mime": "^3.0.0",
     "mongoose": "^6.0.11",
