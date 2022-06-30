@@ -72,7 +72,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
 
     const fetchSimilarWorkshops = async() => {
-        const response = await fetch(`api/similarArchives/${workshop.ID}`);
+        const response = await fetch(`api/similarWorkshops/${workshop.ID}`);
         const res = await response.json();
         const similarWorkshops = (res['response']);
         let validSimilarWorkshops = [];
@@ -191,8 +191,11 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     useEffect(()=>{
         //window.addEventListener('resize', this.updateDimensions);
+        console.log(workshop)
+        console.log(type)
         setInvalidImages([])
         if (type === "workshop") {
+            console.log("here")
             fetchSimilarWorkshops();
         } else {
             fetchSimilarArchives();
@@ -204,9 +207,10 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
     }, [])
 
     useEffect(()=>{
-
+        console.log(type)
         setInvalidImages([])
          if (type === "workshop") {
+             console.log("here")
              fetchSimilarWorkshops();
          } else {
              fetchSimilarArchives();
@@ -227,7 +231,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     const getShopName = () => {
 
-        console.log(workshop)
+        //console.log(workshop)
 
         if (workshop.shop_name['content']) {
             return workshop.shop_name['content']
@@ -328,6 +332,8 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
 
     const getImages = () => {
+        console.log("images ", images)
+
 
         if (!workshop.images) {
             return
@@ -344,6 +350,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
     }
 
     const getThumbnails = () => {
+        console.log("getting similar thumbnails, ", similarObjects)
         return similarObjects.map((object) => {
             //console.log(object.thumb_img_id)
             //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]

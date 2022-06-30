@@ -15,6 +15,7 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
     reader.onload = (e) => {
       const imageBuffer = e.target.result;
       const extension = file.name.split('.').pop();
+      console.log('extension is ', extension)
       handleUpdateImage(imageBuffer, extension);
     };
     try {

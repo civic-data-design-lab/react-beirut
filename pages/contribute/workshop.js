@@ -339,10 +339,10 @@ const WorkshopContribution = ({lang, i18n}) => {
           if (cookiesEnabled) {
               console.log('in try')
               setLocalStorageFull(false)
-              localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+              // localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
           }
            console.log('in set form')
-           setForm({});
+           // setForm({});
            setSubmitted(true);
            setSubmitSuccess(true);
         }

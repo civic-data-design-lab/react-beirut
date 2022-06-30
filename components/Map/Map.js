@@ -62,14 +62,18 @@ export default class App extends React.PureComponent {
     hoverMarker(e) {
         let el = e.target;
         el.classList.add('hoverMarker');
-        el.classList.add(`hoverMarker--${el.craft}`);
+        if (el.craft) {
+            el.classList.add(`hoverMarker--${el.craft.toLowerCase()}`);
+        }
         //console.log(`hoverMarker--${el.craft}`)
     }
 
     leaveMarker(e) {
         let el = e.target;
         el.classList.remove('hoverMarker');
-        el.classList.remove(`hoverMarker--${el.craft}`);
+        if (el.craft) {
+            el.classList.remove(`hoverMarker--${el.craft.toLowerCase()}`);
+        }
         //console.log('exit')
     }
 
@@ -158,6 +162,10 @@ export default class App extends React.PureComponent {
             return;}
 
        for (const workshop of this.props.workshops) {
+            // console.log(workshop)
+            if (workshop.ID === "7445078809") {
+                console.log(workshop)
+            }
             const el = document.createElement('div');
 
             if (workshop.craft_discipline_category.length >1) {
@@ -170,17 +178,21 @@ export default class App extends React.PureComponent {
                 firstCraft.style.pointerEvents = 'none';
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
-                firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0]]}`;
+                firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0].toLowerCase()]}`;
                 firstCraft.style.width = `7.5px`;
                 firstCraft.style.height = `15px`;
-                secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1]]}`
+                secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1].toLowerCase()]}`
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
-                const craft = workshop.craft_discipline_category[0];
-                el.style.backgroundColor = this.colorMap[craft];
+                if (workshop.craft_discipline_category.length<1) {
+                    el.style.backgroundColor = '#ffffff';
+                } else {
+                    const craft = workshop.craft_discipline_category[0];
+                    el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
+                }
 
             }
 
@@ -194,6 +206,7 @@ export default class App extends React.PureComponent {
             el.onclick = this.clickMarker;
             el.onmouseenter = this.hoverMarker;
             el.onmouseleave = this.leaveMarker;
+            el.type = 'workshop';
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
@@ -204,13 +217,17 @@ export default class App extends React.PureComponent {
             if (lat && lng && workshop.images.length>0) {
                 el.lng = lng;
                 el.lat = lat;
-                el.type = 'workshop';
                 let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                 this.mappedMarkers.push(marker);
             }
         }
 
        for (const archive of this.props.archives) {
+           // console.log(archive)
+
+           if (archive.ID === "8788699349") {
+               console.log(archive)
+           }
             const el = document.createElement('div');
             const craft = archive.craft_discipline_category[0];
 
@@ -224,17 +241,21 @@ export default class App extends React.PureComponent {
                 firstCraft.style.pointerEvents = 'none';
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
-                firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0]]}`;
+                firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0].toLowerCase()]}`;
                 firstCraft.style.width = `7.5px`;
                 firstCraft.style.height = `15px`;
-                secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1]]}`
+                secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1].toLowerCase()]}`
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
-                const craft = archive.craft_discipline_category[0];
-                el.style.backgroundColor = this.colorMap[craft];
+                if (archive.craft_discipline_category.length<1) {
+                    el.style.backgroundColor = '#ffffff';
+                } else {
+                    const craft = archive.craft_discipline_category[0];
+                    el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
+                }
 
             }
 
@@ -243,7 +264,7 @@ export default class App extends React.PureComponent {
             el.className = 'marker';
             el.style.width = '15px';
             el.style.height = '15px';
-            el.style.backgroundColor = this.colorMap[craft];
+            // el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = archive.ID;
@@ -251,6 +272,7 @@ export default class App extends React.PureComponent {
             el.onClick=()=>this.clickMarker(el);
             el.onmouseenter = this.hoverMarker;
             el.onmouseleave = this.leaveMarker;
+            el.type = 'archive'
 
             if (archive.ID === "A397612231") {
                 console.warn(`${archive.ID} is ignored`);
@@ -265,7 +287,6 @@ export default class App extends React.PureComponent {
             if (lat && lng && archive.images.length>0) {
                 el.lng = lng;
                 el.lat = lat;
-                el.type = 'archive'
                 let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                 this.mappedMarkers.push(marker)
             }
@@ -323,7 +344,7 @@ export default class App extends React.PureComponent {
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})
             } else {
-                console.log('hi')
+                // console.log('hi')
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})}
         } else if (this.state.activeLayer) {
@@ -344,6 +365,10 @@ export default class App extends React.PureComponent {
         for (const workshop of this.props.workshops) {
             const el = document.createElement('div');
 
+            if (workshop.ID === "7445078809") {
+                console.log("update ", workshop);
+            }
+
             if (workshop.craft_discipline_category.length >1) {
                 el.style.display = 'flex'
                 el.style.flexDirection = 'row'
@@ -354,17 +379,21 @@ export default class App extends React.PureComponent {
                 firstCraft.style.pointerEvents = 'none';
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
-                firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0]]}`;
+                firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0].toLowerCase()]}`;
                 firstCraft.style.width = `7.5px`;
                 firstCraft.style.height = `15px`;
-                secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1]]}`
+                secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1].toLowerCase()]}`;
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
-                const craft = workshop.craft_discipline_category[0];
-                el.style.backgroundColor = this.colorMap[craft];
+                if (workshop.craft_discipline_category.length<1) {
+                    el.style.backgroundColor = '#ffffff';
+                } else {
+                    const craft = workshop.craft_discipline_category[0];
+                    el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
+                }
 
             }
 
@@ -377,12 +406,15 @@ export default class App extends React.PureComponent {
             el.craft = workshop.craft_discipline_category[0];
             el.onmouseenter = this.hoverMarker;
             el.onmouseleave = this.leaveMarker;
+            el.type = 'workshop';
 
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
                 continue;
             }
+
+
 
             const craftType = workshop.craft_discipline_category;
             const {lng, lat} = workshop.location.geo;
@@ -407,6 +439,9 @@ export default class App extends React.PureComponent {
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
                 if (this.props.filterSearchData['toggleStatusParent'] && workshop.shop_status!=="open") {
+                    if (workshop.ID==="7445078809"){
+                        console.log('1')
+                    }
                     continue;
                 }
 
@@ -415,17 +450,18 @@ export default class App extends React.PureComponent {
                 let shopOrig = workshop.shop_name['content_orig']
 
 
-
                 if (workshop.images.length>0 && (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))) {
+
+
                     el.lng = lng;
                     el.lat = lat;
-                    el.type = 'workshop';
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
                     //console.log(shopName, shopOrig)
                 }
 
             }
+
         }
 
         for (const archive of this.props.archives) {
@@ -442,17 +478,21 @@ export default class App extends React.PureComponent {
                 firstCraft.style.pointerEvents = 'none';
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
-                firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0]]}`;
+                firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0].toLowerCase()]}`;
                 firstCraft.style.width = `7.5px`;
                 firstCraft.style.height = `15px`;
-                secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1]]}`
+                secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1].toLowerCase()]}`
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
-                const craft = archive.craft_discipline_category[0];
-                el.style.backgroundColor = this.colorMap[craft];
+                if (archive.craft_discipline_category.length<1) {
+                    el.style.backgroundColor = '#ffffff';
+                } else {
+                    const craft = archive.craft_discipline_category[0];
+                    el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
+                }
 
             }
 
@@ -465,7 +505,7 @@ export default class App extends React.PureComponent {
             el.craft = archive.craft_discipline_category[0];
             el.onmouseenter = this.hoverMarker;
             el.onmouseleave = this.leaveMarker;
-
+            el.type="archive";
 
 
             if (archive.ID === "A397612231") {
@@ -484,7 +524,7 @@ export default class App extends React.PureComponent {
             const end = this.props.filterSearchData['endYearParent'];
             let withinInterval = null;
 
-            if ((start <= archive.primary_year || start <= archive.primary_decade[0])  && (archive.primary_year <= end || archive.primary_decade[0] <= end)) {
+            if ((start <= archive.primary_year || start <= archive.primary_decade[0])  && (archive.primary_year <= end || archive.primary_decade[0] <= end) || (!archive.primary_decade || archive.primary_decade.length<1 || !archive.primary_year)) {
                     withinInterval = true;
             } else {
                     withinInterval = false;
@@ -505,7 +545,6 @@ export default class App extends React.PureComponent {
                 if (archive.images.length>0 && (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))) {
                     el.lng = lng;
                     el.lat = lat;
-                    el.type = 'archive';
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
 

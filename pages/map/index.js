@@ -207,6 +207,7 @@ export default class Explore extends React.Component {
             document.body.classList.add('prevent-scroll')
             let root = document.documentElement;
             root.className += 'prevent-scroll';
+            console.log('does 4593218374 exist ? ', this.props.workshops)
     }
 
     componentWillUnmount() {

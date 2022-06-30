@@ -93,7 +93,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
 
         if (archive.shop_name['content']) {
             return archive.shop_name['content']
-        } else if (archivep.shop_name['content_orig']) {
+        } else if (archive.shop_name['content_orig']) {
             return archive.shop_name['content_orig']
         } else {
             return t('Craft Shop (No name provided)')
