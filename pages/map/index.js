@@ -47,10 +47,14 @@ export default class Explore extends React.Component {
         this.state = {
             mapLayer : null,
             allLayers : {
-                'ca. 1000AD': 'Écochard, M. (1943). Medieval gates and fortifications of Beirut. Item S806531, Michel Écochard Archive. Massachusetts Institute of Technology, Aga Khan Documentation Center. Cambridge (MA), USA.',
-                '1876' : 'Löytved, J., Stuckly, A. (1876). Map of Beirut dedicated to His Imperial Majesty Sultan Abdul Hamid II (Trans.). Item GE D 16879, (60 x 35cm), C Register. National Library of France. Paris, France.',
-                '1920': "Armée Française du Levant. Bureau Topographique. (1920). Beirut (Trans.). Item GE C-5752, (82 x 57cm). National Library of France, Departments of Maps and Plans. Paris, France.",
-
+                // 0: ['ca. 1000AD', 'Écochard, M. (1943). Medieval gates and fortifications of Beirut. Item S806531, Michel Écochard Archive. Massachusetts Institute of Technology, Aga Khan Documentation Center. Cambridge (MA), USA.'],
+                1 : ['1876', 'Löytved, J., Stuckly, A. (1876). Map of Beirut dedicated to His Imperial Majesty Sultan Abdul Hamid II (Trans.). Item GE D 16879, (60 x 35cm), C Register. National Library of France. Paris, France.', 'a639tump'],
+                2: ['1919', 'Service Géographique de l\'Armée. Éditeur Scientifique. (1919). Map of Beirut (Provisional Edition) (Trans.). Item GE SH 19 PF 1 QUATER DIV 16 P 17 (2), (76 x 91cm). National Library of France, Departments of Maps and Plans. Paris, France.', '1elupriz'],
+                //3: ['1919B', 'Service Géographique de l\'Armée. Éditeur Scientifique. (1919). Map of Beirut (Provisional Edition) (Trans.). Item GE SH 19 PF 1 QUATER DIV 16 P 17 (2), (76 x 91cm). National Library of France, Departments of Maps and Plans. Paris, France.'],
+                5: ['1920', 'Armée Française du Levant. Bureau Topographique. (1920). Beirut (Trans.). Item GE C-5752, (82 x 57cm). National Library of France, Departments of Maps and Plans. Paris, France.\n', '67ffz8i7'],
+                6: ['1945', 'Institut Géographique National. (1945). City of Beirut (Trans.). Item MAP G7474.B4 1945.I5, (53 x 72cm). Black and white reprint of the original map. MIT Rotch Library. Cambridge (MA), USA.\n', '1945_cropped'],
+                7: ['1958', 'US Army Corps of Engineers. Army Map Service (1984). Beirut (Trans.). Item Series K921 Sheet Beyrouth Editions 6-AMS. The Perry-Castañeda Library (PCL) Map Collection. The University of Texas. Austin (TX), USA.\n', '28tahetd'],
+                8: ['1984', 'Geoprojects (U.K.) Ltd. (1984). Beirut (Trans.). Item MAP G7474.B4P2 1984.G4, (51 x 73cm). Black and white reprint of the original map printed in Henley-on-Thames, England. MIT Rotch Library. Cambridge (MA), USA.\n', '1984']
             },
             coords: [35.5, 33.893894],
 
@@ -229,7 +233,7 @@ export default class Explore extends React.Component {
 
                     </Head>
                     <div className={"explore-page-container"}>
-                        <Map i18n={this.props.i18n} lang={this.props.lang} mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
+                        <Map i18n={this.props.i18n} lang={this.props.lang} allLayers={this.state.allLayers} mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
                             updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} reset={this.onReset} resetToggle={this.state.toggleReset} />  : null }

@@ -213,6 +213,12 @@
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
 }
 
+.geolocate-btn {
+    @media screen and (max-width: 688px) {
+    visibility: hidden;
+  }
+}
+
 
 
 .slidingCard-container {

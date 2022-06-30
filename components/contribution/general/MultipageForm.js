@@ -54,7 +54,8 @@ const MultipageForm = ({
   submitSuccess,
   handleRedirect,
   setSubmitting,
-  submitting
+  submitting,
+  cookiesEnabled
 }) => {
   const {t} = useTranslation();
   const router = useRouter();
@@ -103,11 +104,13 @@ const MultipageForm = ({
    * Gets the form data from local storage when the component is mounted.
    */
   useEffect(() => {
-    console.info('Fetching existing form data from local storage');
+    if (cookiesEnabled) {
+      console.info('Fetching existing form data from local storage');
     const formData = JSON.parse(localStorage.getItem(name)); // If cookies are disabled, this throws an error "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
     console.log("getting form data from local storage on multipage form mount ", formData)
     if (formData) {
       onUpdate(formData);
+    }
     }
   }, []);
 

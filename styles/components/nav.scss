@@ -109,9 +109,9 @@
       text-decoration: underline;
     }
 
-    @media (max-width: 600px) {
-      display: none;
-    }
+    // @media (max-width: 600px) {
+    //  display: none;
+    // }
   }
 }
 
@@ -215,13 +215,15 @@ $hamburger-zindex: $menu-zindex + 10;
   }
 
   .menu-footer {
+    width: 100%;
     direction: ltr;
     padding: 2rem;
     bottom: 0;
     left: 0;
     position: absolute;
-    right: 0;
+    // right: 0;
     color: $c-primary-light;
+    text-align: center;
 
     @media (max-width: 600px) {
       display: none;

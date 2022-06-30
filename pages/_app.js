@@ -5,7 +5,8 @@ import Script from 'next/script';
 import { useRouter } from 'next/router';
 import * as gtag from '../lib/gtag';
 
-import LngDetector from 'i18next-browser-languagedetector';
+import HttpApi from "i18next-http-backend";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 import {TRANSLATIONS} from "../lib/utils";
 
@@ -13,19 +14,33 @@ import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
 
 i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(initReactI18next)
+  .use(HttpApi)
+  .use(LanguageDetector) // Registering the detection plugin
   .init(TRANSLATIONS);
 
 
 
 function MyApp({ Component, pageProps }) {
 
+  useEffect(()=>{
+    if (navigator.cookieEnabled) {
+      const language = localStorage.getItem("language")
+      if (language) {
+        i18n.changeLanguage(language);
+        document.dir = i18n.dir();
+        setLanguage(language);
+      }
+    }
+
+  }, [])
+
   const [language, setLanguage] = useState(null);
   const changeLanguage = (language)=> {
     console.log(language)
     i18n.changeLanguage(language);
     setLanguage(language)
-
+    localStorage.setItem("language", i18n.language)
   }
   
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);

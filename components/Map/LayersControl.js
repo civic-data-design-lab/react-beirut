@@ -36,6 +36,7 @@ const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersCont
 
     const clickLayerButton = (e) => {
         let layerName = e.target.id;
+        console.log(layerName);
         updateMapLayer(layerName)
 
     }
@@ -53,9 +54,9 @@ const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersCont
         for (const [key, value] of Object.entries(allLayers)) {
         buttons.push(
             <>
-                <button className={`mapLayerButtons ${getClassName(key)}`} key ={key} id={`${key}-button`} onClick={clickLayerButton}>
-                    <p className={'lc-button-year map-name-label'} id={key} onClick={clickLayerButton}> {key} </p>
-                    <p className={'lc-button-ref map-name-reference'} id={key} onClick={clickLayerButton}> {value} </p>
+                <button className={`mapLayerButtons ${getClassName(key)}`} key ={key} id={value[0]} onClick={clickLayerButton}>
+                    <p className={'lc-button-year map-name-label'} id={value[0]} onClick={clickLayerButton}> {value[0]} </p>
+                    <p className={'lc-button-ref map-name-reference'} id={value[0]} onClick={clickLayerButton}> {value[1]} </p>
                 </button>
                 <hr/>
             </>

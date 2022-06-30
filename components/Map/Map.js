@@ -1,5 +1,6 @@
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
+import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 
@@ -78,7 +79,32 @@ export default class App extends React.PureComponent {
         window.addEventListener('resize', this.handleResize);
 
         //console.log('map.js ', this.props.filterSearchData)
+
+
         mapboxGl.accessToken = ACCESS_TOKEN;
+
+        console.log("printing plgin status ", mapboxGl.getRTLTextPluginStatus())
+
+        if (mapboxGL.getRTLTextPluginStatus !== 'loaded' && mapboxGL.getRTLTextPluginStatus !== 'deferred') {
+            if (mapboxGl.getRTLTextPluginStatus === 'unavailable'){
+                mapboxGl.setRTLTextPlugin(
+                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                null,
+                true // Lazy load the plugin
+            );
+            }
+        }
+
+
+
+        console.log("printing plgin status ", mapboxGl.getRTLTextPluginStatus())
+
+
+
+
+
+
+
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
            style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
@@ -93,22 +119,26 @@ export default class App extends React.PureComponent {
 
         map.current.on('load', () => {
 
-        const source1920 = map.current.getSource('1920');
-        if (!source1920) {
-            map.current.addSource('1920', {
-            'type': 'raster',
-            'url': 'mapbox://mitcivicdata.ddxxt2r8'
-             });
-        }
-
-        map.current.addLayer({
-        'id': '1920',
-        'source': '1920',
-        'type': 'raster',
-        'layout': {
-            'visibility': 'none'
-        }
-        });
+            for (const [key, value] of Object.entries(this.props.allLayers)) {
+                const checkSourceAdded = map.current.getSource(`${value[0]}`);
+                if (!checkSourceAdded) {
+                    map.current.addSource(value[0], {
+                        'type': 'raster',
+                        'url': `mapbox://mitcivicdata.${value[2]}`
+                    });
+                }
+                map.current.addLayer({
+                    'id': value[0],
+                    'source': value[0],
+                    'type': 'raster',
+                    'layout': {
+                        'visibility': 'none'
+                    },
+                    'paint':{
+                        'raster-opacity': 0.7
+                    }
+                });
+            }
 
         map.current.getStyle().layers.forEach((layer) => {
             if (layer.layout && layer.layout['text-field']) {
@@ -120,6 +150,8 @@ export default class App extends React.PureComponent {
         });
 
         });
+
+
 
 
        if (!this.props.workshops) {
@@ -244,6 +276,7 @@ export default class App extends React.PureComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("print language in map ", this.props.i18n.language)
+        console.log("detected map layer ", this.props.mapLayer)
 
         map.current.getStyle().layers.forEach((layer) => {
             if (layer.layout && layer.layout['text-field']) {
@@ -290,6 +323,7 @@ export default class App extends React.PureComponent {
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})
             } else {
+                console.log('hi')
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})}
         } else if (this.state.activeLayer) {
@@ -504,6 +538,14 @@ export default class App extends React.PureComponent {
                                 <path d="M5.03906 0.390625V1.89062H0.90625V0.390625H5.03906Z" fill="#471E10"/>
                             </svg>
                         </button>
+
+                        <button className={"nav-ctr-btn geolocate-btn"} onClick={null}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" clipRule="evenodd" d="M20.94 11C20.48 6.83 17.17 3.52 13 3.06V1H11V3.06C6.83 3.52 3.52 6.83 3.06 11H1V13H3.06C3.52 17.17 6.83 20.48 11 20.94V23H13V20.94C17.17 20.48 20.48 17.17 20.94 13H23V11H20.94ZM12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM5 12C5 15.87 8.13 19 12 19C15.87 19 19 15.87 19 12C19 8.13 15.87 5 12 5C8.13 5 5 8.13 5 12Z" fill="#AEAEAE"/>
+                            </svg>
+
+                        </button>
+
                     </div> : null}
             </>
 
