@@ -291,7 +291,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <Slider>
                       {similarWorkshops?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
                         </div>
                       ))}
                     </Slider>
@@ -336,7 +336,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <Slider>
                       {similarWorkshops?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
                         </div>
                       ))}
                     </Slider>
@@ -389,7 +389,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <Slider>
                       {similarWorkshops?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
                         </div>
                       ))}
                     </Slider>

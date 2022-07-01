@@ -286,7 +286,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
                         <Slider>
                       {similarArchives?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'} />
                         </div>
                       ))}
                     </Slider>
@@ -325,7 +325,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
                         <Slider>
                       {similarArchives?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
                         </div>
                       ))}
                     </Slider>
@@ -372,7 +372,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
                         <Slider>
                       {similarArchives?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'} />
                         </div>
                       ))}
                     </Slider>

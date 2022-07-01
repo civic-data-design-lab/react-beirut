@@ -48,7 +48,7 @@ const ImageFeed = ({ objects, imageFilterData }) => {
     }
 
     if (
-      (indices[0] > -1 || (indices.length > 1 && indices[1] > -1)) &&
+      (indices[0] > -1 || (indices.length > 1 && indices[1] > -1) || (!object.craft_discipline_category) || (object.craft_discipline_category.length<1)) &&
       withinInterval
     ) {
       if (
@@ -71,7 +71,7 @@ const ImageFeed = ({ objects, imageFilterData }) => {
           (object) =>
             filter(object) && (
               <div className="image-container" key={object.ID}>
-                <ImagePreview workshop={object} grayscale={false} />
+                <ImagePreview workshop={object} grayscale={false} routeToAPI={"api/imageMetaData/"} />
               </div>
             )
         )}

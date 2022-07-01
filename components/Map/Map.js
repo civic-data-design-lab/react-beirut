@@ -437,7 +437,7 @@ export default class App extends React.PureComponent {
                 }
             }
 
-            if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
+            if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1) || !workshop.craft_discipline_category || workshop.craft_discipline_category.length<1) && withinInterval) {
                 if (this.props.filterSearchData['toggleStatusParent'] && workshop.shop_status!=="open") {
                     if (workshop.ID==="7445078809"){
                         console.log('1')
@@ -531,7 +531,7 @@ export default class App extends React.PureComponent {
                     }
 
 
-            if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1)) && withinInterval) {
+            if (indices[0]>-1 || (indices.length>1 && indices[1]>-1) || !archive.craft_discipline_category || archive.craft_discipline_category.length<1) {
                 if (this.props.filterSearchData['toggleStatusParent']) {
                     continue;
                 }

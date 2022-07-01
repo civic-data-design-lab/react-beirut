@@ -332,20 +332,17 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
 
     const getImages = () => {
-        console.log("images ", images)
 
 
-        if (!workshop.images) {
+
+        if (!imageMetaData || imageMetaData.size<1) {
             return
         }
-        const thumbImage = workshop.images.filter(
-            (image) => image.img_id === workshop.thumb_img_id);
-        const remainingImages = workshop.images.filter(
-            (image) => image.img_id !== workshop.thumb_img_id
-        );
-        const images = [...thumbImage, ...remainingImages];
-        //console.log('images ', images)
-        return images.map((image, index) => {return <img key={image} id={index} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" onError={handleOnError} />})
+
+        // console.log(imageMetaData)
+
+
+        return imageMetaData.map((image, index) => {return <img key={image} id={index} className={'mapCard-img'} src={image.src} alt="img" onError={handleOnError} />})
 
     }
 
@@ -422,8 +419,6 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         } else {
             return (
                 <>
-
-
                         <div className={'close-btn-container'}>
                             <div>
                                 <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
