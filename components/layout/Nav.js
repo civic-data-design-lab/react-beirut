@@ -16,9 +16,23 @@ const Nav = ({changeLanguage}) => {
 
   // Add drop shadow effect when scrolled to a certain position
   const [isActive, setIsActive] = useState(false);
+  const [width, setWidth] = useState(null);
+
   const headerRef = useRef();
 
   const {t} = useTranslation();
+
+  const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
+
+  useEffect(()=>{
+    window.addEventListener('resize', handleResize);
+    return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+    }, [])
 
   useEffect(() => {
     const { offsetHeight } = headerRef.current;
@@ -34,6 +48,7 @@ const Nav = ({changeLanguage}) => {
 
   // dynamically showing the page location
   const getPath = () => {
+    console.log(width)
     const path = router.pathname.split('/')[1];
 
     let pageLocation = path;
@@ -73,15 +88,20 @@ const Nav = ({changeLanguage}) => {
             }}
           >
             <div className="container-logo">
-              <img
+              {width>590 ? <img
                 src={isMenuOpen ? '/LHA_logo-horiz-invert.png' : '/LHA_logo-horiz.png'}
                 className="logo-text"
+              /> : <img
+                src={isMenuOpen ? '/favicon.png' : '/favicon.png'}
+                className="logo-text"
               />
+
+              }
             </div>
           </a>
         </Link>
 
-          {getPath() ? <div className={"nav-divider vr"}></div> : null}
+          {getPath() ? <div className={`nav-divider vr ${isMenuOpen || hideBg() ? ' hide-background':''}`}/> : null}
 
         <div className="page-location">
           {t(getPath().charAt(0).toUpperCase()+getPath().slice(1))}
@@ -186,6 +206,7 @@ const Nav = ({changeLanguage}) => {
               </a>
             </div>
             <br />
+            <div className={'footer-contact'}>
             Contact us at{' '}
             <a href="mailto:livingheritage@mit.edu">
               livingheritage@mit.edu
@@ -210,6 +231,7 @@ const Nav = ({changeLanguage}) => {
                 </a>
               </li>
             </ul> */}
+              </div>
           </nav>
         </footer>
       </div>

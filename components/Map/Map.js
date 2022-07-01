@@ -39,7 +39,11 @@ export default class App extends React.PureComponent {
         this.setState({
             width: window.innerWidth,
             height: window.innerHeight
-        }, ()=> console.log("new dimesnsions ", this.state))
+        })
+
+        if (window.innerWidth > 991) {
+            // TODO: use state to keep track of map settings
+        }
 
     }
 
