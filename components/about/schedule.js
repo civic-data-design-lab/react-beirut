@@ -1,4 +1,3 @@
-import React from "react";
 import { useMediaQuery } from 'react-responsive';
 
 const Mobile = ({ children }) => {
@@ -37,9 +36,10 @@ const Schedule = ({i18n}) => {
                 <h6><b>{t('Craft Workshops Tour')}</b>&ensp;|&ensp;{t('Gemmayze')}&ndash;{t('Mar Mikhael')}</h6><hr/>
                 <p className="mb-0">{t('Intimate walking tour of 3-4 craft workshops in the Gemmayze and Mar Mikhael area')}</p>
               </div>
-              <div className="offset-6 col-3 p-2 t-3">
+              <div className="col-6"></div>
+              <div className="col-3 p-2 t-3">
                 <h6><b>{t('Craft Workshops Tour')}</b>&ensp;|&ensp;{t('Bourj Hammoud')}</h6><hr/>
-                <p className="mb-0">{t('Intimate walking tour of 3-4 craft workshops in the Bourj Hammoud area')}</p>
+                <p className="mb-0">{t('Intimate walking tour of 3&ndash;4 craft workshops in the Bourj Hammoud area')}</p>
               </div>
             </div>
           </div>

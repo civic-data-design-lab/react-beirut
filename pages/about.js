@@ -20,20 +20,24 @@ const About = ({i18n}) => {
         </div>
         <hr />
         <div className="about-card col col-md-10 col-lg-8">
-          <p>{t('Living Heritage Atlas')}&ensp;|&ensp;{'Beirut is a design-based research project that contributes to urban planning discussion on Beirut\'s heritage by rendering visible the often unrecognized social heritage of craftsmanship'} &mdash; {t('with its crafts, public spaces, and local knowledge')}</p>
-          <p>{t('This project has been developed by the Massachusetts Insitute of Technology (MIT) Civic Data Design Lab (CDDL) and Future Heritage Lab (FHL). Living Heritage Atlas')}&ensp;|&ensp;{t('Beirut recognizes that craftspeople are an exponentially marginalized and vulnerable group of individuals, operating at the intersection of heritage, the infrastructure of making, and the local economies at different urban scales.')}</p>
+
+          <p className="fs-5 lh-sm"><b><em>{t('Living Heritage Atlas')} | {t('Beirut')}</em></b> {t('is a design-based research project that contributes to urban planning discussion on Beirut\'s heritage by rendering visible the often unrecognized social heritage of craftsmanship')} &mdash; {t('with its crafts, public spaces, and local knowledge')}</p>
+          <p className="fs-5 lh-sm">{t('This project has been developed by the Massachusetts Insitute of Technology (MIT) Civic Data Design Lab (CDDL) and Future Heritage Lab (FHL). Living Heritage Atlas&ensp;|&ensp;Beirut recognizes that craftspeople are an exponentially marginalized and vulnerable group of individuals, operating at the intersection of heritage, the infrastructure of making, and the local economies at different urban scales.')}</p>
+
           <p></p>
         </div>
         <div className="about-card">
             <h3 className="mb-4"><b>{t('Program Schedule')}</b></h3>
+            <p>Register to attend <em>Living Heritage Atlas | Beirut</em> events via the <a href="https://ihjoz.com/companies/1887" target="_blank">Ijhoz event webpage</a></p>
             <Schedule i18n={i18n} />
         </div>
         <div className="about-card col col-md-10 col-lg-8">
           <h3 className="mb-3"><b>{t('Living Heritage Atlas')}&ensp;|&ensp;{t('Mapping Beirut\'s Craftsmanship Event')}</b></h3>
           <p className="mb-0"><b>{t('Featured Event:')}</b>&emsp;{t('Two-hour roundtable discussion and mapping event')}</p>
           <p className="mb-0"><b>{t('Date:')}</b>&emsp;{t('Thursday, July 7, 2022')}</p>
-          <p className="mb-0"><b>{t('Time:')}</b>&emsp;{t('6:00')}&ndash;{t('8:00pm')}</p>
-          <p className="mb-0"><b>{t('Location:')}</b>&emsp;{t('Venue TBD')}</p>
+          <p className="mb-0"><b>{t('Time:')}</b>&emsp;{t('6:00')}&ndash;{t('9:00pm')}</p>
+          <p><b>{t('Location:')}</b>&emsp;{t('Abroyan Factor &mdash; Emile Eddeh Street, Bouj Hammoud, Beirut')}</p>
+          <p><b>Register:</b>&emsp;RSVP your attendance in advanced via the <a href="https://ihjoz.com/companies/1887" target="_blank">Ijhoz event webpage</a></p>
           <p>{t('Discussion during this event will primary be conducted in English; if you prefer to converse in Arabic, there will be a person at each table ready to help translate to and from Arabic and English as needed.')}</p>
           <div className="t-event container-fluid mt-4">
             <div className="row mb-2">
@@ -41,7 +45,7 @@ const About = ({i18n}) => {
               <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
                 <p>The <a href="https://www.futureheritagelab.com/" target="blank">MIT Future Heritage Lab</a> (FHL) and <a href="https://civicdatadesignlab.mit.edu/" target="blank">MIT Civic Data Design Lab</a> (CDDL) will present the <i>digital archive</i> of geolocated historic data and images using visual and textual materials from local archives, residents, and craftspeople in Beirut.</p>
                 <p class="mb-1"><b>{t('Bring a living heritage item!')}</b></p>
-                <p>{t('Invitees and guests are asked to bring with them a living heritage item to contribute to the Living Heritage Atlas. We define this element as a photograph, plan, map, guidebook, newspaper clipping, or artifact related to the past or present presence of crafts and craftsmanship in Beirut. All items will be scanned by our data collectors and returned by the end of the event')}</p>
+                <p>{t('Invitees and guests are asked to bring with them a living heritage item to contribute to the')} <em>{t('Living Heritage Atlas')}</em>. {t('We define this element as a photograph, plan, map, guidebook, newspaper clipping, or artifact related to the past or present presence of crafts and craftsmanship in Beirut. All items will be scanned by our data collectors and returned by the end of the event')}</p>
               </div>
             </div>
             <div className="row mb-2">
@@ -81,7 +85,7 @@ const About = ({i18n}) => {
             <div className="row mb-2">
               <div className="col-12 col-sm-3 col-md-2 px-0 pb-2"><b>{t('Mapathon Discussion')}</b><br/>{t('7:15')}&ndash;{t('7:45pm')}</div>
               <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
-                <p>{t('The Mapathon workshop  will focus on mapping and adding new data to the Living Heritage Atlas database of craftsmanship in Beirut. The goal of the mapathon is to invite the local craftspeople, elders, photographers, and the public to expand the database of historical and current images and locations of craftsmanship in Beirut. Each new finding and correction to the map will be projected and displayed in real-time.')}</p>
+                <p>{t('The Mapathon workshop  will focus on mapping and adding new data to the')} <em>{t('Living Heritage Atlas')}</em> {t('database of craftsmanship in Beirut. The goal of the mapathon is to invite the local craftspeople, elders, photographers, and the public to expand the database of historical and current images and locations of craftsmanship in Beirut. Each new finding and correction to the map will be projected and displayed in real-time.')}</p>
                 <p>{t('We will stay in the same sub-groups listed above. Participants in each group will be asked to brainstorm effective ways to use the open source database within the focus of each discussion theme. The moderator at each table will lead the discussion and report summarized findings at the end of the discussion.')}</p>
               </div>
             </div>
@@ -95,7 +99,7 @@ const About = ({i18n}) => {
         </div>
         <div className="about-card col col-md-10 col-lg-8 mb-5">
           <h3 className="mb-3"><b>{t('Credits')}</b></h3>
-          <p>{t('This project has been developed by the Massachusetts Institute of Technology (MIT); more specifically by the Civic Data Design Lab and the Future Heritage Lab. The “Intangible Heritage Atlas | Crafts” is supported by “Dar Group” through a 2021 seed grant that enabled MIT faculty members to conduct research on the challenges experienced in Beirut in the aftermath of the August 2020 port explosion.')}</p>
+          <p>{t('This project has been developed by the Massachusetts Institute of Technology (MIT); more specifically by the Civic Data Design Lab and the Future Heritage Lab.')} <em>{t('Living Heritage Atlas | Beirut')}</em> {t('is supported by “Dar Group” through a 2021 seed grant that enabled MIT faculty members to conduct research on the challenges experienced in Beirut in the aftermath of the August 2020 port explosion.')}</p>
           <div className="row">
             <div className="col-12 col-sm-6 order-1 order-sm-1">
               <h5><b>{t('Future Heritage Lab')}</b></h5>
@@ -103,7 +107,7 @@ const About = ({i18n}) => {
             </div>
             <div className="col-12 col-sm-6 order-3 order-sm-2">
               <h5><b>{t('Civic Data Design Lab')}</b></h5>
-              <p>{t('The Civic Data Design Lab works with data to understand it for public good. We seek to develop alternative practices which can make the work we do with data and images richer, smarter, more relevant, and more responsive to the needs and interests of citizens traditionally on the margins of policy development. In this practice we experiment with and develop data visualization and collection tools that allow us to highlight urban phenomena. Our methods borrow from the traditions of science and design by using spatial analytics to expose patterns and communicating those results, through design, to new audiences.')}</p>
+              <p>{t('The MIT Civic Data Design Lab works with data to understand it for public good. We seek to develop alternative practices which can make the work we do with data and images richer, smarter, more relevant, and more responsive to the needs and interests of citizens traditionally on the margins of policy development. In this practice we experiment with and develop data visualization and collection tools that allow us to highlight urban phenomena. Our methods borrow from the traditions of science and design by using spatial analytics to expose patterns and communicating those results, through design, to new audiences.')}</p>
             </div>
           {/* </div>
           <div className="row"> */}
