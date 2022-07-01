@@ -89,8 +89,11 @@ export default class App extends React.PureComponent {
 
         console.log("printing plgin status ", mapboxGl.getRTLTextPluginStatus())
 
-        if (mapboxGL.getRTLTextPluginStatus !== 'loaded' && mapboxGL.getRTLTextPluginStatus !== 'deferred') {
-            if (mapboxGl.getRTLTextPluginStatus === 'unavailable'){
+
+        if (mapboxGL.getRTLTextPluginStatus() !== 'loaded' && mapboxGL.getRTLTextPluginStatus() !== 'deferred') {
+            console.log('here')
+            if (mapboxGl.getRTLTextPluginStatus() === 'unavailable'){
+                console.log('here again')
                 mapboxGl.setRTLTextPlugin(
                 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
                 null,
@@ -112,8 +115,8 @@ export default class App extends React.PureComponent {
         map.current = new mapboxGl.Map({
            container: this.mapContainer.current,
            style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
-           center: [35.5, 33.893894], // starting position [lng, lat]
-           zoom: 12.5, // starting zoom
+           center: [35.510, 33.893894], // starting position [lng, lat]
+           zoom: 13.25, // starting zoom
            //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
        });
 
@@ -312,7 +315,7 @@ export default class App extends React.PureComponent {
 
 
         if (this.props.coords && prevProps.coords !== this.props.coords) {
-            if (this.props.coords[0] !== 35.5 && this.props.coords[1] !== 33.893894) {
+            if (this.props.coords[0] !== 35.510 && this.props.coords[1] !== 33.893894) {
                 map.current.flyTo({
                     center: this.props.coords,
                     zoom: 16,
@@ -322,10 +325,10 @@ export default class App extends React.PureComponent {
                     curve: 1, // change the speed at which it zooms out
                     essential: true
                 })
-            } else if (this.props.coords[0] === 35.5 && this.props.coords[1] === 33.893894) {
+            } else if (this.props.coords[0] === 35.510 && this.props.coords[1] === 33.893894) {
                 map.current.flyTo({
                     center: this.props.coords,
-                    zoom: 12.5,
+                    zoom: 13.25,
                     bearing: 0,
                     speed: 0.5, // make the flying slow
                     curve: 1, // change the speed at which it zooms out

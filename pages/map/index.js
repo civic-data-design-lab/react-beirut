@@ -56,7 +56,7 @@ export default class Explore extends React.Component {
                 7: ['1958', 'US Army Corps of Engineers. Army Map Service (1984). Beirut (Trans.). Item Series K921 Sheet Beyrouth Editions 6-AMS. The Perry-Castañeda Library (PCL) Map Collection. The University of Texas. Austin (TX), USA.\n', '28tahetd'],
                 8: ['1984', 'Geoprojects (U.K.) Ltd. (1984). Beirut (Trans.). Item MAP G7474.B4P2 1984.G4, (51 x 73cm). Black and white reprint of the original map printed in Henley-on-Thames, England. MIT Rotch Library. Cambridge (MA), USA.\n', '1984']
             },
-            coords: [35.5, 33.893894],
+            coords: [35.510, 33.893894],
 
             toggleReset: false,
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
@@ -131,7 +131,7 @@ export default class Explore extends React.Component {
             //this.setState({showMapCard:false, id:null, type: null, coords: [35.5, 33.893894]})
             if (this.state.showMapCard) {
                 if (this.state.id === id) {
-                    this.setState({showMapCard:false, id:null, type: null, coords: [35.5, 33.893894]})
+                    this.setState({showMapCard:false, id:null, type: null, coords: [35.510, 33.893894]})
 
 
                 } else {
@@ -177,7 +177,7 @@ export default class Explore extends React.Component {
         }
 
     closeMapCard = () => {
-            this.setState({showMapCard:false, id:null, coords: [35.5, 33.893894]})
+            this.setState({showMapCard:false, id:null, coords: [35.510, 33.893894]})
     }
 
     toggleLayersControl = () => {

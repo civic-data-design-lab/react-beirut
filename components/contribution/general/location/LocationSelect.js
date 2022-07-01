@@ -4,6 +4,7 @@ import { MAPBOX_STYLE_URL } from '../../../../lib/utils';
 
 import { Trans, useTranslation } from "react-i18next";
 import React from "react";
+import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -24,6 +25,17 @@ export default class LocationSelect extends React.Component {
     }
 
       mapboxGl.accessToken = ACCESS_TOKEN;
+      if (mapboxGL.getRTLTextPluginStatus() !== 'loaded' && mapboxGL.getRTLTextPluginStatus() !== 'deferred') {
+            console.log('here')
+            if (mapboxGl.getRTLTextPluginStatus() === 'unavailable'){
+                console.log('here again')
+                mapboxGl.setRTLTextPlugin(
+                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                null,
+                true // Lazy load the plugin
+            );
+            }
+        }
       map.current = new mapboxGl.Map({
       container: 'map', // container ID
       style: MAPBOX_STYLE_URL, // style URL

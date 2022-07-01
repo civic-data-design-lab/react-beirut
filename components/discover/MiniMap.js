@@ -1,5 +1,6 @@
 import React from "react";
 import mapboxGl from "mapbox-gl";
+import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 
@@ -42,6 +43,20 @@ export default class MiniMap extends React.Component {
         console.log("geos ", geos);
 
         mapboxGl.accessToken = ACCESS_TOKEN;
+
+        if (mapboxGL.getRTLTextPluginStatus() !== 'loaded' && mapboxGL.getRTLTextPluginStatus() !== 'deferred') {
+            console.log('here')
+            if (mapboxGl.getRTLTextPluginStatus() === 'unavailable'){
+                console.log('here again')
+                mapboxGl.setRTLTextPlugin(
+                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                null,
+                true // Lazy load the plugin
+            );
+            }
+        }
+
+
         let map = new mapboxGl.Map({
             container: 'map', //this.mapContainer.current,
             style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
@@ -127,6 +142,20 @@ export default class MiniMap extends React.Component {
             console.log("geos ", geos);
 
             mapboxGl.accessToken = ACCESS_TOKEN;
+
+            if (mapboxGL.getRTLTextPluginStatus() !== 'loaded' && mapboxGL.getRTLTextPluginStatus() !== 'deferred') {
+            console.log('here')
+            if (mapboxGl.getRTLTextPluginStatus() === 'unavailable'){
+                console.log('here again')
+                mapboxGl.setRTLTextPlugin(
+                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                null,
+                true // Lazy load the plugin
+            );
+            }
+        }
+
+
             let map = new mapboxGl.Map({
                 container: 'map', //this.mapContainer.current,
                 style: 'mapbox://styles/mitcivicdata/cl3j8uw87005614locgk6feit', // style URL
