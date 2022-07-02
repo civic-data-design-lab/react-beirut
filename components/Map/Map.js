@@ -22,7 +22,7 @@ export default class App extends React.PureComponent {
             geoLocateTitle : null,
             geoLocateLoader : false,
             readZoom: this.props.mapZoom,
-            markerRadius: this.getMarkerRadius()
+            markerRadius: this.getMarkerRadius(this.props.mapZoom)
             //mapZoom: this.props.mapZoom
 
         }
@@ -48,14 +48,16 @@ export default class App extends React.PureComponent {
             if (currentZoom<12.5) {
                 markerRadius = 2
             } else if (currentZoom<13) {
-                markerRadius = 4
+                markerRadius = 3
             } else if (currentZoom<13.5) {
-                markerRadius = 5
+                markerRadius = 4
             } else if (currentZoom<13.75) {
-                markerRadius = 6
+                markerRadius = 4.5
             }
             else if (currentZoom<14) {
-                markerRadius = 7
+                markerRadius = 5
+            } else if (currentZoom<16) {
+                markerRadius = 7;
             } else {
                 markerRadius = 7.5;
             }
@@ -158,6 +160,8 @@ export default class App extends React.PureComponent {
 
     componentDidMount() {
 
+        console.log('map layer in mount is ', this.props.mapLayer)
+
         window.addEventListener('resize', this.handleResize);
         //window.addEventListener("orientationchange", this.handleResize);
 
@@ -241,6 +245,7 @@ export default class App extends React.PureComponent {
         map.current.on('zoom', () => {
             const currentZoom = map.current.getZoom();
             console.log('current zoom ', currentZoom);
+            console.log('current center ', map.current.getCenter());
             const markerRadius = this.getMarkerRadius(currentZoom)
 
             this.setState({
@@ -340,8 +345,8 @@ export default class App extends React.PureComponent {
                 firstCraft.style.width = `${this.state.markerRadius}px`;
                 firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1].toLowerCase()]}`
-                secondCraft.style.width = `7.5px`;
-                secondCraft.style.height = '15px';
+                secondCraft.style.width = `${this.state.markerRadius}px`;
+                secondCraft.style.height = `${this.state.markerRadius*2}px`;
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
@@ -398,18 +403,22 @@ export default class App extends React.PureComponent {
         // console.log("props ", this.props.mapZoom, prevProps.mapZoom);
         // console.log('is mapcard showing or not ', this.props.showMapCard)
         // console.log('compare zooms ', this.props.mapZoom, prevProps.mapZoom)
-        if (this.props.mapZoom !== prevProps.mapZoom ) {
+        const changedZoom = this.props.mapZoom !== prevProps.mapZoom;
+        const changedCoords = this.props.coords !== prevProps.coords;
+        if (changedZoom || changedCoords) {
             // console.log('is zoom the same')
             if (this.props.showMapCard===false) {
                 console.log('zoom')
                 map.current.flyTo({
-                    center: [35.510, 33.893894],
+                    center: changedCoords?this.props.coords:[35.510, 33.893894],
                     zoom: this.props.mapZoom,
                     speed: 0.5, // make the flying slow
                     essential: true
                 })
             }
         }
+
+
 
         // console.log("zoom diff ", prevState.readZoom, this.state.readZoom)
 
@@ -431,7 +440,7 @@ export default class App extends React.PureComponent {
 
 
 
-        if (this.props.coords && (prevProps.coords !== this.props.coords)) {
+        if (this.props.coords && (prevProps.coords !== this.props.coords) && this.props.showMapCard) {
             if (this.props.coords[0] !== 35.510 && this.props.coords[1] !== 33.893894) {
                 map.current.flyTo({
                     center: this.props.coords,
@@ -458,18 +467,33 @@ export default class App extends React.PureComponent {
 
 
          // change visibility of layer
-        if (this.props.mapLayer) {
+        if (this.props.mapLayer !== prevProps.mapLayer) {
+            if (this.props.mapLayer) {
             if (this.state.activeLayer) {
                 map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
+                let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
+                console.log(Object.values(filtered)[0][3])
+                if (Object.values(filtered)[0][3]) {
+                    console.log('in here')
+                    this.props.setMapLayerSettings(Object.values(filtered)[0][3], Object.values(filtered)[0][4])
+                }
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})
             } else {
                 // console.log('hi')
+                let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
+                console.log(Object.values(filtered)[0][3])
+                if (Object.values(filtered)[0][3]) {
+                    console.log('in here')
+                    this.props.setMapLayerSettings(Object.values(filtered)[0][3], Object.values(filtered)[0][4])
+                }
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})}
         } else if (this.state.activeLayer) {
                 map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
-                this.setState({activeLayer:this.state.activeLayer})
+                this.setState({activeLayer:null})
+                this.props.setMapLayerSettings([35.510, 33.893894], this.props.handleResize())
+        }
         }
 
 
@@ -707,7 +731,6 @@ export default class App extends React.PureComponent {
                         geoLocateLoader:false
                     })}}/> : null}
             <div ref={this.mapContainer} id="map" className={'exploreMap'}/>
-                {this.state.width>688 ?
                     <div className={"nav-ctr-container"}>
                         <button className={"nav-ctr-btn zoom-in-btn"} onClick={this.handleClickZoomIn}>
                             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -728,7 +751,7 @@ export default class App extends React.PureComponent {
 
                         </button>
 
-                    </div> : null}
+                    </div>
             </>
 
 

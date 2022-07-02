@@ -211,30 +211,6 @@ const Contribute = () => {
           </>
 
         );
-      case 'archive':
-        return (
-          <>
-
-              <div className={'card-cover'}>
-                <div className={'dialogue-container'}>
-
-
-                    <div className={'dialogue-title'}>Ongoing Data Collection</div>
-                    <button className={'close-card-btn dialogue-close-btn'} onClick={() => setModal(null)}>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z" fill="#404044"/>
-                        </svg>
-                    </button>
-                    <hr/>
-
-                    <div className={'dialogue-content'}>
-                      <p className="text-start">The <b><em>Living Heritage Atlas | Beirut</em></b> research team has conducted multiple data collections initiatives through interviews, desk-research, archival research and surveys between 2021&ndash;2022. Data collected by our team includes oral stories, personal photos, and archival material collected from libraries and private collections.</p>
-                      <p className="text-start">We invite you to add to the <em>Living Heritage Atlas</em> database of Beirut's craft workshops and archival images. By creating this database, we aim to avocate for Beirut's living heritage and intangible cultural practices in policy decisions and documents.</p>
-                    </div>
-                </div>
-              </div>
-          </>
-        );
       default:
         return <></>;
     }
@@ -281,7 +257,6 @@ const Contribute = () => {
               <div className={'contribute-landing-text-section'}>
                 <h1 className={'Contribute-landing-title'}>{t('Contribute to the Living Heritage Atlas!')}</h1>
                 <p className={'Contribute-landing-text'}>{t('Add a current craft workshop or upload an archival image to the database.')}</p>
-                <a className={'Contribute-info-link'} onClick={() => setModal('archive')}>{t('What is this?')}</a>
               </div>
 
             <div className="Contribute-types">
@@ -320,11 +295,22 @@ const Contribute = () => {
               </div>
           </div>
 
-            <Desktop>
+              {window.innerWidth>991?
+                  <div className={'Contribute-vr-contianer'}>
+                      <div className={'vr Contribute-divider'}/>
+                  </div> :
+                  <div className={'Contribute-divider-container'}>
+                    <hr className={'Contribute-hr'}/>
+                  </div>}
+
+
               <div className="Contribute-index">
-            <div className={'Contribute-image'}></div>
+            <div className={'Contribute-about Contribute-landing-text-container'}>
+                <p className="text-start">The <b><em>Living Heritage Atlas | Beirut</em></b> research team has conducted multiple data collections initiatives through interviews, desk-research, archival research and surveys between 2021&ndash;2022. Data collected by our team includes oral stories, personal photos, and archival material collected from libraries and private collections.</p>
+                <p className="text-start">We invite you to add to the <em>Living Heritage Atlas</em> database of Beirut's craft workshops and archival images. By creating this database, we aim to avocate for Beirut's living heritage and intangible cultural practices in policy decisions and documents.</p>
+            </div>
           </div>
-            </Desktop>
+
 
         </div>
       </div>

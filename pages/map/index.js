@@ -50,13 +50,13 @@ export default class Explore extends React.Component {
             mapLayer : null,
             allLayers : {
                 // 0: ['ca. 1000AD', 'Écochard, M. (1943). Medieval gates and fortifications of Beirut. Item S806531, Michel Écochard Archive. Massachusetts Institute of Technology, Aga Khan Documentation Center. Cambridge (MA), USA.'],
-                1 : ['1876', 'Löytved, J., Stuckly, A. (1876). Map of Beirut dedicated to His Imperial Majesty Sultan Abdul Hamid II (Trans.). Item GE D 16879, (60 x 35cm), C Register. National Library of France. Paris, France.', 'a639tump'],
-                2: ['1919', 'Service Géographique de l\'Armée. Éditeur Scientifique. (1919). Map of Beirut (Provisional Edition) (Trans.). Item GE SH 19 PF 1 QUATER DIV 16 P 17 (2), (76 x 91cm). National Library of France, Departments of Maps and Plans. Paris, France.', '1elupriz'],
+                1 : ['1876', 'Löytved, J., Stuckly, A. (1876). Map of Beirut dedicated to His Imperial Majesty Sultan Abdul Hamid II (Trans.). Item GE D 16879, (60 x 35cm), C Register. National Library of France. Paris, France.', 'a639tump', [35.501735813111736, 33.89746631938645], 15.38818825030279],
+                2: ['1919', 'Service Géographique de l\'Armée. Éditeur Scientifique. (1919). Map of Beirut (Provisional Edition) (Trans.). Item GE SH 19 PF 1 QUATER DIV 16 P 17 (2), (76 x 91cm). National Library of France, Departments of Maps and Plans. Paris, France.', '1elupriz', [35.498677035021956, 33.893437188342475], 13.785065425449796],
                 //3: ['1919B', 'Service Géographique de l\'Armée. Éditeur Scientifique. (1919). Map of Beirut (Provisional Edition) (Trans.). Item GE SH 19 PF 1 QUATER DIV 16 P 17 (2), (76 x 91cm). National Library of France, Departments of Maps and Plans. Paris, France.'],
-                5: ['1920', 'Armée Française du Levant. Bureau Topographique. (1920). Beirut (Trans.). Item GE C-5752, (82 x 57cm). National Library of France, Departments of Maps and Plans. Paris, France.\n', '67ffz8i7'],
-                6: ['1945', 'Institut Géographique National. (1945). City of Beirut (Trans.). Item MAP G7474.B4 1945.I5, (53 x 72cm). Black and white reprint of the original map. MIT Rotch Library. Cambridge (MA), USA.\n', '1945_cropped'],
-                7: ['1958', 'US Army Corps of Engineers. Army Map Service (1984). Beirut (Trans.). Item Series K921 Sheet Beyrouth Editions 6-AMS. The Perry-Castañeda Library (PCL) Map Collection. The University of Texas. Austin (TX), USA.\n', '28tahetd'],
-                8: ['1984', 'Geoprojects (U.K.) Ltd. (1984). Beirut (Trans.). Item MAP G7474.B4P2 1984.G4, (51 x 73cm). Black and white reprint of the original map printed in Henley-on-Thames, England. MIT Rotch Library. Cambridge (MA), USA.\n', '1984']
+                5: ['1920', 'Armée Française du Levant. Bureau Topographique. (1920). Beirut (Trans.). Item GE C-5752, (82 x 57cm). National Library of France, Departments of Maps and Plans. Paris, France.\n', '67ffz8i7', [35.505290624632835, 33.88882411869989], 13.639303743791698],
+                6: ['1945', 'Institut Géographique National. (1945). City of Beirut (Trans.). Item MAP G7474.B4 1945.I5, (53 x 72cm). Black and white reprint of the original map. MIT Rotch Library. Cambridge (MA), USA.\n', '1945_cropped', [35.50229661568903, 33.8893239106455], 13.739534370107044],
+                7: ['1958', 'US Army Corps of Engineers. Army Map Service (1984). Beirut (Trans.). Item Series K921 Sheet Beyrouth Editions 6-AMS. The Perry-Castañeda Library (PCL) Map Collection. The University of Texas. Austin (TX), USA.\n', '28tahetd', [35.49966548072621, 33.890504692600885], 13.731385906406157],
+                8: ['1984', 'Geoprojects (U.K.) Ltd. (1984). Beirut (Trans.). Item MAP G7474.B4P2 1984.G4, (51 x 73cm). Black and white reprint of the original map printed in Henley-on-Thames, England. MIT Rotch Library. Cambridge (MA), USA.\n', '1984', [35.50586102530747, 33.89044326579804], 13.709053598967705]
             },
             toggleReset: false,
             filteredCraftsParent : ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
@@ -75,6 +75,10 @@ export default class Explore extends React.Component {
             coords:  [35.510, 33.893894] //[35.510, 33.893894],
         }
     }
+
+    setCoords = (coords) => {
+            this.setState({coords:coords})}
+
 
 
 
@@ -182,6 +186,7 @@ export default class Explore extends React.Component {
             }
         }
     setMapZoom = (zoom) => {
+            console.log('new zoom is ', zoom)
             this.setState({
                 mapZoom:zoom
             })
@@ -198,10 +203,13 @@ export default class Explore extends React.Component {
 
         if (window.innerWidth > 991) {
             this.setState({mapZoom:13.5})
+            return 13.5
         } else if (window.innerWidth>688)  {
             this.setState({mapZoom:12.5})
+            return 12.5
         } else  {
             this.setState({mapZoom:11.5})
+            return 11.5
         }
 
         if (!this.state.showMapCard) {
@@ -229,6 +237,10 @@ export default class Explore extends React.Component {
 
     closeLayersControl = () => {
             this.setState({showLayersControl:false})
+    }
+
+    setMapLayerSettings = (coords, zoom) => {
+            this.setState({coords:coords,mapZoom:zoom})
     }
 
     onReset = () => {
@@ -276,7 +288,7 @@ export default class Explore extends React.Component {
 
                     </Head>
                     <div className={"explore-page-container"}>
-                        <Map i18n={this.props.i18n} showMapCard={this.state.showMapCard} lang={this.props.lang} setMapZoom={this.setMapZoom} mapZoom={this.state.mapZoom}  mapCenter={this.state.mapCenter} allLayers={this.state.allLayers} mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
+                        <Map i18n={this.props.i18n} showMapCard={this.state.showMapCard} lang={this.props.lang} setMapLayerSettings={this.setMapLayerSettings} setMapZoom={this.setMapZoom} mapZoom={this.state.mapZoom} handleResize={this.handleResize}  mapCenter={this.state.mapCenter} allLayers={this.state.allLayers} mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
                             updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} reset={this.onReset} resetToggle={this.state.toggleReset} />  : null }
