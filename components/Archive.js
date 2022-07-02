@@ -49,7 +49,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang }) => {
+const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n }) => {
   const {t} =useTranslation();
   const getImages = () => {
       const thumbImage = imageMetas.filter(
@@ -100,29 +100,23 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
         }
     }
 
-  const getPrimaryDecade = () => {
-        if (!archive.primary_decade) {
-            return null
-        }
-
-        if (archive.primary_decade[0]) {
-            return `Taken ${archive.primary_decade[0]} | `
-        } else {
-            return null
-        }
-  }
-
-  const getPrimaryYear = () => {
-        if (!archive.primary_year) {
+const getPrimaryDecade = () => {
+        if (!archive.primary_decade && !archive.primary_year) {
             return null
         }
 
         if (archive.primary_year) {
-            return t('Captured') + ` ${archive.primary_year} | `
-        } else {
-            return null
+            return t('Captured') + ` ${archive.primary_year}`
         }
-  }
+
+        if (archive.primary_decade[0]) {
+            return t('Captured') + ` ${archive.primary_decade[0]}`
+        }
+
+        return null
+
+
+        }
 
     const getSubtitle = () => {
         let craftsList = []
@@ -270,7 +264,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
             <div className={'popup-section archival-card-section'}>
                 <div className={'object-title-section'}>
                         <h1 className={'object-name'}>{getShopName()}</h1>
-                        <p className={'object-subtitle'}>{getPrimaryYear()||getPrimaryDecade()}{getSubtitle()}</p>
+                        <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}
                 </div>
@@ -300,7 +294,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
                 <h1 className={'object-name'}>{getShopName()}</h1>
-                <p className={'object-subtitle'}>{getPrimaryDecade()||getPrimaryYear()}{getSubtitle()}</p>
+                <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 <br/>
                 {getCaption()}
                 </div>
@@ -345,7 +339,7 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
                 </button> : null}
                 <div className={'object-mobile-heading'}>
                     <p className={'object-mobile-title'}>{getShopName()}</p>
-                    <p className={'object-mobile-subtitle'}>{getPrimaryYear()||getPrimaryDecade()}{getSubtitle()}</p>
+                    <p className={'object-mobile-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 </div>
                 </div>
 

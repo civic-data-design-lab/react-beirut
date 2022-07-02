@@ -192,10 +192,10 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
     useEffect(()=>{
         //window.addEventListener('resize', this.updateDimensions);
         console.log(workshop)
-        console.log(type)
+        // console.log(type)
         setInvalidImages([])
         if (type === "workshop") {
-            console.log("here")
+            // console.log("here")
             fetchSimilarWorkshops();
         } else {
             fetchSimilarArchives();
@@ -253,22 +253,27 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return t('Established ') + `${workshop.decade_established[0]} | `
+            return t('Established ') + `${workshop.decade_established[0]}`
         } else {
                 return null
             }
         }
 
     const getPrimaryDecade = () => {
-        if (!workshop.primary_decade) {
+        if (!workshop.primary_decade && !workshop.primary_year) {
             return null
         }
 
-        if (workshop.primary_decade[0]) {
-            return t('Captured') + ` ${workshop.primary_decade[0]} | `
-        } else {
-            return null
+        if (workshop.primary_year) {
+            return t('Captured') + ` ${workshop.primary_year}`
         }
+
+        if (workshop.primary_decade[0]) {
+            return t('Captured') + ` ${workshop.primary_decade[0]}`
+        }
+
+        return null
+
 
         }
 
@@ -304,7 +309,8 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
             }
         }
         )
-        return craftsList
+               if (craftsList.length>0) { return craftsList} else {return null}
+
  }
 
     const handleOnError = (e) => {
@@ -347,7 +353,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
     }
 
     const getThumbnails = () => {
-        console.log("getting similar thumbnails, ", similarObjects)
+        // console.log("getting similar thumbnails, ", similarObjects)
         return similarObjects.map((object) => {
             //console.log(object.thumb_img_id)
             //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]
@@ -381,7 +387,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         <div className={'close-btn-container'}>
                             <div>
                                 <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
-                                <p className={'shopSubtitle-text'}>{getDecadeEstablished()} {getSubtitle()} </p>
+                                <p className={'shopSubtitle-text'}>{getDecadeEstablished()} {getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()} </p>
                             </div>
 
                             <button className={'close-card-btn close-mapcard'} onClick = {closeMapCard} >
@@ -422,7 +428,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         <div className={'close-btn-container'}>
                             <div>
                                 <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
-                                <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle()} </p>
+                                <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()} </p>
                             </div>
 
                             <button className={'close-card-btn close-mapcard'} onClick = {closeMapCard} >

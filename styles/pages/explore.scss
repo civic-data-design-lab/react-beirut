@@ -18,6 +18,11 @@
   overflow: hidden;
 }
 
+.marker {
+  background-color: #e65525;
+  box-shadow: 0 0 0 1px $c-white;
+}
+
 
 .hoverMarker--architectural {
   box-shadow: 0 0 0 7px $c-architectural
@@ -47,9 +52,10 @@
   box-shadow: 0 0 0 7px $c-cuisine
 }
 
-.hoverMarker--white {
-  box-shadow: 0 0 0 5px $c-white
+.hoverMarker--none {
+  box-shadow: 0 0 0 5px $c-none
 }
+
 
 
 
