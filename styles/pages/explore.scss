@@ -74,6 +74,7 @@
   align-items: center;
 }
 
+
 .filterSettingsButton{
   background-color: $c-primary-mid;
 }
@@ -186,8 +187,16 @@
   border-width: 0px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   width: 100%;
+  transition: background-color 0.2s linear;
+
   //flex-grow: 1;
   //width: 100%;
+}
+
+.view-map-btn:active {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+  transform: translate(0.5px, 0.5px);
+  background-color: $c-primary-dark;
 }
 
 .view-map-label {
@@ -213,6 +222,8 @@
   }
 }
 
+
+
 .nav-ctr-btn {
   margin: 8px;
   height: 42px;
@@ -221,6 +232,16 @@
   border-width: 0px;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+  transition-timing-function: linear;
+}
+
+.btn-interactivity:active {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+  transform: translate(0.5px, 0.5px);
+}
+
+.btn-interactivity:hover {
+  box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.3);
 }
 
 

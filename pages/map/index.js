@@ -295,7 +295,7 @@ export default class Explore extends React.Component {
                         <SearchBar callBack={this.searchMap}/>
 
                         <div className={'filterSection'}>
-                            <button className={'filterButton filterSettingsButton'} onClick={this.toggleFilterPanel}>
+                            <button className={'filterButton filterSettingsButton button-interactivity'} onClick={this.toggleFilterPanel}>
                                 <span style={{color:"blue"}}>
                                     <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fillRule="evenodd" clipRule="evenodd" d="M0 0L0 2L18 2V0L0 0ZM7 12H11V10H7V12ZM15 7L3 7V5L15 5V7Z" fill="white"/>
@@ -303,7 +303,7 @@ export default class Explore extends React.Component {
 
                                 </span>
                             </button>
-                            <button className={'filterButton layerControlButton'} onClick={this.toggleLayersControl}>
+                            <button className={'filterButton layerControlButton button-interactivity'} onClick={this.toggleLayersControl}>
                                     <svg width="24" height="27" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fillRule="evenodd" clipRule="evenodd" d="M21.8133 11.6937L12 19.3337L2.17333 11.6937L0 10.0003L12 0.666992L24 10.0003L21.8133 11.6937ZM2.16 15.0803L11.9867 22.7203L21.8267 15.067L24 16.7603L12 26.0937L0 16.7603L2.16 15.0803Z" fill="#AEAEAE"/> </svg>
                             </button>
                         </div>

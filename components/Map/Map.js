@@ -4,7 +4,9 @@ import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 import Dialogue from "../contribution/general/Dialogue";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-
+const MAP_LABELS =['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
+    'water-line-label', 'water-point-label', 'poi-label', 'airport-label', 'settlement-subdivision-label',
+    'settlement-minor-label', 'settlement-major-label', 'state-label', 'country-label']
 
 
 export default class App extends React.PureComponent {
@@ -81,8 +83,6 @@ export default class App extends React.PureComponent {
         } else {
             this.props.setMapZoom(11.5)
         }
-
-
     }
 
 
@@ -133,8 +133,6 @@ export default class App extends React.PureComponent {
     }
 
 
-
-
     clickMarker (e) {
         let el = e.target;
         this.props.openMapCard(el.id, el.type);
@@ -153,9 +151,8 @@ export default class App extends React.PureComponent {
         let el = e.target;
         el.classList.remove('hoverMarker');
         el.classList.remove(`hoverMarker--${el.craft.toLowerCase()}`);
-
-        //console.log('exit')
     }
+
 
 
     componentDidMount() {
@@ -231,14 +228,20 @@ export default class App extends React.PureComponent {
                 });
             }
 
-        map.current.getStyle().layers.forEach((layer) => {
-            if (layer.layout && layer.layout['text-field']) {
-                map.current.setLayoutProperty(layer.id, 'text-field', [
+            let labels = []
+
+        MAP_LABELS.forEach((layer) => {
+            try {
+                map.current.setLayoutProperty(layer, 'text-field', [
                     'get',
                     `name_${this.props.i18n.language}`
                 ]);
+            } catch (e) {
+                console.log("layer is not a valid layer on this map")
             }
         });
+
+            console.log('labels ', labels)
 
         });
 
@@ -426,12 +429,15 @@ export default class App extends React.PureComponent {
             console.log("changed zoom")
         }
 
-        map.current.getStyle().layers.forEach((layer) => {
-            if (layer.layout && layer.layout['text-field']) {
-                map.current.setLayoutProperty(layer.id, 'text-field', [
+
+        MAP_LABELS.forEach((layer) => {
+            try {
+                map.current.setLayoutProperty(layer, 'text-field', [
                     'get',
                     `name_${this.props.i18n.language}`
                 ]);
+            } catch (e) {
+                console.log("layer is not a valid layer on this map")
             }
         });
 
@@ -471,28 +477,34 @@ export default class App extends React.PureComponent {
             if (this.props.mapLayer) {
             if (this.state.activeLayer) {
                 map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
-                let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
+                if (!this.props.showMapCard) {
+                    let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
                 console.log(Object.values(filtered)[0][3])
                 if (Object.values(filtered)[0][3]) {
                     console.log('in here')
                     this.props.setMapLayerSettings(Object.values(filtered)[0][3], Object.values(filtered)[0][4])
                 }
+                }
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})
             } else {
                 // console.log('hi')
-                let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
+                if (!this.props.showMapCard) {
+                    let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
                 console.log(Object.values(filtered)[0][3])
                 if (Object.values(filtered)[0][3]) {
                     console.log('in here')
                     this.props.setMapLayerSettings(Object.values(filtered)[0][3], Object.values(filtered)[0][4])
+                }
                 }
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})}
         } else if (this.state.activeLayer) {
                 map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
                 this.setState({activeLayer:null})
-                this.props.setMapLayerSettings([35.510, 33.893894], this.props.handleResize())
+                if (!this.props.showMapCard) {
+                    this.props.setMapLayerSettings([35.510, 33.893894], this.props.handleResize())
+                }
         }
         }
 
@@ -732,19 +744,19 @@ export default class App extends React.PureComponent {
                     })}}/> : null}
             <div ref={this.mapContainer} id="map" className={'exploreMap'}/>
                     <div className={"nav-ctr-container"}>
-                        <button className={"nav-ctr-btn zoom-in-btn"} onClick={this.handleClickZoomIn}>
+                        <button className={"nav-ctr-btn zoom-in-btn button-interactivity"} onClick={this.handleClickZoomIn}>
                             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.86719 3.76562V5.46094H0.0703125V3.76562H7.86719ZM4.88281 0.578125V8.85938H3.0625V0.578125H4.88281Z" fill="#471E10"/>
                             </svg>
 
                         </button>
-                        <button className={"nav-ctr-btn zoom-out-btn"} onClick={this.handleClickZoomOut}>
+                        <button className={"nav-ctr-btn zoom-out-btn button-interactivity"} onClick={this.handleClickZoomOut}>
                             <svg width="6" height="2" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.03906 0.390625V1.89062H0.90625V0.390625H5.03906Z" fill="#471E10"/>
                             </svg>
                         </button>
 
-                        <button className={"nav-ctr-btn geolocate-btn"} onClick={this.handleGeolocate}>
+                        <button className={"nav-ctr-btn geolocate-btn button-interactivity"} onClick={this.handleGeolocate}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M20.94 11C20.48 6.83 17.17 3.52 13 3.06V1H11V3.06C6.83 3.52 3.52 6.83 3.06 11H1V13H3.06C3.52 17.17 6.83 20.48 11 20.94V23H13V20.94C17.17 20.48 20.48 17.17 20.94 13H23V11H20.94ZM12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM5 12C5 15.87 8.13 19 12 19C15.87 19 19 15.87 19 12C19 8.13 15.87 5 12 5C8.13 5 5 8.13 5 12Z" fill="#AEAEAE"/>
                             </svg>

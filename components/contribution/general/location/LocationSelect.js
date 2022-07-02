@@ -45,16 +45,16 @@ export default class LocationSelect extends React.Component {
       minZoom: 10,
     });
 
-     map.current.on('load', ()=>{
-                map.current.getStyle().layers.forEach((layer) => {
-                if (layer.layout && layer.layout['text-field']) {
-                    map.current.setLayoutProperty(layer.id, 'text-field', [
-                        'get',
-                        `name_${this.props.i18n.language}`
-                    ]);
-                }
-            });
-            })
+     MAP_LABELS.forEach((layer) => {
+            try {
+                map.current.setLayoutProperty(layer, 'text-field', [
+                    'get',
+                    `name_${this.props.i18n.language}`
+                ]);
+            } catch (e) {
+                console.log("layer is not a valid layer on this map")
+            }
+        });
 
     const marker = new mapboxGl.Marker({
       draggable: true,

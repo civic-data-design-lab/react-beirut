@@ -65,16 +65,17 @@ export default class MiniMap extends React.Component {
             //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
         });
 
-        map.on('load', ()=>{
-            map.getStyle().layers.forEach((layer) => {
-            if (layer.layout && layer.layout['text-field']) {
-                map.setLayoutProperty(layer.id, 'text-field', [
+        MAP_LABELS.forEach((layer) => {
+            try {
+                map.current.setLayoutProperty(layer, 'text-field', [
                     'get',
                     `name_${this.props.i18n.language}`
                 ]);
+            } catch (e) {
+                console.log("layer is not a valid layer on this map")
             }
         });
-        })
+
 
 
         const el = document.createElement('div');

@@ -64,7 +64,11 @@
 
 .lc-button-labels-wrapper-selected {
   color: #9C6340;
-  background-color: $c-primary-light;
+  background-color: rgba(196, 161, 140, 0.3);
+
+  .map-name-reference {
+    color: #C9BBA6 ;
+  }
 }
 
 .mapLayerButtons:active {
@@ -83,7 +87,11 @@
   margin: 0px;
   padding: 0px;
   border:none;
-  background-color: $c-primary-light;
+  color: #9C6340;
+  background-color: rgba(196, 161, 140, 0.3);
+  .map-name-reference {
+    color: #C9BBA6 ;
+  }
 
   }
 }
