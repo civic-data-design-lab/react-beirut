@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { ScrollContainer, ScrollPage, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut } from "react-scroll-motion";
+import { ScrollContainer, ScrollPage, batch, Fade, Sticky, Zoom } from "react-scroll-motion";
 import ImageFilter from "react-image-filter";
 import { MapIcon, DocumentSearchIcon, CloudUploadIcon, DatabaseIcon, GlobeIcon } from '@heroicons/react/outline';
 
