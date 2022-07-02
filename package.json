@@ -50,7 +50,7 @@
     "react-i18next": "^11.17.2",
     "react-image-filter": "^0.1.2",
     "react-responsive": "9.0.0-beta.8",
-    "react-scroll-motion": "^0.3.0",
+    "react-scroll-motion": "^0.2.6",
     "react-toastify": "^9.0.1",
     "react-toggle-slider": "^0.4.0",
     "sass": "^1.51.0",
