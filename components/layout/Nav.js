@@ -29,6 +29,7 @@ const Nav = ({changeLanguage}) => {
 
   useEffect(()=>{
     window.addEventListener('resize', handleResize);
+    handleResize();
     return () => {
           window.removeEventListener('resize', handleResize);
         };
@@ -88,20 +89,20 @@ const Nav = ({changeLanguage}) => {
             }}
           >
             <div className="container-logo">
-              {width>590 ? <img
+              {width>590 ? (<img
                 src={isMenuOpen ? '/LHA_logo-horiz-invert.png' : '/LHA_logo-horiz.png'}
                 className="logo-text"
-              /> : <img
+              />) : (<img
                 src={isMenuOpen ? '/favicon.png' : '/favicon.png'}
                 className="logo-text"
-              />
+              />)
 
               }
             </div>
           </a>
         </Link>
 
-          {getPath() ? <div className={`nav-divider vr ${isMenuOpen || hideBg() ? ' hide-background':''}`}/> : null}
+          {getPath() ? <div className={`nav-divider vr ${isMenuOpen ? ' hide-background':''}`}/> : null}
 
         <div className="page-location">
           {t(getPath().charAt(0).toUpperCase()+getPath().slice(1))}

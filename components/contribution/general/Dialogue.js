@@ -1,13 +1,14 @@
 import { Trans, useTranslation } from "react-i18next";
 
+
 const Dialogue = ({title, content, accept, cancel, acceptText, cancelText,
-                      handleCancel, handleAccept, handleClose}) => {
+                      handleCancel, handleAccept, handleClose, cardCover=true}, loader=false) => {
 
     const {t} = useTranslation();
 
     return (
         <>
-            <div className={'card-cover'}>
+            <div className={cardCover?'card-cover':'card-cover-clear'}>
                 <div className={'dialogue-container'}>
 
 
@@ -18,6 +19,7 @@ const Dialogue = ({title, content, accept, cancel, acceptText, cancelText,
                         </svg>
                     </button>
 
+                    {loader === true ?<div className="loader" />:null}
                     <div className={'dialogue-content'}>{content}</div>
                     <div className={'dialogue-buttons'}>
                         {cancel ? <button className={'cancel-button'} onClick={handleCancel}>
