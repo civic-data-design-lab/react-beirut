@@ -21,6 +21,9 @@ export default class App extends React.PureComponent {
             geoLocateDialog : null,
             geoLocateTitle : null,
             geoLocateLoader : false,
+            readZoom: this.props.mapZoom,
+            markerRadius: this.getMarkerRadius()
+            //mapZoom: this.props.mapZoom
 
         }
 
@@ -40,6 +43,24 @@ export default class App extends React.PureComponent {
 
     }
 
+    getMarkerRadius = (currentZoom) => {
+        let markerRadius
+            if (currentZoom<12.5) {
+                markerRadius = 2
+            } else if (currentZoom<13) {
+                markerRadius = 4
+            } else if (currentZoom<13.5) {
+                markerRadius = 5
+            } else if (currentZoom<13.75) {
+                markerRadius = 6
+            }
+            else if (currentZoom<14) {
+                markerRadius = 7
+            } else {
+                markerRadius = 7.5;
+            }
+            return markerRadius
+    }
 
 
     handleResize = () => {
@@ -48,14 +69,20 @@ export default class App extends React.PureComponent {
             height: window.innerHeight
         })
 
-        if (window.innerWidth > 991) {
-            // TODO: use state to keep track of map settings
-            this.setState({
 
-            })
+        console.log("width is now ", window.innerWidth)
+
+        if (window.innerWidth > 991) {
+            this.props.setMapZoom(13.5)
+        } else if (window.innerWidth>688) {
+            this.props.setMapZoom(12.5)
+        } else {
+            this.props.setMapZoom(11.5)
         }
 
+
     }
+
 
     handleClickZoomIn = () => {
         map.current.zoomIn({duration: 1000});
@@ -132,6 +159,7 @@ export default class App extends React.PureComponent {
     componentDidMount() {
 
         window.addEventListener('resize', this.handleResize);
+        //window.addEventListener("orientationchange", this.handleResize);
 
         //console.log('map.js ', this.props.filterSearchData)
 
@@ -210,6 +238,18 @@ export default class App extends React.PureComponent {
 
         });
 
+        map.current.on('zoom', () => {
+            const currentZoom = map.current.getZoom();
+            console.log('current zoom ', currentZoom);
+            const markerRadius = this.getMarkerRadius(currentZoom)
+
+            this.setState({
+                readZoom: currentZoom,
+                markerRadius: markerRadius
+            })
+
+        });
+
 
 
 
@@ -234,11 +274,11 @@ export default class App extends React.PureComponent {
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
                 firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0].toLowerCase()]}`;
-                firstCraft.style.width = `7.5px`;
-                firstCraft.style.height = `15px`;
+                firstCraft.style.width = `${this.state.markerRadius}px`;
+                firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1].toLowerCase()]}`
-                secondCraft.style.width = `7.5px`;
-                secondCraft.style.height = '15px';
+                secondCraft.style.width = `${this.state.markerRadius}px`;
+                secondCraft.style.height = `${this.state.markerRadius*2}px`;
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
@@ -253,8 +293,8 @@ export default class App extends React.PureComponent {
 
 
             el.className = 'marker';
-            el.style.width = '15px';
-            el.style.height = '15px';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
             el.id = workshop.ID;
             el.craft = workshop.craft_discipline_category[0] || 'none';
@@ -297,8 +337,8 @@ export default class App extends React.PureComponent {
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
                 firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0].toLowerCase()]}`;
-                firstCraft.style.width = `7.5px`;
-                firstCraft.style.height = `15px`;
+                firstCraft.style.width = `${this.state.markerRadius}px`;
+                firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1].toLowerCase()]}`
                 secondCraft.style.width = `7.5px`;
                 secondCraft.style.height = '15px';
@@ -317,8 +357,8 @@ export default class App extends React.PureComponent {
 
 
             el.className = 'marker';
-            el.style.width = '15px';
-            el.style.height = '15px';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
             // el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
@@ -353,19 +393,28 @@ export default class App extends React.PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
        //  console.log("print language in map ", this.props.i18n.language)
        //  console.log("detected map layer ", this.props.mapLayer)
-        console.log('is mapcard showing or not ', this.props.showMapCard)
-        console.log('compare zooms ', this.props.mapZoom, prevProps.mapZoom)
+       //  console.log("state ", this.props.mapZoom, prevProps.mapZoom);
+       //  console.log("state ", this.props.coords, prevProps.coords);
+        // console.log("props ", this.props.mapZoom, prevProps.mapZoom);
+        // console.log('is mapcard showing or not ', this.props.showMapCard)
+        // console.log('compare zooms ', this.props.mapZoom, prevProps.mapZoom)
         if (this.props.mapZoom !== prevProps.mapZoom ) {
-            console.log('is zoom the same')
+            // console.log('is zoom the same')
             if (this.props.showMapCard===false) {
                 console.log('zoom')
                 map.current.flyTo({
-                    center: this.props.coords,
+                    center: [35.510, 33.893894],
                     zoom: this.props.mapZoom,
                     speed: 0.5, // make the flying slow
                     essential: true
                 })
             }
+        }
+
+        // console.log("zoom diff ", prevState.readZoom, this.state.readZoom)
+
+        if (prevState.readZoom !== this.state.readZoom){
+            console.log("changed zoom")
         }
 
         map.current.getStyle().layers.forEach((layer) => {
@@ -376,6 +425,8 @@ export default class App extends React.PureComponent {
                 ]);
             }
         });
+
+
 
 
 
@@ -450,11 +501,11 @@ export default class App extends React.PureComponent {
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
                 firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0].toLowerCase()]}`;
-                firstCraft.style.width = `7.5px`;
-                firstCraft.style.height = `15px`;
+                firstCraft.style.width = `${this.state.markerRadius}px`;
+                firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1].toLowerCase()]}`;
-                secondCraft.style.width = `7.5px`;
-                secondCraft.style.height = '15px';
+                secondCraft.style.width = `${this.state.markerRadius}px`;
+                secondCraft.style.height = `${this.state.markerRadius*2}px`;
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
@@ -468,8 +519,8 @@ export default class App extends React.PureComponent {
             }
 
             el.className = 'marker';
-            el.style.width = '15px';
-            el.style.height = '15px';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = workshop.ID;
@@ -551,11 +602,11 @@ export default class App extends React.PureComponent {
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
                 firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0].toLowerCase()]}`;
-                firstCraft.style.width = `7.5px`;
-                firstCraft.style.height = `15px`;
+                firstCraft.style.width = `${this.state.markerRadius}px`;
+                firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1].toLowerCase()]}`
-                secondCraft.style.width = `7.5px`;
-                secondCraft.style.height = '15px';
+                secondCraft.style.width = `${this.state.markerRadius}px`;
+                secondCraft.style.height = `${this.state.markerRadius*2}px`;
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
@@ -569,8 +620,8 @@ export default class App extends React.PureComponent {
             }
 
             el.className = 'marker';
-            el.style.width = '15px';
-            el.style.height = '15px';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = archive.ID;

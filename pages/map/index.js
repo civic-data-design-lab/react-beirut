@@ -79,34 +79,6 @@ export default class Explore extends React.Component {
 
 
 
-    handleResize = () => {
-
-        console.log("width is now ", window.innerWidth)
-
-        if (window.innerWidth > 991) {
-            this.setState({
-                mapZoom: 13.5
-            })
-        } else if (window.innerWidth>688) {
-            this.setState({
-                mapZoom: 12.5
-            })
-        } else {
-            this.setState({
-                mapZoom: 11.5
-            })
-        }
-
-        if (!this.state.showMapCard) {
-            {
-                this.setState({
-                    coords: [35.510, 33.893894]
-                })
-            }
-        }
-
-    }
-
     updateMapLayer = (mapLayer) => {
             if (mapLayer === this.state.mapLayer) {
                 this.setState({mapLayer:null})
@@ -209,6 +181,38 @@ export default class Explore extends React.Component {
 
             }
         }
+    setMapZoom = (zoom) => {
+            this.setState({
+                mapZoom:zoom
+            })
+    }
+
+    handleResize = () => {
+        this.setState({
+            width: window.innerWidth,
+            height: window.innerHeight
+        })
+
+
+        console.log("width is now ", window.innerWidth)
+
+        if (window.innerWidth > 991) {
+            this.setState({mapZoom:13.5})
+        } else if (window.innerWidth>688)  {
+            this.setState({mapZoom:12.5})
+        } else  {
+            this.setState({mapZoom:11.5})
+        }
+
+        if (!this.state.showMapCard) {
+            {
+                this.setState({
+                    coords: [35.510, 33.893894]
+                })
+            }
+        }
+
+    }
 
     closeMapCard = () => {
             this.setState({showMapCard:false, id:null, coords: [35.510, 33.893894]})
@@ -238,7 +242,7 @@ export default class Explore extends React.Component {
     }
 
     componentDidMount() {
-            window.addEventListener('resize', this.handleResize);
+            // window.addEventListener('resize', this.handleResize);
             this.handleResize()
             document.body.classList.add('prevent-scroll')
             let root = document.documentElement;
@@ -248,7 +252,7 @@ export default class Explore extends React.Component {
     }
 
     componentWillUnmount() {
-            window.removeEventListener('resize', this.handleResize);
+            // window.removeEventListener('resize', this.handleResize);
             document.body.classList.remove('prevent-scroll')
             let root = document.documentElement;
             root.className -= 'prevent-scroll';
@@ -272,7 +276,7 @@ export default class Explore extends React.Component {
 
                     </Head>
                     <div className={"explore-page-container"}>
-                        <Map i18n={this.props.i18n} showMapCard={this.state.showMapCard} lang={this.props.lang} mapZoom={this.state.mapZoom} mapCenter={this.state.mapCenter} allLayers={this.state.allLayers} mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
+                        <Map i18n={this.props.i18n} showMapCard={this.state.showMapCard} lang={this.props.lang} setMapZoom={this.setMapZoom} mapZoom={this.state.mapZoom}  mapCenter={this.state.mapCenter} allLayers={this.state.allLayers} mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
                             updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} reset={this.onReset} resetToggle={this.state.toggleReset} />  : null }
