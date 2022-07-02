@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { ScrollContainer, ScrollPage, batch, Fade, Sticky, Zoom } from "react-scroll-motion";
+// import { ScrollContainer, ScrollPage, batch, Fade, FadeIn, FadeOut, Move, MoveIn, MoveOut, Sticky, StickyIn, StickyOut, Zoom, ZoomIn, ZoomOut } from "react-scroll-motion";
 import ImageFilter from "react-image-filter";
 import { MapIcon, DocumentSearchIcon, CloudUploadIcon, DatabaseIcon, GlobeIcon } from '@heroicons/react/outline';
 
@@ -46,10 +46,10 @@ const Index = ({i18n}) => (
             tellus.
           </p>
         </div> */}
-        <ScrollContainer>
+        {/* <ScrollContainer>
           <ScrollPage page={0}>
-            <Animator animation={batch(Sticky(), Zoom(2,1), Fade(0,1))}>
-              <div className="container-sm vw-100 mt-5 p-4 pt-5">
+            <Animator animation={batch(Sticky(), Zoom(2,1), Fade(0,1))}> */}
+              <div className="container-sm vw-100 vh-100 mt-5 p-4 pt-5">
                 <div className="d-inline-block col-3 col-sm-2 col-md-0 col-lg-0 m-1 m-md-0"></div>
                 <ImageFilter className="d-inline-block align-bottom col-2 col-md-1 m-1 m-sm-2 collage" filter={"duotone"} 
                   image={"./landing/138936839_4.jpg"} 
@@ -107,11 +107,11 @@ const Index = ({i18n}) => (
                   colorTwo={duotoneCraft.default.two}
                 />
               </div>
-            </Animator>
+            {/* </Animator>
           </ScrollPage>
           <ScrollPage>
-            <Animator animation={batch(Sticky(), Fade(0,1))}>
-              <div className="container-sm vw-100 d-flex flex-column justify-content-center mt-5 p-4">
+            <Animator animation={batch(Sticky(), Fade(0,1))}> */}
+              <div className="container-sm vw-100 vh-100 d-flex flex-column justify-content-center mt-5 p-4">
                 <div className="row">
                   <div className="col-1"></div>
                   <div className="col-8">
@@ -120,11 +120,11 @@ const Index = ({i18n}) => (
                   </div>
                 </div>
               </div>
-            </Animator>
+            {/* </Animator>
           </ScrollPage>
           <ScrollPage page={2}>
-            <Animator animation={batch(Sticky(), Fade(0,1))}>
-              <div className="container-sm vw-100 d-flex flex-column justify-content-center mt-5 p-4">
+            <Animator animation={batch(Sticky(), Fade(0,1))}> */}
+              <div className="container-sm vw-100 vh-100 d-flex flex-column justify-content-center mt-5 p-4">
                 <div className="landing-nav d-flex flex-column justify-content-center mt-5 mt-sm-0">
                   <div className="row mb-3">
                     <div className="col-1 col-sm-2 col-md-3 col-lg-4"></div>
@@ -199,9 +199,9 @@ const Index = ({i18n}) => (
                   </div>
                 </div>
               </div>
-            </Animator>
+            {/* </Animator>
           </ScrollPage>
-        </ScrollContainer>
+        </ScrollContainer> */}
       </div>
     </div>
   </>
