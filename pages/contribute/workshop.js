@@ -342,7 +342,7 @@ const WorkshopContribution = ({lang, i18n}) => {
               localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
           }
            console.log('in set form')
-           setForm({});
+           // setForm({});
            setSubmitted(true);
            setSubmitSuccess(true);
         }

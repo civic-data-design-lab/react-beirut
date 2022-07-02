@@ -16,9 +16,24 @@ const Nav = ({changeLanguage}) => {
 
   // Add drop shadow effect when scrolled to a certain position
   const [isActive, setIsActive] = useState(false);
+  const [width, setWidth] = useState(null);
+
   const headerRef = useRef();
 
   const {t} = useTranslation();
+
+  const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
+
+  useEffect(()=>{
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+    }, [])
 
   useEffect(() => {
     const { offsetHeight } = headerRef.current;
@@ -34,6 +49,7 @@ const Nav = ({changeLanguage}) => {
 
   // dynamically showing the page location
   const getPath = () => {
+    console.log(width)
     const path = router.pathname.split('/')[1];
 
     let pageLocation = path;
@@ -60,27 +76,39 @@ const Nav = ({changeLanguage}) => {
       <header
         ref={headerRef}
         id="header"
-        className={`container ${
+        className={`container-fluid ${
           isMenuOpen || hideBg() ? ' hide-background' : ''
         } ${isActive ? 'active' : ''}`}
       >
-        <Link href="/">
+        <div className={'nav-parent-container container'}>
+                  <div className={'nav-left-container'}>
+          <Link href="/">
           <a
             onClick={() => {
               toggleMenu(false);
             }}
           >
             <div className="container-logo">
-              <img
+              {width>590 ? (<img
                 src={isMenuOpen ? '/LHA_logo-horiz-invert.png' : '/LHA_logo-horiz.png'}
                 className="logo-text"
-              />
+              />) : (<img
+                src={isMenuOpen ? '/favicon.png' : '/favicon.png'}
+                className="logo-text"
+              />)
+
+              }
             </div>
           </a>
         </Link>
+
+          {getPath() ? <div className={`nav-divider vr ${isMenuOpen ? ' hide-background':''}`}/> : null}
+
         <div className="page-location">
-          {getPath() ? '|' : ''} {t(getPath().charAt(0).toUpperCase()+getPath().slice(1))}
+          {t(getPath().charAt(0).toUpperCase()+getPath().slice(1))}
         </div>
+        </div>
+        <div className={'nav-left-container'}>
         <div
           className={
             isMenuOpen ? 'container-lang light' : 'container-lang dark'
@@ -95,16 +123,18 @@ const Nav = ({changeLanguage}) => {
         >
           <span></span>
         </button>
+        </div>
+        </div>
       </header>
 
       <div id="menu" className={isMenuOpen ? 'open' : ''}>
         <nav className="main-nav">
-          <div className='justify-content-center d-flex' style={{margin: "auto"}}><ul>
+          <div className='justify-content-center d-flex container-links' style={{margin: "auto"}}><ul>
             <li
               onClick={() => {
                 setIsMenuOpen(false);
               }}
-              className={router.pathname === '/map' ? 'active' : ''}
+              className={router.pathname === '/map' ? 'active nav-list-item' : 'nav-list-item'}
             >
               <div className='container'>
                 <div className='item-line'></div>
@@ -116,7 +146,7 @@ const Nav = ({changeLanguage}) => {
               onClick={() => {
                 setIsMenuOpen(false);
               }}
-              className={router.pathname === '/discover' ? 'active' : ''}
+              className={router.pathname === '/discover' ? 'active nav-list-item' : 'nav-list-item'}
             >
               <div className="container">
                 <div className='item-line'></div>
@@ -128,7 +158,7 @@ const Nav = ({changeLanguage}) => {
               onClick={() => {
                 setIsMenuOpen(false);
               }}
-              className={router.pathname === '/contribute' ? 'active' : ''}
+              className={router.pathname === '/contribute' ? 'active nav-list-item' : 'nav-list-item'}
             >
               <div className='container'>
                 <div className='item-line'></div>
@@ -140,7 +170,7 @@ const Nav = ({changeLanguage}) => {
               onClick={() => {
                 setIsMenuOpen(false);
               }}
-              className={router.pathname === '/download' ? 'active' : ''}
+              className={router.pathname === '/download' ? 'active nav-list-item' : 'nav-list-item'}
             >
               <div className='container'>
                 <div className='item-line'></div>
@@ -152,7 +182,7 @@ const Nav = ({changeLanguage}) => {
               onClick={() => {
                 setIsMenuOpen(false);
               }}
-              className={router.pathname === '/about' ? 'active' : ''}
+              className={router.pathname === '/about' ? 'active nav-list-item' : 'nav-list-item'}
             >
               <div className='container'>
                 <div className='item-line'></div>
@@ -165,18 +195,19 @@ const Nav = ({changeLanguage}) => {
 
         <footer className="menu-footer">
           <nav className="footer-nav">
-            <div>
+            <div className={'footer-logos'}>
               <a href="https://civicdatadesignlab.mit.edu/" target="_blank">
-                <img id="CDDL-Logo" src="/CDDL Logo.png" />
+                <img id="CDDL-Logo" src="/CDDL Logo_white.png" />
               </a>
               <a href="https://www.futureheritagelab.com/" target="_blank">
-                <img id="FHL-Logo" src="/FHL Logo.png" />
+                <img id="FHL-Logo" src="/FH Logo_white.png" />
               </a>
               <a href="https://sap.mit.edu/" target="_blank">
-                <img id="SAP-Logo" src="/MIT SA+P Logo.png" />
+                <img id="SAP-Logo" src="/MIT SA+P Logo_white.png" />
               </a>
             </div>
             <br />
+            <div className={'footer-contact'}>
             Contact us at{' '}
             <a href="mailto:livingheritage@mit.edu">
               livingheritage@mit.edu
@@ -201,6 +232,7 @@ const Nav = ({changeLanguage}) => {
                 </a>
               </li>
             </ul> */}
+              </div>
           </nav>
         </footer>
       </div>

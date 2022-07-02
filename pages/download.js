@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import React, { useState, useEffect } from 'react';
 
 const DownloadPage = () => {
   return (
@@ -31,17 +32,17 @@ const DownloadPage = () => {
             <h3><b>Craft Workshop Data</b></h3>
             <p>This dataset contains publicly accessible information on current local craft workshops in Beirut. Data attributes available in this download include: location (latitude and longitude), craft type, operation status, decade of year established, and whether crafts are produced on site.</p>
             <p><b>Suggested citation:</b><br/>
-            MIT Civic Data Design Lab, Future Heritage Lab. <em>Living Heritage Atlas | Beirut: Craft Workshops</em>. Massachusetts Institute of Technology, 2022.</p>
-            <button className="btn-pill">Download CSV</button>
-            <button className="btn-pill">Download JSON</button>
+            MIT Civic Data Design Lab, Future Heritage Lab. <em>Living Heritage Atlas | Beirut: Archival Information</em>. Massachusetts Institute of Technology, 2022.</p>
+            <a href="/api/download/workshops-csv" download="workshops.csv"><button className="btn-pill">Download CSV</button></a>
+            <a href="/api/download/workshops-json" download="workshops.json"><button className="btn-pill">Download JSON</button></a>
           </div>
           <div className="mb-5">
             <h3><b>Archival Information Data</b></h3>
             <p>This dataset contains information gathered from multi-site archival research on the presence of craftsmanship in Beirut over time. Data attributes available in this download include: location (latitude and longitude), craft type, image caption, image type, year photo taken, reference source</p>
             <p><b>Suggested citation:</b><br/>
             MIT Civic Data Design Lab, Future Heritage Lab. <em>Living Heritage Atlas | Beirut: Archival Information</em>. Massachusetts Institute of Technology, 2022.</p>
-            <button className="btn-pill">Download CSV</button>
-            <button className="btn-pill">Download JSON</button>
+            <a href="/api/download/archives-csv" download="archives.csv"><button className="btn-pill">Download CSV</button></a>
+            <a href="/api/download/archives-json" download="archives.json"><button className="btn-pill">Download JSON</button></a>
           </div>
           <div className="mb-5">
             <h3><b>Images and Image Metadata</b></h3>

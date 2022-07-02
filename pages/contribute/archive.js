@@ -380,7 +380,7 @@ const ArchiveContribution = ({i18n}) => {
         setForm({});
         if (cookiesEnabled) {
             setLocalStorageFull(false)
-            localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+            localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
           }
 
         }

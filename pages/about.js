@@ -20,8 +20,10 @@ const About = ({i18n}) => {
         </div>
         <hr />
         <div className="about-card col col-md-10 col-lg-8">
+
           <p className="fs-5 lh-sm"><b><em>{t('Living Heritage Atlas')} | {t('Beirut')}</em></b> {t('is a design-based research project that contributes to urban planning discussion on Beirut\'s heritage by rendering visible the often unrecognized social heritage of craftsmanship')} &mdash; {t('with its crafts, public spaces, and local knowledge')}</p>
           <p className="fs-5 lh-sm">{t('This project has been developed by the Massachusetts Insitute of Technology (MIT) Civic Data Design Lab (CDDL) and Future Heritage Lab (FHL). Living Heritage Atlas&ensp;|&ensp;Beirut recognizes that craftspeople are an exponentially marginalized and vulnerable group of individuals, operating at the intersection of heritage, the infrastructure of making, and the local economies at different urban scales.')}</p>
+
           <p></p>
         </div>
         <div className="about-card">

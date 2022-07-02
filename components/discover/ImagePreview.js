@@ -1,9 +1,57 @@
 import Link from 'next/link';
 import ImageFilter from "react-image-filter";
+import {useEffect} from "react";
+import {useState} from "react";
 
-const ImagePreview = ({ workshop, thumbnailSrc, grayscale }) => {
+const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
+
+
+  const [extension, setExtension] = useState(null);
+
+  const fetchThumbnail = async() => {
+    if (workshop.thumb_img_id) {
+      await fetch(`${routeToAPI}${workshop.thumb_img_id}`)
+          .then((response)=>{
+              // console.log("response ", response)
+              return response.json()})
+          .then((res)=>{
+              if (workshop.ID === "8576723272") {
+                  console.log("res ", res)
+                  console.log("ext from before ", res['response'][0].extension)
+              }
+              return res['response'][0].extension})
+          .then((ext)=>{
+              if (workshop.ID === "8576723272") {
+                  console.log("ext ", ext)
+              }
+              // console.log("extendion", ext)
+            if (ext) {
+              console.log('ext exists and is ', ext)
+              setExtension(ext)
+            } else {
+              setExtension('jpeg')
+            }
+          })
+          .then(console.log(extension))
+    }
+  }
+
+  useEffect(()=>{
+        if (!extension) {
+            if (workshop.ID === "8576723272") {
+                console.log("useeffecy")
+                console.log("workshop is ", workshop.thumb_img_id)
+            }
+
+            //window.addEventListener('resize', this.updateDimensions);
+            fetchThumbnail()
+        }
+    }, [])
+
+
+
   const imgSrc = workshop.thumb_img_id
-    ? `/api/thumbnail_images/${workshop.thumb_img_id}_thumbnail.jpeg`
+    ? `/api/thumbnail_images/${workshop.thumb_img_id}_thumbnail.${extension}`
     : thumbnailSrc || null;
 
   const imgAlt = workshop.thumb_img_id
@@ -28,7 +76,8 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale }) => {
   return (
     <>
       <div className="img-preview">
-        {imgSrc && (
+          {extension ?
+           (
           <>
             <Link href="/discover/[id]" as={`/discover/${workshop.ID}`} scroll={false}>
               {/* <img src={imgSrc} alt={imgAlt} style={{filter: "url(#architectural)"}}/> */}
@@ -51,7 +100,7 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale }) => {
             </div>
             <div className="overlay fill"></div>
           </>
-        )}
+        ) : null}
       </div>
     </>
   );

@@ -35,6 +35,7 @@ const ImageMetaSchema = new mongoose.Schema({
   historic_map: String,
   caption: String,
   src: String,
+  extension: String
 });
 
 module.exports = mongoose.models.ImageMeta || mongoose.model('ImageMeta', ImageMetaSchema);

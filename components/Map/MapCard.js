@@ -72,7 +72,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
 
     const fetchSimilarWorkshops = async() => {
-        const response = await fetch(`api/similarArchives/${workshop.ID}`);
+        const response = await fetch(`api/similarWorkshops/${workshop.ID}`);
         const res = await response.json();
         const similarWorkshops = (res['response']);
         let validSimilarWorkshops = [];
@@ -191,8 +191,11 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     useEffect(()=>{
         //window.addEventListener('resize', this.updateDimensions);
+        console.log(workshop)
+        // console.log(type)
         setInvalidImages([])
         if (type === "workshop") {
+            // console.log("here")
             fetchSimilarWorkshops();
         } else {
             fetchSimilarArchives();
@@ -204,9 +207,10 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
     }, [])
 
     useEffect(()=>{
-
+        console.log(type)
         setInvalidImages([])
          if (type === "workshop") {
+             console.log("here")
              fetchSimilarWorkshops();
          } else {
              fetchSimilarArchives();
@@ -227,7 +231,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     const getShopName = () => {
 
-        console.log(workshop)
+        //console.log(workshop)
 
         if (workshop.shop_name['content']) {
             return workshop.shop_name['content']
@@ -249,22 +253,27 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return t('Established ') + `${workshop.decade_established[0]} | `
+            return t('Established ') + `${workshop.decade_established[0]}`
         } else {
                 return null
             }
         }
 
     const getPrimaryDecade = () => {
-        if (!workshop.primary_decade) {
+        if (!workshop.primary_decade && !workshop.primary_year) {
             return null
         }
 
-        if (workshop.primary_decade[0]) {
-            return t('Captured') + ` ${workshop.primary_decade[0]} | `
-        } else {
-            return null
+        if (workshop.primary_year) {
+            return t('Captured') + ` ${workshop.primary_year}`
         }
+
+        if (workshop.primary_decade[0]) {
+            return t('Captured') + ` ${workshop.primary_decade[0]}`
+        }
+
+        return null
+
 
         }
 
@@ -300,7 +309,8 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
             }
         }
         )
-        return craftsList
+               if (craftsList.length>0) { return craftsList} else {return null}
+
  }
 
     const handleOnError = (e) => {
@@ -329,21 +339,21 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     const getImages = () => {
 
-        if (!workshop.images) {
+
+
+        if (!imageMetaData || imageMetaData.size<1) {
             return
         }
-        const thumbImage = workshop.images.filter(
-            (image) => image.img_id === workshop.thumb_img_id);
-        const remainingImages = workshop.images.filter(
-            (image) => image.img_id !== workshop.thumb_img_id
-        );
-        const images = [...thumbImage, ...remainingImages];
-        //console.log('images ', images)
-        return images.map((image, index) => {return <img key={image} id={index} className={'mapCard-img'} src={`/api/images/${image}.jpg`} alt="img" onError={handleOnError} />})
+
+        // console.log(imageMetaData)
+
+
+        return imageMetaData.map((image, index) => {return <img key={image} id={index} className={'mapCard-img'} src={image.src} alt="img" onError={handleOnError} />})
 
     }
 
     const getThumbnails = () => {
+        // console.log("getting similar thumbnails, ", similarObjects)
         return similarObjects.map((object) => {
             //console.log(object.thumb_img_id)
             //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]
@@ -377,7 +387,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         <div className={'close-btn-container'}>
                             <div>
                                 <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
-                                <p className={'shopSubtitle-text'}>{getDecadeEstablished()} {getSubtitle()} </p>
+                                <p className={'shopSubtitle-text'}>{getDecadeEstablished()} {getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()} </p>
                             </div>
 
                             <button className={'close-card-btn close-mapcard'} onClick = {closeMapCard} >
@@ -415,12 +425,10 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         } else {
             return (
                 <>
-
-
                         <div className={'close-btn-container'}>
                             <div>
                                 <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
-                                <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle()} </p>
+                                <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()} </p>
                             </div>
 
                             <button className={'close-card-btn close-mapcard'} onClick = {closeMapCard} >

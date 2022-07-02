@@ -29,8 +29,8 @@
   transition: all 1s ease-in-out;
 
   z-index: 100000;
-  position: absolute;
-  left: 30px;
+  // position: absolute;
+  // left: 30px;
   top: 35px;
 
   display: flex;
@@ -45,7 +45,7 @@
 
   .logo-icon {
     width: 30px;
-    height: 30px;
+    height: 40px;
     margin-right: 5px;
 
     &.dark {
@@ -58,7 +58,7 @@
   }
 
   .logo-text {
-    height: 30px;
+    height: 40px;
     margin-right: 10px;
   }
 }
@@ -70,22 +70,26 @@
   font-weight: 500;
   color: $c-primary-dark;
 
-  position: absolute;
-  left: 120px;
+  // position: absolute;
+  // left: 120px;
   top: 45px;
   text-transform: capitalize;
+  @media screen and (max-width:589px) {
+    font-size: 16px;
+  }
 }
 
 // Right
 .container-lang {
   z-index: 100000;
-  position: absolute;
-  right: 70px;
-  top: 45px;
+  //position: absolute;
+  //right: 70px;
+  //top: 45px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  line-height: 0%;
 
   &.dark {
     button {
@@ -168,9 +172,11 @@ $hamburger-zindex: $menu-zindex + 10;
 
   ul {
     // width: 400px;
-    width: fit-content;
+    width: 360px;
     //margin: 0 auto;
     //left: 50%;
+
+
     &:hover {
       a {
         opacity: 0.5;
@@ -194,6 +200,8 @@ $hamburger-zindex: $menu-zindex + 10;
     //top: 50%;
     //transform: translateY(-50%);
 
+
+
     ul {
       list-style: none;
       margin: 0;
@@ -211,6 +219,10 @@ $hamburger-zindex: $menu-zindex + 10;
       &:first {
         padding-top: 0;
       }
+
+      @media (max-height: 670px) {
+        font-size: 1.5rem;
+      }
     }
   }
 
@@ -226,13 +238,13 @@ $hamburger-zindex: $menu-zindex + 10;
     text-align: center;
 
     @media (max-width: 600px) {
-      display: none;
+      // display: none;
     }
     
     img {
       height: 25px;
       margin-right: 40px;
-      mix-blend-mode: multiply;
+     // mix-blend-mode: multiply;
       filter: opacity(0.6);
     }
     #FHL-Logo {
@@ -267,6 +279,11 @@ $hamburger-zindex: $menu-zindex + 10;
     grid-template-rows: auto auto;
     //row-gap: 5px;
     column-gap: 10px;
+    height: 70px;
+    position: relative;
+    @media (max-height: 750px) {
+      height: 60px;
+    }
   }
 
   .container:hover .item-line {
@@ -295,7 +312,12 @@ $hamburger-zindex: $menu-zindex + 10;
     grid-column-end:  3;
     grid-row-start:  1;
     grid-row-end:  2;
-    font-size:  1rem;
+    //font-size:  1rem;
+    //font-size: 56px;
+    line-height: 10px;
+    @media (max-height: 750px) {
+        line-height: 2px;
+      }
   }
 
   .item-text-2 {
@@ -309,6 +331,15 @@ $hamburger-zindex: $menu-zindex + 10;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
+    top:1.5rem;
+
+    @media (max-height: 659px) {
+        font-size: 1rem;
+      }
+
+    @media (max-height: 670px) {
+      font-size: 0.75rem;
+    }
   }
 
 
@@ -320,13 +351,14 @@ $hamburger-zindex: $menu-zindex + 10;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  display: inline-block;
+  // display: inline-block;
   height: $hamburger-height;
   outline: none;
   padding: 0;
   pointer-events: initial;
-  position: absolute;
-  right: 2rem;
+  //position: absolute;
+  position: relative;
+  //right: 2rem;
   vertical-align: middle;
   width: $hamburger-width;
   z-index: $hamburger-zindex;
@@ -389,3 +421,88 @@ $hamburger-zindex: $menu-zindex + 10;
     }
   }
 }
+
+.container-nav {
+  padding: 2rem;
+}
+
+
+
+.nav-parent-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  // padding: 0 2rem;
+  max-width: 100%;
+
+  .nav-left-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 50%;
+
+  .nav-divider {
+    margin-right: 12px;
+    width: 1.5px;
+    color: $c-primary-mid;
+    opacity: 1;
+    min-height: 0.5em;
+    height: 1.5em;
+    align-self: center;
+    z-index: 3;
+    transition: all 0.3s ease-in-out;
+
+    &.hide-background {
+    background-color: transparent;
+  }
+
+
+
+
+}
+}
+}
+
+.footer-logos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  @media (max-width: 589px) {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    align-items: center;
+
+  }
+}
+
+.container-links {
+  padding: 30px 0;
+  //padding-bottom: 30px;
+  @media (max-height: 850px) {
+    margin-bottom: 30px !important;
+  }
+
+}
+
+.nav-list-item{
+  padding-bottom:1.5rem !important;
+  @media (max-height: 670px) {
+        padding-bottom:8px !important;
+      }
+}
+
+.footer-contact {
+  @media (max-height: 850px) {
+        font-size: smaller;
+      }
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+

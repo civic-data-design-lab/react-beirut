@@ -205,7 +205,8 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
               craftsList.push(" | " + t(craftStr))}
 
       })}
-        return craftsList
+                if (craftsList.length>0) { return craftsList} else {return null}
+
  }
 
  const getDecadeEstablished = () => {
@@ -215,7 +216,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return t('Captured') +` ${workshop.decade_established[0]} | `
+            return t('Since') +` ${workshop.decade_established[0]}`
         } else {
                 return null
             }
@@ -267,7 +268,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
                         <h1 className={'object-name'}>{getShopName()}</h1>
-                        <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
+                        <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}
                 </div>
@@ -291,7 +292,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <Slider>
                       {similarWorkshops?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
                         </div>
                       ))}
                     </Slider>
@@ -305,7 +306,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
                 <h1 className={'object-name'}>{getShopName()}</h1>
-                <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
+                <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''}{getSubtitle()}</p>
                 <br/>
                 {getCaption()}
                 </div>
@@ -336,7 +337,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <Slider>
                       {similarWorkshops?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
                         </div>
                       ))}
                     </Slider>
@@ -356,7 +357,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 </button> : null}
                 <div className={'object-mobile-heading'}>
                     <p className={'object-mobile-title'}>{getShopName()}</p>
-                    <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle()}</p>
+                    <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
                 </div>
                 </div>
 
@@ -389,7 +390,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <Slider>
                       {similarWorkshops?.map((shop) => (
                         <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} />
+                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
                         </div>
                       ))}
                     </Slider>

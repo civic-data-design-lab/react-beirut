@@ -11,6 +11,7 @@ const ImageDataOriginalSchema = new mongoose.Schema({
   from_survey: String,
   filename: String,
   data: Buffer,
+  extension: String
 });
 
 module.exports = mongoose.models.ImageDataOriginal || mongoose.model('ImageDataOriginal', ImageDataOriginalSchema);

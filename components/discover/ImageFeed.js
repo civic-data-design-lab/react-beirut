@@ -20,35 +20,36 @@ const ImageFeed = ({ objects, imageFilterData }) => {
     const end = imageFilterData['filteredEndYear'];
     let withinInterval = null;
 
-    if (
-      !object.year_established &&
-      !object.primary_year &&
-      !object.primary_decade
-    ) {
-      withinInterval = false;
-    } else if (object.year_established) {
-      if (start <= object.year_established && object.year_established < -end) {
+    if (object.primary_year) {
+      if (start<=object.primary_year && object.primary_year<=end) {
         withinInterval = true;
-      } else if (!object.primary_decade && !object.primary_year) {
-        if (start <= 2010 && end >= 2010) {
-          withinInterval = true;
-        } else {
-          withinInterval = false;
-        }
       }
-    } else if (object.primary_decade || object.primary_year) {
-      if (
-        (start <= object.primary_year || start <= object.primary_decade[0]) &&
-        (object.primary_year <= end || start < object.primary_year <= end)
-      ) {
-        withinInterval = true;
-      } else {
-        withinInterval = false;
+    } else if (object.primary_decade) {
+      if (start<=object.primary_decade[0] && object.primary_decade[0]<=end) {
+        withinInterval=true
       }
+    } else if (object.decade_established) {
+      if (object.year_established == null) {
+                if (start <= 2010 && end >= 2010 ) {
+                    withinInterval = true;
+                } else {
+                    withinInterval = false;
+                }
+            } else {
+                if (start <= object.year_established && object.year_established <= end) {
+                    withinInterval = true;
+                } else {
+                    withinInterval = false;
+                }
+            }
+    } else {
+      withinInterval=false
     }
 
+    const noCrafts = (((!object.craft_discipline_category || object.craft_discipline_category.length<1) && (imageFilterData['filteredCrafts'] && imageFilterData['filteredCrafts'].length<1)) || (imageFilterData['filteredCraftsParent'] && imageFilterData['filteredCrafts'].length===7))
+
     if (
-      (indices[0] > -1 || (indices.length > 1 && indices[1] > -1)) &&
+      (indices[0]>-1 || (indices.length>1 && indices[1]>-1) || noCrafts) &&
       withinInterval
     ) {
       if (
@@ -71,7 +72,7 @@ const ImageFeed = ({ objects, imageFilterData }) => {
           (object) =>
             filter(object) && (
               <div className="image-container" key={object.ID}>
-                <ImagePreview workshop={object} grayscale={false} />
+                <ImagePreview workshop={object} grayscale={false} routeToAPI={"api/imageMetaData/"} />
               </div>
             )
         )}
