@@ -267,11 +267,14 @@ export default class Explore extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-            if (this.state.showMapCard && window.innerWidth<688) {
-                document.body.classList.add('noscroll');
-            } else {
-                document.body.classList.remove('noscroll');
-            }
+           // if (this.state.showMapCard && window.innerWidth<688) {
+           //     console.log("add noscroll")
+           //     document.body.classList.add('noscroll');
+           // } else {
+           //     console.log("remove noscroll")
+           //     document.body.classList.remove('noscroll');
+
+            //}
     }
 
     componentWillUnmount() {

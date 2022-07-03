@@ -20,18 +20,8 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
     try {
       reader.readAsDataURL(file);
     } catch (err) {
-
-      // try conversion
-
-      try {
-          return heicConvert({ buffer, format: 'PNG' })
-
-      } catch (err) {
-        console.warn('error');
-        handleUpdateImage(null, null);
-      }
-    }
-  };
+      handleUpdateImage(null, null);
+  };}
 
   return (
     <div className="SingleImageUpload image-upload-container">
