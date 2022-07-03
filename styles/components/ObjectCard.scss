@@ -10,7 +10,7 @@
   min-height: 90vh;
   --safe-area-inset-top: env(safe-area-inset-top);
   --safe-area-inset-bottom: env(safe-area-inset-bottom);
-  padding: 2vw 2vw calc(1em + var(--safe-area-inset-bottom));
+  padding: 2vw 2vw calc(2vw + var(--safe-area-inset-bottom));
 
 
   position: absolute;
@@ -57,9 +57,10 @@
     //bottom:0px;
     top:0px;
     border-radius: 0px 0px 0px 0px;
-    padding:0px;
     font-size: 0px;
     bottom: 0px !important;
+
+    padding: 0px 0px (1em + var(--safe-area-inset-bottom));
 
 
     @media screen and (min-aspect-ratio: 540/720) {

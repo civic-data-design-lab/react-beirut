@@ -293,7 +293,7 @@ export default class Explore extends React.Component {
         return (
                 <>
                     <Head>
-
+                        <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0"/>
                         <title>Map | Living Heritage Atlas</title>
 
                     </Head>
