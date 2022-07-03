@@ -29,7 +29,10 @@
   height: 100%;
   background: #FFFFFF;
   filter: blur(20px);
-  z-index:9 ;
+  z-index:9;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+
 
   &.prev {
     left: 0px;
@@ -40,7 +43,8 @@
   }
 
   &.disable {
-    display: none;
+    opacity: 0;
+    //display: none;
     pointer-events: none;
   }
 }
