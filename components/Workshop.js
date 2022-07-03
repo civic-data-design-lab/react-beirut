@@ -369,13 +369,15 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </svg>
                 </button> : null}
                 <div className={'object-mobile-heading'}>
-                    <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                    <div className={'object-mobile-heading-subcontainer'}>
+                        <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
                                                   text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
                                         </span>
                                     </p>
                     <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
+                    </div>
                 </div>
                 </div>
 

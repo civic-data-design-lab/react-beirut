@@ -256,18 +256,25 @@ export default class Explore extends React.Component {
     componentDidMount() {
             // window.addEventListener('resize', this.handleResize);
             this.handleResize()
-            document.body.classList.add('prevent-scroll')
-            let root = document.documentElement;
-            root.className += 'prevent-scroll';
+            // document.body.classList.add('prevent-scroll')
+            // let root = document.documentElement;
+            // root.className += 'prevent-scroll';
             console.log('does 4593218374 exist ? ', this.props.workshops)
+    }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+            if (this.state.showMapCard && window.innerWidth<688) {
+                document.body.classList.add('noscroll');
+            } else {
+                document.body.classList.remove('noscroll');
+            }
     }
 
     componentWillUnmount() {
             // window.removeEventListener('resize', this.handleResize);
-            document.body.classList.remove('prevent-scroll')
-            let root = document.documentElement;
-            root.className -= 'prevent-scroll';
+            // document.body.classList.remove('prevent-scroll')
+            // let root = document.documentElement;
+            // root.className -= 'prevent-scroll';
     }
 
 

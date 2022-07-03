@@ -36,7 +36,8 @@
       width: 100vw;
       height: 90vh;
       //bottom: 0%;
-      z-index: 2000;
+      z-index: 1000;
+    overflow-y: scroll;
 
       -webkit-animation: slideIn 2s forwards;
       -moz-animation: slideIn 2s forwards;
@@ -212,6 +213,10 @@ exploreShops-div {
 .shop-title-verification {
   position: relative;
 
+}
+
+.noscroll {
+  overflow: hidden;
 }
 
 

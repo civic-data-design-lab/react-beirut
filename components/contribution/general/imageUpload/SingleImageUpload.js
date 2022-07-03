@@ -1,8 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
-
-
 import { Trans, useTranslation } from "react-i18next";
+
 
 
 const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
@@ -21,7 +20,16 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
     try {
       reader.readAsDataURL(file);
     } catch (err) {
-      handleUpdateImage(null, null);
+
+      // try conversion
+
+      try {
+          return heicConvert({ buffer, format: 'PNG' })
+
+      } catch (err) {
+        console.warn('error');
+        handleUpdateImage(null, null);
+      }
     }
   };
 
@@ -45,7 +53,7 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
           type="file"
           name="image-upload"
           id="image-upload"
-          accept=".png,.jpeg,.jpg, .gif, .mp4, .mp3, m4a, .mov"
+          accept=".png,.jpeg,.jpg, .gif, .mp4, .mp3, m4a, .mov, .HEIC, .HEIF"
           onChange={handleUploadImage}
         />
       </label>
