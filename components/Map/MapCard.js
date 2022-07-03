@@ -446,6 +446,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                                     </p>
 
                                 </div>
+
                                 <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()} </p>
                             </div>
 

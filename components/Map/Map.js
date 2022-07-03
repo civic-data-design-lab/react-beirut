@@ -23,6 +23,7 @@ export default class App extends React.PureComponent {
             geoLocateDialog : null,
             geoLocateTitle : null,
             geoLocateLoader : false,
+
             readZoom: this.props.mapZoom,
             markerRadius: this.getMarkerRadius(this.props.mapZoom)
             //mapZoom: this.props.mapZoom
@@ -152,6 +153,7 @@ export default class App extends React.PureComponent {
         el.classList.remove('hoverMarker');
         el.classList.remove(`hoverMarker--${el.craft.toLowerCase()}`);
     }
+
 
 
 
@@ -401,11 +403,7 @@ export default class App extends React.PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
        //  console.log("print language in map ", this.props.i18n.language)
        //  console.log("detected map layer ", this.props.mapLayer)
-       //  console.log("state ", this.props.mapZoom, prevProps.mapZoom);
-       //  console.log("state ", this.props.coords, prevProps.coords);
-        // console.log("props ", this.props.mapZoom, prevProps.mapZoom);
-        // console.log('is mapcard showing or not ', this.props.showMapCard)
-        // console.log('compare zooms ', this.props.mapZoom, prevProps.mapZoom)
+
         const changedZoom = this.props.mapZoom !== prevProps.mapZoom;
         const changedCoords = this.props.coords !== prevProps.coords;
         if (changedZoom || changedCoords) {
@@ -447,6 +445,7 @@ export default class App extends React.PureComponent {
 
 
         if (this.props.coords && (prevProps.coords !== this.props.coords) && this.props.showMapCard) {
+
             if (this.props.coords[0] !== 35.510 && this.props.coords[1] !== 33.893894) {
                 map.current.flyTo({
                     center: this.props.coords,
@@ -757,6 +756,7 @@ export default class App extends React.PureComponent {
                         </button>
 
                         <button className={"nav-ctr-btn geolocate-btn button-interactivity"} onClick={this.handleGeolocate}>
+
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M20.94 11C20.48 6.83 17.17 3.52 13 3.06V1H11V3.06C6.83 3.52 3.52 6.83 3.06 11H1V13H3.06C3.52 17.17 6.83 20.48 11 20.94V23H13V20.94C17.17 20.48 20.48 17.17 20.94 13H23V11H20.94ZM12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM5 12C5 15.87 8.13 19 12 19C15.87 19 19 15.87 19 12C19 8.13 15.87 5 12 5C8.13 5 5 8.13 5 12Z" fill="#AEAEAE"/>
                             </svg>
