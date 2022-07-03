@@ -505,7 +505,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
                             <div className={'mapCard-drag-container'}>
 
-                                <Draggable axis="y" bounds="parent">
+                                <Draggable axis="y" bounds="parent" cancel={".mapCard-slider-container, .exploreContainer"}>
                                     <div className={'mapCard'} id={`mapCard${id}`}>
                                     <div className={'mapCard-dragger'}>
                                         <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
