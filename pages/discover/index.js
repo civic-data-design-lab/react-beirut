@@ -147,6 +147,7 @@ const Discover = ({ children, i18n}) => {
     <>
       <Head>
         <title>Discover | Living Heritage Atlas</title>
+        <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0"/>
       </Head>
       <div className="container">
         <div className="title-card">
