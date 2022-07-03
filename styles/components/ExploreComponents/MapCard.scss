@@ -30,14 +30,16 @@
 
   @media screen and (max-width: 688px) {
       position: absolute;
+      //position: fixed;
       border-radius: 10px 10px 0px 0px;
       right: 0px;
       left: 0px;
       width: 100vw;
-      height: 90vh;
+      height: 80vh;
       //bottom: 0%;
       z-index: 1000;
     overflow-y: scroll;
+    display: block;
 
       -webkit-animation: slideIn 2s forwards;
       -moz-animation: slideIn 2s forwards;
@@ -78,11 +80,13 @@
 
 .mapCard-drag-container {
   overflow: hidden;
-  position: absolute;
-  bottom:-80vh;
+  position: fixed;
+  //bottom:-90vh;
+  top: 20vh;
   width: 100vw;
-  height: 170vh;
+  height: 150vh;
   pointer-events: none;
+  display: block;
 }
 
 .close-mapcard {

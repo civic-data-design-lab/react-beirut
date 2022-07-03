@@ -54,7 +54,7 @@ export default class Explore extends React.Component {
                 2: ['1919', 'Service Géographique de l\'Armée. Éditeur Scientifique. (1919). ', '1elupriz', [35.498677035021956, 33.893437188342475], 13.785065425449796, "Map of Beirut (Provisional Edition)", " (Trans.). Item GE SH 19 PF 1 QUATER DIV 16 P 17 (2), (76 x 91cm). National Library of France, Departments of Maps and Plans. Paris, France."],
                 //3: ['1919B', 'Service Géographique de l\'Armée. Éditeur Scientifique. (1919). Map of Beirut (Provisional Edition) (Trans.). Item GE SH 19 PF 1 QUATER DIV 16 P 17 (2), (76 x 91cm). National Library of France, Departments of Maps and Plans. Paris, France.'],
                 5: ['1920', 'Armée Française du Levant. Bureau Topographique. (1920).  ', '67ffz8i7', [35.505290624632835, 33.88882411869989], 13.639303743791698, "Beirut", "(Trans.). Item GE C-5752, (82 x 57cm). National Library of France, Departments of Maps and Plans. Paris, France."],
-                6: ['1945', 'Institut Géographique National. (1945). ', [35.50229661568903, 33.8893239106455], 13.739534370107044, "City of Beirut", " (Trans.). Item MAP G7474.B4 1945.I5, (53 x 72cm). Black and white reprint of the original map. MIT Rotch Library. Cambridge (MA), USA.', '1945_cropped"],
+                6: ['1945', 'Institut Géographique National. (1945). ', "1945_cropped", [35.50229661568903, 33.8893239106455], 13.739534370107044, "City of Beirut", " (Trans.). Item MAP G7474.B4 1945.I5, (53 x 72cm). Black and white reprint of the original map. MIT Rotch Library. Cambridge (MA), USA.', '1945_cropped"],
                 7: ['1958', 'US Army Corps of Engineers. Army Map Service (1984). ', '28tahetd', [35.49966548072621, 33.890504692600885], 13.731385906406157, "Beirut", " (Trans.). Item Series K921 Sheet Beyrouth Editions 6-AMS. The Perry-Castañeda Library (PCL) Map Collection. The University of Texas. Austin (TX), USA."],
                 8: ['1984', 'Geoprojects (U.K.) Ltd. (1984). ', '1984', [35.50586102530747, 33.89044326579804], 13.709053598967705, "Beirut", " (Trans.). Item MAP G7474.B4P2 1984.G4, (51 x 73cm). Black and white reprint of the original map printed in Henley-on-Thames, England. MIT Rotch Library. Cambridge (MA), USA."]
             },
@@ -263,11 +263,14 @@ export default class Explore extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-            if (this.state.showMapCard && window.innerWidth<688) {
-                document.body.classList.add('noscroll');
-            } else {
-                document.body.classList.remove('noscroll');
-            }
+           // if (this.state.showMapCard && window.innerWidth<688) {
+           //     console.log("add noscroll")
+           //     document.body.classList.add('noscroll');
+           // } else {
+           //     console.log("remove noscroll")
+           //     document.body.classList.remove('noscroll');
+
+            //}
     }
 
     componentWillUnmount() {
