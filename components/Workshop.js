@@ -207,6 +207,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
       })}
         if (craftsList.length>0) { return craftsList} else {return null}
+
  }
 
  const getDecadeEstablished = () => {
@@ -276,6 +277,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                                     </p>
 
                                 </div>
+
                         <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}

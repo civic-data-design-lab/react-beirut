@@ -394,6 +394,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                                                   text={workshop.survey_origin !== 'workshop_contribution' ? 'This workshop has been reviewed and verified.' : 'This workshop is still under review and is not verified yet.'}/>
                                         </span>
                                     </p>
+
                                 <p className={'shopSubtitle-text'}>{getDecadeEstablished()} {getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()} </p>
                             </div>
 
