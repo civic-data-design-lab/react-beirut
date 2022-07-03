@@ -83,12 +83,13 @@
 
 
 .mapCard-drag-container {
+  background-color: #85cbd4;
   overflow: hidden;
   position: fixed;
-  bottom:-70vh;
+  // bottom:70vh;
   top: 20vh;
   width: 100vw;
-  height: 160vh;
+  height: 140vh;
   pointer-events: none;
   display: block;
 }
