@@ -3,6 +3,9 @@ import ImageFilter from "react-image-filter";
 import {useEffect} from "react";
 import {useState} from "react";
 
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStore} from "@fortawesome/free-solid-svg-icons";
+
 const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
 
 
@@ -93,12 +96,18 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
 
 
             </Link>
+
+              {workshop.survey_origin?<div className={'shop-icon'}>
+                  <FontAwesomeIcon icon={faStore} width={32}></FontAwesomeIcon>
+              </div>:null}
             <div className="overlay">
               <div className="shop-info">
                 <p>{workshop.shop_name.content_orig}</p>
               </div>
             </div>
-            <div className="overlay fill"></div>
+            <div className="overlay fill">
+            </div>
+
           </>
         ) : null}
       </div>

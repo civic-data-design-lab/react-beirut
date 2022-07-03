@@ -107,6 +107,10 @@
   font-weight: 700;
   font-size: 16px;
   line-height: 18px;
+  margin-bottom: 0px;
+
+  display:inline;
+
 }
 
 .shopSubtitle-text {
@@ -195,16 +199,18 @@ exploreShops-div {
   border-radius: 10px;
 
   @media screen and (min-width: 688px) and (max-width: 991px) {
-      height: 15vw;
-      width: 15vw;
-    }
+    height: 15vw;
+    width: 15vw;
+  }
 
   @media screen and (max-width: 688px) {
-      height: 20vh;
-      width: 20vh;
-    }
+    height: 20vh;
+    width: 20vh;
+  }
+}
 
-
+.shop-title-verification {
+  position: relative;
 
 }
 

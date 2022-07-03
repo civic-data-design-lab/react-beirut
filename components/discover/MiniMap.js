@@ -3,6 +3,10 @@ import mapboxGl from "mapbox-gl";
 import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
+const MAP_LABELS =['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
+    'water-line-label', 'water-point-label', 'poi-label', 'airport-label', 'settlement-subdivision-label',
+    'settlement-minor-label', 'settlement-major-label', 'state-label', 'country-label']
+
 
 export default class MiniMap extends React.Component {
     constructor(props) {

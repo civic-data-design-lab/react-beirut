@@ -24,6 +24,7 @@ const Default = ({ children }) => {
 }
 
 import { Trans, useTranslation } from "react-i18next";
+import Info from "./Info";
 
 
 const mainSliderStyle = {
@@ -161,7 +162,7 @@ const getPrimaryDecade = () => {
               craftsList.push(" | " + t(craftStr))}
 
       })}
-        return craftsList
+        if (craftsList.length>0) { return craftsList} else {return null}
  }
 
 
@@ -263,7 +264,12 @@ const getPrimaryDecade = () => {
 
             <div className={'popup-section archival-card-section'}>
                 <div className={'object-title-section'}>
-                        <h1 className={'object-name'}>{getShopName()}</h1>
+                        <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={archive.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
                         <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}
@@ -293,7 +299,12 @@ const getPrimaryDecade = () => {
       <Tablet>
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
-                <h1 className={'object-name'}>{getShopName()}</h1>
+                <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={archive.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
                 <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 <br/>
                 {getCaption()}
@@ -338,7 +349,12 @@ const getPrimaryDecade = () => {
                     </svg>
                 </button> : null}
                 <div className={'object-mobile-heading'}>
-                    <p className={'object-mobile-title'}>{getShopName()}</p>
+                    <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={archive.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
                     <p className={'object-mobile-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 </div>
                 </div>

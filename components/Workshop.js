@@ -7,6 +7,7 @@ import {useEffect, useRef, useState} from "react";
 import { useMediaQuery } from 'react-responsive';
 
 import { Trans, useTranslation} from "react-i18next";
+import Info from "./Info";
 
 
 
@@ -205,8 +206,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
               craftsList.push(" | " + t(craftStr))}
 
       })}
-                if (craftsList.length>0) { return craftsList} else {return null}
-
+        if (craftsList.length>0) { return craftsList} else {return null}
  }
 
  const getDecadeEstablished = () => {
@@ -267,7 +267,15 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
-                        <h1 className={'object-name'}>{getShopName()}</h1>
+                        <div className={'shop-title-verification'}>
+                                    <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
+
+                                </div>
                         <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}
@@ -305,7 +313,12 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         <Tablet>
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
-                <h1 className={'object-name'}>{getShopName()}</h1>
+                <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
                 <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''}{getSubtitle()}</p>
                 <br/>
                 {getCaption()}
@@ -356,7 +369,12 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </svg>
                 </button> : null}
                 <div className={'object-mobile-heading'}>
-                    <p className={'object-mobile-title'}>{getShopName()}</p>
+                    <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
                     <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
                 </div>
                 </div>
@@ -381,8 +399,9 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
                 </div>
 
-                { similarWorkshops ? <div className={'object-mobile-section object-suggestion-section'}>
-                    <p className={'card-section-labels'}>
+                { similarWorkshops ?
+            <div className={"object-suggestion-section"} style={{"padding": "12px 24px"}}>
+                    <p className={'object-caption'}>
                         {t('Discover similar craft workshops')}
                     </p>
                     <div className={'object-suggestion-container'}>

@@ -64,6 +64,9 @@ export default class Slider extends React.Component {
         >
           <FontAwesomeIcon icon={faChevronRight} width={8}/>
         </div>
+
+        <div className={`blur-btns prev ${this.state.prevDisable ? 'disable' : ''}`}/>
+        <div className={`blur-btns next ${this.state.nextDisable ? 'disable' : ''}`}/>
       </div>
     );
   }
