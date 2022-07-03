@@ -20,6 +20,7 @@ const Layout = ({ children, changeLanguage, i18n }) => {
             href="https://use.typekit.net/fpe5llj.css"
             rel="stylesheet"
           />
+          <link rel="stylesheet" href="https://use.typekit.net/ttl2tlt.css"></link>
           <link rel="icon" type="image/svg+xml" href="./favicon.svg"/>
           <link rel="icon" type="image/png" href="./favicon.png"/>
         </Head>
