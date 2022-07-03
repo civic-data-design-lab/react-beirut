@@ -207,6 +207,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
       })}
         if (craftsList.length>0) { return craftsList} else {return null}
+
  }
 
  const getDecadeEstablished = () => {
@@ -267,6 +268,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
+
                         <div className={'shop-title-verification'}>
                                     <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
@@ -276,6 +278,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                                     </p>
 
                                 </div>
+
                         <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}
@@ -319,6 +322,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                                                   text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
                                         </span>
                                     </p>
+
                 <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''}{getSubtitle()}</p>
                 <br/>
                 {getCaption()}
@@ -378,6 +382,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                                     </p>
                     <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
                     </div>
+
                 </div>
                 </div>
 

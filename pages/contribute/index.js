@@ -41,15 +41,26 @@ const Contribute = () => {
   const [modal, setModal] = useState(null);
   const [cookiesEnabled, setCookiesEnabled] = useState(null);
   const [showCookiesModal, setShowCookiesModal] = useState(null);
+  const [width, setWidth] = useState(null);
 
 
   useEffect(()=> {
+      handleResize()
       console.log(navigator.cookieEnabled)
       setCookiesEnabled(navigator.cookieEnabled)
       if (!navigator.cookieEnabled) {
           setShowCookiesModal(true);
       }
-  }, [])
+        window.addEventListener("resize", handleResize)
+    // unmount cleanup handler
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleResize = () => {
+      console.log(window.innerWidth);
+      return setWidth(window.innerWidth);
+  }
+
 
   const getExistingForms = () => {
       console.log('getExistingForms triggered');
@@ -295,7 +306,7 @@ const Contribute = () => {
               </div>
           </div>
 
-              {window.innerWidth>991?
+              {width>991?
                   <div className={'Contribute-vr-contianer'}>
                       <div className={'vr Contribute-divider'}/>
                   </div> :
