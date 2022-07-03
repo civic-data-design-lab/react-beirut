@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
 import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
-import Dialogue from "../contribution/general/Dialogue";
+import Dialogue from "../../components/contribution/general/Dialogue";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const MAP_LABELS =['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
