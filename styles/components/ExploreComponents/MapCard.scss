@@ -16,6 +16,8 @@
   bottom: 10vh;
   margin:0px;
 
+  -webkit-overflow-scrolling: touch;
+
 
   @media screen and (min-width: 688px) and (max-width: 991px) {
       border-radius: 10px 10px 10px 10px;
@@ -37,10 +39,12 @@
       width: 100vw;
       height: 80vh;
       //bottom: 0%;
-      z-index: 1000;
+      z-index: 20;
     overflow-y: scroll;
     display: block;
-
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    padding: 2vw 2vw calc(1em + var(--safe-area-inset-bottom));
       -webkit-animation: slideIn 2s forwards;
       -moz-animation: slideIn 2s forwards;
       animation: slideIn 2s forwards;
@@ -195,6 +199,7 @@ exploreShops-div {
 }
 
 .exploreShops-img {
+  z-index: 25;
   padding: 4px;
   object-fit: cover;
   //width: 40%;

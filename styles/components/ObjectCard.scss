@@ -8,7 +8,9 @@
   //min-width: 100vw;
   width:100%;
   min-height: 90vh;
-  padding: 2vw;
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  padding: 2vw 2vw calc(1em + var(--safe-area-inset-bottom));
 
 
   position: absolute;
@@ -27,6 +29,8 @@
 
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+
+
 
 
 
@@ -50,7 +54,7 @@
     background-color: $c-white-off;
     z-index: 200;
     position: absolute;
-    bottom:0px;
+    //bottom:0px;
     top:0px;
     border-radius: 0px 0px 0px 0px;
     padding:0px;
@@ -268,7 +272,8 @@
 }
 
 .popup-section {
-  height: 100%;
+  position: relative;
+  //height: 100%;
   //width:45vw;
   //flex: 1 1 0;
   flex: 1;

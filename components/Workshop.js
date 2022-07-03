@@ -271,7 +271,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                                     <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
-                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This workshop was reviewed and verified.' : 'This workshop is still under review and is not verified yet.'}/>
                                         </span>
                                     </p>
 
