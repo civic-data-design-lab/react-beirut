@@ -59,6 +59,7 @@
     "twilio": "^3.77.1",
     "y": "^0.3.2",
     "heic-convert": "^1.2.4"
+
   },
   "devDependencies": {
     "@babel/preset-react": "^7.17.12",

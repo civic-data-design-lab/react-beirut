@@ -270,6 +270,7 @@ const getPrimaryDecade = () => {
                                                   text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
                                         </span>
                                     </p>
+
                         <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}
@@ -305,6 +306,7 @@ const getPrimaryDecade = () => {
                                                   text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
                                         </span>
                                     </p>
+
                 <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 <br/>
                 {getCaption()}
@@ -355,6 +357,7 @@ const getPrimaryDecade = () => {
                                                   text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
                                         </span>
                                     </p>
+
                     <p className={'object-mobile-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 </div>
                 </div>

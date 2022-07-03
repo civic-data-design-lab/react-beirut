@@ -388,12 +388,14 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
                         <div className={'close-btn-container'}>
                             <div>
+
                                  <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={workshop.survey_origin !== 'workshop_contribution' ? 'check' : 'question'}
                                                   text={workshop.survey_origin !== 'workshop_contribution' ? 'This workshop has been reviewed and verified.' : 'This workshop is still under review and is not verified yet.'}/>
                                         </span>
                                     </p>
+
                                 <p className={'shopSubtitle-text'}>{getDecadeEstablished()} {getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()} </p>
                             </div>
 
@@ -445,6 +447,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                                     </p>
 
                                 </div>
+
                                 <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()} </p>
                             </div>
 
