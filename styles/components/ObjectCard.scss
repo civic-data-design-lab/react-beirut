@@ -60,7 +60,7 @@
     font-size: 0px;
     bottom: 0px !important;
 
-    padding: 0px 0px (1em + var(--safe-area-inset-bottom));
+    padding: 0px 0px (1em + var(--safe-area-inset-bottom)) !important;
 
 
     @media screen and (min-aspect-ratio: 540/720) {

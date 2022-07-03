@@ -366,7 +366,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
             if (object.thumb_img_id) {
                 return(
 
-                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={clickExplore} onError={handleOnError}/>)
+                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={clickExplore} onMouseDown={(e) => {e.stopPropagation()}} onError={handleOnError}/>)
 
             } else {
                 return null
