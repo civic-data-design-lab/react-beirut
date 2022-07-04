@@ -5,7 +5,9 @@ const convert = require('heic-convert');
 import {StatusCodes} from "http-status-codes";
 
 
-const convertHEIC = async (inputBuffer) => {
+const convertHEIC = async (inputFile) => {
+  // console.log("input buffer ", inputBuffer)
+  const inputBuffer = await promisify(fs.readFile)(inputFile);
   const outputBuffer = await convert({
     buffer: inputBuffer, // the HEIC file buffer
     format: 'JPEG',      // output format
@@ -18,21 +20,30 @@ const convertHEIC = async (inputBuffer) => {
 
 
 export default async (req, res) => {
-
+  console.log("check if here")
   if (req.method==="POST") {
-    const body = req.body;
-    if (!body) {
-      res.status(StatusCodes.BAD_REQUEST).send({
-          message: 'No body provided',
-        });
-    }
+      console.log("hereee")
+      // console.log("body is ", req.body)
 
-    convertHEIC(req.body)
+    let outputBuffer
+
+    await convertHEIC(req.body)
         .then((output)=>{
-          res(output);
+          outputBuffer = output
+          console.log("__________________________________________________")
+          console.log("outputBuffer is ", outputBuffer)
         })
+        .then(()=> {
+          res(outputBuffer)
+        }
+        )
   }
+}
 
-
-
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: '4mb' // Set desired value here
+        }
+    }
 }
