@@ -46,26 +46,8 @@ function MyApp({ Component, pageProps }) {
   
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
-  const [height, setHeight] = useState(null);
-  const [width, setWidth] = useState(null);
-  const detectMobile = () => {
-    if (window.innerWidth<688) {
-      document.body.style.height = `${window.innerHeight}px`;
-      setHeight(window.innerHeight);
-      setWidth(window.innerWidth);
-      console.log("height is ", window.innerHeight);
-    }
-  }
 
-  useEffect(()=>{
-    detectMobile();
-    window.addEventListener('resize', detectMobile);
-    return()=>{window.removeEventListener('resize', detectMobile)}
-  }, [])
 
-  useEffect(()=>{
-    detectMobile()
-  }, [width, height])
 
 
 

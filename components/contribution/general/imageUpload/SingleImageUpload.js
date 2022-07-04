@@ -4,24 +4,37 @@ import { Trans, useTranslation } from "react-i18next";
 
 
 
+
 const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
   const {t} = useTranslation();
 
-  const handleUploadImage = (e) => {
-    const file = e.target.files[0];
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const imageBuffer = e.target.result;
-      const extension = file.name.split('.').pop();
-      console.log('extension is ', extension)
-      handleUpdateImage(imageBuffer, extension);
-    };
-    try {
-      reader.readAsDataURL(file);
-    } catch (err) {
-      handleUpdateImage(null, null);
-  };}
+
+  const handleUploadImage = (e) => {
+      console.log("entered function 1")
+      const file = e.target.files[0];
+      console.log("entered function 2")
+      const reader = new FileReader()
+      console.log("entered function")
+      fetch('/api/convertedImages', {
+                      method: 'POST',
+                      body: file,
+                  })
+          .then((res)=>{
+              try {
+                  reader.readAsDataURL(res[0])
+                  handleUpdateImage(res[1], res[2]);
+              } catch (e) {
+                  handleUpdateImage(null, null);
+              }
+
+          })
+
+  }
+
+
+
+
 
   return (
     <div className="SingleImageUpload image-upload-container">
