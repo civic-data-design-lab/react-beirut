@@ -46,6 +46,26 @@ function MyApp({ Component, pageProps }) {
   
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
+  const [height, setHeight] = useState(null);
+  const detectMobile = () => {
+    if (window.innerWidth<688) {
+      document.body.style.height = `${window.innerHeight}px`;
+      setHeight(window.innerHeight)
+      console.log("height is ", window.innerHeight);
+    }
+  }
+
+  useEffect(()=>{
+    window.addEventListener('resize', detectMobile);
+    return()=>{window.removeEventListener('resize', detectMobile)}
+  })
+
+  useEffect(()=>{
+    detectMobile()
+  }, [window.innerWidth, window.innerHeight])
+
+
+
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -62,6 +82,12 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     document.dir = i18n.dir();
   }, [i18n, i18n.language]);
+
+  useEffect(() => {
+
+  })
+
+
 
   return (
     <>
