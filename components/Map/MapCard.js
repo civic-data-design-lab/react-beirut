@@ -414,7 +414,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         {(workshop.images.length !== 0) ?
                             <>
                             <div className={'mapCard-slider-container'} >
-                                <MapCardSlider handleScroll={onScroll} children={getImages()} sliderStyle={mainSliderStyle} getImageData={getCaption()}/>
+                                <MapCardSlider handleScroll={onScroll} children={getImages()} sliderStyle={mainSliderStyle} currentIndex={currentImageIndex}/>
                             </div>
                             <div>
                                 {getCaption()}
@@ -464,7 +464,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         {(workshop.images.length !== 0) ?
                             <>
                             <div className={'mapCard-slider-container'} >
-                                <MapCardSlider children={getImages()} sliderStyle={mainSliderStyle}/>
+                                <MapCardSlider children={getImages()} sliderStyle={mainSliderStyle} currentIndex={currentImageIndex}/>
                             </div>
 
                             <div>
@@ -505,12 +505,15 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
                             <div className={'mapCard-drag-container'}>
 
-                                <Draggable axis="y" bounds="parent" cancel={".mapCard-slider-container, .exploreContainer"}>
+                                <Draggable axis="y"
+                                           bounds="parent"
+                                           cancel={".mapCard-slider-container, .exploreContainer"}
+                                           handle={".mapCard-dragger"}>
                                     <div className={'mapCard'} id={`mapCard${id}`}>
                                     <div className={'mapCard-dragger'}>
                                         <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <line x1="1.5" y1="2.26367" x2="22.5" y2="2.26367" stroke="#CFCFCF" strokeWidth="3" strokeLinecap="round"/>
-                                    </svg>
+                                        </svg>
                                     </div>
                                     {workshop && createMapCardContent()}
                                         </div>
