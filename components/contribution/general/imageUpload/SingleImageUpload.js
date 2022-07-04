@@ -11,10 +11,13 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
 
 
   const handleUploadImage = (e) => {
+      console.log("1")
       let file = e.target.files[0];
       const reader = new FileReader()
 
+      console.log("2")
       reader.onload = (e) => {
+            console.log("3")
             let imageBuffer = e.target.result;
             let extension = file.name.split('.').pop();
             console.log('extension is ', extension)
@@ -40,6 +43,8 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
                     console.warn("could not read file")
                 }
       }
+
+      console.log('4')
   }
 
 
