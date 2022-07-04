@@ -11,25 +11,35 @@ const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
 
 
   const handleUploadImage = (e) => {
-      console.log("entered function 1")
-      const file = e.target.files[0];
-      console.log("entered function 2")
+      let file = e.target.files[0];
       const reader = new FileReader()
-      console.log("entered function")
-      fetch('/api/convertedImages', {
-                      method: 'POST',
-                      body: file,
-                  })
-          .then((res)=>{
-              try {
-                  reader.readAsDataURL(res[0])
-                  handleUpdateImage(res[1], res[2]);
-              } catch (e) {
-                  handleUpdateImage(null, null);
-              }
 
-          })
+      reader.onload = (e) => {
+            let imageBuffer = e.target.result;
+            let extension = file.name.split('.').pop();
+            console.log('extension is ', extension)
+            console.log('buffer is ', imageBuffer);
 
+            if (extension === "HEIC" || extension === "HEIF") {
+                fetch('/api/convertedImages', {
+                    method: 'POST',
+                    body: imageBuffer,
+                })
+                    .then((res) => {
+                        imageBuffer = res
+                        extension = "jpeg"
+                        console.log("buffer is now ", imageBuffer)
+                        //file = new File(res)
+                    })
+            }
+
+            try {
+                    reader.readAsDataURL(file)
+                } catch (e) {
+                    handleUpdateImage(null, null)
+                    console.warn("could not read file")
+                }
+      }
   }
 
 
