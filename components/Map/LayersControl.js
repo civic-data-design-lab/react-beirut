@@ -55,8 +55,8 @@ const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersCont
         buttons.push(
             <>
                 <button className={`mapLayerButtons ${getClassName(value[0])}`} key ={value[0]} id={value[0]} onClick={clickLayerButton}>
-                    <p className={'lc-button-year map-name-label'} id={value[0]} onClick={clickLayerButton}> {value[0]} <span><i>{value[5]}</i></span>  {value[6]} </p>
-                    <p className={'lc-button-ref map-name-reference'} id={value[0]} onClick={clickLayerButton}> {value[1]} </p>
+                    <p className={'lc-button-year map-name-label'} id={value[0]} onClick={clickLayerButton}> {value[1]} <span><i>{value[5]}</i></span>  {value[6]} </p>
+                    <p className={'lc-button-ref map-name-reference'} id={value[0]} onClick={clickLayerButton}> {value[0]} </p>
                 </button>
                 <hr/>
             </>

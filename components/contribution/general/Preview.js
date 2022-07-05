@@ -19,6 +19,8 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) 
   const fields = page.fields;
   const { t } = useTranslation();
 
+  console.log("i18n from preview ", i18n)
+
   const getPreview = () => {
     // INFO: Return nothing if there is no form data. (Is this necessary?)
     if (!formData) {

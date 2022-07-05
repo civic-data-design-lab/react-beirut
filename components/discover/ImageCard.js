@@ -109,7 +109,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive">
+              <div className="fixed object-card">
 
             <Archive
               archive={object}
@@ -143,7 +143,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive slide-up">
+              <div className="fixed object-card-archive">
 
             <Archive
               archive={object}
@@ -179,7 +179,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive ">
+              <div className="fixed object-card ">
 
             <Archive
               archive={object}
