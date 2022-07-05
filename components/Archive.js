@@ -50,7 +50,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n }) => {
+const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n, preview=false }) => {
   const {t} =useTranslation();
   const getImages = () => {
       const thumbImage = imageMetas.filter(
@@ -250,12 +250,13 @@ const getPrimaryDecade = () => {
 
       <Desktop>
       <div className={'popup-section'}>
-                <div className={'object-slider-section'}>
+                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
                         children={showImages()}
                         sliderStyle={mainSliderStyle}
+                        currentIndex={index}
                     />
                 )}
             </div>
@@ -313,7 +314,7 @@ const getPrimaryDecade = () => {
                 {getCaption()}
                 </div>
 
-                <div className={'object-slider-section-tablet'}>
+                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
@@ -364,7 +365,7 @@ const getPrimaryDecade = () => {
                 </div>
 
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
-                <div className={'object-slider-section-tablet'}>
+                <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}

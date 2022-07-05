@@ -52,7 +52,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang, i18n}) => {
+const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang, i18n, preview=false}) => {
   const {t} = useTranslation();
   console.log("lang from workshop si ", lang)
   console.log("getting lan using i18-n ", i18n.language)
@@ -255,7 +255,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         <Desktop>
 
             <div className={'popup-section'}>
-                <div className={'object-slider-section'}>
+                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
@@ -334,6 +334,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         handleScroll={onScroll}
                         children={showImages()}
                         sliderStyle={mainSliderStyle}
+                        currentIndex={index}
                     />
                 )}
             </div>
@@ -372,7 +373,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     <path d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z" fill="#333333"/>
                     </svg>
                 </button> : null}
-                <div className={'object-mobile-heading'}>
+                <div className={!preview?'object-mobile-heading':'object-mobile-heading-preview'}>
                     <div className={'object-mobile-heading-subcontainer'}>
                         <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
@@ -388,7 +389,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
                 <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between"}}>
 
-                <div className={'object-slider-section-tablet'}>
+                <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
