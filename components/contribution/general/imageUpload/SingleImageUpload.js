@@ -4,51 +4,24 @@ import { Trans, useTranslation } from "react-i18next";
 
 
 
-
 const SingleImageUpload = ({ handleUpdateImage, currentImage }) => {
   const {t} = useTranslation();
 
-
-
   const handleUploadImage = (e) => {
-      console.log("1")
-      let file = e.target.files[0];
-      const reader = new FileReader()
+    const file = e.target.files[0];
 
-      console.log("2")
-      reader.onload = (e) => {
-            console.log("3")
-            let imageBuffer = e.target.result;
-            let extension = file.name.split('.').pop();
-            console.log('extension is ', extension)
-            console.log('buffer is ', imageBuffer);
-
-            if (extension === "HEIC" || extension === "HEIF") {
-                fetch('/api/convertedImages', {
-                    method: 'POST',
-                    body: imageBuffer,
-                })
-                    .then((res) => {
-                        imageBuffer = res
-                        extension = "jpeg"
-                        console.log("buffer is now ", imageBuffer)
-                        //file = new File(res)
-                    })
-            }
-
-            try {
-                    reader.readAsDataURL(file)
-                } catch (e) {
-                    handleUpdateImage(null, null)
-                    console.warn("could not read file")
-                }
-      }
-
-      console.log('4')
-  }
-
-
-
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const imageBuffer = e.target.result;
+      const extension = file.name.split('.').pop();
+      console.log('extension is ', extension)
+      handleUpdateImage(imageBuffer, extension);
+    };
+    try {
+      reader.readAsDataURL(file);
+    } catch (err) {
+      handleUpdateImage(null, null);
+  };}
 
 
   return (

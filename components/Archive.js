@@ -50,9 +50,10 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n }) => {
+const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n, preview=false }) => {
   const {t} =useTranslation();
   const getImages = () => {
+      console.log("i18n ", i18n)
       const thumbImage = imageMetas.filter(
       (image) => image.img_id === archive.thumb_img_id
         );
@@ -250,12 +251,13 @@ const getPrimaryDecade = () => {
 
       <Desktop>
       <div className={'popup-section'}>
-                <div className={'object-slider-section'}>
+                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
                         children={showImages()}
                         sliderStyle={mainSliderStyle}
+                        currentIndex={index}
                     />
                 )}
             </div>
@@ -313,7 +315,7 @@ const getPrimaryDecade = () => {
                 {getCaption()}
                 </div>
 
-                <div className={'object-slider-section-tablet'}>
+                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
@@ -352,6 +354,8 @@ const getPrimaryDecade = () => {
                     </svg>
                 </button> : null}
                 <div className={'object-mobile-heading'}>
+                    <div className={!preview?'object-mobile-heading-subcontainer':'object-mobile-heading-subcontainer-preview'}>
+
                     <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={archive.info_type !== 'workshop_contribution' ? 'check' : 'question'}
@@ -362,9 +366,10 @@ const getPrimaryDecade = () => {
                     <p className={'object-mobile-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 </div>
                 </div>
+                </div>
 
                 <div style={{display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
-                <div className={'object-slider-section-tablet'}>
+                <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}

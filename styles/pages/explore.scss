@@ -215,11 +215,12 @@
   justify-content: space-around;
   align-items: center;
   bottom: 5%;
-  right: 2rem;
+  // right: 2rem;
 
-  @media (max-width: 688px) {
-    display: none;
+  @media screen and (max-width: 688px) {
+    right: calc(100vw - 48px - 2rem)
   }
+
 }
 
 
@@ -246,7 +247,17 @@
 
 
 .geolocate-btn {
-    @media screen and (max-width: 688px) {
+
+}
+
+.zoom-out-btn {
+      @media screen and (max-width: 688px) {
+    visibility: hidden;
+  }
+}
+
+.zoom-in-btn {
+      @media screen and (max-width: 688px) {
     visibility: hidden;
   }
 }
