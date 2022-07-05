@@ -374,7 +374,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </svg>
                 </button> : null}
                 <div className={!preview?'object-mobile-heading':'object-mobile-heading-preview'}>
-                    <div className={'object-mobile-heading-subcontainer'}>
+                    <div className={!preview?'object-mobile-heading-subcontainer':'object-mobile-heading-subcontainer-preview'}>
                         <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}

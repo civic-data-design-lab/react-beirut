@@ -53,6 +53,7 @@ const mainSliderStyle = {
 const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n, preview=false }) => {
   const {t} =useTranslation();
   const getImages = () => {
+      console.log("i18n ", i18n)
       const thumbImage = imageMetas.filter(
       (image) => image.img_id === archive.thumb_img_id
         );
@@ -353,6 +354,8 @@ const getPrimaryDecade = () => {
                     </svg>
                 </button> : null}
                 <div className={'object-mobile-heading'}>
+                    <div className={!preview?'object-mobile-heading-subcontainer':'object-mobile-heading-subcontainer-preview'}>
+
                     <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={archive.info_type !== 'workshop_contribution' ? 'check' : 'question'}
@@ -361,6 +364,7 @@ const getPrimaryDecade = () => {
                                     </p>
 
                     <p className={'object-mobile-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
+                </div>
                 </div>
                 </div>
 
