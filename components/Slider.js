@@ -44,7 +44,7 @@ export default class Slider extends React.Component {
       >
         <div className="slider-wrapper">{this.props.children}</div>
 
-        <div
+        <button
           className={`btn prev ${this.state.prevDisable ? 'disable' : ''}`}
           disabled={this.state.prevDisable}
           onClick={() => {
@@ -53,8 +53,8 @@ export default class Slider extends React.Component {
           }}
         >
           <FontAwesomeIcon icon={faChevronLeft} width={8}/>
-        </div>
-        <div
+        </button>
+        <button
           className={`btn next ${this.state.nextDisable ? 'disable' : ''}`}
           disabled={this.state.nextDisable}
           onClick={() => {
@@ -63,7 +63,7 @@ export default class Slider extends React.Component {
           }}
         >
           <FontAwesomeIcon icon={faChevronRight} width={8}/>
-        </div>
+        </button>
 
         <div className={`blur-btns prev ${this.state.prevDisable ? 'disable' : ''}`}/>
         <div className={`blur-btns next ${this.state.nextDisable ? 'disable' : ''}`}/>
