@@ -106,7 +106,7 @@ const About = ({i18n}) => {
               </div>
             </div>
             <div className="row mb-2">
-              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2"><b>{t('Closing Remarks')}</b><br/>{t('745')}&ndash;{t('800pm')}</div>
+              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2"><b>{t('Closing Remarks')}</b><br/>{t('900')}&ndash;{t('915pm')}</div>
               <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
                 <p>{t('MIT FHL & CDDL will conclude the event with closing remarks.')}</p>
               </div>

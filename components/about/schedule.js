@@ -56,12 +56,12 @@ const Schedule = ({i18n}) => {
                 <p className="text-center">{t('No events')}</p>
               </div>
               <div className="col-6 col-lg-5 p-2 t-7">
-                <h6><b>{t('Living Heritage Atlas |  Mapping Beirut’s Craftsmanship Event')}</b></h6><hr/>
+                <h6><b>{t('Living Heritage Atlas | Event (Abroyan Factory, Bourj Hammoud)')}</b></h6><hr/>
                 <ol className={i18n.language}>
                   <li>{t('Opening remarks by MIT CDDL & FHL (6:00 - 6:30 PM)')}</li>
-                  <li>{t('Mapping Methods Discussion')}</li>
-                  <li>{t('Mapathon Discussion')}</li>
-                  <li>{t('Closing Remarks')}</li>
+                  <li>{t('Mapping methods, 3 roundtable discussions (6:30 - 7:45 PM)')}</li>
+                  <li>{t('Mapathon (8:00 - 9:00 PM)')}</li>
+                  <li>{t('Closing remarks (9:00 - 9:15 PM)')}</li>
                 </ol>
               </div>
               <div className="col-3 p-2 t-5">
