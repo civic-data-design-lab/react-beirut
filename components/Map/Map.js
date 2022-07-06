@@ -263,16 +263,6 @@ export default class App extends React.PureComponent {
 
         });
 
-        map.current.on('click', ()=>{
-            console.log("print mapcard ", this.props.showMapCard)
-            if (this.props.showMapCard && window.innerWidth<688) {
-                this.props.closeMapCard()
-            }
-            else {
-                return
-            }
-        })
-
 
 
 
