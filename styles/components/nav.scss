@@ -172,7 +172,7 @@ $hamburger-zindex: $menu-zindex + 10;
 
   ul {
     // width: 400px;
-    width: 360px;
+    width: min(360px, 100%);
     //margin: 0 auto;
     //left: 50%;
 

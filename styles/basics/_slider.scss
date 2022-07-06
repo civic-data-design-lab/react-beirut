@@ -33,8 +33,8 @@
   z-index:3;
   opacity: 1;
   transition: opacity 0.5s linear;
-  touch-action: none;
-  pointer-events: none;
+  //touch-action: none;
+  //pointer-events: none;
 
   @media screen and (max-width: 688px) {
     // display: none;

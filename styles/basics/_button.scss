@@ -441,14 +441,16 @@ $icon-zindex: 1000;
     background-color: #333;
     color: white;
     position: absolute;
-    visibility: hidden;
+    //visibility: hidden;
+    display: none;
   }
   
   .additional-tag-tooltip-shown {
     background-color: #333;
     color: white;
     position: absolute;
-    visibility: visible;
+    //visibility: visible;
+    display: inline;
   }
 }
 
