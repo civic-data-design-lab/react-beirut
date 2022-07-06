@@ -368,41 +368,40 @@ const getPrimaryDecade = () => {
                 </div>
                 </div>
 
-                <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between", height:"100%"}}>
-                <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
-                {imageMetas?.length > 0 && (
-                    <MapCardSlider
-                        handleScroll={onScroll}
-                        children={showImages()}
-                        sliderStyle={mainSliderStyle}
-                    />
-                )}
-            </div>
-                <div className={'object-mobile-section'}>
-                    {getCaption()}
-                </div>
-                    {similarArchives ?
-                <div className={'object-mobile-section object-suggestion-section'}>
-                    <p className={'card-section-labels'}>
-                        {t('Discover similar archival images')}
-                    </p>
-                    <div className={'object-suggestion-container'}>
-                    <div className={'object-suggestion-parent'}>
-                        <Slider>
-                      {similarArchives?.map((shop) => (
-                        <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'} />
+                <div style={{display:'flex', flexDirection:'column', justifyContent:"flex-start", height:"100%"}}>
+                    <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
+                        {imageMetas?.length > 0 && (
+                            <MapCardSlider
+                                handleScroll={onScroll}
+                                children={showImages()}
+                                sliderStyle={mainSliderStyle}
+                            />
+                        )}
+                        <div className={'object-mobile-section'}>
+                        {getCaption()}
                         </div>
-                      ))}
-                    </Slider>
                     </div>
-                        </div>
-                </div> : null}
-            </div>
+
+                    {similarArchives ?
+                        <div className={'object-mobile-section object-suggestion-section'}>
+                            <p className={'card-section-labels'}>
+                                {t('Discover similar archival images')}
+                            </p>
+                            <div className={'object-suggestion-container'}>
+                                <div className={'object-suggestion-parent'}>
+                                    <Slider>
+                                        {similarArchives?.map((shop) => (
+                                            <div key={shop.ID} className="object-img">
+                                                <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'} />
+                                            </div>
+                                        ))}
+                                    </Slider>
+                                </div>
+                            </div>
+                        </div> : null}
                 </div>
+            </div>
         </Mobile>
-
-
     </>
   );
 };
