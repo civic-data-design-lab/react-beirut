@@ -8,6 +8,7 @@ export default class Slider extends React.Component {
     super(props);
 
     this.state = {
+      clicked:false,
       prevDisable: true,
       nextDisable:
         this.refs && this.refs.offsetWidth >= this.refs.scrollWidth
@@ -50,6 +51,8 @@ export default class Slider extends React.Component {
           onClick={() => {
             this.refs.scrollLeft -= offsetWidthValue / 2;
             this.checkChildren(offsetWidthValue, scrollWidthValue);
+            this.setState({clicked:!this.state.clicked})
+            console.log("clicked!")
           }}
         >
           <FontAwesomeIcon icon={faChevronLeft} width={8}/>
@@ -60,6 +63,8 @@ export default class Slider extends React.Component {
           onClick={() => {
             this.refs.scrollLeft += offsetWidthValue / 2;
             this.checkChildren(offsetWidthValue, scrollWidthValue);
+            this.setState({clicked:!this.state.clicked})
+            console.log("clicked!")
           }}
         >
           <FontAwesomeIcon icon={faChevronRight} width={8}/>
@@ -67,6 +72,12 @@ export default class Slider extends React.Component {
 
         <div className={`blur-btns prev ${this.state.prevDisable ? 'disable' : ''}`}/>
         <div className={`blur-btns next ${this.state.nextDisable ? 'disable' : ''}`}/>
+        {this.state.clicked?
+            <div className={"testDiv"}>
+              <p>HIIIIIII</p>
+            </div>:null}
+
+
       </div>
     );
   }
