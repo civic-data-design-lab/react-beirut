@@ -219,10 +219,10 @@
   justify-content: center;
   height: 100%;
   bottom:0px;
-
+  align-self: center;
   @media screen and (min-width: 992px) {
-    height: 45vw;
-    width: 45vw;
+    height: 40vw;
+    width: 40vw;
   }
 }
 

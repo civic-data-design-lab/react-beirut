@@ -25,6 +25,7 @@
 }
 
 .blur-btns {
+
   position: absolute;
   width: 15%;
   height: 150%;
@@ -57,13 +58,16 @@
 }
 
 .btn {
-  z-index: 99;
+  background:transparent;
+  border:none;
+  outline:none;
+  z-index: 299;
   position: absolute;
   cursor: pointer;
   width: 40px;
   height: 100%;
   top: 0;
-  background: $c-white;
+  // background: $c-white;
   display: flex;
   justify-content: center;
   align-items: center;
