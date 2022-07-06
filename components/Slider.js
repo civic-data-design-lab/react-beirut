@@ -1,5 +1,3 @@
-Scroll refs
-
 import React, { Component, createRef } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
