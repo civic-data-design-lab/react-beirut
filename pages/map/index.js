@@ -141,7 +141,7 @@ export default class Explore extends React.Component {
             //this.setState({showMapCard:false, id:null, type: null, coords: [35.5, 33.893894]})
             if (this.state.showMapCard) {
                 if (this.state.id === id) {
-                    this.setState({showMapCard:false, id:null, type: null, coords: [35.510, 33.893894]})
+                    this.setState({showMapCard:false, id:null, type: null, coords:false})
 
 
                 } else {
@@ -223,7 +223,7 @@ export default class Explore extends React.Component {
     }
 
     closeMapCard = () => {
-            this.setState({showMapCard:false, id:null, coords: [35.510, 33.893894]})
+            this.setState({showMapCard:false, id:null, coords: false})
     }
 
     toggleLayersControl = () => {

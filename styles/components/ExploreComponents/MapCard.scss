@@ -95,10 +95,13 @@
 
 .close-mapcard {
   @media screen and (max-width: 688px) {
-    display: none;
+    // display: none;
+    padding: 0 2vw;
   }
 
 }
+
+
 
 
 .mapCard-dragger {

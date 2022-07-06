@@ -503,7 +503,8 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
                 <Mobile>
 
-                            <div className={'mapCard-drag-container'}>
+
+                                <div className={'mapCard-drag-container'}>
 
                                 <Draggable axis="y"
                                            bounds="parent"
@@ -518,8 +519,8 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                                     {workshop && createMapCardContent()}
                                         </div>
                                 </Draggable>
+                                </div>
 
-                            </div>
 
                 </Mobile>
 

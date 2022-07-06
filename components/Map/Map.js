@@ -16,7 +16,7 @@ export default class App extends React.PureComponent {
 
         this.state = {
             activeLayer: null,
-            showMapCard: this.props.showMapCard,
+            showMapCard: false,
             width: window.innerWidth,
             height: window.innerHeight,
             coord: this.props.coords,
@@ -140,6 +140,7 @@ export default class App extends React.PureComponent {
     clickMarker (e) {
         let el = e.target;
         this.props.openMapCard(el.id, el.type);
+
     }
 
     hoverMarker(e) {
@@ -263,15 +264,7 @@ export default class App extends React.PureComponent {
 
         });
 
-        map.current.on('click', ()=>{
-            console.log("print mapcard ", this.props.showMapCard)
-            if (this.props.showMapCard && window.innerWidth<688) {
-                this.props.closeMapCard()
-            }
-            else {
-                return
-            }
-        })
+
 
 
 
@@ -421,7 +414,7 @@ export default class App extends React.PureComponent {
         const changedCoords = this.props.coords !== prevProps.coords;
         if (changedZoom || changedCoords) {
             // console.log('is zoom the same')
-            if (this.props.showMapCard===false) {
+            if (this.props.showMapCard===false && this.props.coords) {
                 console.log('zoom')
                 map.current.flyTo({
                     center: changedCoords?this.props.coords:[35.510, 33.893894],
@@ -435,12 +428,6 @@ export default class App extends React.PureComponent {
 
 
         // console.log("zoom diff ", prevState.readZoom, this.state.readZoom)
-
-        if (prevState.readZoom !== this.state.readZoom){
-            console.log("changed zoom")
-        }
-
-
         MAP_LABELS.forEach((layer) => {
             try {
                 map.current.setLayoutProperty(layer, 'text-field', [
@@ -463,16 +450,7 @@ export default class App extends React.PureComponent {
                 map.current.flyTo({
                     center: this.props.coords,
                     zoom: 16,
-                    offset: (687<this.state.width && this.state.width<992)?[0, this.state.height*0.30]:[0,0],
-                    bearing: 0,
-                    speed: 0.5, // make the flying slow
-                    curve: 1, // change the speed at which it zooms out
-                    essential: true
-                })
-            } else if (this.props.coords[0] === 35.510 && this.props.coords[1] === 33.893894) {
-                map.current.flyTo({
-                    center: this.props.coords,
-                    zoom: 13.25,
+                    offset: (this.state.width<992)?(687<this.state.width?[0, this.state.height*0.30]:[0, -this.state.height*0.25]):[0,0],
                     bearing: 0,
                     speed: 0.5, // make the flying slow
                     curve: 1, // change the speed at which it zooms out
@@ -525,6 +503,11 @@ export default class App extends React.PureComponent {
         //console.log(this.props);
         if (!this.props.workshops) {
             return;}
+
+        if (prevState.readZoom !== this.state.readZoom){
+            console.log(this.mappedMarkers[0])
+            // this.mappedMarkers.forEach((marker) => marker.remove());
+        }
 
         if (this.mappedMarkers) {
             this.mappedMarkers.forEach((marker) => marker.remove());
