@@ -298,7 +298,11 @@ export default class Explore extends React.Component {
 
                     </Head>
                     <div className={"explore-page-container"}>
-                        <Map i18n={this.props.i18n} showMapCard={this.state.showMapCard} lang={this.props.lang} setMapLayerSettings={this.setMapLayerSettings} setMapZoom={this.setMapZoom} mapZoom={this.state.mapZoom} handleResize={this.handleResize}  mapCenter={this.state.mapCenter} allLayers={this.state.allLayers} mapLayer={this.state.mapLayer} workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData} openMapCard={this.openMapCard} coords={this.state.coords} />
+                        <Map i18n={this.props.i18n} showMapCard={this.state.showMapCard} lang={this.props.lang} setMapLayerSettings={this.setMapLayerSettings}
+                             setMapZoom={this.setMapZoom} mapZoom={this.state.mapZoom} handleResize={this.handleResize}
+                             mapCenter={this.state.mapCenter} allLayers={this.state.allLayers} mapLayer={this.state.mapLayer}
+                             workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData}
+                             openMapCard={this.openMapCard} coords={this.state.coords} closeMapCard={this.closeMapCard}/>
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
                             updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} reset={this.onReset} resetToggle={this.state.toggleReset} />  : null }

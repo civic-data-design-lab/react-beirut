@@ -368,7 +368,7 @@ const getPrimaryDecade = () => {
                 </div>
                 </div>
 
-                <div style={{display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+                <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between", height:"100%"}}>
                 <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider

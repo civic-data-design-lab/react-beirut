@@ -18,6 +18,10 @@
   overflow: hidden;
 }
 
+.geoLocate-marker {
+  background-color: #85cbd4;
+}
+
 .marker {
   background-color: #e65525;
   box-shadow: 0 0 0 1px $c-white;
@@ -218,7 +222,7 @@
   justify-content: space-around;
   align-items: center;
   bottom: 5%;
-  // right: 2rem;
+  right: 2rem;
 
   @media screen and (max-width: 688px) {
     right: calc(100vw - 48px - 2rem)

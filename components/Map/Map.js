@@ -25,13 +25,15 @@ export default class App extends React.PureComponent {
             geoLocateLoader : false,
 
             readZoom: this.props.mapZoom,
-            markerRadius: this.getMarkerRadius(this.props.mapZoom)
+            markerRadius: this.getMarkerRadius(this.props.mapZoom),
+            geoLocateCoords: null
             //mapZoom: this.props.mapZoom
 
         }
 
         this.mapContainer = React.createRef();
         this.mappedMarkers = [];
+        this.geoLocateMarker=null;
         this.colorMap = {
             "architectural": '#91B0D1',
             "cuisine": '#DFBA96',
@@ -100,7 +102,8 @@ export default class App extends React.PureComponent {
             this.setState({
                 geoLocateDialog:null,
                 geoLocateTitle: null,
-                geoLocateLoader:false
+                geoLocateLoader:false,
+                geoLocateCoords:[position.coords.longitude, position.coords.latitude]
             });
             map.current.flyTo({
                 center: [position.coords.longitude, position.coords.latitude],
@@ -259,6 +262,16 @@ export default class App extends React.PureComponent {
             })
 
         });
+
+        map.current.on('click', ()=>{
+            console.log("print mapcard ", this.props.showMapCard)
+            if (this.props.showMapCard && window.innerWidth<688) {
+                this.props.closeMapCard()
+            }
+            else {
+                return
+            }
+        })
 
 
 
@@ -515,6 +528,24 @@ export default class App extends React.PureComponent {
 
         if (this.mappedMarkers) {
             this.mappedMarkers.forEach((marker) => marker.remove());
+        }
+
+        if (prevState.geoLocateCoords != this.state.geoLocateCoords) {
+            if (this.state.geoLocateCoords) {
+            console.log("geoLocateEE")
+
+           if (this.geoLocateMarker){
+               this.geoLocateMarker.remove()
+           }
+            const el = document.createElement('div');
+            el.id = 'geoLocate-marker';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
+            el.style.background="#85cbd4";
+            el.style.borderRadius = '50%';
+            let marker = new mapboxGl.Marker(el).setLngLat(this.state.geoLocateCoords).addTo(map.current);
+            this.geoLocateMarker = marker;
+        }
         }
 
 
