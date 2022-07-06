@@ -267,8 +267,6 @@ export default class App extends React.PureComponent {
 
 
 
-
-
        if (!this.props.workshops) {
             return;}
 
