@@ -208,15 +208,10 @@ const Nav = ({changeLanguage}) => {
             </div>
             <br />
             <div className={'footer-contact'}>
-            Contact us at{' '}
-            <a href="mailto:livingheritage@mit.edu">
-              livingheritage@mit.edu
-            </a>{' '}
-            with any questions or comments about the Living Heritage Atlas |
-            Beirut.
+              {t("Contact us at livingheritage@mit.edu with any questions or comments about the Living Heritage Atlas | Beirut.")}
             <br />
             <small>
-              &copy; 2022 Living Heritage Atlas 2022. All rights reserved.
+              &copy; {t("2022 Living Heritage Atlas 2022. All rights reserved.")}
             </small>
             {/* <ul>
               <li>

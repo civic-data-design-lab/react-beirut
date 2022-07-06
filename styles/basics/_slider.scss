@@ -36,6 +36,10 @@
   touch-action: none;
   pointer-events: none;
 
+  @media screen and (max-width: 688px {
+    display: none;
+  }
+
 
   &.prev {
     left: 0px;
