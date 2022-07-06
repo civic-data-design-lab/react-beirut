@@ -94,6 +94,16 @@ ol.en {
 ol.ar {
   padding-left: 0;
   padding-right: 1rem;
+  list-style: arabic-indic;
+}
+
+div.en {
+    padding-left: 1rem;
+}
+
+div.ar{
+    padding-left: 0;
+    padding-right: 1rem;
 }
 
 // RESPONSIVE DESIGN

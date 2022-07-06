@@ -5,9 +5,11 @@ const convert = require('heic-convert');
 import {StatusCodes} from "http-status-codes";
 
 
-const convertHEIC = async (inputFile) => {
+const convertHEIC = async (inputBuffer) => {
+    inputBuffer = Buffer.from(inputBuffer, 'utf8')
+    console.log("is is a buffe ", Buffer.isBuffer(inputBuffer))
+    console.log("type ", typeof (inputBuffer))
   // console.log("input buffer ", inputBuffer)
-  const inputBuffer = await promisify(fs.readFile)(inputFile);
   const outputBuffer = await convert({
     buffer: inputBuffer, // the HEIC file buffer
     format: 'JPEG',      // output format
@@ -23,7 +25,7 @@ export default async (req, res) => {
   console.log("check if here")
   if (req.method==="POST") {
       console.log("hereee")
-      // console.log("body is ", req.body)
+      console.log("body is ", req.body)
 
     let outputBuffer
 
