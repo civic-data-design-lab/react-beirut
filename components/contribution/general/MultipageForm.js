@@ -361,7 +361,7 @@ const MultipageForm = ({
                   <>
                     <FontAwesomeIcon icon={faCircleXmark} />
                   <h1>{t('Upload Failed!')}</h1>
-                  <h2>{t('We could not process your response.')}</h2>
+                  <h2>{t('We could not process your response. Please try decreasing the size of your image, submitting in .png or .jpeg file, or improving your internet connection.')}</h2>
                   <p>
                     {t('Click')+' '}
                     <Link href={getLinkBack("form")}>

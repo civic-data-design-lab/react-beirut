@@ -1,10 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 
 const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
+
+
+    const [submitting, setSubmitting] = useState(false);
 
 
     useEffect(()=>{
@@ -22,6 +25,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
     const {t}=useTranslation();
 
     const handleUploadImage = (e) => {
+    setSubmitting(true)
     const file = e.target.files[0];
     // CHECK IF HEIC OR HEIF
     try {
@@ -40,6 +44,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
           readFile(file)
         }
     } catch (e) {
+        setSubmitting(false)
         handleUpdateImage(null, null);
     }
   }
@@ -53,10 +58,12 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
       }
       console.log('extension is ', ext)
       handleUpdateImage(imageBuffer, ext);
+      setSubmitting(false)
     };
     try{
       reader.readAsDataURL(file);
     } catch (err) {
+        setSubmitting(false)
       handleUpdateImage(null, null);
     };
   }
@@ -73,11 +80,16 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
           <label>
             {currentImage ? (
                 <img src={currentImage} alt="Uploaded image" />
-            ) : (
-                <div className="SingleImageUpload-default">
+            ) : (submitting?
+                    <>
+                        <div className="loader" />
+                        <br />
+                        <p>{t('Uploading Images...')}</p>
+                    </>
+                :(<div className="SingleImageUpload-default">
                   <FontAwesomeIcon icon={faImage} width="5em" />
                   <p>{t('Click to upload image')}</p>
-                </div>
+                </div>)
             )}
             <input
                 type="file"

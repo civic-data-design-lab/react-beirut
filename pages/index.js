@@ -113,11 +113,12 @@ const Index = ({i18n}) => (
             <Animator animation={batch(Sticky(), Fade(0,1))}> */}
               <div className="container-sm vh-100 d-flex flex-column justify-content-center mt-5 p-4">
                 <div className="row">
-                  <div className="col-1"></div>
+                  <div className="col-2"></div>
                   <div className="col-8">
                     <img className="w-100" src="./LHA_logo-horiz.png" alt="Living Heritage Atlas | Beirut logo" />
                     <p className="mt-3 px-4"><em>Living Heritage Atlas | Beirut</em> is a design-based research project that contributes to urban planning discussion on Beirut's heritage by rendering visible the often unrecognized social heritage of craftsmanship — with its crafts, public spaces, and local knowledge</p>
                   </div>
+                  <div className="col-2"></div>
                 </div>
               </div>
             {/* </Animator>

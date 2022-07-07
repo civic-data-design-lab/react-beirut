@@ -78,6 +78,13 @@ const Discover = ({ children, i18n}) => {
     );
 
     console.log("done fetching")
+
+    window.addEventListener("scroll", ()=>{
+      const prevPos=sessionStorage.getItem("prevScrollPos")
+      if (prevPos && parseInt(prevPos) === window.scrollY){
+        sessionStorage.removeItem("prevScrollPos")
+      }
+    })
   }, []);
 
   useEffect(()=>{
