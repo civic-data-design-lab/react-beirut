@@ -99,6 +99,9 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
                 onChange={handleUploadImage}
         />
       </label>
+            <small className="input-error">
+                    * Please upload images less than 4MB
+                  </small>
     </div>
             </>
   )}
