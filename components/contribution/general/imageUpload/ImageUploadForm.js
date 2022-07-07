@@ -1,10 +1,16 @@
-import SingleImageUpload from './SingleImageUpload';
+// import SingleImageUpload from './SingleImageUpload';
 import BooleanButtonForm from '../booleanButtonForm/BooleanButtonForm';
 import UploadedImage from './UploadedImage';
-
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 
 import { Trans, useTranslation } from "react-i18next";
+
+const SingleImageUpload = dynamic(() => import('../imageUpload/SingleImageUpload'), {
+  ssr: false
+});
+
+<SingleImageUpload />
 
 
 /**
