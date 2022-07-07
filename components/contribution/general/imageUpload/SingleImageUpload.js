@@ -8,6 +8,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
 
 
     const [submitting, setSubmitting] = useState(false);
+    const [sizeLimit, setSizeLimit] = useState(false);
 
 
     useEffect(()=>{
@@ -25,10 +26,20 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
     const {t}=useTranslation();
 
     const handleUploadImage = (e) => {
+        setSizeLimit(false)
     setSubmitting(true)
-    const file = e.target.files[0];
     // CHECK IF HEIC OR HEIF
+
+
     try {
+
+        const file = e.target.files[0];
+        console.log("file size ", file.size)
+        if (file.size>4000000) {
+            setSubmitting(false)
+            setSizeLimit(true)
+            return
+        }
         const ext = file.name.toLowerCase().split('.').pop()
         if (ext === "heic" || ext === "heif") {
             console.log("heic detected")
@@ -82,9 +93,9 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
                 <img src={currentImage} alt="Uploaded image" />
             ) : (submitting?
                     <>
-                        <div className="loader" />
+                        <div className="loader" style={{zIndex:"900"}}/>
                         <br />
-                        <p>{t('Uploading Images...')}</p>
+                        <p>{t('Uploading Image...')}</p>
                     </>
                 :(<div className="SingleImageUpload-default">
                   <FontAwesomeIcon icon={faImage} width="5em" />
@@ -99,9 +110,10 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
                 onChange={handleUploadImage}
         />
       </label>
-            <small className="input-error">
+            {sizeLimit?
+                <small className="input-error">
                     * Please upload images less than 4MB
-                  </small>
+                </small>:null}
     </div>
             </>
   )}
