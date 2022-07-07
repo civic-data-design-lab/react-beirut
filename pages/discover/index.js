@@ -62,6 +62,14 @@ const Discover = ({ children, i18n}) => {
   }
 
 
+  const stopScroll=()=>{
+      const prevPos=sessionStorage.getItem("prevScrollPos")
+      if (prevPos && (parseInt(prevPos) === window.scrollY)){
+        sessionStorage.removeItem("prevScrollPos")
+      }
+    }
+
+
 
   useEffect(() => {
     console.log('fetching');
@@ -79,12 +87,11 @@ const Discover = ({ children, i18n}) => {
 
     console.log("done fetching")
 
-    window.addEventListener("scroll", ()=>{
-      const prevPos=sessionStorage.getItem("prevScrollPos")
-      if (prevPos && parseInt(prevPos) === window.scrollY){
-        sessionStorage.removeItem("prevScrollPos")
-      }
-    })
+    //window.addEventListener("scroll", stopScroll)
+
+    //return () => {
+    //  window.removeEventListener('scroll', stopScroll);
+    //};
   }, []);
 
   useEffect(()=>{
@@ -99,6 +106,9 @@ const Discover = ({ children, i18n}) => {
         // $('#content').animate({ scrollTop: elementOffset }, 200);
 
         window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
+        if (prevScrollPos && (parseInt(prevScrollPos) <= window.scrollY)){
+        sessionStorage.removeItem("prevScrollPos")
+      }
       }
     }
   })
