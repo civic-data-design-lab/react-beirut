@@ -1,10 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
-import React from "react";
+import React, {useEffect} from "react";
 import {useTranslation} from "react-i18next";
-import heic2any from "heic2any";
+
 
 const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
+
+
+    useEffect(()=>{
+       const script = document.createElement("script");
+       script.src = "https://cdn.jsdelivr.net/npm/heic2any@0.0.3/dist/heic2any.min.js";
+       script.async = true;
+       //script.onload = () => this.scriptLoaded();
+        document.body.appendChild(script);
+    }, [])
+
+
+
 
 
     const {t}=useTranslation();
@@ -15,12 +27,13 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
     try {
         const ext = file.name.toLowerCase().split('.').pop()
         if (ext === "heic" || ext === "heif") {
+            console.log("heic detected")
           heic2any({
             blob: file,
             toType: "image/jpeg",
             quality: 0.5
           }).then((img) => {
-              console.log(img)
+              console.log("img", img)
             readFile(img, "jpeg")
           })
         } else {
@@ -50,7 +63,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
 
 
     return (
-        // <script src='https://cdn.jsdelivr.net/npm/heic2any@0.0.3/dist/heic2any.min.js'/>
+        <>
         <div className="SingleImageUpload image-upload-container">
       {/* {currentImage && (
         <button type="button" title='Clear image' onClick={handleClearImage}>
@@ -75,6 +88,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
         />
       </label>
     </div>
+            </>
   )}
 
 

@@ -57,8 +57,7 @@
     "sharp": "^0.30.6",
     "swr": "^1.0.1",
     "twilio": "^3.77.1",
-    "y": "^0.3.2",
-    "heic2any": "^0.0.3"
+    "y": "^0.3.2"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.17.12",

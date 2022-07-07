@@ -6,7 +6,7 @@ import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStore} from "@fortawesome/free-solid-svg-icons";
 
-const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI, storeScrollPosition }) => {
+const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI, storeScrollPosition=null }) => {
 
 
   const [extension, setExtension] = useState(null);
@@ -65,8 +65,8 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI, storeScro
       <div className="img-preview"
             onClick={()=>{
                 console.log("clicked iamge", window.scrollY)
-                if (navigator.cookieEnabled){
-                storeScrollPosition(window.scrollY.toString())
+                if (navigator.cookieEnabled && storeScrollPosition){
+                    storeScrollPosition(window.scrollY.toString())
                 }}
             }
       >
