@@ -1,11 +1,19 @@
 @import '../setup/variables';
 
-#header {
+
+.scroll-lock {
+  // pointer-events: none !important;
+  // touch-action: none !important;
+  //overflow-y: hidden !important;
   position: fixed;
+}
+
+#header {
+  //position: fixed !important;
   width: 100vw;
   height: $header-height;
   padding: 2rem;
-  position: sticky;
+  position: sticky !important;
   top: 0;
   left: 0;
   right: 0;

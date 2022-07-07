@@ -217,7 +217,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return t('Since') +` ${workshop.decade_established[0]}`
+            return t('Established') +` ${workshop.decade_established[0]}`
         } else {
                 return null
             }

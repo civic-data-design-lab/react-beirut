@@ -31,6 +31,7 @@ const Default = ({ children }) => {
 import { Trans, useTranslation, initReactI18next } from "react-i18next";
 
 
+
 const Discover = ({ children, i18n}) => {
 
   const {t} = useTranslation();
@@ -55,6 +56,13 @@ const Discover = ({ children, i18n}) => {
   const [toggleImage, setToggle] = useState(false);
   const [resetToggleImage, setResetToggle] = useState(false);
 
+  const storeScrollPosition = (scrollPos) => {
+    console.log("saved ", scrollPos)
+    sessionStorage.setItem("prevScrollPos", scrollPos)
+  }
+
+
+
   useEffect(() => {
     console.log('fetching');
 
@@ -68,7 +76,25 @@ const Discover = ({ children, i18n}) => {
         );
       }
     );
+
+    console.log("done fetching")
   }, []);
+
+  useEffect(()=>{
+      if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual'
+  }
+
+    if (navigator.cookieEnabled) {
+      const prevScrollPos = sessionStorage.getItem("prevScrollPos")
+      if (prevScrollPos) {
+        console.log("scroll to ", parseFloat(prevScrollPos))
+        // $('#content').animate({ scrollTop: elementOffset }, 200);
+
+        window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
+      }
+    }
+  })
 
   useEffect(() => {
     const { show } = router.query;
@@ -223,6 +249,7 @@ const Discover = ({ children, i18n}) => {
               reset={handleReset}
               resetToggle={resetToggleImage}
               close={handleClose}
+              i18n={i18n}
             />
           ) : null}
 
@@ -233,6 +260,7 @@ const Discover = ({ children, i18n}) => {
               // onCloseCard={resetSelected}
               // onExpandCard={handleExpand}
               imageFilterData={filterData}
+              storeScrollPosition={storeScrollPosition}
             />
           ) : (
             <>

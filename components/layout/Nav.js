@@ -28,6 +28,21 @@ const Nav = ({changeLanguage}) => {
 
 
   useEffect(()=>{
+    if (isMenuOpen) {
+      console.log(`-${window.scrollY}px`)
+      const scrollPos = -window.scrollY
+      document.body.style.position = 'fixed';
+      document.body.style.top = `${scrollPos}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+  }, [isMenuOpen])
+
+
+  useEffect(()=>{
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => {
@@ -49,7 +64,6 @@ const Nav = ({changeLanguage}) => {
 
   // dynamically showing the page location
   const getPath = () => {
-    console.log(width)
     const path = router.pathname.split('/')[1];
 
     let pageLocation = path;

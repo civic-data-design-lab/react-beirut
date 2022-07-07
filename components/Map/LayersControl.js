@@ -116,7 +116,7 @@ return (
                                         {layersControlContent()}
                                       <div className={'card-section-centered'}>
                                         <button className={'btn-pill lc-showMap-btn view-map-btn'} onClick={closeLayersControl}>
-                                            <span className={'view-map-label'}>View Map</span>
+                                            <span className={'view-map-label'}>{t("View Map")}</span>
                                         </button>
                                           </div>
 

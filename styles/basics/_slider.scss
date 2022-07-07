@@ -16,6 +16,7 @@
   overflow-y: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+  pointer-events: none !important;
 }
 
 .slider-container::-webkit-scrollbar {
@@ -39,10 +40,11 @@
 .blur-btns {
 
   position: absolute;
+  padding: 0;
   width: 15%;
   height: 150%;
   background: #FFFFFF;
-  filter: blur(20px);
+  filter: blur(18px);
   z-index:3;
   opacity: 1;
   transition: opacity 0.5s linear;
@@ -70,7 +72,7 @@
 }
 
 .btn {
-  // background:transparent;
+  //background:transparent;
   border:none;
   outline:none;
   z-index: 299;
@@ -85,6 +87,7 @@
   align-items: center;
   text-align: center;
   color: $c-primary-dark;
+  pointer-events: auto !important;
 
   &.prev {
     left: 0px;

@@ -6,7 +6,7 @@ import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStore} from "@fortawesome/free-solid-svg-icons";
 
-const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
+const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI, storeScrollPosition }) => {
 
 
   const [extension, setExtension] = useState(null);
@@ -18,35 +18,19 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
               // console.log("response ", response)
               return response.json()})
           .then((res)=>{
-              if (workshop.ID === "8576723272") {
-                  console.log("res ", res)
-                  console.log("ext from before ", res['response'][0].extension)
-              }
               return res['response'][0].extension})
           .then((ext)=>{
-              if (workshop.ID === "8576723272") {
-                  console.log("ext ", ext)
-              }
-              // console.log("extendion", ext)
             if (ext) {
-              console.log('ext exists and is ', ext)
               setExtension(ext)
             } else {
               setExtension('jpeg')
             }
           })
-          .then(console.log(extension))
     }
   }
 
   useEffect(()=>{
         if (!extension) {
-            if (workshop.ID === "8576723272") {
-                console.log("useeffecy")
-                console.log("workshop is ", workshop.thumb_img_id)
-            }
-
-            //window.addEventListener('resize', this.updateDimensions);
             fetchThumbnail()
         }
     }, [])
@@ -78,7 +62,14 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
 
   return (
     <>
-      <div className="img-preview">
+      <div className="img-preview"
+            onClick={()=>{
+                console.log("clicked iamge", window.scrollY)
+                if (navigator.cookieEnabled){
+                storeScrollPosition(window.scrollY.toString())
+                }}
+            }
+      >
           {extension ?
            (
           <>

@@ -50,7 +50,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n, preview=false }) => {
+const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n, preview=false}) => {
   const {t} =useTranslation();
   const getImages = () => {
       console.log("i18n ", i18n)
@@ -315,7 +315,7 @@ const getPrimaryDecade = () => {
                 {getCaption()}
                 </div>
 
-                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
+                <div className={!preview?'object-slider-section-tablet':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
@@ -353,7 +353,7 @@ const getPrimaryDecade = () => {
                     <path d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z" fill="#333333"/>
                     </svg>
                 </button> : null}
-                <div className={'object-mobile-heading'}>
+                <div className={!preview?'object-mobile-heading':'object-mobile-heading-preview'}>
                     <div className={!preview?'object-mobile-heading-subcontainer':'object-mobile-heading-subcontainer-preview'}>
 
                     <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;

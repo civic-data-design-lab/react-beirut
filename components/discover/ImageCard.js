@@ -117,6 +117,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={thumbnailSrc}
               similarArchives={similarWorkshops}
               handleClose={onClose}
+              i18n={this.props.i18n}
             />
               </div>
 
@@ -143,7 +144,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive">
+              <div className="fixed object-card slide-up">
 
             <Archive
               archive={object}
@@ -151,6 +152,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={thumbnailSrc}
               similarArchives={similarWorkshops}
               handleClose={onClose}
+              i18n={this.props.i18n}
             />
               </div>
 
@@ -187,6 +189,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={thumbnailSrc}
               similarArchives={similarWorkshops}
               handleClose={onClose}
+              i18n={this.props.i18n}
             />
               </div>
 
