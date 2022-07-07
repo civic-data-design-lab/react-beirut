@@ -14,14 +14,26 @@
   scroll-behavior: smooth;
   height: 100%;
   overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.slider-container::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 .slider-wrapper {
-
+  overflow-x: scroll;
+  overflow-y : hidden;
+  scroll-behavior: smooth;
   white-space: nowrap;
   //height: max-content;
   width: 100%;
   // padding: 0 30px;
+  pointer-events: none;
 }
 
 .blur-btns {
@@ -58,7 +70,7 @@
 }
 
 .btn {
-  background:transparent;
+  // background:transparent;
   border:none;
   outline:none;
   z-index: 299;
@@ -67,7 +79,7 @@
   width: 40px;
   height: 100%;
   top: 0;
-  // background: $c-white;
+  background: $c-white;
   display: flex;
   justify-content: center;
   align-items: center;

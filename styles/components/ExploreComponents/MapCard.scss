@@ -213,6 +213,7 @@ exploreShops-div {
   height: 10vw;
   width: 10vw;
   border-radius: 10px;
+  pointer-events: auto !important;
 
   @media screen and (min-width: 688px) and (max-width: 991px) {
     height: 15vw;
