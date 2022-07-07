@@ -95,7 +95,7 @@ export default class ImageCard extends React.Component {
           <Card handleClose={onClose}>
 
           {type === 'workshop' ? (
-            <div className="fixed object-card">
+            <div className="fixed object-card slide-up">
             <Workshop
               workshop={object}
               imageMetas={imageMetas}
@@ -167,7 +167,7 @@ export default class ImageCard extends React.Component {
                           <div className="card__cover">
                             <div className="card__wrapper">
         {type === 'workshop' ? (
-            <div className="fixed object-card ">
+            <div className="fixed object-card slide-up">
             <Workshop
               workshop={object}
               imageMetas={imageMetas}

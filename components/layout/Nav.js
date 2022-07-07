@@ -31,8 +31,10 @@ const Nav = ({changeLanguage}) => {
     if (isMenuOpen) {
       console.log(`-${window.scrollY}px`)
       const scrollPos = -window.scrollY
-      document.body.style.position = 'fixed';
-      document.body.style.top = `${scrollPos}px`;
+      setTimeout(()=>{
+        document.body.style.position = 'fixed';
+        document.body.style.top = `${scrollPos}px`;
+      }, 1000)
     } else {
       const scrollY = document.body.style.top;
       document.body.style.position = '';

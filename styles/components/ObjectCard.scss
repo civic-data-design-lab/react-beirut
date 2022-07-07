@@ -63,6 +63,7 @@
     bottom: 0px !important;
     --safe-area-inset-bottom: env(safe-area-inset-bottom);
     padding: 0px 0px calc(1em + var(--safe-area-inset-bottom));
+    right: 0vw;
 
     //padding: 0px 0px (1em + var(--safe-area-inset-bottom)) !important;
 
@@ -540,6 +541,37 @@
 
 .miniMap-container {
   height: 90%;
+}
+
+
+.slide-right {
+  -webkit-animation: slideIn 2s forwards;
+      -moz-animation: slideIn 2s forwards;
+      animation: slideIn 2s forwards;
+    @-webkit-keyframes slideIn {
+        0% {
+          right: 100vw;
+        }
+        100% {
+          right: 0vw;
+        }
+      }
+      @-moz-keyframes slideIn {
+        0% {
+          right: 100vw;
+        }
+        100% {
+          right: 0vw;
+        }
+      }
+      @keyframes slideIn {
+        0% {
+          right: 100vw;
+        }
+        100% {
+          right: 0vw;
+        }
+      }
 }
 
 
