@@ -391,7 +391,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                                  <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={workshop.survey_origin !== 'workshop_contribution' ? 'check' : 'question'}
-                                                  text={workshop.survey_origin !== 'workshop_contribution' ? 'This workshop has been reviewed and verified.' : 'This workshop is still under review and is not verified yet.'}/>
+                                                  text={workshop.survey_origin !== 'workshop_contribution' ? t('This crafts workshop has been reviewed and verified') : t('This workshop has not been reviewed and verified.')}/>
                                         </span>
                                     </p>
 
@@ -441,7 +441,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                                     <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={workshop.info_type !== 'archive_contribution' ? 'check' : 'question'}
-                                                  text={workshop.info_type !== 'archive_contribution' ? 'This archive image was reviewed and verified' : 'This archive image is still under review and is not verified yet.'}/>
+                                                  text={workshop.info_type !== 'archive_contribution' ? t('This archive image has been reviewed and verified.') : t('This archive image has not been reviewed and verified.')}/>
                                         </span>
                                     </p>
 

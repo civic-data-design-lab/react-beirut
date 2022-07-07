@@ -281,7 +281,7 @@ const Contribute = () => {
                   </Trans>
 
               </button>
-              <div className={'Contribute-landing-divider'}><hr className={'half-hr'}/><p>or</p><hr className={'half-hr'}/></div>
+              <div className={'Contribute-landing-divider'}><hr className={'half-hr'}/><p>{t('or')}</p><hr className={'half-hr'}/></div>
 
               <button
                 className="Contribute-type-select"

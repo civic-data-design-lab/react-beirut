@@ -129,7 +129,7 @@ const InputField = (props) => {
             {...rest}
           >
             <option defaultValue value="null">
-              {defaultValue ? defaultValue : `--Select ${title}--`}
+              {defaultValue ? defaultValue : `--${t('Select')} ${title}--`}
             </option>
             {[...Array(endYear - startYear).keys()]
               .map((i) => i + startYear)
@@ -197,7 +197,7 @@ const InputField = (props) => {
               {...rest}
             >
               <option  value="null">
-                {`--Select ${title}--`}
+                {`--${t('Select')} ${title}--`}
               </option>
               {children}
               <option value="OTHER"> ＋ {t('Other')}</option>
@@ -223,15 +223,15 @@ const InputField = (props) => {
         );
       case 'tel':
         validationPattern = REGEX_VALIDATION.tel;
-        errorString = '* Please enter a valid phone number.';
+        errorString = t('* Please enter a valid phone number.');
         break;
       case 'email':
         validationPattern = REGEX_VALIDATION.email;
-        errorString = '* Please enter a valid email address';
+        errorString = t('* Please enter a valid email address');
         break;
       case 'url':
         validationPattern = REGEX_VALIDATION.url;
-        errorString = '* Please enter a valid url';
+        errorString = t('* Please enter a valid url');
         break;
       default:
         return <></>;

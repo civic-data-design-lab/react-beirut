@@ -7,7 +7,7 @@ import WorkshopImageForm from '../../components/contribution/workshop/WorkshopIm
 import WorkshopAboutForm from '../../components/contribution/workshop/WorkshopAboutForm';
 import Preview from '../../components/contribution/general/Preview';
 import Dialogue from "../../components/contribution/general/Dialogue";
-
+import {useTranslation} from "next-i18next";
 import {
   convertWorkshopContributionToSchema,
   WORKSHOP_CONTRIBUTION_NAME,
@@ -15,6 +15,8 @@ import {
   isProperlyTruthy, ARCHIVE_CONTRIBUTION_NAME,
 } from '../../lib/utils';
 import Card from '../../components/Card';
+
+
 
 let localStorageSize = function () {
    let _lsTotal = 0,_xLen, _x;
@@ -36,13 +38,11 @@ let localStorageSize = function () {
 
 const imageRequirement = (formData) => {
   if (!formData.images || formData.images.length<1 || (!formData.images[0].imageData || !formData.images[0].imageExtension)) {
-     console.log('no formdata image detenceted');
     return {
       requirementFulfilled: false,
       errorMessage: 'Image upload required',
     };
   } else {
-    console.log('uploaded image')
     return {
       requirementFulfilled: true,
       errorMessage: '',
@@ -375,9 +375,7 @@ const WorkshopContribution = ({lang, i18n}) => {
           console.log(e)
         setLocalStorageFull(true)
         setDialogTitle('Ran out of local storage space!')
-        setDialog("Because your browser has exceeded its storage, it can no longer "+
-            "save any more additions you make to this form for you to return to later. "  +
-            "Please complete this submission within this session.")
+        setDialog("Because your browser has exceeded its storage, it can no longer save any more additions you make to this form for you to return to later. Please complete this submission within this session.")
       }}
       // INFO: Update the local storage
 

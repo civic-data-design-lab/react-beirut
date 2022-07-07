@@ -41,7 +41,7 @@ const About = ({i18n}) => {
           <p className="mb-0"><b>{t('Featured Event:')}</b>&emsp;{t('Two-hour roundtable discussion and mapping event')}</p>
           <p className="mb-0"><b>{t('Date&#58;')}</b>&emsp;{t('Thursday, July 7, 2022')}</p>
           <p className="mb-0"><b>{t('Time&#58;')}</b>&emsp;{t('600')}&ndash;{t('900pm')}</p>
-          <p><b>{t('Location&#58;')}</b>&emsp;{t('Abroyan Factory')}&mdash;{t('Emile Eddeh Street, Bouj Hammoud, Beirut')}</p>
+          <p><b>{t('Location&#58;')}</b>&emsp;{t('Abroyan Factor —Emile Eddeh Street, Bouj Hammoud, Beirut')}</p>
           <p>{t("Register to attend Living Heritage Atlas | Beirut events via the")} <a href="https://ihjoz.com/companies/1887" target="_blank">Ijhoz event webpage</a></p>
           <p>{t('Discussion during this event will primary be conducted in English; if you prefer to converse in Arabic, there will be a person at each table ready to help translate to and from Arabic and English as needed.')}</p>
           <div className="t-event container-fluid mt-4">

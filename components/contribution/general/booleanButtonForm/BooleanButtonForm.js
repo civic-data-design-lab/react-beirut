@@ -116,7 +116,7 @@ const BooleanButtonForm = ({
         <label className={required ? 'required bbf-label' : 'bbf-label'} htmlFor={dataLocation}>
           {label} {selectionsAllowed == 1 && `(Select one option)`}{' '}
           {selectionsAllowed > 1 &&
-            `(Select up to ${selectionsAllowed} options)`}
+            `(${t("Select up to")} ${selectionsAllowed} ${t('options')})`}
         </label>
 
         <div className={'Image-tags-container'}>

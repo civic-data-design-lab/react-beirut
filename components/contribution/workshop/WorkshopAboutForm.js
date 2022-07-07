@@ -150,7 +150,7 @@ const WorkshopAboutForm = ({
               return (
                 !contactRequirement.requirementFulfilled && (
                   <small className="input-error">
-                    * {contactRequirement.errorMessage}
+                    * {t(contactRequirement.errorMessage)}
                   </small>
                 )
               );

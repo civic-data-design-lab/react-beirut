@@ -19,10 +19,6 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
         document.body.appendChild(script);
     }, [])
 
-
-
-
-
     const {t}=useTranslation();
 
     const handleUploadImage = (e) => {
@@ -73,6 +69,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
     };
     try{
       reader.readAsDataURL(file);
+
     } catch (err) {
         setSubmitting(false)
       handleUpdateImage(null, null);
@@ -95,6 +92,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
                     <>
                         <div className="loader" style={{zIndex:"900"}}/>
                         <br />
+                        <h1>LOADING</h1>
                         <p>{t('Uploading Image...')}</p>
                     </>
                 :(<div className="SingleImageUpload-default">
@@ -112,7 +110,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
       </label>
             {sizeLimit?
                 <small className="input-error">
-                    * Please upload images less than 4MB
+                    * {t('Please upload images less than 4MB')}
                 </small>:null}
     </div>
             </>
