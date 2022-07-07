@@ -3,7 +3,10 @@ import ImageFilter from "react-image-filter";
 import {useEffect} from "react";
 import {useState} from "react";
 
-const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStore} from "@fortawesome/free-solid-svg-icons";
+
+const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI, storeScrollPosition=null }) => {
 
 
   const [extension, setExtension] = useState(null);
@@ -15,35 +18,19 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
               // console.log("response ", response)
               return response.json()})
           .then((res)=>{
-              if (workshop.ID === "8576723272") {
-                  console.log("res ", res)
-                  console.log("ext from before ", res['response'][0].extension)
-              }
               return res['response'][0].extension})
           .then((ext)=>{
-              if (workshop.ID === "8576723272") {
-                  console.log("ext ", ext)
-              }
-              // console.log("extendion", ext)
             if (ext) {
-              console.log('ext exists and is ', ext)
               setExtension(ext)
             } else {
               setExtension('jpeg')
             }
           })
-          .then(console.log(extension))
     }
   }
 
   useEffect(()=>{
         if (!extension) {
-            if (workshop.ID === "8576723272") {
-                console.log("useeffecy")
-                console.log("workshop is ", workshop.thumb_img_id)
-            }
-
-            //window.addEventListener('resize', this.updateDimensions);
             fetchThumbnail()
         }
     }, [])
@@ -75,7 +62,14 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
 
   return (
     <>
-      <div className="img-preview">
+      <div className="img-preview"
+            onClick={()=>{
+                console.log("clicked iamge", window.scrollY)
+                if (navigator.cookieEnabled && storeScrollPosition){
+                    storeScrollPosition(window.scrollY.toString())
+                }}
+            }
+      >
           {extension ?
            (
           <>
@@ -93,12 +87,18 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI }) => {
 
 
             </Link>
+
+              {workshop.survey_origin?<div className={'shop-icon'}>
+                  <FontAwesomeIcon icon={faStore} width={32}></FontAwesomeIcon>
+              </div>:null}
             <div className="overlay">
               <div className="shop-info">
                 <p>{workshop.shop_name.content_orig}</p>
               </div>
             </div>
-            <div className="overlay fill"></div>
+            <div className="overlay fill">
+            </div>
+
           </>
         ) : null}
       </div>

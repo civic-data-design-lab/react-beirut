@@ -93,7 +93,7 @@ const MapFilter = ({filteredCrafts, startYear, endYear, toggleStatus, search,
                                   {filterCardContent()}
                                   <div className={'card-section-centered'}>
                                       <button className={'btn-pill view-map-btn'} onClick={closeFilter}>
-                                      <span className={'view-map-label'}>View Map</span>
+                                      <span className={'view-map-label'}>{t("View Map")}</span>
                                         </button>
                                   </div>
                               </div>

@@ -4,7 +4,9 @@ import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 import Dialogue from "../contribution/general/Dialogue";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
-
+const MAP_LABELS =['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
+    'water-line-label', 'water-point-label', 'poi-label', 'airport-label', 'settlement-subdivision-label',
+    'settlement-minor-label', 'settlement-major-label', 'state-label', 'country-label']
 
 
 export default class App extends React.PureComponent {
@@ -14,7 +16,7 @@ export default class App extends React.PureComponent {
 
         this.state = {
             activeLayer: null,
-            showMapCard: this.props.showMapCard,
+            showMapCard: false,
             width: window.innerWidth,
             height: window.innerHeight,
             coord: this.props.coords,
@@ -22,10 +24,16 @@ export default class App extends React.PureComponent {
             geoLocateTitle : null,
             geoLocateLoader : false,
 
+            readZoom: this.props.mapZoom,
+            markerRadius: this.getMarkerRadius(this.props.mapZoom),
+            geoLocateCoords: null
+            //mapZoom: this.props.mapZoom
+
         }
 
         this.mapContainer = React.createRef();
         this.mappedMarkers = [];
+        this.geoLocateMarker=null;
         this.colorMap = {
             "architectural": '#91B0D1',
             "cuisine": '#DFBA96',
@@ -40,6 +48,26 @@ export default class App extends React.PureComponent {
 
     }
 
+    getMarkerRadius = (currentZoom) => {
+        let markerRadius
+            if (currentZoom<12.5) {
+                markerRadius = 2
+            } else if (currentZoom<13) {
+                markerRadius = 3
+            } else if (currentZoom<13.5) {
+                markerRadius = 4
+            } else if (currentZoom<13.75) {
+                markerRadius = 4.5
+            }
+            else if (currentZoom<14) {
+                markerRadius = 5
+            } else if (currentZoom<16) {
+                markerRadius = 7;
+            } else {
+                markerRadius = 7.5;
+            }
+            return markerRadius
+    }
 
 
     handleResize = () => {
@@ -48,14 +76,18 @@ export default class App extends React.PureComponent {
             height: window.innerHeight
         })
 
+
+        console.log("width is now ", window.innerWidth)
+
         if (window.innerWidth > 991) {
-            // TODO: use state to keep track of map settings
-            this.setState({
-
-            })
+            this.props.setMapZoom(13.5)
+        } else if (window.innerWidth>688) {
+            this.props.setMapZoom(12.5)
+        } else {
+            this.props.setMapZoom(11.5)
         }
-
     }
+
 
     handleClickZoomIn = () => {
         map.current.zoomIn({duration: 1000});
@@ -70,7 +102,8 @@ export default class App extends React.PureComponent {
             this.setState({
                 geoLocateDialog:null,
                 geoLocateTitle: null,
-                geoLocateLoader:false
+                geoLocateLoader:false,
+                geoLocateCoords:[position.coords.longitude, position.coords.latitude]
             });
             map.current.flyTo({
                 center: [position.coords.longitude, position.coords.latitude],
@@ -104,11 +137,10 @@ export default class App extends React.PureComponent {
     }
 
 
-
-
     clickMarker (e) {
         let el = e.target;
         this.props.openMapCard(el.id, el.type);
+
     }
 
     hoverMarker(e) {
@@ -124,14 +156,17 @@ export default class App extends React.PureComponent {
         let el = e.target;
         el.classList.remove('hoverMarker');
         el.classList.remove(`hoverMarker--${el.craft.toLowerCase()}`);
-
-        //console.log('exit')
     }
+
+
 
 
     componentDidMount() {
 
+        console.log('map layer in mount is ', this.props.mapLayer)
+
         window.addEventListener('resize', this.handleResize);
+        //window.addEventListener("orientationchange", this.handleResize);
 
         //console.log('map.js ', this.props.filterSearchData)
 
@@ -199,14 +234,33 @@ export default class App extends React.PureComponent {
                 });
             }
 
-        map.current.getStyle().layers.forEach((layer) => {
-            if (layer.layout && layer.layout['text-field']) {
-                map.current.setLayoutProperty(layer.id, 'text-field', [
+            let labels = []
+
+        MAP_LABELS.forEach((layer) => {
+            try {
+                map.current.setLayoutProperty(layer, 'text-field', [
                     'get',
                     `name_${this.props.i18n.language}`
                 ]);
+            } catch (e) {
+                console.log("layer is not a valid layer on this map")
             }
         });
+
+            console.log('labels ', labels)
+
+        });
+
+        map.current.on('zoom', () => {
+            const currentZoom = map.current.getZoom();
+            console.log('current zoom ', currentZoom);
+            console.log('current center ', map.current.getCenter());
+            const markerRadius = this.getMarkerRadius(currentZoom)
+
+            this.setState({
+                readZoom: currentZoom,
+                markerRadius: markerRadius
+            })
 
         });
 
@@ -234,11 +288,11 @@ export default class App extends React.PureComponent {
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
                 firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0].toLowerCase()]}`;
-                firstCraft.style.width = `7.5px`;
-                firstCraft.style.height = `15px`;
+                firstCraft.style.width = `${this.state.markerRadius}px`;
+                firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1].toLowerCase()]}`
-                secondCraft.style.width = `7.5px`;
-                secondCraft.style.height = '15px';
+                secondCraft.style.width = `${this.state.markerRadius}px`;
+                secondCraft.style.height = `${this.state.markerRadius*2}px`;
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
@@ -253,8 +307,8 @@ export default class App extends React.PureComponent {
 
 
             el.className = 'marker';
-            el.style.width = '15px';
-            el.style.height = '15px';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
             el.id = workshop.ID;
             el.craft = workshop.craft_discipline_category[0] || 'none';
@@ -297,11 +351,11 @@ export default class App extends React.PureComponent {
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
                 firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0].toLowerCase()]}`;
-                firstCraft.style.width = `7.5px`;
-                firstCraft.style.height = `15px`;
+                firstCraft.style.width = `${this.state.markerRadius}px`;
+                firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1].toLowerCase()]}`
-                secondCraft.style.width = `7.5px`;
-                secondCraft.style.height = '15px';
+                secondCraft.style.width = `${this.state.markerRadius}px`;
+                secondCraft.style.height = `${this.state.markerRadius*2}px`;
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
@@ -317,8 +371,8 @@ export default class App extends React.PureComponent {
 
 
             el.className = 'marker';
-            el.style.width = '15px';
-            el.style.height = '15px';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
             // el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
@@ -353,14 +407,15 @@ export default class App extends React.PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
        //  console.log("print language in map ", this.props.i18n.language)
        //  console.log("detected map layer ", this.props.mapLayer)
-        console.log('is mapcard showing or not ', this.props.showMapCard)
-        console.log('compare zooms ', this.props.mapZoom, prevProps.mapZoom)
-        if (this.props.mapZoom !== prevProps.mapZoom ) {
-            console.log('is zoom the same')
-            if (this.props.showMapCard===false) {
+
+        const changedZoom = this.props.mapZoom !== prevProps.mapZoom;
+        const changedCoords = this.props.coords !== prevProps.coords;
+        if (changedZoom || changedCoords) {
+            // console.log('is zoom the same')
+            if (this.props.showMapCard===false && this.props.coords) {
                 console.log('zoom')
                 map.current.flyTo({
-                    center: this.props.coords,
+                    center: changedCoords?this.props.coords:[35.510, 33.893894],
                     zoom: this.props.mapZoom,
                     speed: 0.5, // make the flying slow
                     essential: true
@@ -368,33 +423,32 @@ export default class App extends React.PureComponent {
             }
         }
 
-        map.current.getStyle().layers.forEach((layer) => {
-            if (layer.layout && layer.layout['text-field']) {
-                map.current.setLayoutProperty(layer.id, 'text-field', [
+
+
+        // console.log("zoom diff ", prevState.readZoom, this.state.readZoom)
+        MAP_LABELS.forEach((layer) => {
+            try {
+                map.current.setLayoutProperty(layer, 'text-field', [
                     'get',
                     `name_${this.props.i18n.language}`
                 ]);
+            } catch (e) {
+                console.log("layer is not a valid layer on this map")
             }
         });
 
 
 
 
-        if (this.props.coords && (prevProps.coords !== this.props.coords)) {
+
+
+        if (this.props.coords && (prevProps.coords !== this.props.coords) && this.props.showMapCard) {
+
             if (this.props.coords[0] !== 35.510 && this.props.coords[1] !== 33.893894) {
                 map.current.flyTo({
                     center: this.props.coords,
                     zoom: 16,
-                    offset: (687<this.state.width && this.state.width<992)?[0, this.state.height*0.30]:[0,0],
-                    bearing: 0,
-                    speed: 0.5, // make the flying slow
-                    curve: 1, // change the speed at which it zooms out
-                    essential: true
-                })
-            } else if (this.props.coords[0] === 35.510 && this.props.coords[1] === 33.893894) {
-                map.current.flyTo({
-                    center: this.props.coords,
-                    zoom: 13.25,
+                    offset: (this.state.width<992)?(687<this.state.width?[0, this.state.height*0.30]:[0, -this.state.height*0.25]):[0,0],
                     bearing: 0,
                     speed: 0.5, // make the flying slow
                     curve: 1, // change the speed at which it zooms out
@@ -407,18 +461,39 @@ export default class App extends React.PureComponent {
 
 
          // change visibility of layer
-        if (this.props.mapLayer) {
+        if (this.props.mapLayer !== prevProps.mapLayer) {
+            if (this.props.mapLayer) {
             if (this.state.activeLayer) {
                 map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
+                if (!this.props.showMapCard) {
+                    let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
+                console.log(Object.values(filtered)[0][3])
+                if (Object.values(filtered)[0][3]) {
+                    console.log('in here')
+                    this.props.setMapLayerSettings(Object.values(filtered)[0][3], Object.values(filtered)[0][4])
+                }
+                }
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})
             } else {
                 // console.log('hi')
+                if (!this.props.showMapCard) {
+                    let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
+                console.log(Object.values(filtered)[0][3])
+                if (Object.values(filtered)[0][3]) {
+                    console.log('in here')
+                    this.props.setMapLayerSettings(Object.values(filtered)[0][3], Object.values(filtered)[0][4])
+                }
+                }
                 map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                 this.setState({activeLayer:this.props.mapLayer})}
         } else if (this.state.activeLayer) {
                 map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
-                this.setState({activeLayer:this.state.activeLayer})
+                this.setState({activeLayer:null})
+                if (!this.props.showMapCard) {
+                    this.props.setMapLayerSettings([35.510, 33.893894], this.props.handleResize())
+                }
+        }
         }
 
 
@@ -427,8 +502,31 @@ export default class App extends React.PureComponent {
         if (!this.props.workshops) {
             return;}
 
+        if (prevState.readZoom !== this.state.readZoom){
+            console.log(this.mappedMarkers[0])
+            // this.mappedMarkers.forEach((marker) => marker.remove());
+        }
+
         if (this.mappedMarkers) {
             this.mappedMarkers.forEach((marker) => marker.remove());
+        }
+
+        if (prevState.geoLocateCoords != this.state.geoLocateCoords) {
+            if (this.state.geoLocateCoords) {
+            console.log("geoLocateEE")
+
+           if (this.geoLocateMarker){
+               this.geoLocateMarker.remove()
+           }
+            const el = document.createElement('div');
+            el.id = 'geoLocate-marker';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
+            el.style.background="#85cbd4";
+            el.style.borderRadius = '50%';
+            let marker = new mapboxGl.Marker(el).setLngLat(this.state.geoLocateCoords).addTo(map.current);
+            this.geoLocateMarker = marker;
+        }
         }
 
 
@@ -450,11 +548,11 @@ export default class App extends React.PureComponent {
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
                 firstCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[0].toLowerCase()]}`;
-                firstCraft.style.width = `7.5px`;
-                firstCraft.style.height = `15px`;
+                firstCraft.style.width = `${this.state.markerRadius}px`;
+                firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[workshop.craft_discipline_category[1].toLowerCase()]}`;
-                secondCraft.style.width = `7.5px`;
-                secondCraft.style.height = '15px';
+                secondCraft.style.width = `${this.state.markerRadius}px`;
+                secondCraft.style.height = `${this.state.markerRadius*2}px`;
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
@@ -468,8 +566,8 @@ export default class App extends React.PureComponent {
             }
 
             el.className = 'marker';
-            el.style.width = '15px';
-            el.style.height = '15px';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = workshop.ID;
@@ -551,11 +649,11 @@ export default class App extends React.PureComponent {
                 const secondCraft = document.createElement('div');
                 secondCraft.style.pointerEvents = 'none';
                 firstCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[0].toLowerCase()]}`;
-                firstCraft.style.width = `7.5px`;
-                firstCraft.style.height = `15px`;
+                firstCraft.style.width = `${this.state.markerRadius}px`;
+                firstCraft.style.height = `${this.state.markerRadius*2}px`;
                 secondCraft.style.backgroundColor = `${this.colorMap[archive.craft_discipline_category[1].toLowerCase()]}`
-                secondCraft.style.width = `7.5px`;
-                secondCraft.style.height = '15px';
+                secondCraft.style.width = `${this.state.markerRadius}px`;
+                secondCraft.style.height = `${this.state.markerRadius*2}px`;
                 el.appendChild(firstCraft);
                 el.appendChild(secondCraft);
             } else {
@@ -569,8 +667,8 @@ export default class App extends React.PureComponent {
             }
 
             el.className = 'marker';
-            el.style.width = '15px';
-            el.style.height = '15px';
+            el.style.width = `${this.state.markerRadius*2}px`;
+            el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
             el.onclick = this.clickMarker;
             el.id = archive.ID;
@@ -656,28 +754,28 @@ export default class App extends React.PureComponent {
                         geoLocateLoader:false
                     })}}/> : null}
             <div ref={this.mapContainer} id="map" className={'exploreMap'}/>
-                {this.state.width>688 ?
                     <div className={"nav-ctr-container"}>
-                        <button className={"nav-ctr-btn zoom-in-btn"} onClick={this.handleClickZoomIn}>
+                        <button className={"nav-ctr-btn zoom-in-btn button-interactivity"} onClick={this.handleClickZoomIn}>
                             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.86719 3.76562V5.46094H0.0703125V3.76562H7.86719ZM4.88281 0.578125V8.85938H3.0625V0.578125H4.88281Z" fill="#471E10"/>
                             </svg>
 
                         </button>
-                        <button className={"nav-ctr-btn zoom-out-btn"} onClick={this.handleClickZoomOut}>
+                        <button className={"nav-ctr-btn zoom-out-btn button-interactivity"} onClick={this.handleClickZoomOut}>
                             <svg width="6" height="2" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.03906 0.390625V1.89062H0.90625V0.390625H5.03906Z" fill="#471E10"/>
                             </svg>
                         </button>
 
-                        <button className={"nav-ctr-btn geolocate-btn"} onClick={this.handleGeolocate}>
+                        <button className={"nav-ctr-btn geolocate-btn button-interactivity"} onClick={this.handleGeolocate}>
+
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M20.94 11C20.48 6.83 17.17 3.52 13 3.06V1H11V3.06C6.83 3.52 3.52 6.83 3.06 11H1V13H3.06C3.52 17.17 6.83 20.48 11 20.94V23H13V20.94C17.17 20.48 20.48 17.17 20.94 13H23V11H20.94ZM12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM5 12C5 15.87 8.13 19 12 19C15.87 19 19 15.87 19 12C19 8.13 15.87 5 12 5C8.13 5 5 8.13 5 12Z" fill="#AEAEAE"/>
                             </svg>
 
                         </button>
 
-                    </div> : null}
+                    </div>
             </>
 
 

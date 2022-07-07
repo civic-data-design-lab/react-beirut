@@ -12,6 +12,7 @@ import {TRANSLATIONS} from "../lib/utils";
 
 import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
+import {Head} from "next/document";
 
 i18n
   .use(initReactI18next)
@@ -45,6 +46,11 @@ function MyApp({ Component, pageProps }) {
   
   const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
+
+
+
+
+
   const router = useRouter()
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -62,9 +68,17 @@ function MyApp({ Component, pageProps }) {
     document.dir = i18n.dir();
   }, [i18n, i18n.language]);
 
+  useEffect(() => {
+
+  })
+
+
+
   return (
     <>
     {/* Global Site Tag (gtag.js) - Google Analytics */}
+
+
     <Script
       strategy="afterInteractive"
       src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
@@ -82,7 +96,8 @@ function MyApp({ Component, pageProps }) {
           });
         `,
       }}
-    /> 
+    />
+
     <Layout changeLanguage={changeLanguage} lang={language} i18n={i18n}>
         <Component {...pageProps} changeLanguage={changeLanguage} lang={language} i18n={i18n} />
     </Layout>

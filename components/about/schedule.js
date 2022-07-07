@@ -29,44 +29,44 @@ const Schedule = ({i18n}) => {
           </div>
         </div>
         <div className="row">
-          <div className="col-2 p-2 t-3"><b>{t('2:00')}&ndash;{t('4:00pm')}</b></div>
+          <div className="col-2 p-2 t-3"><b>{t('200')}&ndash;{t('400pm')}</b></div>
           <div className="col-10">
             <div className="row">
               <div className="col-3 p-2 t-3">
-                <h6><b>{t('Craft Workshops Tour')}</b>&ensp;|&ensp;{t('Gemmayze')}&ndash;{t('Mar Mikhael')}</h6><hr/>
+                <h6><b>{t('Crafts Workshops Tour')}</b>&ensp;|&ensp;{t('Gemmayze - Mar Mikhael (Doniguian Armenian bookstore)')}</h6><hr/>
                 <p className="mb-0">{t('Intimate walking tour of 3-4 craft workshops in the Gemmayze and Mar Mikhael area')}</p>
               </div>
               <div className="col-6"></div>
               <div className="col-3 p-2 t-3">
-                <h6><b>{t('Craft Workshops Tour')}</b>&ensp;|&ensp;{t('Bourj Hammoud')}</h6><hr/>
-                <p className="mb-0">{t('Intimate walking tour of 3&ndash;4 craft workshops in the Bourj Hammoud area')}</p>
+                <h6><b>{t('Crafts Workshops Tour')}</b>&ensp;|&ensp;{t('Bourj Hammoud')}</h6><hr/>
+                <p className="mb-0">{t('Intimate walking tour of 3-4 craft workshops in the Bourj Hammoud area')}</p>
               </div>
             </div>
           </div>
         </div>
         <div className="row">
-          <div className="col-2 p-2 t-5"><b>{t('6:00')}&ndash;{t('8:00pm')}</b></div>
+          <div className="col-2 p-2 t-5"><b>{t('600')}&ndash;{t('800pm')}</b></div>
           <div className="col-10">
             <div className="row">
               <div className="col-3 p-2 t-5">
-                <h6><b>{t('Archival Crafts Tour')}</b>&ensp;|&ensp;{t('Al Balad')}</h6><hr/>
-                <p>{t('Walking tour of locations of old craft workshops and souks in Al Balad')}</p>
+                <h6><b>{t('Archival Workshops Tour')}</b>&ensp;|&ensp;{t('Al Balad (Samir Kassir Square)')}</h6><hr/>
+                <p>{t('Walking tour of the locations of the old craft workshops and souks in Al Balad')}</p>
               </div>
               <div className="col-lg-1 p-2">
                 <p className="text-center">{t('No events')}</p>
               </div>
               <div className="col-6 col-lg-5 p-2 t-7">
-                <h6><b>{t('Living Heritage Atlas')}&ensp;|&ensp;{t('Mapping Beirut\'s Craftsmanship')}</b></h6><hr/>
+                <h6><b>{t('Living Heritage Atlas | Event (Abroyan Factory, Bourj Hammoud)')}</b></h6><hr/>
                 <ol className={i18n.language}>
-                  <li>{t('Opening Remarks by MIT FHL & CDDL')}</li>
-                  <li>{t('Mapping Methods Discussion')}</li>
-                  <li>{t('Mapathon Discussion')}</li>
-                  <li>{t('Closing Remarks')}</li>
+                  <li>{t('Opening remarks by MIT CDDL & FHL (6:00 - 6:30 PM)')}</li>
+                  <li>{t('Mapping methods, 3 roundtable discussions (6:30 - 7:45 PM)')}</li>
+                  <li>{t('Mapathon (8:00 - 9:00 PM)')}</li>
+                  <li>{t('Closing remarks (9:00 - 9:15 PM)')}</li>
                 </ol>
               </div>
               <div className="col-3 p-2 t-5">
-                <h6><b>{t('Archival Crafts Tour')}</b>&ensp;|&ensp;{t('Bourj Hammoud')}</h6><hr/>
-                <p>{t('Walking tour of locations of old craft workshops and souks in Bourj Hammoud')}</p>
+                <h6><b>{t('Archival Workshops Tour')}</b>&ensp;|&ensp;{t('Bourj Hammoud')}</h6><hr/>
+                <p>{t('Intimate walking tour of 3-4 craft workshops in the Bourj Hammoud area')}</p>
               </div>
             </div>
           </div>
@@ -80,14 +80,14 @@ const Schedule = ({i18n}) => {
           <h6 class="mb-0 p-2 t-1"><b>{t('Tuesday, July 5')}</b></h6>
         </div>
         <div className="row">
-          <div className="col-3 p-2 t-3"><b>{t('2:00')}&ndash;{t('4:00pm')}</b></div>
+          <div className="col-3 p-2 t-3"><b>{t('200')}&ndash;{t('400pm')}</b></div>
           <div className="col-9 p-2 t-3">
             <h6><b>{t('Craft Workshops Tour')}</b>&ensp;|&ensp;{t('Gemmayze')}&ndash;{t('Mar Mikhael')}</h6><hr/>
             <p className="mb-0">{t('Intimate walking tour of 3-4 craft workshops in the Gemmayze and Mar Mikhael area')}</p>
           </div>
         </div>
         <div className="row">
-          <div className="col-3 p-2 t-5"><b>{t('6:00')}&ndash;{t('8:00pm')}</b></div>
+          <div className="col-3 p-2 t-5"><b>{t('600')}&ndash;{t('800pm')}</b></div>
           <div className="col-9 p-2 t-5">
             <h6><b>{t('Archival Crafts Tour')}</b>&ensp;|&ensp;{t('Al Balad')}</h6><hr/>
             <p>{t('Walking tour of locations of old craft workshops and souks in Al Balad')}</p>
@@ -98,7 +98,7 @@ const Schedule = ({i18n}) => {
           <h6 class="mb-0 p-2 t-1"><b>{t('Thursday, July 7')}</b></h6>
         </div>
         <div className="row">
-          <div className="col-3 p-2 t-5"><b>{t('6:00')}&ndash;{t('8:00pm')}</b></div>
+          <div className="col-3 p-2 t-5"><b>{t('600')}&ndash;{t('800pm')}</b></div>
           <div className="col-9 p-2 t-5">
             <h6><b>{t('Living Heritage Atlas')}&ensp;|&ensp;{t('Mapping Beirut\'s Craftsmanship')}</b></h6><hr/>
             <ol className={i18n.language}>
@@ -114,14 +114,14 @@ const Schedule = ({i18n}) => {
           <h6 class="mb-0 p-2 t-1"><b>{t('Friday, July 8')}</b></h6>
         </div>
         <div className="row">
-          <div className="col-3 p-2 t-3"><b>{t('2:00')}&ndash;{t('4:00pm')}</b></div>
+          <div className="col-3 p-2 t-3"><b>{t('200')}&ndash;{t('400pm')}</b></div>
           <div className="col-9 p-2 t-3">
             <h6><b>{t('Craft Workshops Tour')}</b>&ensp;|&ensp;{t('Bourj Hammoud')}</h6><hr/>
             <p className="mb-0">{t('Intimate walking tour of 3-4 craft workshops in the Bourj Hammoud area')}</p>
           </div>
         </div>
         <div className="row">
-          <div className="col-3 p-2 t-5"><b>{t('6:00')}&ndash;{t('8:00pm')}</b></div>
+          <div className="col-3 p-2 t-5"><b>{t('600')}&ndash;{t('800pm')}</b></div>
           <div className="col-9 p-2 t-5">
             <h6><b>{t('Archival Crafts Tour')}</b>&ensp;|&ensp;{t('Bourj Hammoud')}</h6><hr/>
             <p>{t('Walking tour of locations of old craft workshops and souks in Bourj Hammoud')}</p>

@@ -54,9 +54,9 @@ const LayersControl = ({currentLayer, allLayers, updateMapLayer, closeLayersCont
         for (const [key, value] of Object.entries(allLayers)) {
         buttons.push(
             <>
-                <button className={`mapLayerButtons ${getClassName(key)}`} key ={key} id={value[0]} onClick={clickLayerButton}>
-                    <p className={'lc-button-year map-name-label'} id={value[0]} onClick={clickLayerButton}> {value[0]} </p>
-                    <p className={'lc-button-ref map-name-reference'} id={value[0]} onClick={clickLayerButton}> {value[1]} </p>
+                <button className={`mapLayerButtons ${getClassName(value[0])}`} key ={value[0]} id={value[0]} onClick={clickLayerButton}>
+                    <p className={'lc-button-year map-name-label'} id={value[0]} onClick={clickLayerButton}> {value[1]} <span><i>{value[5]}</i></span>  {value[6]} </p>
+                    <p className={'lc-button-ref map-name-reference'} id={value[0]} onClick={clickLayerButton}> {value[0]} </p>
                 </button>
                 <hr/>
             </>
@@ -116,7 +116,7 @@ return (
                                         {layersControlContent()}
                                       <div className={'card-section-centered'}>
                                         <button className={'btn-pill lc-showMap-btn view-map-btn'} onClick={closeLayersControl}>
-                                            <span className={'view-map-label'}>View Map</span>
+                                            <span className={'view-map-label'}>{t("View Map")}</span>
                                         </button>
                                           </div>
 

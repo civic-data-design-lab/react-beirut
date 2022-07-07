@@ -18,11 +18,18 @@
   overflow: hidden;
 }
 
+.geoLocate-marker {
+  background-color: #85cbd4;
+}
+
 .marker {
   background-color: #e65525;
   box-shadow: 0 0 0 1px $c-white;
 }
 
+.hoverMarker--white {
+  box-shadow: 0 0 0 5px $c-white
+}
 
 .hoverMarker--architectural {
   box-shadow: 0 0 0 7px $c-architectural
@@ -73,6 +80,7 @@
   justify-content: center;
   align-items: center;
 }
+
 
 .filterSettingsButton{
   background-color: $c-primary-mid;
@@ -186,8 +194,16 @@
   border-width: 0px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   width: 100%;
+  transition: background-color 0.2s linear;
+
   //flex-grow: 1;
   //width: 100%;
+}
+
+.view-map-btn:active {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+  transform: translate(0.5px, 0.5px);
+  background-color: $c-primary-dark;
 }
 
 .view-map-label {
@@ -207,7 +223,14 @@
   align-items: center;
   bottom: 5%;
   right: 2rem;
+
+  @media screen and (max-width: 688px) {
+    right: calc(100vw - 48px - 2rem)
+  }
+
 }
+
+
 
 .nav-ctr-btn {
   margin: 8px;
@@ -217,11 +240,32 @@
   border-width: 0px;
   border-radius: 10px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+  transition-timing-function: linear;
 }
 
+.btn-interactivity:active {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+  transform: translate(0.5px, 0.5px);
+}
+
+.btn-interactivity:hover {
+  box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+
 .geolocate-btn {
-    @media screen and (max-width: 688px) {
-    visibility: hidden;
+
+}
+
+.zoom-out-btn {
+      @media screen and (max-width: 688px) {
+    // visibility: hidden;
+  }
+}
+
+.zoom-in-btn {
+      @media screen and (max-width: 688px) {
+    //visibility: hidden;
   }
 }
 

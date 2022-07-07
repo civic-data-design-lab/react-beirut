@@ -1,11 +1,19 @@
 @import '../setup/variables';
 
-#header {
+
+.scroll-lock {
+  // pointer-events: none !important;
+  // touch-action: none !important;
+  //overflow-y: hidden !important;
   position: fixed;
+}
+
+#header {
+  //position: fixed !important;
   width: 100vw;
   height: $header-height;
   padding: 2rem;
-  position: sticky;
+  position: sticky !important;
   top: 0;
   left: 0;
   right: 0;
@@ -172,7 +180,7 @@ $hamburger-zindex: $menu-zindex + 10;
 
   ul {
     // width: 400px;
-    width: 360px;
+    width: min(360px, 100%);
     //margin: 0 auto;
     //left: 50%;
 

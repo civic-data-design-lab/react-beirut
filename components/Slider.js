@@ -1,70 +1,102 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons";
+
 
 export default class Slider extends React.Component {
   constructor(props) {
     super(props);
 
+    this.sliderContainerRef = createRef();
+    this.wrapperContainerRef = createRef();
+    this.nextBtnRef = createRef();
+    this.prevBtnRef = createRef();
+
     this.state = {
-      prevDisable: true,
-      nextDisable:
-        this.refs && this.refs.offsetWidth >= this.refs.scrollWidth
-          ? true
-          : false,
+      prevDisable: false,
+      nextDisable: false,
+       //this.sliderContainerRef && this.sliderContainerRef.offsetWidth >= this.sliderContainerRef.scrollWidth
+          //? true
+          //: false,
     };
   }
 
+    scrollLeft = () => {
+    const container = this.sliderContainerRef.current;
+    const wrapper = this.wrapperContainerRef.current;
+    const itemWidth = wrapper.clientWidth;
+    console.log("itemWidth is ", itemWidth)
+    wrapper.scrollLeft -= itemWidth/2 //({ left: -itemWidth/2, top: 0, behavior: 'smooth' });
+      // this.checkChildren(itemWidth, itemWidth/2);
+  };
+
+  scrollRight = () => {
+    const container = this.sliderContainerRef.current;
+    const wrapper = this.wrapperContainerRef.current;
+    const itemWidth = wrapper.clientWidth;
+    console.log("itemWidth is ", itemWidth)
+    wrapper.scrollLeft += itemWidth/2;//{ left: itemWidth/2, top: 0, behavior: 'smooth' });
+
+    // this.checkChildren(itemWidth, itemWidth/2);
+  };
+
   componentDidMount() {
-    this.checkChildren(this.refs.offsetWidth, this.refs.scrollWidth);
+    // this.checkChildren(this.sliderContainerRef.current.offsetWidth, this.sliderContainerRef.current.scrollWidth);
   }
 
   checkChildren = (offsetWidthValue, scrollWidthValue) => {
-    console.log('check children');
     this.setState({
-      prevDisable: this.refs.scrollLeft <= 0 ? true : false,
+      prevDisable: this.sliderContainerRef.current.scrollLeft <= 0 ? false: true,
       nextDisable:
-        this.refs.scrollLeft + offsetWidthValue >= scrollWidthValue
-          ? true
-          : false,
+        this.sliderContainerRef.current.scrollLeft + offsetWidthValue >= scrollWidthValue
+          ? false
+          : true,
     });
   };
 
   render() {
-    const offsetWidthValue = this.refs.offsetWidth,
-      scrollWidthValue = this.refs.scrollWidth;
 
     return (
+        <div>
       <div
         className="slider-container"
-        ref={(el) => {
-          this.refs = el;
-        }}
+        id={"slider-container"}
+        ref={this.sliderContainerRef}
       >
-        <div className="slider-wrapper">{this.props.children}</div>
+        <div className="slider-wrapper"
+             ref={this.wrapperContainerRef}>
+          {this.props.children}
+        </div>
 
-        <div
+        <button
           className={`btn prev ${this.state.prevDisable ? 'disable' : ''}`}
           disabled={this.state.prevDisable}
+          ref={this.prevBtnRef}
           onClick={() => {
-            this.refs.scrollLeft -= offsetWidthValue / 2;
-            this.checkChildren(offsetWidthValue, scrollWidthValue);
+            this.scrollLeft()
           }}
         >
           <FontAwesomeIcon icon={faChevronLeft} width={8}/>
-        </div>
-        <div
+        </button>
+        <button
           className={`btn next ${this.state.nextDisable ? 'disable' : ''}`}
           disabled={this.state.nextDisable}
+          ref={this.nextBtnRef}
           onClick={() => {
-            this.refs.scrollLeft += offsetWidthValue / 2;
-            this.checkChildren(offsetWidthValue, scrollWidthValue);
+            this.scrollRight()
           }}
         >
           <FontAwesomeIcon icon={faChevronRight} width={8}/>
-        </div>
+        </button>
+
+        <div className={`blur-btns prev ${this.state.prevDisable ? 'disable' : ''}`}/>
+        <div className={`blur-btns next ${this.state.nextDisable ? 'disable' : ''}`}/>
+
+      </div>
+
       </div>
     );
   }
 }
+

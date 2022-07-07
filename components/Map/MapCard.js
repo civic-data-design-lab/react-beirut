@@ -7,6 +7,7 @@ import Draggable from "react-draggable";
 
 
 
+
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
   return isDesktop ? children : null
@@ -27,6 +28,7 @@ const Default = ({ children }) => {
 import {TRANSLATIONS} from "../../lib/utils";
 
 import { Trans, useTranslation} from "react-i18next";
+import Info from "../Info";
 
 
 
@@ -364,7 +366,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
             if (object.thumb_img_id) {
                 return(
 
-                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={clickExplore} onError={handleOnError}/>)
+                <img src={`/api/images/${object.thumb_img_id}.jpg`} className={'exploreShops-img'} id={object.ID}  key={object.thumb_img_id} onClick={clickExplore} onMouseDown={(e) => {e.stopPropagation()}} onError={handleOnError}/>)
 
             } else {
                 return null
@@ -386,7 +388,13 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
                         <div className={'close-btn-container'}>
                             <div>
-                                <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
+                                 <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={workshop.survey_origin !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={workshop.survey_origin !== 'workshop_contribution' ? 'This workshop has been reviewed and verified.' : 'This workshop is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
+
                                 <p className={'shopSubtitle-text'}>{getDecadeEstablished()} {getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()} </p>
                             </div>
 
@@ -401,10 +409,12 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
 
 
+
+
                         {(workshop.images.length !== 0) ?
                             <>
                             <div className={'mapCard-slider-container'} >
-                                <MapCardSlider handleScroll={onScroll} children={getImages()} sliderStyle={mainSliderStyle} getImageData={getCaption()}/>
+                                <MapCardSlider handleScroll={onScroll} children={getImages()} sliderStyle={mainSliderStyle} currentIndex={currentImageIndex}/>
                             </div>
                             <div>
                                 {getCaption()}
@@ -427,9 +437,20 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                 <>
                         <div className={'close-btn-container'}>
                             <div>
-                                <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"}</p>
+                                <div className={'shop-title-verification'}>
+                                    <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={workshop.info_type !== 'archive_contribution' ? 'check' : 'question'}
+                                                  text={workshop.info_type !== 'archive_contribution' ? 'This archive image was reviewed and verified' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
+
+                                </div>
+
                                 <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()} </p>
                             </div>
+
+
 
                             <button className={'close-card-btn close-mapcard'} onClick = {closeMapCard} >
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -443,7 +464,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         {(workshop.images.length !== 0) ?
                             <>
                             <div className={'mapCard-slider-container'} >
-                                <MapCardSlider children={getImages()} sliderStyle={mainSliderStyle}/>
+                                <MapCardSlider children={getImages()} sliderStyle={mainSliderStyle} currentIndex={currentImageIndex}/>
                             </div>
 
                             <div>
@@ -458,8 +479,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                             <div className={'exploreContainer'}>
                                 {similarObjects ? <Slider children={getThumbnails()}/> : null}
                             </div>
-                        </> : null ) : null
-                    }
+                        </> : null ) : null}
                 </>
             )
         }
@@ -483,20 +503,24 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
                 <Mobile>
 
-                            <div className={'mapCard-drag-container'}>
 
-                                <Draggable axis="y" bounds={".mapCard-drag-container"}>
+                                <div className={'mapCard-drag-container'}>
+
+                                <Draggable axis="y"
+                                           bounds="parent"
+                                           cancel={".mapCard-slider-container, .exploreContainer"}
+                                           handle={".mapCard-dragger"}>
                                     <div className={'mapCard'} id={`mapCard${id}`}>
                                     <div className={'mapCard-dragger'}>
                                         <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <line x1="1.5" y1="2.26367" x2="22.5" y2="2.26367" stroke="#CFCFCF" strokeWidth="3" strokeLinecap="round"/>
-                                    </svg>
+                                        </svg>
                                     </div>
                                     {workshop && createMapCardContent()}
                                         </div>
                                 </Draggable>
+                                </div>
 
-                            </div>
 
                 </Mobile>
 

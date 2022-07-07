@@ -3,6 +3,10 @@ import mapboxGl from "mapbox-gl";
 import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
+const MAP_LABELS =['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
+    'water-line-label', 'water-point-label', 'poi-label', 'airport-label', 'settlement-subdivision-label',
+    'settlement-minor-label', 'settlement-major-label', 'state-label', 'country-label']
+
 
 export default class MiniMap extends React.Component {
     constructor(props) {
@@ -65,16 +69,17 @@ export default class MiniMap extends React.Component {
             //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
         });
 
-        map.on('load', ()=>{
-            map.getStyle().layers.forEach((layer) => {
-            if (layer.layout && layer.layout['text-field']) {
-                map.setLayoutProperty(layer.id, 'text-field', [
+        MAP_LABELS.forEach((layer) => {
+            try {
+                map.current.setLayoutProperty(layer, 'text-field', [
                     'get',
                     `name_${this.props.i18n.language}`
                 ]);
+            } catch (e) {
+                console.log("layer is not a valid layer on this map")
             }
         });
-        })
+
 
 
         const el = document.createElement('div');

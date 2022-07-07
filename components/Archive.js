@@ -24,6 +24,7 @@ const Default = ({ children }) => {
 }
 
 import { Trans, useTranslation } from "react-i18next";
+import Info from "./Info";
 
 
 const mainSliderStyle = {
@@ -49,9 +50,10 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n }) => {
+const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n, preview=false}) => {
   const {t} =useTranslation();
   const getImages = () => {
+      console.log("i18n ", i18n)
       const thumbImage = imageMetas.filter(
       (image) => image.img_id === archive.thumb_img_id
         );
@@ -161,7 +163,7 @@ const getPrimaryDecade = () => {
               craftsList.push(" | " + t(craftStr))}
 
       })}
-        return craftsList
+        if (craftsList.length>0) { return craftsList} else {return null}
  }
 
 
@@ -249,12 +251,13 @@ const getPrimaryDecade = () => {
 
       <Desktop>
       <div className={'popup-section'}>
-                <div className={'object-slider-section'}>
+                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
                         children={showImages()}
                         sliderStyle={mainSliderStyle}
+                        currentIndex={index}
                     />
                 )}
             </div>
@@ -263,7 +266,13 @@ const getPrimaryDecade = () => {
 
             <div className={'popup-section archival-card-section'}>
                 <div className={'object-title-section'}>
-                        <h1 className={'object-name'}>{getShopName()}</h1>
+                        <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={archive.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
+
                         <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}
@@ -293,13 +302,20 @@ const getPrimaryDecade = () => {
       <Tablet>
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
-                <h1 className={'object-name'}>{getShopName()}</h1>
+
+                <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={archive.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
+
                 <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 <br/>
                 {getCaption()}
                 </div>
 
-                <div className={'object-slider-section-tablet'}>
+                <div className={!preview?'object-slider-section-tablet':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
@@ -331,53 +347,61 @@ const getPrimaryDecade = () => {
 
         <Mobile>
             <div className={'popup-section'}>
-                <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300}}>
+                <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300, direction:"ltr"}}>
                     {handleClose ? <button className={'close-card-btn object-mobile-close'} onClick={handleClose}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z" fill="#333333"/>
                     </svg>
                 </button> : null}
-                <div className={'object-mobile-heading'}>
-                    <p className={'object-mobile-title'}>{getShopName()}</p>
+                <div className={!preview?'object-mobile-heading':'object-mobile-heading-preview'}>
+                    <div className={!preview?'object-mobile-heading-subcontainer':'object-mobile-heading-subcontainer-preview'}>
+
+                    <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={archive.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={archive.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
+
                     <p className={'object-mobile-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
                 </div>
                 </div>
-
-                <div style={{display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
-                <div className={'object-slider-section-tablet'}>
-                {imageMetas?.length > 0 && (
-                    <MapCardSlider
-                        handleScroll={onScroll}
-                        children={showImages()}
-                        sliderStyle={mainSliderStyle}
-                    />
-                )}
-            </div>
-                <div className={'object-mobile-section'}>
-                    {getCaption()}
                 </div>
-                    {similarArchives ?
-                <div className={'object-mobile-section object-suggestion-section'}>
-                    <p className={'card-section-labels'}>
-                        {t('Discover similar archival images')}
-                    </p>
-                    <div className={'object-suggestion-container'}>
-                    <div className={'object-suggestion-parent'}>
-                        <Slider>
-                      {similarArchives?.map((shop) => (
-                        <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'} />
+
+                <div style={{display:'flex', flexDirection:'column', justifyContent:"flex-start", height:"100%"}}>
+                    <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
+                        {imageMetas?.length > 0 && (
+                            <MapCardSlider
+                                handleScroll={onScroll}
+                                children={showImages()}
+                                sliderStyle={mainSliderStyle}
+                            />
+                        )}
+                        <div className={'object-mobile-section'}>
+                        {getCaption()}
                         </div>
-                      ))}
-                    </Slider>
                     </div>
-                        </div>
-                </div> : null}
-            </div>
+
+                    {similarArchives ?
+                        <div className={'object-mobile-section object-suggestion-section'}>
+                            <p className={'card-section-labels'}>
+                                {t('Discover similar archival images')}
+                            </p>
+                            <div className={'object-suggestion-container'}>
+                                <div className={'object-suggestion-parent'}>
+                                    <Slider>
+                                        {similarArchives?.map((shop) => (
+                                            <div key={shop.ID} className="object-img">
+                                                <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'} />
+                                            </div>
+                                        ))}
+                                    </Slider>
+                                </div>
+                            </div>
+                        </div> : null}
                 </div>
+            </div>
         </Mobile>
-
-
     </>
   );
 };

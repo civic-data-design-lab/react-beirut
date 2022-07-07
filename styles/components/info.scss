@@ -1,0 +1,38 @@
+.tooltip-container {
+  // display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 0;
+  display: inline;
+
+
+
+
+  .tooltip-trigger {
+    display: inline;
+  }
+
+  .tooltip-text-container {
+    z-index: 100;
+    position: absolute;
+    left:36px;
+    right: 36px;
+    background-color: #262626;
+    border-radius: 10px;
+    opacity: 0.5;
+    padding: 8px;
+    margin: 2px;
+    max-width: 100%;
+
+      .tooltip-text {
+        color: $c-white;
+        margin-bottom: 0px;
+        overflow: visible;
+        overflow-wrap: normal;
+        white-space: normal;
+        text-align: center;
+      }
+  }
+}

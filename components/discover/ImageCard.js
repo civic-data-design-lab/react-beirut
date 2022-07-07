@@ -95,7 +95,7 @@ export default class ImageCard extends React.Component {
           <Card handleClose={onClose}>
 
           {type === 'workshop' ? (
-            <div className="fixed object-card">
+            <div className="fixed object-card slide-up">
             <Workshop
               workshop={object}
               imageMetas={imageMetas}
@@ -109,7 +109,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive">
+              <div className="fixed object-card">
 
             <Archive
               archive={object}
@@ -117,6 +117,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={thumbnailSrc}
               similarArchives={similarWorkshops}
               handleClose={onClose}
+              i18n={this.props.i18n}
             />
               </div>
 
@@ -143,7 +144,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive slide-up">
+              <div className="fixed object-card slide-up">
 
             <Archive
               archive={object}
@@ -151,6 +152,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={thumbnailSrc}
               similarArchives={similarWorkshops}
               handleClose={onClose}
+              i18n={this.props.i18n}
             />
               </div>
 
@@ -165,7 +167,7 @@ export default class ImageCard extends React.Component {
                           <div className="card__cover">
                             <div className="card__wrapper">
         {type === 'workshop' ? (
-            <div className="fixed object-card ">
+            <div className="fixed object-card slide-up">
             <Workshop
               workshop={object}
               imageMetas={imageMetas}
@@ -179,7 +181,7 @@ export default class ImageCard extends React.Component {
               </div>
 
           ) : (
-              <div className="fixed object-card-archive ">
+              <div className="fixed object-card ">
 
             <Archive
               archive={object}
@@ -187,6 +189,7 @@ export default class ImageCard extends React.Component {
               // imageSrc={thumbnailSrc}
               similarArchives={similarWorkshops}
               handleClose={onClose}
+              i18n={this.props.i18n}
             />
               </div>
 

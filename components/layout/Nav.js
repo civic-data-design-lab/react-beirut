@@ -28,6 +28,23 @@ const Nav = ({changeLanguage}) => {
 
 
   useEffect(()=>{
+    if (isMenuOpen) {
+      console.log(`-${window.scrollY}px`)
+      const scrollPos = -window.scrollY
+      setTimeout(()=>{
+        document.body.style.position = 'fixed';
+        document.body.style.top = `${scrollPos}px`;
+      }, 1000)
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+  }, [isMenuOpen])
+
+
+  useEffect(()=>{
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => {
@@ -49,7 +66,6 @@ const Nav = ({changeLanguage}) => {
 
   // dynamically showing the page location
   const getPath = () => {
-    console.log(width)
     const path = router.pathname.split('/')[1];
 
     let pageLocation = path;
@@ -208,15 +224,10 @@ const Nav = ({changeLanguage}) => {
             </div>
             <br />
             <div className={'footer-contact'}>
-            Contact us at{' '}
-            <a href="mailto:livingheritage@mit.edu">
-              livingheritage@mit.edu
-            </a>{' '}
-            with any questions or comments about the Living Heritage Atlas |
-            Beirut.
+              {t("Contact us at livingheritage@mit.edu with any questions or comments about the Living Heritage Atlas | Beirut.")}
             <br />
             <small>
-              &copy; 2022 Living Heritage Atlas 2022. All rights reserved.
+              &copy; {t("2022 Living Heritage Atlas 2022. All rights reserved.")}
             </small>
             {/* <ul>
               <li>

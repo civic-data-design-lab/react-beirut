@@ -10,7 +10,7 @@
   font-size: 48px;
   font-weight: 400;
   color: $c-white;
-  z-index: 2000;
+  z-index: 1000;
 }
 
 .btn-prev,
@@ -21,7 +21,7 @@
   //transform: translateY(-50%);
   border: none;
   background-color: Transparent;
-  z-index: 2000;
+  z-index: 30;
 
   &.disable {
     display: none;

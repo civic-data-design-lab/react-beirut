@@ -1,10 +1,16 @@
-import SingleImageUpload from './SingleImageUpload';
+// import SingleImageUpload from './SingleImageUpload';
 import BooleanButtonForm from '../booleanButtonForm/BooleanButtonForm';
 import UploadedImage from './UploadedImage';
-
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 
 import { Trans, useTranslation } from "react-i18next";
+
+const SingleImageUpload = dynamic(() => import('../imageUpload/SingleImageUpload'), {
+  ssr: false
+});
+
+<SingleImageUpload />
 
 
 /**
@@ -39,6 +45,7 @@ const ImageUploadForm = ({
   const [imageIndex, setImageIndex] = useState(0); // TODO: Set up multi-image upload.
 
   const updateImageFormState = (newData) => {
+    console.log('updated')
     setImageFormState((prevForm) => {
       const updatedFormData = { ...prevForm, ...newData };
       // console.log('setting ImageFormState to ', updatedFormData);

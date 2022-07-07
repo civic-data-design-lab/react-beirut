@@ -7,6 +7,7 @@ import {useEffect, useRef, useState} from "react";
 import { useMediaQuery } from 'react-responsive';
 
 import { Trans, useTranslation} from "react-i18next";
+import Info from "./Info";
 
 
 
@@ -51,7 +52,7 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang, i18n}) => {
+const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang, i18n, preview=false}) => {
   const {t} = useTranslation();
   console.log("lang from workshop si ", lang)
   console.log("getting lan using i18-n ", i18n.language)
@@ -205,7 +206,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
               craftsList.push(" | " + t(craftStr))}
 
       })}
-                if (craftsList.length>0) { return craftsList} else {return null}
+        if (craftsList.length>0) { return craftsList} else {return null}
 
  }
 
@@ -216,7 +217,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return t('Since') +` ${workshop.decade_established[0]}`
+            return t('Established') +` ${workshop.decade_established[0]}`
         } else {
                 return null
             }
@@ -254,7 +255,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         <Desktop>
 
             <div className={'popup-section'}>
-                <div className={'object-slider-section'}>
+                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
@@ -267,7 +268,17 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
-                        <h1 className={'object-name'}>{getShopName()}</h1>
+
+                        <div className={'shop-title-verification'}>
+                                    <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This workshop was reviewed and verified.' : 'This workshop is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
+
+                                </div>
+
                         <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
                         <br/>
                         {getCaption()}
@@ -305,7 +316,13 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         <Tablet>
             <div className={'popup-section'}>
                 <div className={'object-title-section'}>
-                <h1 className={'object-name'}>{getShopName()}</h1>
+                <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
+
                 <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''}{getSubtitle()}</p>
                 <br/>
                 {getCaption()}
@@ -317,6 +334,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         handleScroll={onScroll}
                         children={showImages()}
                         sliderStyle={mainSliderStyle}
+                        currentIndex={index}
                     />
                 )}
             </div>
@@ -349,21 +367,29 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
         <Mobile>
             <div className={'popup-section'}>
-                <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300}}>
+                <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300, direction:"ltr"}}>
                     {handleClose ? <button className={'close-card-btn object-mobile-close'} onClick={handleClose}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z" fill="#333333"/>
                     </svg>
                 </button> : null}
-                <div className={'object-mobile-heading'}>
-                    <p className={'object-mobile-title'}>{getShopName()}</p>
+                <div className={!preview?'object-mobile-heading':'object-mobile-heading-preview'}>
+                    <div className={!preview?'object-mobile-heading-subcontainer':'object-mobile-heading-subcontainer-preview'}>
+                        <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                        <span>
+                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                        </span>
+                                    </p>
                     <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
+                    </div>
+
                 </div>
                 </div>
 
-                <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between"}}>
+                <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between", height:"100%"}}>
 
-                <div className={'object-slider-section-tablet'}>
+                <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
                         handleScroll={onScroll}
@@ -381,8 +407,9 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
                 </div>
 
-                { similarWorkshops ? <div className={'object-mobile-section object-suggestion-section'}>
-                    <p className={'card-section-labels'}>
+                { similarWorkshops ?
+            <div className={"object-suggestion-section"} style={{"padding": "12px 24px"}}>
+                    <p className={'object-caption'}>
                         {t('Discover similar craft workshops')}
                     </p>
                     <div className={'object-suggestion-container'}>

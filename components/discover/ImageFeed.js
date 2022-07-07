@@ -2,7 +2,7 @@ import ImagePreview from './ImagePreview';
 import mapboxGl from 'mapbox-gl';
 import { useEffect } from 'react';
 
-const ImageFeed = ({ objects, imageFilterData }) => {
+const ImageFeed = ({ objects, imageFilterData, storeScrollPosition, i18n}) => {
   useEffect(() => {
     console.log(imageFilterData);
   });
@@ -72,7 +72,7 @@ const ImageFeed = ({ objects, imageFilterData }) => {
           (object) =>
             filter(object) && (
               <div className="image-container" key={object.ID}>
-                <ImagePreview workshop={object} grayscale={false} routeToAPI={"api/imageMetaData/"} />
+                <ImagePreview workshop={object} storeScrollPosition={storeScrollPosition} grayscale={false} routeToAPI={"api/imageMetaData/"} />
               </div>
             )
         )}

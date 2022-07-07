@@ -450,7 +450,7 @@ const ArchiveContribution = ({i18n}) => {
             name={ARCHIVE_CONTRIBUTION_NAME}
             i18n={i18n}
           />
-          <Preview onUpdate={onUpdate} />
+          <Preview onUpdate={onUpdate} i18n={i18n}/>
         </MultipageForm>
       </div>
       </div>

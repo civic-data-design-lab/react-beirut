@@ -5,36 +5,89 @@
 .slider-container {
   /* if you want to have a scrollbar, you can add overflow here */
   // position: relative;
-  height: 100%;
-
+  width: 100%;
   direction: ltr;
   overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   scroll-behavior: smooth;
+  height: 100%;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  pointer-events: none !important;
+}
+
+.slider-container::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 .slider-wrapper {
+  overflow-x: scroll;
+  overflow-y : hidden;
+  scroll-behavior: smooth;
   white-space: nowrap;
-  height: 100%;
+  //height: max-content;
   width: 100%;
   // padding: 0 30px;
+  pointer-events: none;
+}
+
+.blur-btns {
+
+  position: absolute;
+  padding: 0;
+  width: 15%;
+  height: 150%;
+  background: #FFFFFF;
+  filter: blur(18px);
+  z-index:3;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+  //touch-action: none;
+  //pointer-events: none;
+
+  @media screen and (max-width: 688px) {
+    // display: none;
+  }
+
+
+  &.prev {
+    left: 0px;
+  }
+
+  &.next {
+    right: 0px;
+  }
+
+  &.disable {
+    opacity: 0;
+    //display: none;
+    pointer-events: none;
+  }
 }
 
 .btn {
-  z-index: 10000000;
+  //background:transparent;
+  border:none;
+  outline:none;
+  z-index: 299;
   position: absolute;
   cursor: pointer;
   width: 40px;
   height: 100%;
   top: 0;
-  background: $c-white-off;
+  background: $c-white;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: $c-primary-dark;
+  pointer-events: auto !important;
 
   &.prev {
     left: 0px;
@@ -58,3 +111,13 @@
 //   margin-right: 10px;
 //   border-radius: 21px;
 // }
+
+.testDiv {
+  width: 100px;
+  height: 100px;
+  background-color: #85cbd4;
+  z-index: 1000;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}

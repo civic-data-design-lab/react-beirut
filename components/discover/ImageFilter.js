@@ -44,7 +44,8 @@ const ImageFilter = ({
                          updateToggle,
                          reset,
                          resetToggle,
-                         close}) => {
+                         close,
+                         i18n}) => {
 
     const { t } = useTranslation();
 
@@ -101,7 +102,7 @@ const ImageFilter = ({
                             <div className="card__wrapper">
                                <div className={'image-filter-container'}>
                                    <div className={"close-btn-container"}>
-                                       <p className={'card-section-labels'} style={{fontWeight:600}}>Filters</p>
+                                       <p className={'card-section-labels'} style={{fontWeight:600}}>{t('Filter By')}</p>
                                        <button className={'close-card-btn'} onClick={close}>
                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="#404044"/>
@@ -110,27 +111,27 @@ const ImageFilter = ({
                                    </div>
                                    <hr/>
                                    <div className={'card-section'}>
-                                       <p className={'card-section-labels'}>Craft Type</p>
+                                       <p className={'card-section-labels'}>{t('Craft Type')}</p>
                                        <CraftFilter filteredCrafts={filteredCrafts} updateCrafts={updateCrafts}/>
                                    </div>
                                    <hr/>
                                    <div className={'card-section'}>
-                                       <p className={'card-section-labels'}>Time Range</p>
+                                       <p className={'card-section-labels'}>{t('Time Range')}</p>
                                        <YearFilter startYear={startYear} endYear={endYear}
                                     updateYears={updateYears}/>
                                    </div>
                                    <hr/>
                                    <div className={'toggle-section'}>
-                                       <p className={'card-section-labels'}>Show Only Current Craft Workshops</p>
+                                       <p className={'card-section-labels'}>{t('Show only current craft workshops')}</p>
                                        <ActiveFilter toggleStatus={toggleStatus} updateToggle={updateToggle}
                                           resetToggle={resetToggle}/>
                                    </div>
                                    <hr/>
                                    <div className={'card-section-centered'}>
-                                       <button className={'reset-btn card-labels'} onClick={reset}>Reset</button>
+                                       <button className={'reset-btn card-labels'} onClick={reset}>{t('Reset')}</button>
                                    </div>
                                    <div className={'card-section-centered'}>
-                                       <button className={'btn-pill view-map-btn'} onClick={close}><span className={'view-map-label'}>View Images</span></button>
+                                       <button className={'btn-pill view-map-btn'} onClick={close}><span className={'view-map-label'}>{t('View Images')}</span></button>
                                    </div>
 
                                </div>
