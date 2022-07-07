@@ -56,7 +56,7 @@ const Schedule = ({i18n}) => {
                 <p className="text-center">{t('No events')}</p>
               </div>
               <div className="col-6 col-lg-5 p-2 t-7">
-                <h6><b>{t('Living Heritage Atlas | Event (Abroyan Factory, Bourj Hammoud)')}</b></h6><hr/>
+                <h6><b>{t('Living Heritage Atlas Event')}</b> {t('(Abroyan Factory, Bourj Hammoud)')}</h6><hr/>
                 <ol className={i18n.language}>
                   <li>{t('Opening remarks by MIT CDDL & FHL (6:00 - 6:30 PM)')}</li>
                   <li>{t('Mapping methods, 3 roundtable discussions (6:30 - 7:45 PM)')}</li>
@@ -100,7 +100,7 @@ const Schedule = ({i18n}) => {
         <div className="row">
           <div className="col-3 p-2 t-5"><b>{t('600')}&ndash;{t('800pm')}</b></div>
           <div className="col-9 p-2 t-5">
-            <h6><b>{t('Living Heritage Atlas')}&ensp;|&ensp;{t('Mapping Beirut\'s Craftsmanship')}</b></h6><hr/>
+          <h6><b>{t('Living Heritage Atlas Event')}</b> {t('(Abroyan Factory, Bourj Hammoud)')}</h6><hr/>
             <ol className={i18n.language}>
               <li>{t('Opening Remarks by MIT FHL & CDDL')}</li>
               <li>{t('Mapping Methods Discussion')}</li>

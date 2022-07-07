@@ -26,9 +26,9 @@ const About = ({i18n}) => {
             {" "} {t('Living Heritage Atlas\u2002|\u2002Beirut recognizes that craftspeople are an exponentially marginalized and vulnerable group of individuals, operating at the intersection of heritage, the infrastructure of making, and the local economy at different urban scales.')}</p>
           <p className={"fs-5 lh-sm"}>{t("This project seemingly bridges the digital to the physical by advancing three key interventions:\r")} </p>
           <ol className={`group ${i18n.language}`}>
-            <li className="fs-5 lh-sm">{t("It constructs a digital archive of geolocated historic data and images using visual and textual materials from local archives, residents, and craftspeople. Data is open-access and available to download at http://livingheritage.mit.edu/download;")}</li>
-            <li className="fs-5 lh-sm">{t("It implements a series of small neighborhood-wide interventions by disseminating site-specific street stickers and physical signages that connect physical spaces in contemporary Beirut to the historic images available on the Living Heritage Atlas | Beirut digital archive; ")}</li>
-            <li className="fs-5 lh-sm">{t("It connects stakeholders working on the topic of craftsmanship through community meetings, participatory mapping workshops, and share-your-story events on the spaces and history of craftsmanship in Beirut.")}</li>
+            <li className="fs-5 lh-sm">{t("It constructs a digital archive of geolocated historic data and images using visual and textual materials from local archives, residents, and craftspeople. Data is open-access and available to download at:")} <a href="http://livingheritage.mit.edu/download">http://livingheritage.mit.edu/download</a></li>
+            <li className="fs-5 lh-sm">{t("It implements a series of small neighborhood-wide interventions by disseminating site-specific street stickers and physical signages that connect physical spaces in contemporary Beirut to the historic images available on the Living Heritage Atlas | Beirut digital archive")}</li>
+            <li className="fs-5 lh-sm">{t("It connects stakeholders working on the topic of craftsmanship through community meetings, participatory mapping workshops, and share-your-story events on the spaces and history of craftsmanship in Beirut")}</li>
           </ol>
         </div>
         <div className="about-card">
@@ -39,10 +39,10 @@ const About = ({i18n}) => {
         <div className="about-card col col-md-10 col-lg-8">
           <h3 className="mb-3"><b>{t("Living Heritage Atlas\u2002|  Mapping Beirut\u2019s Craftsmanship Event (July 7th) ")}</b></h3>
           <p className="mb-0"><b>{t('Featured Event:')}</b>&emsp;{t('Two-hour roundtable discussion and mapping event')}</p>
-          <p className="mb-0"><b>{t('Date')}</b>&emsp;{t('Thursday, July 7, 2022')}</p>
-          <p className="mb-0"><b>{t('Time')}</b>&emsp;{t('600')}&ndash;{t('900pm')}</p>
-          <p><b>{t('Location:')}</b>&emsp;{t('Abroyan Factor')} &mdash;{t('Emile Eddeh Street, Bouj Hammoud, Beirut')}</p>
-          <p>{t("Register to attend Living Heritage Atlas | Beirut events via the ")} <a href="https://ihjoz.com/companies/1887" target="_blank">Ijhoz event webpage</a></p>
+          <p className="mb-0"><b>{t('Date&#58;')}</b>&emsp;{t('Thursday, July 7, 2022')}</p>
+          <p className="mb-0"><b>{t('Time&#58;')}</b>&emsp;{t('600')}&ndash;{t('900pm')}</p>
+          <p><b>{t('Location&#58;')}</b>&emsp;{t('Abroyan Factory')}&mdash;{t('Emile Eddeh Street, Bouj Hammoud, Beirut')}</p>
+          <p>{t("Register to attend Living Heritage Atlas | Beirut events via the")} <a href="https://ihjoz.com/companies/1887" target="_blank">Ijhoz event webpage</a></p>
           <p>{t('Discussion during this event will primary be conducted in English; if you prefer to converse in Arabic, there will be a person at each table ready to help translate to and from Arabic and English as needed.')}</p>
           <div className="t-event container-fluid mt-4">
             <div className="row mb-2">
@@ -106,7 +106,7 @@ const About = ({i18n}) => {
               </div>
             </div>
             <div className="row mb-2">
-              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2"><b>{t('Closing Remarks')}</b><br/>{t('900')}&ndash;{t('915pm')}</div>
+              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2"><b>{t('Closing Remarks')}</b><br/>{t('900pm')}&ndash;{t('915pm')}</div>
               <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
                 <p>{t('MIT FHL & CDDL will conclude the event with closing remarks.')}</p>
               </div>
@@ -118,30 +118,30 @@ const About = ({i18n}) => {
           <p>{t('This project has been developed by the Massachusetts Institute of Technology (MIT); more specifically by the Civic Data Design Lab and the Future Heritage Lab. The “Living Heritage Atlas | Beirut” is supported by “Dar Group” through a 2021 seed grant that has enabled MIT faculty members to conduct research on the challenges experienced in Beirut in the aftermath of the August 2020 port explosion.')}</p>
           <div className="row">
             <div className="col-12 col-sm-6 order-1 order-sm-1">
-              <h5><b>{t('Future Heritage Lab')}</b></h5>
-              <p>{t('The MIT Future Heritage Lab invents creative responses to conflict and crisis. We develop and implement projects and alternative educational formats at the intersection of art, culture, and preservation technology to address the emotional, cultural, and practical needs of communities in threat. We believe that culture is an essential human need, and a powerful tool to address conflicts and injustice. We build on our experience in Art, Design, and Cultural Preservation and leverage the MIT expertise in new technologies to collaborate with a global and diverse network of partners and ensure the quality and a wide reach of our work. We build future heritage by creating cultural projects on a civic scale that translate traditional crafts into new technologies, advance  knowledge transfer across borders, and have a positive impact on threatened communities.')}</p>
-            </div>
-            <div className="col-12 col-sm-6 order-3 order-sm-2">
               <h5><b>{t('Civic Data Design Lab')}</b></h5>
               <p>{t('The MIT Civic Data Design Lab works with data to understand it for public good. We seek to develop alternative practices which can make the work we do with data and images richer, smarter, more relevant, and more responsive to the needs and interests of citizens traditionally on the margins of policy development. In this practice we experiment with and develop data visualization and collection tools that allow us to highlight urban phenomena. Our methods borrow from the traditions of science and design by using spatial analytics to expose patterns and communicating those results, through design, to new audiences.')}</p>
+            </div>
+            <div className="col-12 col-sm-6 order-3 order-sm-2">
+            <h5><b>{t('Future Heritage Lab')}</b></h5>
+              <p>{t('The MIT Future Heritage Lab invents creative responses to conflict and crisis. We develop and implement projects and alternative educational formats at the intersection of art, culture, and preservation technology to address the emotional, cultural, and practical needs of communities in threat. We believe that culture is an essential human need, and a powerful tool to address conflicts and injustice. We build on our experience in Art, Design, and Cultural Preservation and leverage the MIT expertise in new technologies to collaborate with a global and diverse network of partners and ensure the quality and a wide reach of our work. We build future heritage by creating cultural projects on a civic scale that translate traditional crafts into new technologies, advance  knowledge transfer across borders, and have a positive impact on threatened communities.')}</p>
             </div>
           {/* </div>
           <div className="row"> */}
             <div className="col-12 col-sm-6 order-2 order-sm-3">
               <p>
-                <h5 className="mb-0"><b>{t('Future Heritage Lab Team')}</b></h5>
-                {t("Azra Aksamija, Director")}<br/>
-                {t("Daniella Maamari, Lead Researcher")}<br/>
-                {t("Sarine Agopian, Ramzi Alieh, Ahmad Beydoun, Racha Doughman, Reem Farhat, Kamila El Khechen, Raafat Majzoub, Reem Obeid, Rasha Zayour")}
-              </p>
-            </div>
-            <div className="col-12 col-sm-6 order-4 order-sm-4">
-              <p>
                 <h5 className="mb-0"><b>{t('Civic Data Design Lab Team')}</b></h5>
                 {t("Sarah Williams, Director")}<br/>
                 {t("Carmelo Ignaccolo, Lead Researcher & Project Manager")}<br/>
                 {t("Ashley Louie, Project Manager")}<br/>
-                {t("Enrique Casillas, Gatlen Culp, Doris Duanmu, Kelly Fang, Huiwen Shi, Wesley Woo, Sophia Zheng")}
+                {t("Enrique Casillas, Gatlen Culp, Doris Duanmu, Kelly Fang, Huiwen Shi, Wesley Woo, Rasha Zayour, Sophia Zheng")}
+              </p>
+            </div>
+            <div className="col-12 col-sm-6 order-4 order-sm-4">
+              <p>
+                <h5 className="mb-0"><b>{t('Future Heritage Lab Team')}</b></h5>
+                {t("Azra Aksamija, Director")}<br/>
+                {t("Daniella Maamari, Lead Researcher")}<br/>
+                {t("Sarine Agopian, Ramzi Alieh, Ahmad Beydoun, Racha Doughman, Reem Farhat, Kamila El Khechen, Raafat Majzoub, Reem Obeid, Rasha Zayour")}
               </p>
             </div>
           </div>
