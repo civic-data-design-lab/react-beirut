@@ -62,6 +62,8 @@ const Discover = ({ children, i18n}) => {
   }
 
 
+
+
   const stopScroll=()=>{
       const prevPos=sessionStorage.getItem("prevScrollPos")
       if (prevPos && (parseInt(prevPos) === window.scrollY)){
@@ -81,7 +83,46 @@ const Discover = ({ children, i18n}) => {
             setWorkshops(workshopsData.response);
             setArchive(archiveData.response);
           }
-        );
+        )
+            .then(()=>{
+              if (navigator.cookieEnabled) {
+                const prevScrollPos = sessionStorage.getItem("prevScrollPos")
+                console.log("prev scroll pos ", prevScrollPos)
+                if (prevScrollPos) {
+                  // $('#content').animate({ scrollTop: elementOffset }, 200);
+                  // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
+                  document.getElementById(prevScrollPos).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+                  sessionStorage.removeItem("prevScrollPos")
+
+                const prevFilterCrafts = sessionStorage.getItem("prevFilterCrafts")
+                const prevFilterStartYear = sessionStorage.getItem("prevFilterStartYear")
+                const prevFilterEndYear = sessionStorage.getItem("prevFilterEndYear")
+                const prevFilterToggle = sessionStorage.getItem("prevFilterToggle")
+                if (prevFilterCrafts) {
+                  setCrafts(JSON.parse(prevFilterCrafts))
+                }
+                if (prevFilterStartYear) {
+                  setStartYear(JSON.parse(prevFilterStartYear))
+                }
+                if (prevFilterEndYear) {
+                  setEndYear(JSON.parse(prevFilterEndYear))
+                }
+                if (prevFilterToggle) {
+                  setToggle(JSON.parse(prevFilterToggle))
+                }
+
+                const filterShow = sessionStorage.getItem("showFilter")
+                  if (filterShow) {
+                    console.log("toggle ", JSON.parse(filterShow))
+                    setFilter(JSON.parse(filterShow))
+                  }
+
+        // if (prevScrollPos && (parseInt(prevScrollPos) <= window.scrollY)){
+        // sessionStorage.removeItem("prevScrollPos")
+        // }
+      }
+    }
+            })
       }
     );
 
@@ -94,24 +135,7 @@ const Discover = ({ children, i18n}) => {
     //};
   }, []);
 
-  useEffect(()=>{
-      if ('scrollRestoration' in window.history) {
-  window.history.scrollRestoration = 'manual'
-  }
 
-    if (navigator.cookieEnabled) {
-      const prevScrollPos = sessionStorage.getItem("prevScrollPos")
-      if (prevScrollPos) {
-        console.log("scroll to ", parseFloat(prevScrollPos))
-        // $('#content').animate({ scrollTop: elementOffset }, 200);
-
-        window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
-        if (prevScrollPos && (parseInt(prevScrollPos) <= window.scrollY)){
-        sessionStorage.removeItem("prevScrollPos")
-      }
-      }
-    }
-  })
 
   useEffect(() => {
     const { show } = router.query;
@@ -140,6 +164,9 @@ const Discover = ({ children, i18n}) => {
 
   const expandFilter = () => {
     setFilter(!showFilter);
+    if (navigator.cookieEnabled) {
+      sessionStorage.setItem("showFilter", JSON.stringify(!showFilter))
+    }
   };
 
   const updateCrafts = (craftData) => {
@@ -177,6 +204,9 @@ const Discover = ({ children, i18n}) => {
 
   const handleClose = () => {
     setFilter(false);
+    if (navigator.cookieEnabled) {
+      sessionStorage.setItem("showFilter", JSON.stringify(false))
+    }
   };
 
   const filterData = {

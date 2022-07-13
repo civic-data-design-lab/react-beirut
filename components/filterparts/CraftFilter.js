@@ -26,6 +26,9 @@ const CraftFilter = ({filteredCrafts, updateCrafts}) => {
             let button = document.getElementById(`${craftType}-btn`)
             button.className=`hstg-btn-pill-small-selected--${craftType}`
         }
+        if (navigator.cookieEnabled) {
+                sessionStorage.setItem("prevFilterCrafts", JSON.stringify(craftsList))
+            }
 
         // callback passed as a prop from explore.js (map?) that passes state back up everytime a craft button is pressed
         updateCrafts(craftsList)

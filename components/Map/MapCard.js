@@ -152,10 +152,10 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                 return <p className={'object-caption'}>{currentMetaData.caption}</p>
             } else if (currentMetaData.type.length === 1) {
                 if (viewSet.has(currentMetaData.type[0])) {
-                    if (currentMetaData.type[0] === 'street') {
+                    if (currentMetaData.type[0] === 'street' && i18n.language==="ar") {
                         let arabic = t('Street view of ')
-                        let interpolated = arabic.replace('X', t(getShopName()))
-                        return <p>{interpolated}</p>
+                        let interpolated = arabic.replace('X', getShopName())
+                        return <p className={'object-caption'}>{interpolated}</p>
                     }
                     // console.log('currentMetaData ', currentMetaData.type[0])
                     // console.log('translation ', t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of '))

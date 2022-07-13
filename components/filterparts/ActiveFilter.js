@@ -8,6 +8,9 @@ const ActiveFilter = ({toggleStatus, updateToggle, resetToggle}) => {
     // function changes state to match toggle
     const onToggle = (state) => {
         updateToggle(state)
+        if (navigator.cookieEnabled) {
+            sessionStorage.setItem("prevFilterToggle", JSON.stringify(state))
+        }
     }
 
 

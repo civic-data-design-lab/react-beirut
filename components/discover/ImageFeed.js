@@ -46,7 +46,7 @@ const ImageFeed = ({ objects, imageFilterData, storeScrollPosition, i18n}) => {
       withinInterval=false
     }
 
-    const noCrafts = (((!object.craft_discipline_category || object.craft_discipline_category.length<1) && (imageFilterData['filteredCrafts'] && imageFilterData['filteredCrafts'].length<1)) || (imageFilterData['filteredCraftsParent'] && imageFilterData['filteredCrafts'].length===7))
+    const noCrafts = (((!object.craft_discipline_category || object.craft_discipline_category.length<1) && (imageFilterData['filteredCrafts'] && imageFilterData['filteredCrafts'].length<1)) || (imageFilterData['filteredCrafts'] && imageFilterData['filteredCrafts'].length===7))
 
     if (
       (indices[0]>-1 || (indices.length>1 && indices[1]>-1) || noCrafts) &&

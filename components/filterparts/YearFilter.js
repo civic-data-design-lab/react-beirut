@@ -12,6 +12,10 @@ const YearFilter = ({startYear, endYear, updateYears}) => {
     // function that updates state based on slider changes
     const onSliderUpdate = (value) => {
         updateYears([value[0], value[1]])
+        if (navigator.cookieEnabled) {
+            sessionStorage.setItem("prevFilterStartYear", JSON.stringify(value[0]))
+            sessionStorage.setItem("prevFilterEndYear", JSON.stringify(value[1]))
+        }
         // this.props.updateYears([value[0], value[1]])
     }
 

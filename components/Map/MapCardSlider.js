@@ -45,7 +45,7 @@ export default class MapCardSlider extends React.Component {
           ref={this.sliderContainerRef}
         >
 
-            {children.length>1?<button
+            {this.props.currentIndex>0?<button
               className={sliderStyle['prevButton']}
               onMouseDown={(e) => {e.stopPropagation()}}
               ref={this.prevBtnRef}
@@ -68,7 +68,7 @@ export default class MapCardSlider extends React.Component {
             {children}
           </div>
 
-            {children.length>1?<button
+            {this.props.currentIndex<this.props.children.length-1?<button
               className={`${sliderStyle['nextButton']}`}
               onMouseDown={(e) => {e.stopPropagation()}}
               onClick={this.scrollRight}

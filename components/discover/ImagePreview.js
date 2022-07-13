@@ -63,10 +63,11 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI, storeScro
   return (
     <>
       <div className="img-preview"
+           id={`preview-${workshop.ID.toString()}`}
             onClick={()=>{
                 console.log("clicked iamge", window.scrollY)
                 if (navigator.cookieEnabled && storeScrollPosition){
-                    storeScrollPosition(window.scrollY.toString())
+                    storeScrollPosition(`preview-${workshop.ID}`)
                 }}
             }
       >

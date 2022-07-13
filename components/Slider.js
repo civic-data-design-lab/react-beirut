@@ -14,11 +14,10 @@ export default class Slider extends React.Component {
     this.prevBtnRef = createRef();
 
     this.state = {
-      prevDisable: false,
-      nextDisable: false,
-       //this.sliderContainerRef && this.sliderContainerRef.offsetWidth >= this.sliderContainerRef.scrollWidth
-          //? true
-          //: false,
+      scrolledAmount: 0,
+      prevDisable: true,
+      nextDisable:
+          this.sliderContainerRef && this.sliderContainerRef.offsetWidth >= this.sliderContainerRef.scrollWidth,
     };
   }
 
@@ -27,8 +26,9 @@ export default class Slider extends React.Component {
     const wrapper = this.wrapperContainerRef.current;
     const itemWidth = wrapper.clientWidth;
     console.log("itemWidth is ", itemWidth)
+    this.setState({scrolledAmount:this.state.scrolledAmount-=itemWidth/2})
     wrapper.scrollLeft -= itemWidth/2 //({ left: -itemWidth/2, top: 0, behavior: 'smooth' });
-      // this.checkChildren(itemWidth, itemWidth/2);
+    this.checkChildren(itemWidth, itemWidth/2);
   };
 
   scrollRight = () => {
@@ -36,23 +36,39 @@ export default class Slider extends React.Component {
     const wrapper = this.wrapperContainerRef.current;
     const itemWidth = wrapper.clientWidth;
     console.log("itemWidth is ", itemWidth)
+    this.setState({scrolledAmount:this.state.scrolledAmount+=itemWidth/2})
     wrapper.scrollLeft += itemWidth/2;//{ left: itemWidth/2, top: 0, behavior: 'smooth' });
-
-    // this.checkChildren(itemWidth, itemWidth/2);
+    this.checkChildren(itemWidth, itemWidth/2);
   };
 
   componentDidMount() {
-    // this.checkChildren(this.sliderContainerRef.current.offsetWidth, this.sliderContainerRef.current.scrollWidth);
+    this.checkChildren(this.sliderContainerRef.current.offsetWidth, this.sliderContainerRef.current.scrollWidth);
   }
 
   checkChildren = (offsetWidthValue, scrollWidthValue) => {
+    console.log(this.state.scrolledAmount)
+    console.log(scrollWidthValue)
+    console.log(offsetWidthValue)
+    let offsetConstant
+    if (window.innerWidth>688) {
+      offsetConstant=1.5
+    } else {
+      offsetConstant=2.0
+    }
     this.setState({
-      prevDisable: this.sliderContainerRef.current.scrollLeft <= 0 ? false: true,
+      prevDisable: this.state.scrolledAmount - scrollWidthValue < 0,
       nextDisable:
-        this.sliderContainerRef.current.scrollLeft + offsetWidthValue >= scrollWidthValue
-          ? false
-          : true,
+        this.state.scrolledAmount + scrollWidthValue > offsetWidthValue * offsetConstant,
     });
+    if (this.state.scrolledAmount > offsetWidthValue*offsetConstant) {
+      this.setState({
+        scrolledAmount: offsetWidthValue-scrollWidthValue
+      })
+    } else if (this.state.scrolledAmount < 0) {
+      this.setState({
+        scrolledAmount: 0
+      })
+    }
   };
 
   render() {
@@ -65,7 +81,9 @@ export default class Slider extends React.Component {
         ref={this.sliderContainerRef}
       >
         <div className="slider-wrapper"
-             ref={this.wrapperContainerRef}>
+             ref={this.wrapperContainerRef}
+        onScroll={()=>{console.log("scrolling")}}>
+
           {this.props.children}
         </div>
 

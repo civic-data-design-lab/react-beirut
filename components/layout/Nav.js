@@ -31,14 +31,18 @@ const Nav = ({changeLanguage}) => {
     if (isMenuOpen) {
       console.log(`-${window.scrollY}px`)
       const scrollPos = -window.scrollY
-      setTimeout(()=>{
-        document.body.style.position = 'fixed';
+
+        // document.body.style.position = 'fixed';
+        //document.body.style.overflow = 'hidden';
         document.body.style.top = `${scrollPos}px`;
-      }, 1000)
+
+
     } else {
       const scrollY = document.body.style.top;
-      document.body.style.position = '';
+      //document.body.style.position = '';
+      //document.body.style.overflow = 'auto';
       document.body.style.top = '';
+
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
   }, [isMenuOpen])
@@ -79,7 +83,7 @@ const Nav = ({changeLanguage}) => {
 
   const hideBg = () => {
     const path = getPath();
-    if (path === '' || path === 'map') return true;
+    if (path === 'map') return true;
     return false;
   };
 

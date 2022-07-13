@@ -6,7 +6,7 @@
   /* if you want to have a scrollbar, you can add overflow here */
   // position: relative;
   width: 100%;
-  direction: ltr;
+  // direction: ltr;
   overflow-x: hidden;
   display: flex;
   justify-content: center;
@@ -17,6 +17,7 @@
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   pointer-events: none !important;
+  touch-action: none !important;
 }
 
 .slider-container::-webkit-scrollbar {
@@ -27,7 +28,7 @@
 }
 
 .slider-wrapper {
-  overflow-x: scroll;
+  overflow-x: hidden;
   overflow-y : hidden;
   scroll-behavior: smooth;
   white-space: nowrap;
@@ -35,6 +36,7 @@
   width: 100%;
   // padding: 0 30px;
   pointer-events: none;
+  touch-action: none !important;
 }
 
 .blur-btns {

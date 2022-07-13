@@ -260,12 +260,12 @@
 }
 
 .detach {
-  position: sticky;
+  position: sticky !important;
+  top: 3rem;
   top: 3rem;
 }
 
 .image-filter-container {
-
   width: 100%;
   left:0px;
   padding: 2rem;
