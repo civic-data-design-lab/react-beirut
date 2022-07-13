@@ -200,6 +200,11 @@ const Discover = ({ children, i18n}) => {
     setStartYear(1890);
     setEndYear(2030);
     setToggle(false);
+
+    const resetKeys=["prevFilterCrafts", "prevFilterStartYear", "prevFilterEndYear", "prevFilterToggle"]
+    resetKeys.map((key)=>{
+      sessionStorage.removeItem(key)
+    })
   };
 
   const handleClose = () => {
