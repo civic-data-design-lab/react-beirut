@@ -258,11 +258,12 @@
 
 .btn-interactivity:active {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
-  transform: translate(0.5px, 0.5px);
+  transform: translate(.5px, .5px);
 }
 
 .btn-interactivity:hover {
   box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.3);
+  transform: translate(1px, 1px);
 }
 
 
@@ -299,7 +300,7 @@
   border-radius: 5px;
   position: fixed;
   padding: 12px;
-  width: 20vw;
+  width: 18vw;
   bottom: 20%;
   left: 4%;
   display: flex;

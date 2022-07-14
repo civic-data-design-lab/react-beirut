@@ -778,19 +778,19 @@ export default class App extends React.PureComponent {
                     })}}/> : null}
             <div ref={this.mapContainer} id="map" className={'exploreMap'}/>
                     <div className={"nav-ctr-container"}>
-                        <button className={"nav-ctr-btn zoom-in-btn button-interactivity"} onClick={this.handleClickZoomIn}>
+                        <button className={"nav-ctr-btn zoom-in-btn btn-interactivity"} onClick={this.handleClickZoomIn}>
                             <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.86719 3.76562V5.46094H0.0703125V3.76562H7.86719ZM4.88281 0.578125V8.85938H3.0625V0.578125H4.88281Z" fill="#471E10"/>
                             </svg>
 
                         </button>
-                        <button className={"nav-ctr-btn zoom-out-btn button-interactivity"} onClick={this.handleClickZoomOut}>
+                        <button className={"nav-ctr-btn zoom-out-btn btn-interactivity"} onClick={this.handleClickZoomOut}>
                             <svg width="6" height="2" viewBox="0 0 6 2" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.03906 0.390625V1.89062H0.90625V0.390625H5.03906Z" fill="#471E10"/>
                             </svg>
                         </button>
 
-                        <button className={"nav-ctr-btn geolocate-btn button-interactivity"} onClick={this.handleGeolocate}>
+                        <button className={"nav-ctr-btn geolocate-btn btn-interactivity"} onClick={this.handleGeolocate}>
 
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M20.94 11C20.48 6.83 17.17 3.52 13 3.06V1H11V3.06C6.83 3.52 3.52 6.83 3.06 11H1V13H3.06C3.52 17.17 6.83 20.48 11 20.94V23H13V20.94C17.17 20.48 20.48 17.17 20.94 13H23V11H20.94ZM12 8C9.79 8 8 9.79 8 12C8 14.21 9.79 16 12 16C14.21 16 16 14.21 16 12C16 9.79 14.21 8 12 8ZM5 12C5 15.87 8.13 19 12 19C15.87 19 19 15.87 19 12C19 8.13 15.87 5 12 5C8.13 5 5 8.13 5 12Z" fill="#AEAEAE"/>
