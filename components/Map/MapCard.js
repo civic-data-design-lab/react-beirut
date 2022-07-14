@@ -3,6 +3,12 @@ import Slider from "../Slider";
 import MapCardSlider from "./MapCardSlider";
 import { useMediaQuery } from 'react-responsive'
 import Draggable from "react-draggable";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFacebook, faInstagram} from "@fortawesome/free-brands-svg-icons";
+import {faLink} from "@fortawesome/free-solid-svg-icons";
+
+import Link from 'next/link';
+
 
 
 
@@ -318,6 +324,40 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
  }
 
+    const openInNewTab = (url) => {
+        window.open(url, '_blank').focus();
+    }
+
+    const getContactInfo = () => {
+        if (workshop.contact_info) {
+            console.log("has contact info")
+            const contactInfo = []
+            for (const [key, value] of Object.entries(workshop.contact_info)) {
+                console.log(`${key}: ${value}`);
+                if (key==="website") {
+                    // TODO: slice https out
+                    contactInfo.push(<>
+                        <FontAwesomeIcon icon={faLink} width={16}/>  &thinsp;
+                        <a className={"shopSubtitle-text"} target="_blank" href={`//www.${value}`}>{value}</a><br/></>)
+                } else if (key === "facebook") {
+                    contactInfo.push(<>
+                        <FontAwesomeIcon icon={faFacebook} width={16}/>  &thinsp;
+                        <a className={"shopSubtitle-text"} target="_blank" href={`//www.${value}`}>{value}</a></>)
+                } else if (key === "instagram") {
+                    // TODO: slice "@"
+                    contactInfo.push(<>
+                        <FontAwesomeIcon icon={faInstagram} width={16}/>  &thinsp;
+
+                        </>)
+                }
+                else {
+                    contactInfo.push(<p className={"shopSubtitle-text"}>{value}</p>)
+                }
+            }
+            return contactInfo
+        }
+    }
+
     const handleOnError = (e) => {
 
         let el = e.target
@@ -407,6 +447,10 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                                 </svg>
                             </button>
                         </div>
+
+                        <p className={'shopSubtitle-text'}>{getContactInfo()}</p>
+
+
 
 
 

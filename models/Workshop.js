@@ -52,7 +52,7 @@ const WorkshopSchema = new mongoose.Schema({
   survey_origin: String,
   thumb_img_id: String,
   images: [String],
-  consent: Boolean
+  // consent: Boolean
 });
 
 module.exports =
