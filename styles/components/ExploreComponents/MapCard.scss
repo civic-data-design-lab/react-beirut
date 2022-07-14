@@ -41,7 +41,7 @@
       //bottom: 0%;
       z-index: 20;
     overflow-y: scroll;
-    display: block;
+    // display: block;
     --safe-area-inset-top: env(safe-area-inset-top);
     --safe-area-inset-bottom: env(safe-area-inset-bottom);
     padding: 2vw 2vw calc(1em + var(--safe-area-inset-bottom));
@@ -110,7 +110,7 @@
   justify-content: center;
   align-items: center;
   //margin: auto;
-  height: 5%;
+  min-height: 5%;
 }
 
 
@@ -145,6 +145,7 @@
 
 .mapCard-slider-container {
   height: calc(30vw - 48px);
+  min-height: calc(30vw - 48px);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -152,11 +153,15 @@
 
   @media screen and (min-width: 688px) and (max-width: 991px) {
       height: calc(50vw - 48px);
+      min-height: calc(50vw - 48px);;
     }
 
   @media screen and (max-width: 688px) {
       height: calc(100vw - 48px);
+      min-height: calc(100vw - 48px);
     }
+
+
 }
 
 

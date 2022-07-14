@@ -250,7 +250,7 @@ const getPrimaryDecade = () => {
     <>
 
       <Desktop>
-      <div className={'popup-section'}>
+      <div className={'popup-section slider'}>
                 <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider

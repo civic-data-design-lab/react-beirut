@@ -4,8 +4,8 @@ import MapCardSlider from "./MapCardSlider";
 import { useMediaQuery } from 'react-responsive'
 import Draggable from "react-draggable";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFacebook, faInstagram} from "@fortawesome/free-brands-svg-icons";
-import {faLink} from "@fortawesome/free-solid-svg-icons";
+import {faFacebook, faInstagram, faInstagramSquare, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import {faEnvelope, faLink, faPhone} from "@fortawesome/free-solid-svg-icons";
 
 import Link from 'next/link';
 
@@ -334,25 +334,43 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
             const contactInfo = []
             for (const [key, value] of Object.entries(workshop.contact_info)) {
                 console.log(`${key}: ${value}`);
-                if (key==="website") {
+                if (key === "phone" && value) {
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faPhone} width={16} color={"#AEAEAE"}/> &thinsp;
+                        <a className={"shopSubtitle-text"} href={`tel:${value}`}>{value}</a></div>)
+                }
+                else if (key === "email" && value) {
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faEnvelope} width={16} color={"#AEAEAE"}/>  &thinsp;
+                        <a className={"shopSubtitle-text"} href={`mailto:${value}`}>{value}</a><br/></div>)
+                }
+                else if (key==="website" && value) {
                     // TODO: slice https out
-                    contactInfo.push(<>
-                        <FontAwesomeIcon icon={faLink} width={16}/>  &thinsp;
-                        <a className={"shopSubtitle-text"} target="_blank" href={`//www.${value}`}>{value}</a><br/></>)
-                } else if (key === "facebook") {
-                    contactInfo.push(<>
-                        <FontAwesomeIcon icon={faFacebook} width={16}/>  &thinsp;
-                        <a className={"shopSubtitle-text"} target="_blank" href={`//www.${value}`}>{value}</a></>)
-                } else if (key === "instagram") {
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faLink} width={16} color={"#AEAEAE"}/>  &thinsp;
+                        <a className={"shopSubtitle-text"} target="_blank" href={`//www.${value}`}>{value}</a><br/></div>)
+                } else if (key === "facebook" && value) {
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faFacebook} width={16} color={"#AEAEAE"}/>  &thinsp;
+                        <a className={"shopSubtitle-text"} target="_blank" href={`//www.${value}`}>{value}</a><br/></div>)
+                } else if (key === "instagram" && value) {
                     // TODO: slice "@"
-                    contactInfo.push(<>
-                        <FontAwesomeIcon icon={faInstagram} width={16}/>  &thinsp;
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faInstagramSquare} width={16} color={"#AEAEAE"}/>  &thinsp;
+                        <a className={"shopSubtitle-text"} target="_blank" href={`//www.instagram.com/${value.slice(1)}`}>{value.slice(1)}</a><br/>
 
-                        </>)
+                        </div>)
+                } else if (key === "twitter" && value) {
+                    // TODO: slice "@"
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faTwitter} width={16} color={"#AEAEAE"}/>  &thinsp;
+                        <a className={"shopSubtitle-text"} target="_blank" href={`//www.twitter.com/${value.slice(1)}`}>{value.slice(1)}</a><br/>
+
+                        </div>)
                 }
-                else {
-                    contactInfo.push(<p className={"shopSubtitle-text"}>{value}</p>)
-                }
+                // else {
+                //    contactInfo.push(<p className={"shopSubtitle-text"}>{value}</p>)
+                // }
             }
             return contactInfo
         }
@@ -448,7 +466,9 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                             </button>
                         </div>
 
-                        <p className={'shopSubtitle-text'}>{getContactInfo()}</p>
+                    {workshop.consent ? <div>{getContactInfo()}</div> : null}
+
+
 
 
 

@@ -86,13 +86,6 @@ const Discover = ({ children, i18n}) => {
         )
             .then(()=>{
               if (navigator.cookieEnabled) {
-                const prevScrollPos = sessionStorage.getItem("prevScrollPos")
-                console.log("prev scroll pos ", prevScrollPos)
-                if (prevScrollPos) {
-                  // $('#content').animate({ scrollTop: elementOffset }, 200);
-                  // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
-                  document.getElementById(prevScrollPos).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
-                  sessionStorage.removeItem("prevScrollPos")
 
                 const prevFilterCrafts = sessionStorage.getItem("prevFilterCrafts")
                 const prevFilterStartYear = sessionStorage.getItem("prevFilterStartYear")
@@ -116,6 +109,14 @@ const Discover = ({ children, i18n}) => {
                     console.log("toggle ", JSON.parse(filterShow))
                     setFilter(JSON.parse(filterShow))
                   }
+
+                  const prevScrollPos = sessionStorage.getItem("prevScrollPos")
+                console.log("prev scroll pos ", prevScrollPos)
+                if (prevScrollPos) {
+                  // $('#content').animate({ scrollTop: elementOffset }, 200);
+                  // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
+                  document.getElementById(prevScrollPos).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+                  sessionStorage.removeItem("prevScrollPos")
 
         // if (prevScrollPos && (parseInt(prevScrollPos) <= window.scrollY)){
         // sessionStorage.removeItem("prevScrollPos")

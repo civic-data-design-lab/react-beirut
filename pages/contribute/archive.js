@@ -223,7 +223,7 @@ const formSchema = {
         sector: {
           title: 'Sector',
           field_name: 'sector',
-          required: true,
+          // required: true,
         },
         lat: {
           title: 'Latitude',
@@ -233,6 +233,10 @@ const formSchema = {
           title: 'Longitude',
           field_name: 'lng',
         },
+        location_notes: {
+          title: 'Location Notes',
+          field_name: 'location_notes'
+        }
       },
     },
     preview: {
@@ -241,7 +245,7 @@ const formSchema = {
         consent: {
           title: 'Consent to Publish Data',
           field_name: 'consent',
-          required: true,
+          // required: true,
         },
       },
     },

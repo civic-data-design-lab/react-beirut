@@ -214,6 +214,19 @@ const LocationForm = ({
                     );
                   })}
                 </InputField>
+
+                <div style={{display:"flex", flexDirection:"column"}}>
+                    <label className={'bbf-label'}>
+              {t('Write any additional location notes.')}
+            </label>
+            <textarea
+              name="location_notes"
+              id="location_notes"
+              value={formData.location_notes || ''}
+              onChange={(e) => onUpdate({ location_notes: e.target.value })}
+            />
+                </div>
+
               </div>
               </div>
           </div>

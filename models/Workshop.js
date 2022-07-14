@@ -41,6 +41,7 @@ const WorkshopSchema = new mongoose.Schema({
       content_orig_lang: String,
       content_ar: String,
     },
+    location_notes: String,
     adm1: String,
     adm2: String,
     adm3: String,
@@ -52,7 +53,7 @@ const WorkshopSchema = new mongoose.Schema({
   survey_origin: String,
   thumb_img_id: String,
   images: [String],
-  // consent: Boolean
+  consent: Boolean
 });
 
 module.exports =

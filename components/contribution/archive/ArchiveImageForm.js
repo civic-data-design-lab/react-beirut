@@ -46,7 +46,7 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
                       formData={formData}
                       dataLocation="images"
                       title=""
-                      label={t("Upload an archival image of a craft workshop")}
+                      label={t("Upload an image related to craftsmanship in Beirut")}
                       imageRequired={true}
                       captionRequired={fields.caption.required}
                   />

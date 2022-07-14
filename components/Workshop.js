@@ -8,6 +8,9 @@ import { useMediaQuery } from 'react-responsive';
 
 import { Trans, useTranslation} from "react-i18next";
 import Info from "./Info";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEnvelope, faLink, faPhone} from "@fortawesome/free-solid-svg-icons";
+import {faFacebook, faInstagram, faInstagramSquare, faTwitter} from "@fortawesome/free-brands-svg-icons";
 
 
 
@@ -210,6 +213,54 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
  }
 
+ const getContactInfo = () => {
+        if (workshop.contact_info) {
+            console.log("has contact info")
+            const contactInfo = []
+            for (const [key, value] of Object.entries(workshop.contact_info)) {
+                console.log(`${key}: ${value}`);
+                if (key === "phone" && value) {
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faPhone} width={16}/> &thinsp;
+                        <a className={"object-caption"} href={`tel:${value}`}>{value}</a></div>)
+                }
+                else if (key === "email" && value) {
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faEnvelope} width={16} color={"#471e10"}/>  &thinsp;
+                        <a className={"object-caption"} href={`mailto:${value}`}>{value}</a></div>)
+                }
+                else if (key==="website" && value) {
+                    // TODO: slice https out
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faLink} width={16} color={"#471e10"}/>  &thinsp;
+                        <a className={"object-caption"} target="_blank" href={`//www.${value}`}>{value}</a></div>)
+                } else if (key === "facebook" && value) {
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faFacebook} width={16} color={"#471e10"} height={16}/>  &thinsp;
+                        <a className={"object-caption"} target="_blank" href={`//www.${value}`}>{value}</a></div>)
+                } else if (key === "instagram" && value) {
+                    // TODO: slice "@"
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faInstagramSquare} width={16} color={"#471e10"}/>  &thinsp;
+                        <a className={"object-caption"} target="_blank" href={`//www.instagram.com/${value.slice(1)}`}>{value}</a>
+
+                        </div>)
+                } else if (key === "twitter" && value) {
+                    // TODO: slice "@"
+                    contactInfo.push(<div className={"contact-container"}>
+                        <FontAwesomeIcon icon={faTwitter} width={16} color={"#471e10"}/>  &thinsp;
+                        <a className={"object-caption"} target="_blank" href={`//www.twitter.com/${value.slice(1)}`}>{value}</a>
+
+                        </div>)
+                }
+                // else {
+                //    contactInfo.push(<p className={"shopSubtitle-text"}>{value}</p>)
+                // }
+            }
+            return contactInfo
+        }
+    }
+
  const getDecadeEstablished = () => {
         if (!workshop.decade_established) {
             return null
@@ -254,7 +305,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
         <Desktop>
 
-            <div className={'popup-section'}>
+            <div className={'popup-section slider'}>
                 <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
                 {imageMetas?.length > 0 && (
                     <MapCardSlider
@@ -268,7 +319,8 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
             </div>
 
             <div className={'popup-section'}>
-                <div className={'object-title-section'}>
+                <div style={{height:"100%"}}>
+                    <div className={'object-title-section section-margin'}>
 
                         <div className={'shop-title-verification'}>
                                     <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
@@ -280,10 +332,14 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
 
                                 </div>
 
+
                         <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
-                        <br/>
-                        {getCaption()}
                 </div>
+
+                    {workshop.consent ? <div className={'section-margin'}>{getContactInfo()}</div> : null}
+
+                    <div className={"section-margin"}> {getCaption()}</div>
+
 
 
                 <div className={'object-map-section'}>
@@ -311,12 +367,14 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </div>
                         </div>
                 </div> : null }
+                </div>
             </div>
         </Desktop>
 
         <Tablet>
             <div className={'popup-section'}>
-                <div className={'object-title-section'}>
+                <div style={{height:"100%", overflowY:"auto"}}>
+                <div className={'object-title-section section-margin'}>
                 <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
@@ -325,9 +383,14 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                                     </p>
 
                 <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''}{getSubtitle()}</p>
-                <br/>
-                {getCaption()}
                 </div>
+
+
+                    {workshop.consent ? <div className={'section-margin'}>{getContactInfo()}</div> : null}
+
+
+
+                    <div className={'section-margin'}>{getCaption()}</div>
 
                 <div className={'object-slider-section-tablet'}>
                 {imageMetas?.length > 0 && (
@@ -339,7 +402,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     />
                 )}
             </div>
-            <div className={'object-map-section'}>
+            <div className={'object-map-section section-margin'}>
                     <p className={'object-caption'}>{t('Locate this craft workshop on the map')}</p>
                     <div className={'miniMap-container'}>
                         <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
@@ -363,12 +426,13 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     </div>
                         </div>
                 </div> : null }
+                    </div>
             </div>
         </Tablet>
 
         <Mobile>
             <div className={'popup-section'}>
-                <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300, direction:"ltr"}}>
+                <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300, direction:"ltr", display:"flex", flexDirection:"row", alignItems:"center", height:"fit-content"}}>
                     {handleClose ? <button className={'close-card-btn object-mobile-close'} onClick={handleClose}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z" fill="#333333"/>
@@ -376,6 +440,7 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                 </button> : null}
                 <div className={!preview?'object-mobile-heading':'object-mobile-heading-preview'}>
                     <div className={!preview?'object-mobile-heading-subcontainer':'object-mobile-heading-subcontainer-preview'}>
+
                         <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
                                         <span>
                                             <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
@@ -383,9 +448,14 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                                         </span>
                                     </p>
                     <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
-                    </div>
+
 
                 </div>
+
+                    {workshop.consent ? <div className={'object-mobile-contact-info'}>{getContactInfo()}</div> : null}
+
+                </div>
+
                 </div>
 
                 <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between", height:"100%"}}>
@@ -400,8 +470,8 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                     />
                 )}
             </div>
-                <div className={'object-mobile-section'}>
-                    <p>{getCaption()}</p>
+                <div className={'object-mobile-section section-margin'}>
+                    {getCaption()}
                 </div>
 
                 <div className={'object-mobile-section object-map-section'}>

@@ -95,7 +95,7 @@ const contactRequirement = (formData) => {
     requirementFulfilled = false;
     incorrectFields.push('Instagram');
   }
-  if (!REGEX_VALIDATION.twitter_handle.test(formData.instagram) && formData.twitter
+  if (!REGEX_VALIDATION.twitter_handle.test(formData.twitter) && formData.twitter
   ) {
     requirementFulfilled = false;
     incorrectFields.push('Twitter');
@@ -213,6 +213,10 @@ const formSchema = {
           title: 'Longitude',
           field_name: 'lng',
         },
+        location_notes: {
+          title: 'Location Notes',
+          field_name: 'location_notes'
+        }
       },
     },
     image_upload: {
@@ -248,7 +252,7 @@ const formSchema = {
         consent: {
           title: 'Consent to Publish Data',
           field_name: 'consent',
-          required: true,
+          //required: true,
         },
       },
     },
@@ -280,7 +284,7 @@ const WorkshopContribution = ({lang, i18n}) => {
       const tryExistingForm = JSON.parse(localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME));
     if (tryExistingForm) {
       setForm(tryExistingForm)
-      console.log('existing form is true so setForm to ', tryExistingForm)
+      // console.log('existing form is true so setForm to ', tryExistingForm)
     }
     }
   }, [])
@@ -359,13 +363,13 @@ const WorkshopContribution = ({lang, i18n}) => {
         } else {
           // TODO: UNCOMMENT THESE. ONLY UNCOMMENTED FOR TESTING.
           // INFO Clear the form data
-          console.log('cookies status ', cookiesEnabled)
+          // console.log('cookies status ', cookiesEnabled)
           if (cookiesEnabled) {
-              console.log('in try')
+              // console.log('in try')
               setLocalStorageFull(false)
               localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
           }
-           console.log('in set form')
+          // console.log('in set form')
            // setForm({});
            setSubmitted(true);
            setSubmitSuccess(true);
@@ -381,9 +385,9 @@ const WorkshopContribution = ({lang, i18n}) => {
   };
 
   const onUpdate = (data) => {
-    console.log('check submit status ', )
-    console.log('onUpdate called')
-    console.log('printing data ', data);
+    //console.log('check submit status ', )
+    //console.log('onUpdate called')
+    //console.log('printing data ', data);
     setForm((prevForm) => {
       const updatedFormData = { ...prevForm, ...data };
       console.info('setting form data to ', updatedFormData);
@@ -396,7 +400,7 @@ const WorkshopContribution = ({lang, i18n}) => {
         ); //!! This errors if cookies are disabled.
 
       } catch (e) {
-          console.log(e)
+         // console.log(e)
         setLocalStorageFull(true)
         setDialogTitle('Ran out of local storage space!')
         setDialog("Because your browser has exceeded its storage, it can no longer save any more additions you make to this form for you to return to later. Please complete this submission within this session.")
