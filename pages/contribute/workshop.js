@@ -57,7 +57,10 @@ const contactRequirement = (formData) => {
       formData.phone,
       formData.email,
       formData.website,
-      formData.social_media,
+      formData.facebook,
+      formData.instagram,
+      formData.twitter,
+      formData.other_social_media,
     ].some((contact) => contact)
   ) {
     return {
@@ -82,13 +85,23 @@ const contactRequirement = (formData) => {
     requirementFulfilled = false;
     incorrectFields.push('Website');
   }
-  if (
-    !REGEX_VALIDATION.url.test(formData.social_media) &&
-    formData.social_media
+  if (!REGEX_VALIDATION.url.test(formData.facebook) && formData.facebook
   ) {
     requirementFulfilled = false;
-    incorrectFields.push('Social Media');
+    incorrectFields.push('Facebook');
   }
+  if (!REGEX_VALIDATION.instagram_handle.test(formData.instagram) && formData.instagram
+  ) {
+    requirementFulfilled = false;
+    incorrectFields.push('Instagram');
+  }
+  if (!REGEX_VALIDATION.twitter_handle.test(formData.instagram) && formData.twitter
+  ) {
+    requirementFulfilled = false;
+    incorrectFields.push('Twitter');
+  }
+
+
 
   return requirementFulfilled
     ? { requirementFulfilled: true, errorMessage: '' }
@@ -143,9 +156,21 @@ const formSchema = {
           title: 'Website',
           field_name: 'website',
         },
-        social_media: {
-          title: 'Social Media',
-          field_name: 'social_media',
+        facebook: {
+          title: 'Facebook',
+          field_name: 'facebook',
+        },
+        instagram: {
+          title: 'Instagram',
+          field_name: 'instagram',
+        },
+        twitter: {
+          title: 'Twitter',
+          field_name: 'twitter',
+        },
+        other_social_media: {
+          title: 'Other Social Media',
+          field_name: 'other_social_media',
         },
         craft_category: {
           title: 'Craft Category',

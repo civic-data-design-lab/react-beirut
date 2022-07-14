@@ -229,6 +229,16 @@ const InputField = (props) => {
         validationPattern = REGEX_VALIDATION.email;
         errorString = t('* Please enter a valid email address');
         break;
+      case 'instagram_handle':
+        validationPattern = REGEX_VALIDATION.instagram_handle;
+        errorString = t('* Please enter a valid instagram handle');
+
+        break
+      case 'twitter_handle':
+        validationPattern = REGEX_VALIDATION.twitter_handle;
+        errorString = t('* Please enter a valid twitter handle');
+
+        break
       case 'url':
         validationPattern = REGEX_VALIDATION.url;
         errorString = t('* Please enter a valid url');
@@ -242,16 +252,14 @@ const InputField = (props) => {
           id={fieldName}
           type={inputType}
           required={required}
-          pattern={validationPattern.toString()} // Unsure if this attribute does anything
+          // pattern={validationPattern.toString()} // Unsure if this attribute does anything
           value={value || ''}
           onFocus={onFocus}
           onBlur={onBlur}
           onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
           {...rest}
         />
-        {!focused && value && !validationPattern.test(value) && (
-          <small className="input-error">{errorString}</small>
-        )}
+
       </>
     );
   };

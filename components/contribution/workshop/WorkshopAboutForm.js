@@ -134,16 +134,50 @@ const WorkshopAboutForm = ({
               highlight={highlightedFields?.includes(fields.website.field_name)}
             />
             <InputField
-              title={t(fields.social_media.title)}
-              fieldName={fields.social_media.field_name}
+              title={t(fields.facebook.title)}
+              fieldName={fields.facebook.field_name}
               type="url"
-              value={formData[fields.social_media.field_name]}
+              value={formData[fields.facebook.field_name]}
               onUpdate={onUpdate}
-              required={fields.social_media.required}
+              required={fields.facebook.required}
               highlight={highlightedFields?.includes(
-                fields.social_media.field_name
+                fields.facebook.field_name
               )}
             />
+            <InputField
+              title={t(fields.instagram.title)}
+              fieldName={fields.instagram.field_name}
+              type="instagram_handle"
+              value={formData[fields.instagram.field_name]}
+              onUpdate={onUpdate}
+              required={fields.instagram.required}
+              highlight={highlightedFields?.includes(
+                fields.instagram.field_name
+              )}
+            />
+            <InputField
+              title={t(fields.twitter.title)}
+              fieldName={fields.twitter.field_name}
+              type="twitter_handle"
+              value={formData[fields.twitter.field_name]}
+              onUpdate={onUpdate}
+              required={fields.twitter.required}
+              highlight={highlightedFields?.includes(
+                fields.twitter.field_name
+              )}
+            />
+            <InputField
+              title={t(fields.other_social_media.title)}
+              fieldName={fields.other_social_media.field_name}
+              type="text"
+              value={formData[fields.other_social_media.field_name]}
+              onUpdate={onUpdate}
+              required={fields.other_social_media.required}
+              highlight={highlightedFields?.includes(
+                fields.other_social_media.field_name
+              )}
+            />
+
             {(() => {
               const contactRequirement =
                 page.custom_reqs.contact_requirement.function(formData);

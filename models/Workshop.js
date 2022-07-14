@@ -23,7 +23,10 @@ const WorkshopSchema = new mongoose.Schema({
     phone: String,
     email: String,
     website: String,
-    social_media: String,
+    facebook: String,
+    instagram: String,
+    twitter: String,
+    other_social_media: String,
   },
   year_established: Number,
   decade_established: [Number],
@@ -49,6 +52,7 @@ const WorkshopSchema = new mongoose.Schema({
   survey_origin: String,
   thumb_img_id: String,
   images: [String],
+  consent: Boolean
 });
 
 module.exports =
