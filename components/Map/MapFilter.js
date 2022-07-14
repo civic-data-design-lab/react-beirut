@@ -5,6 +5,7 @@ import ActiveFilter from "../filterparts/ActiveFilter";
 import Card from "../Card";
 import { useMediaQuery } from 'react-responsive'
 import { useTranslation } from "react-i18next";
+import Info from "../Info";
 
 
 const Desktop = ({ children }) => {
@@ -51,7 +52,12 @@ const MapFilter = ({filteredCrafts, startYear, endYear, toggleStatus, search,
                 </div>
                 <hr/>
                 <div className={"card-section"}>
-                    <p className={'card-section-labels'}>{t('Time Range')}</p>
+                    <p className={'card-section-labels'}>{t('Time Range')} &thinsp;
+                            <span>
+                                <Info icon={'info'} text={'Archival images will be filtered by the year they were taken while craft workshops will be filtered by the year they were established.'}/>
+                            </span>
+                        </p>
+
                     <YearFilter startYear={startYear} endYear={endYear}
                                 updateYears={updateYears}/>
                 </div>

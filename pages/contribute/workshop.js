@@ -179,7 +179,6 @@ const formSchema = {
         sector: {
           title: 'Sector',
           field_name: 'sector',
-          required: true,
         },
         lat: {
           title: 'Latitude',

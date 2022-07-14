@@ -133,6 +133,7 @@
   line-height: 18px;
   color: #333333;
   margin: 0px;
+  position: relative;
 }
 
 .object-mobile-subtitle {
@@ -287,6 +288,7 @@
 }
 
 .object-name {
+  position: relative;
   font-family: $font-main;
   font-style: normal;
   font-weight: 600;
@@ -533,10 +535,12 @@
   top: 0;
   bottom: 0;
   width: 100%;
-  height: 100%;
-
   border-radius: 10px;
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  @media  (max-width: 689px) {
+    height: 40vh;
+  }
 }
 
 .miniMap-container {

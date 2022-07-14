@@ -130,6 +130,7 @@
 }
 
 .close-btn-container {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -142,6 +143,7 @@
   flex-direction: column;
   justify-content: space-around;
   width: 100%;
+  position: relative;
 }
 
 .card-section-centered {

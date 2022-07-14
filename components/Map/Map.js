@@ -2,6 +2,8 @@ import React, {useRef} from 'react';
 import mapboxGl from "mapbox-gl";
 import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 import Dialogue from "../contribution/general/Dialogue";
+import Info from "../Info";
+import * as ReactDOM from "react-dom";
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const MAP_LABELS =['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
@@ -26,7 +28,8 @@ export default class App extends React.PureComponent {
 
             readZoom: this.props.mapZoom,
             markerRadius: this.getMarkerRadius(this.props.mapZoom),
-            geoLocateCoords: null
+            geoLocateCoords: null,
+            isAfterClick:false
             //mapZoom: this.props.mapZoom
 
         }
@@ -45,6 +48,8 @@ export default class App extends React.PureComponent {
             "none": "#c9bba6"
         }
         this.clickMarker = this.clickMarker.bind(this)
+        this.hoverMarker = this.hoverMarker.bind(this)
+        this.leaveMarker = this.leaveMarker.bind(this)
 
     }
 
@@ -77,7 +82,6 @@ export default class App extends React.PureComponent {
         })
 
 
-        console.log("width is now ", window.innerWidth)
 
         if (window.innerWidth > 991) {
             this.props.setMapZoom(13.5)
@@ -130,7 +134,6 @@ export default class App extends React.PureComponent {
             geoLocateDialog:'Loading...',
             geoLocateLoader:true
         });
-        console.log('state ', this.state.geoLocateDialog)
         navigator.geolocation.getCurrentPosition(success, error);
 
       }
@@ -138,24 +141,85 @@ export default class App extends React.PureComponent {
 
 
     clickMarker (e) {
+
+        this.setState({isAfterClick:true})
+        console.log("clocked marker")
         let el = e.target;
         this.props.openMapCard(el.id, el.type);
+        const popups = document.querySelector(".mapboxgl-popup")
+        if (popups) {
+            popups.parentNode.removeChild(popups)
+        }
 
     }
 
     hoverMarker(e) {
-        let el = e.target;
-        // console.log(el.craft)
-        el.classList.add('hoverMarker');
-        el.classList.add(`hoverMarker--${el.craft.toLowerCase()}`);
 
-        //console.log(`hoverMarker--${el.craft}`)
+        if (!this.state.isAfterClick) {
+            console.log("hovered marker")
+            let el = e.target;
+            // console.log(el.craft)
+            el.classList.add('hoverMarker');
+            el.classList.add(`hoverMarker--${el.craft.toLowerCase()}`);
+            this.showPopup(el.obj)
+        }
+        this.setState({isAfterClick : false})
+    }
+
+    showPopup = (obj) => {
+
+        const popups = document.querySelector(".mapboxgl-popup")
+        if (popups) {
+            popups.parentNode.removeChild(popups)
+        }
+
+        const popup = new mapboxGL.Popup({closeButton: false, closeOnClick: false});
+        let lng
+        let lat
+        try {
+            lng = obj.location.geo.lng
+            lat = obj.location.geo.lat
+        } catch {
+            lng = obj.primary_location.geo.lng
+            lat = obj.primary_location.geo.lat
+        }
+
+        const popupContent = document.createElement('div');
+        const popupText = (
+        <>
+            <p>{this.getShopName(obj)}</p>
+            <p>({lng}, {lat})</p>
+        </>
+    )
+        popupContent.className = "marker-popup"
+        ReactDOM.render(popupText, popupContent);
+
+        popup.setLngLat([lng, lat])
+            .setDOMContent(popupContent)
+            .addTo(map.current);
     }
 
     leaveMarker(e) {
         let el = e.target;
         el.classList.remove('hoverMarker');
         el.classList.remove(`hoverMarker--${el.craft.toLowerCase()}`);
+        const popups = document.querySelector(".mapboxgl-popup")
+        if (popups) {
+            popups.parentNode.removeChild(popups)
+        }
+    }
+
+    getShopName = (obj) => {
+
+        //console.log(workshop)
+
+        if (obj.shop_name['content']) {
+            return obj.shop_name['content']
+        } else if (obj.shop_name['content_orig']) {
+            return obj.shop_name['content_orig']
+        } else {
+            return "Craft Shop (No name provided)"
+        }
     }
 
 
@@ -163,23 +227,14 @@ export default class App extends React.PureComponent {
 
     componentDidMount() {
 
-        console.log('map layer in mount is ', this.props.mapLayer)
 
         window.addEventListener('resize', this.handleResize);
-        //window.addEventListener("orientationchange", this.handleResize);
-
-        //console.log('map.js ', this.props.filterSearchData)
-
-
         mapboxGl.accessToken = ACCESS_TOKEN;
 
-        console.log("printing plgin status ", mapboxGl.getRTLTextPluginStatus())
 
 
         if (mapboxGL.getRTLTextPluginStatus() !== 'loaded' && mapboxGL.getRTLTextPluginStatus() !== 'deferred') {
-            console.log('here')
             if (mapboxGl.getRTLTextPluginStatus() === 'unavailable'){
-                console.log('here again')
                 mapboxGl.setRTLTextPlugin(
                 'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
                 null,
@@ -187,15 +242,6 @@ export default class App extends React.PureComponent {
             );
             }
         }
-
-
-
-        console.log("printing plgin status ", mapboxGl.getRTLTextPluginStatus())
-
-
-
-
-
 
 
         map.current = new mapboxGl.Map({
@@ -247,14 +293,10 @@ export default class App extends React.PureComponent {
             }
         });
 
-            console.log('labels ', labels)
-
         });
 
         map.current.on('zoom', () => {
             const currentZoom = map.current.getZoom();
-            console.log('current zoom ', currentZoom);
-            console.log('current center ', map.current.getCenter());
             const markerRadius = this.getMarkerRadius(currentZoom)
 
             this.setState({
@@ -271,10 +313,7 @@ export default class App extends React.PureComponent {
             return;}
 
        for (const workshop of this.props.workshops) {
-            // console.log(workshop)
-            if (workshop.ID === "7445078809") {
-                console.log(workshop)
-            }
+
             const el = document.createElement('div');
 
             if (workshop.craft_discipline_category.length >1) {
@@ -306,7 +345,7 @@ export default class App extends React.PureComponent {
             }
 
 
-            el.className = 'marker';
+            el.className = `marker marker-${workshop.ID} ${workshop.ID===this.props.id? 'active-marker':''}`;
             el.style.width = `${this.state.markerRadius*2}px`;
             el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
@@ -316,6 +355,7 @@ export default class App extends React.PureComponent {
             el.onmouseenter = this.hoverMarker;
             el.onmouseleave = this.leaveMarker;
             el.type = 'workshop';
+            el.obj = workshop;
 
             if (!workshop.location.geo) {
                 console.warn(`${workshop.ID} has no geo location`);
@@ -332,11 +372,7 @@ export default class App extends React.PureComponent {
         }
 
        for (const archive of this.props.archives) {
-           // console.log(archive)
 
-           if (archive.ID === "8788699349") {
-               console.log(archive)
-           }
             const el = document.createElement('div');
             const craft = archive.craft_discipline_category[0];
 
@@ -370,7 +406,7 @@ export default class App extends React.PureComponent {
 
 
 
-            el.className = 'marker';
+            el.className = `marker marker-${archive.ID} ${archive.ID===this.props.id? 'active-marker':''}`;
             el.style.width = `${this.state.markerRadius*2}px`;
             el.style.height = `${this.state.markerRadius*2}px`;
             // el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
@@ -382,6 +418,7 @@ export default class App extends React.PureComponent {
             el.onmouseenter = this.hoverMarker;
             el.onmouseleave = this.leaveMarker;
             el.type = 'archive'
+            el.obj = archive;
 
             if (archive.ID === "A397612231") {
                 console.warn(`${archive.ID} is ignored`);
@@ -405,15 +442,11 @@ export default class App extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-       //  console.log("print language in map ", this.props.i18n.language)
-       //  console.log("detected map layer ", this.props.mapLayer)
 
         const changedZoom = this.props.mapZoom !== prevProps.mapZoom;
         const changedCoords = this.props.coords !== prevProps.coords;
         if (changedZoom || changedCoords) {
-            // console.log('is zoom the same')
             if (this.props.showMapCard===false && this.props.coords) {
-                console.log('zoom')
                 map.current.flyTo({
                     center: changedCoords?this.props.coords:[35.510, 33.893894],
                     zoom: this.props.mapZoom,
@@ -467,9 +500,7 @@ export default class App extends React.PureComponent {
                 map.current.setLayoutProperty(this.state.activeLayer, 'visibility', 'none');
                 if (!this.props.showMapCard) {
                     let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
-                console.log(Object.values(filtered)[0][3])
                 if (Object.values(filtered)[0][3]) {
-                    console.log('in here')
                     this.props.setMapLayerSettings(Object.values(filtered)[0][3], Object.values(filtered)[0][4])
                 }
                 }
@@ -479,9 +510,7 @@ export default class App extends React.PureComponent {
                 // console.log('hi')
                 if (!this.props.showMapCard) {
                     let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k,v]) => v[0]===this.props.mapLayer));
-                console.log(Object.values(filtered)[0][3])
                 if (Object.values(filtered)[0][3]) {
-                    console.log('in here')
                     this.props.setMapLayerSettings(Object.values(filtered)[0][3], Object.values(filtered)[0][4])
                 }
                 }
@@ -503,7 +532,6 @@ export default class App extends React.PureComponent {
             return;}
 
         if (prevState.readZoom !== this.state.readZoom){
-            console.log(this.mappedMarkers[0])
             // this.mappedMarkers.forEach((marker) => marker.remove());
         }
 
@@ -513,7 +541,6 @@ export default class App extends React.PureComponent {
 
         if (prevState.geoLocateCoords != this.state.geoLocateCoords) {
             if (this.state.geoLocateCoords) {
-            console.log("geoLocateEE")
 
            if (this.geoLocateMarker){
                this.geoLocateMarker.remove()
@@ -533,9 +560,6 @@ export default class App extends React.PureComponent {
         for (const workshop of this.props.workshops) {
             const el = document.createElement('div');
 
-            if (workshop.ID === "7445078809") {
-                console.log("update ", workshop);
-            }
 
             if (workshop.craft_discipline_category.length >1) {
                 el.style.display = 'flex'
@@ -565,7 +589,7 @@ export default class App extends React.PureComponent {
 
             }
 
-            el.className = 'marker';
+            el.className = `marker marker-${workshop.ID} ${workshop.ID===this.props.id? 'active-marker':''}`;
             el.style.width = `${this.state.markerRadius*2}px`;
             el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
@@ -575,6 +599,7 @@ export default class App extends React.PureComponent {
             el.onmouseenter = this.hoverMarker;
             el.onmouseleave = this.leaveMarker;
             el.type = 'workshop';
+            el.obj = workshop;
 
 
             if (!workshop.location.geo) {
@@ -609,9 +634,6 @@ export default class App extends React.PureComponent {
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1) || noCrafts) && withinInterval) {
                 if (this.props.filterSearchData['toggleStatusParent'] && workshop.shop_status!=="open") {
-                    if (workshop.ID==="7445078809"){
-                        console.log('1')
-                    }
                     continue;
                 }
 
@@ -666,7 +688,7 @@ export default class App extends React.PureComponent {
 
             }
 
-            el.className = 'marker';
+            el.className = `marker marker-${archive.ID} ${archive.ID===this.props.id? 'active-marker':''}`;
             el.style.width = `${this.state.markerRadius*2}px`;
             el.style.height = `${this.state.markerRadius*2}px`;
             el.style.borderRadius = '50%';
@@ -676,6 +698,7 @@ export default class App extends React.PureComponent {
             el.onmouseenter = this.hoverMarker;
             el.onmouseleave = this.leaveMarker;
             el.type="archive";
+            el.obj = archive;
 
 
             if (archive.ID === "A397612231") {

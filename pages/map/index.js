@@ -4,6 +4,7 @@ import {getAllArchives, getAllWorkshops} from '../../lib/apiUtils';
 import MapFilter from "../../components/Map/MapFilter";
 import React from "react";
 import SearchBar from "../../components/Map/SearchBar";
+import Legend from "../../components/Map/Legend";
 import MapCard from "../../components/Map/MapCard";
 import LayersControl from "../../components/Map/LayersControl";
 import { useMediaQuery } from 'react-responsive'
@@ -72,7 +73,8 @@ export default class Explore extends React.Component {
             showLayersControl: false,
             // mapCenter : [0,0],
             mapZoom : 13.25,
-            coords:  [35.510, 33.893894] //[35.510, 33.893894],
+            coords:  [35.510, 33.893894], //[35.510, 33.893894],
+            width: null
         }
     }
 
@@ -152,13 +154,11 @@ export default class Explore extends React.Component {
                             fetch(`/api/workshops/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
-                                .then(()=>console.log("clicked on ", this.state.workshop))
                             .then(()=> this.setState({coords:[this.state.workshop.location.geo['lng'], this.state.workshop.location.geo['lat']]}))
                         } else {
                             fetch(`/api/archive/${this.state.id}`)
                             .then((res) => res.json())
                             .then((res) => this.setState({workshop:res['response']}))
-                                .then(()=>console.log("clicked on ", this.state.workshop))
                             .then(()=> this.setState({coords:[this.state.workshop.primary_location.geo['lng'], this.state.workshop.primary_location.geo['lat']]}))
                         }
 
@@ -186,7 +186,6 @@ export default class Explore extends React.Component {
             }
         }
     setMapZoom = (zoom) => {
-            console.log('new zoom is ', zoom)
             this.setState({
                 mapZoom:zoom
             })
@@ -199,7 +198,6 @@ export default class Explore extends React.Component {
         })
 
 
-        console.log("width is now ", window.innerWidth)
 
         if (window.innerWidth > 991) {
             this.setState({mapZoom:13.5})
@@ -254,30 +252,16 @@ export default class Explore extends React.Component {
     }
 
     componentDidMount() {
-            // window.addEventListener('resize', this.handleResize);
             this.handleResize()
-            // document.body.classList.add('prevent-scroll')
-            // let root = document.documentElement;
-            // root.className += 'prevent-scroll';
-            console.log('does 4593218374 exist ? ', this.props.workshops)
+            window.addEventListener("resize", this.handleResize)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-           // if (this.state.showMapCard && window.innerWidth<688) {
-           //     console.log("add noscroll")
-           //     document.body.classList.add('noscroll');
-           // } else {
-           //     console.log("remove noscroll")
-           //     document.body.classList.remove('noscroll');
-
-            //}
     }
 
     componentWillUnmount() {
-            // window.removeEventListener('resize', this.handleResize);
-            // document.body.classList.remove('prevent-scroll')
-            // let root = document.documentElement;
-            // root.className -= 'prevent-scroll';
+            window.removeEventListener("resize", this.handleResize)
+
     }
 
 
@@ -302,11 +286,11 @@ export default class Explore extends React.Component {
                              setMapZoom={this.setMapZoom} mapZoom={this.state.mapZoom} handleResize={this.handleResize}
                              mapCenter={this.state.mapCenter} allLayers={this.state.allLayers} mapLayer={this.state.mapLayer}
                              workshops={this.props.workshops} archives={this.props.archives} filterSearchData={filterSearchData}
-                             openMapCard={this.openMapCard} coords={this.state.coords} closeMapCard={this.closeMapCard}/>
+                             openMapCard={this.openMapCard} coords={this.state.coords} closeMapCard={this.closeMapCard} id={this.state.id}/>
                         { this.state.on ? <MapFilter
                             filteredCrafts={this.state.filteredCraftsParent} startYear={this.state.startYearParent} endYear={this.state.endYearParent} toggleStatus={this.state.toggleParent} search={this.state.search}
                             updateCrafts={this.updateCrafts} updateYears={this.updateYears} updateToggle={this.updateToggle} closeFilter={this.closeFilter} triggerReset={this.triggerReset} reset={this.onReset} resetToggle={this.state.toggleReset} />  : null }
-                        <SearchBar callBack={this.searchMap}/>
+                        {this.state.width>688?<SearchBar callBack={this.searchMap}/>:null}
 
                         <div className={'filterSection'}>
                             <button className={'filterButton filterSettingsButton button-interactivity'} onClick={this.toggleFilterPanel}>
@@ -326,6 +310,7 @@ export default class Explore extends React.Component {
 
                         { this.state.showLayersControl ? <LayersControl currentLayer={this.state.mapLayer} allLayers={this.state.allLayers} updateMapLayer={this.updateMapLayer} closeLayersControl={this.closeLayersControl}/> : null}
 
+                        { !this.state.showLayersControl && !this.state.on ? <Legend width={this.state.width}/> : null}
 
                     </div>
 

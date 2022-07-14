@@ -312,6 +312,7 @@
   flex-direction: column;
   justify-content: space-around;
   padding: 1rem;
+  position: relative;
 
   @media screen and (max-width: 688px) {
     padding: 0px;

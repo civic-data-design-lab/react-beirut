@@ -90,7 +90,7 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI, storeScro
             </Link>
 
               {workshop.survey_origin?<div className={'shop-icon'}>
-                  <FontAwesomeIcon icon={faStore} width={32}></FontAwesomeIcon>
+                  <FontAwesomeIcon icon={faStore} width={24}></FontAwesomeIcon>
               </div>:null}
             <div className="overlay">
               <div className="shop-info">

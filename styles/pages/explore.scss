@@ -64,6 +64,19 @@
 }
 
 
+.active-marker {
+  box-shadow: 0 0 0 5px $c-white
+}
+
+
+.marker-popup {
+  text-align: center;
+
+  p {
+    margin: 0px;
+  }
+}
+
 
 
 
@@ -280,6 +293,95 @@
     display: none;  /* Safari and Chrome */
 }
 
+
+.map-legend {
+  background-color: $c-white-off;
+  border-radius: 5px;
+  position: fixed;
+  padding: 12px;
+  width: 20vw;
+  bottom: 20%;
+  left: 4%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+
+  @media screen and (max-width: 688px) {
+      display: none;
+  }
+
+  .legend-content {
+    margin: 4px 0;
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    @media screen and (max-width: 991px) {
+      grid-template-columns: 100%;
+    }
+
+
+
+
+    .legend-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+
+      .legend-label {
+        font-size: 12px;
+        margin: 0 4px;
+      }
+
+      .legend-color {
+        border-radius: 50%;
+        height: 16px;
+        width: 16px;
+
+        &.architectural {
+          background-color: $c-architectural;
+        }
+
+        &.cuisine {
+          background-color: $c-cuisine;
+        }
+
+        &.decorative {
+          background-color: $c-decorative;
+        }
+
+        &.fashion {
+          background-color: $c-fashion;
+        }
+
+        &.functional {
+          background-color: $c-functional;
+        }
+
+        &.furniture {
+          background-color: $c-furniture;
+        }
+
+        &.textiles {
+          background-color: $c-textiles;
+        }
+
+        &.none {
+          background-color: $c-none;
+        }
+
+
+      }
+
+    }
+
+
+  }
+
+
+}
 
 
 

@@ -27,6 +27,7 @@ import {TRANSLATIONS} from "../../lib/utils";
 
 
 import { Trans, useTranslation, initReactI18next } from "react-i18next";
+import Info from "../Info";
 
 
 
@@ -60,7 +61,11 @@ const ImageFilter = ({
                         <CraftFilter filteredCrafts={filteredCrafts} updateCrafts={updateCrafts}/>
                     </div>
                     <div className={'image-filter-section'} style={{flexBasis: '35%'}}>
-                        <p>{t('Time Range')}</p>
+                        <p>{t('Time Range')} &thinsp;
+                            <span>
+                                <Info icon={'info'} text={'Archival images will be filtered by the year they were taken while craft workshops will be filtered by the year they were established.'}/>
+                            </span>
+                        </p>
                         <hr/>
                         <YearFilter startYear={startYear} endYear={endYear}
                                     updateYears={updateYears}/>

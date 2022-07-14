@@ -62,11 +62,13 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         const childPos = firstImage.getBoundingClientRect()
         const relativePos = parentPos.left - childPos.left;
         const parentWidth = parentPos.width;
+
         if (i18n.language === "en") {
             setCurrentImageIndex(Math.round(relativePos/parentWidth));
+            console.log(Math.round(relativePos/parentWidth))
         } else {
             setCurrentImageIndex(-(Math.round(relativePos/parentWidth)));
-            // console.log(currentImageIndex)
+            console.log(-(Math.round(relativePos/parentWidth)))
         }
     }
 
@@ -194,6 +196,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
     useEffect(()=>{
         //window.addEventListener('resize', this.updateDimensions);
         console.log(workshop)
+        // onScroll()
         // console.log(type)
         setInvalidImages([])
         if (type === "workshop") {
@@ -464,7 +467,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         {(workshop.images.length !== 0) ?
                             <>
                             <div className={'mapCard-slider-container'} >
-                                <MapCardSlider children={getImages()} sliderStyle={mainSliderStyle} currentIndex={currentImageIndex}/>
+                                <MapCardSlider handleScroll={onScroll} children={getImages()} sliderStyle={mainSliderStyle} currentIndex={currentImageIndex}/>
                             </div>
 
                             <div>

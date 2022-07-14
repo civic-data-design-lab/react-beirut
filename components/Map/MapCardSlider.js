@@ -13,6 +13,7 @@ export default class MapCardSlider extends React.Component {
   }
 
   scrollLeft = () => {
+    console.log("scroll left")
     const container = this.sliderContainerRef.current;
     const wrapper = this.wrapperContainerRef.current;
     const itemWidth = container.clientWidth;
@@ -22,6 +23,7 @@ export default class MapCardSlider extends React.Component {
   };
 
   scrollRight = () => {
+    console.log("scroll right")
     const container = this.sliderContainerRef.current;
     const wrapper = this.wrapperContainerRef.current;
     const itemWidth = container.clientWidth;
@@ -37,6 +39,7 @@ export default class MapCardSlider extends React.Component {
 
   render() {
     const { sliderStyle, children } = this.props;
+
 
     return (
       <>

@@ -33,7 +33,7 @@ const Nav = ({changeLanguage}) => {
       const scrollPos = -window.scrollY
 
         // document.body.style.position = 'fixed';
-        //document.body.style.overflow = 'hidden';
+        // document.body.style.overflow = 'hidden';
         document.body.style.top = `${scrollPos}px`;
 
 
@@ -122,10 +122,10 @@ const Nav = ({changeLanguage}) => {
           </a>
         </Link>
 
-          {getPath() ? <div className={`nav-divider vr ${isMenuOpen ? ' hide-background':''}`}/> : null}
+          {getPath() && width>590 ? <div className={`nav-divider vr ${isMenuOpen ? ' hide-background':''}`}/> : null}
 
         <div className="page-location">
-          {t(getPath().charAt(0).toUpperCase()+getPath().slice(1))}
+          {width>590 ? t(getPath().charAt(0).toUpperCase()+getPath().slice(1)):null}
         </div>
         </div>
         <div className={'nav-left-container'}>

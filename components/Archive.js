@@ -321,6 +321,7 @@ const getPrimaryDecade = () => {
                         handleScroll={onScroll}
                         children={showImages()}
                         sliderStyle={mainSliderStyle}
+                        currentIndex={index}
                     />
                 )}
             </div>
@@ -375,6 +376,7 @@ const getPrimaryDecade = () => {
                                 handleScroll={onScroll}
                                 children={showImages()}
                                 sliderStyle={mainSliderStyle}
+                                currentIndex={index}
                             />
                         )}
                         <div className={'object-mobile-section'}>
