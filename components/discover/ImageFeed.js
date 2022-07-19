@@ -2,15 +2,77 @@ import ImagePreview from './ImagePreview';
 import mapboxGl from 'mapbox-gl';
 import { useEffect } from 'react';
 
-const ImageFeed = ({ objects, imageFilterData, storeScrollPosition, i18n}) => {
+const ImageFeed = ({ objects, imageFilterData, storeScrollPosition, i18n, imageSearchData}) => {
   useEffect(() => {
-    console.log(imageFilterData);
+    // console.log(imageFilterData);
   });
+
+  const searchableKeys = ["shop_name", "content", "content_orig", "content_ar", "craft_discipline", "craft_discipline_category",
+      "craft_discipline_other", "location", "address", "adm1", "adm2", "adm3", "adm4"]
+
+
+
+  const iterateObject = (object, searchValue) => {
+        let filteredObject = Object.fromEntries(Object.entries(object).filter(([key]) => searchableKeys.includes(key)));
+        // console.log("new object is ", filteredObject)
+
+        return Object.values(filteredObject).some(val => {
+                    if (val) {
+                        if (Array.isArray(val)) {
+                            // console.log("its an array!")
+                        return iterateArray(val, searchValue)
+                    } else if (val &&  typeof(val) === "object") {
+                        return iterateObject(val, searchValue)
+                    } else {
+                        if (typeof(val)==="string" || val instanceof String)
+                        {
+                            // console.log("this is a string ", val)
+                            if (val.toLowerCase().includes(searchValue.toLowerCase()) || searchValue.toLowerCase().includes(val.toLowerCase())) {
+                                // console.log("this is a substring of that ", val)
+                                return true
+                            }
+                            }
+
+                    }
+                    }
+                });
+    }
+
+    const iterateArray = (array, searchValue) => {
+        return array.some((item)=>{
+            if (item) {
+                if (Array.isArray(item)) {
+                        return iterateArray(item, searchValue)
+                    } else if (item &&  typeof(item) === "object") {
+                        return iterateObject(item, searchValue)
+                    } else {
+                        if (typeof(item)==="string" || item instanceof String)
+                        {
+                            // console.log("this is a string ", item)
+                            if (item.toLowerCase().includes(searchValue.toLowerCase()) || searchValue.toLowerCase().includes(item.toLowerCase())) {
+                                return true
+                            }
+                            }
+
+                    }
+            }
+        })
+
+    }
 
   const filter = (object) => {
     if (!object.thumb_img_id) {
       return false;
     }
+
+    let meetSearchCriteria;
+    if(!imageSearchData || imageSearchData.length<1) {
+        meetSearchCriteria = true
+    } else {
+        meetSearchCriteria = iterateObject(object, imageSearchData)
+    }
+
+
 
     const craftType = object.craft_discipline_category;
     const indices = craftType.map((craft) => {
@@ -50,7 +112,7 @@ const ImageFeed = ({ objects, imageFilterData, storeScrollPosition, i18n}) => {
 
     if (
       (indices[0]>-1 || (indices.length>1 && indices[1]>-1) || noCrafts) &&
-      withinInterval
+      withinInterval && meetSearchCriteria
     ) {
       if (
         imageFilterData['filteredToggleStatus'] &&

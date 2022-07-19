@@ -6,7 +6,9 @@ import {TRANSLATIONS} from "../../lib/utils";
 
 
 
-const SearchBar = ({callBack}) => {
+const SearchBar = ({callBack, placeHolder="Search", value=null, map=true}) => {
+
+    console.log("this is value in SearchBar ", value)
 
     const { t } = useTranslation();
 
@@ -28,9 +30,9 @@ const SearchBar = ({callBack}) => {
 }
 
     return (
-            <div className={'searchbar'}>
+            <div className={`${map?"searchbar":"image-searchbar"}`}>
                 <span>
-                <input id="mapSearch" type="search" placeholder={t("Enter Shop Name")} onChange={inputUpdate}/>
+                <input id="mapSearch" type="search" placeholder={t(placeHolder)} onChange={inputUpdate} value={value}/>
                 </span>
             </div>
         )

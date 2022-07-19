@@ -345,7 +345,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         <a className={"shopSubtitle-text"} href={`mailto:${value}`}>{value}</a><br/></div>)
                 }
                 else if (key==="website" && value) {
-                    // TODO: slice https out
+                    // TODO: slice https/http out
                     contactInfo.push(<div className={"contact-container"}>
                         <FontAwesomeIcon icon={faLink} width={16} color={"#AEAEAE"}/>  &thinsp;
                         <a className={"shopSubtitle-text"} target="_blank" href={`//www.${value}`}>{value}</a><br/></div>)

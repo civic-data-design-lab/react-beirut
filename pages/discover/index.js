@@ -29,6 +29,7 @@ const Default = ({ children }) => {
 
 
 import { Trans, useTranslation, initReactI18next } from "react-i18next";
+import SearchBar from "../../components/Map/SearchBar";
 
 
 
@@ -55,10 +56,15 @@ const Discover = ({ children, i18n}) => {
   const [endYearImage, setEndYear] = useState(2030);
   const [toggleImage, setToggle] = useState(false);
   const [resetToggleImage, setResetToggle] = useState(false);
+  const [search, setSearch] = useState("");
 
   const storeScrollPosition = (scrollPos) => {
-    console.log("saved ", scrollPos)
+    // console.log("saved ", scrollPos)
     sessionStorage.setItem("prevScrollPos", scrollPos)
+  }
+
+  const storeSearch = (search) => {
+    sessionStorage.setItem("prevSearch", search)
   }
 
 
@@ -117,12 +123,13 @@ const Discover = ({ children, i18n}) => {
                   // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
                   document.getElementById(prevScrollPos).scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
                   sessionStorage.removeItem("prevScrollPos")
+                }}
 
-        // if (prevScrollPos && (parseInt(prevScrollPos) <= window.scrollY)){
-        // sessionStorage.removeItem("prevScrollPos")
-        // }
-      }
-    }
+              const prevSearch = sessionStorage.getItem("prevSearch")
+                 console.log("prevSearch Exists! ", prevSearch)
+                if (prevSearch) {
+                  setSearch(prevSearch)
+                }
             })
       }
     );
@@ -237,6 +244,22 @@ const Discover = ({ children, i18n}) => {
             </p>
           </div>
 
+          <SearchBar
+              callBack={(input)=>{
+                console.log(input)
+                if (navigator.cookieEnabled) {
+                  console.log("saving input as ", input)
+                  setSearch(input)
+                  storeSearch(input)
+                }
+                setSearch(input)}}
+              placeHolder={"Search for Craft Workshops and Images"}
+              // TODO: fix below
+              value={search}
+              map={false}
+
+          />
+
 
           <button
             className={'reset-btn image-filter-btn discover-text'}
@@ -313,7 +336,9 @@ const Discover = ({ children, i18n}) => {
               // onCloseCard={resetSelected}
               // onExpandCard={handleExpand}
               imageFilterData={filterData}
+              imageSearchData={search}
               storeScrollPosition={storeScrollPosition}
+
             />
           ) : (
             <>

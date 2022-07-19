@@ -36,6 +36,7 @@ export default class App extends React.PureComponent {
 
         this.mapContainer = React.createRef();
         this.mappedMarkers = [];
+        this.activeMarker = null;
         this.geoLocateMarker=null;
         this.colorMap = {
             "architectural": '#91B0D1',
@@ -50,6 +51,57 @@ export default class App extends React.PureComponent {
         this.clickMarker = this.clickMarker.bind(this)
         this.hoverMarker = this.hoverMarker.bind(this)
         this.leaveMarker = this.leaveMarker.bind(this)
+        this.iterateObject = this.iterateObject.bind(this)
+        this.iterateArray = this.iterateArray.bind(this)
+
+    }
+
+    iterateObject = (object, searchValue) => {
+        const searchableKeys = ["shop_name", "content"]
+        let filteredObject = Object.fromEntries(Object.entries(object).filter(([key]) => searchableKeys.includes(key)));
+        console.log("new object is ", filteredObject)
+
+        return Object.values(filteredObject).some(val => {
+                    if (val) {
+                        if (Array.isArray(val)) {
+                            console.log("its an array!")
+                        return this.iterateArray(val, searchValue)
+                    } else if (val &&  typeof(val) === "object") {
+                        return this.iterateObject(val, searchValue)
+                    } else {
+                        if (typeof(val)==="string" || val instanceof String)
+                        {
+                            console.log("this is a string ", val)
+                            if (val.toLowerCase().includes(searchValue.toLowerCase()) || searchValue.toLowerCase().includes(val.toLowerCase())) {
+                                console.log("this is a substring of that ", val)
+                                return true
+                            }
+                            }
+
+                    }
+                    }
+                });
+    }
+
+    iterateArray = (array, searchValue) => {
+        return array.some((item)=>{
+            if (item) {
+                if (Array.isArray(item)) {
+                        return this.iterateArray(item, searchValue)
+                    } else if (item &&  typeof(item) === "object") {
+                        return this.iterateObject(item, searchValue)
+                    } else {
+                        if (typeof(item)==="string" || item instanceof String)
+                        {
+                            console.log("this is a string ", item)
+                            if (item.toLowerCase().includes(searchValue.toLowerCase()) || searchValue.toLowerCase().includes(item.toLowerCase())) {
+                                return true
+                            }
+                            }
+
+                    }
+            }
+        })
 
     }
 
@@ -454,6 +506,7 @@ export default class App extends React.PureComponent {
                     essential: true
                 })
             }
+
         }
 
 
@@ -535,9 +588,7 @@ export default class App extends React.PureComponent {
             // this.mappedMarkers.forEach((marker) => marker.remove());
         }
 
-        if (this.mappedMarkers) {
-            this.mappedMarkers.forEach((marker) => marker.remove());
-        }
+
 
         if (prevState.geoLocateCoords != this.state.geoLocateCoords) {
             if (this.state.geoLocateCoords) {
@@ -554,6 +605,33 @@ export default class App extends React.PureComponent {
             let marker = new mapboxGl.Marker(el).setLngLat(this.state.geoLocateCoords).addTo(map.current);
             this.geoLocateMarker = marker;
         }
+        }
+
+        if (this.props.id && (this.props.id !== prevProps.id)) {
+            const mark = document.querySelector(`.marker-${this.props.id}`)
+            mark.classList.add("active-marker")
+            console.log("new acrtive marker ", mark)
+            if (this.activeMarker) {
+                console.log("old active marker ", document.querySelector(`.marker-${this.activeMarker}`))
+                document.querySelector(`.marker-${this.activeMarker}`).classList.remove("active-marker")
+            }
+            this.activeMarker=this.props.id
+        }
+
+        const sameCrafts = prevProps.numberCrafts === this.props.numberCrafts
+        const sameStartYear = prevProps.startYear === this.props.startYear
+        const sameEndYear = prevProps.endYear === this.props.endYear
+        const sameToggle = prevProps.toggleStatus === this.props.toggleStatus
+        const sameSearch = prevProps.search === this.props.search
+        const sameMarkerRadius = prevState.markerRadius === this.state.markerRadius
+
+
+        if (sameCrafts && sameStartYear && sameEndYear && sameToggle && sameSearch && sameMarkerRadius) {
+            return
+        }
+
+        if (this.mappedMarkers) {
+            this.mappedMarkers.forEach((marker) => marker.remove());
         }
 
 
@@ -611,9 +689,9 @@ export default class App extends React.PureComponent {
 
             const craftType = workshop.craft_discipline_category;
             const {lng, lat} = workshop.location.geo;
-            const indices = craftType.map((craft)=>{return this.props.filterSearchData['filteredCraftsParent'].indexOf(craft)});
-            const start = this.props.filterSearchData['startYearParent'];
-            const end = this.props.filterSearchData['endYearParent'];
+            const indices = craftType.map((craft)=>{return this.props.filteredCrafts.indexOf(craft)});
+            const start = this.props.startYear;
+            const end = this.props.endYear;
             let withinInterval = null;
 
             if (workshop.year_established == null) {
@@ -630,19 +708,31 @@ export default class App extends React.PureComponent {
                 }
             }
 
-            const noCrafts = (((!workshop.craft_discipline_category || workshop.craft_discipline_category.length<1) && (this.props.filterSearchData['filteredCraftsParent'] && this.props.filterSearchData['filteredCraftsParent'].length<1)) || (this.props.filterSearchData['filteredCraftsParent'] && this.props.filterSearchData['filteredCraftsParent'].length===7))
+            const noCrafts = (((!workshop.craft_discipline_category || workshop.craft_discipline_category.length<1) && (this.props.filteredCrafts && this.props.filteredCrafts.length<1)) || (this.props.filteredCrafts && this.props.filteredCrafts.length===7))
 
             if (lat && lng && (indices[0]>-1 || (indices.length>1 && indices[1]>-1) || noCrafts) && withinInterval) {
-                if (this.props.filterSearchData['toggleStatusParent'] && workshop.shop_status!=="open") {
+                if (this.props.toggleStatus && workshop.shop_status!=="open") {
                     continue;
                 }
 
-                let lookup = this.props.filterSearchData['search']
-                let shopName = workshop.shop_name['content']
-                let shopOrig = workshop.shop_name['content_orig']
+                if (!workshop.images || workshop.images.length<1) {
+                    continue;
+                }
+
+                let lookup = this.props.search
+                // const meetSearchCriteria = (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))
+                // TODO: edit meetSearchCriteria to accomodate other lookups
+                let meetSearchCriteria
+                if(!lookup) {
+                    meetSearchCriteria = true
+                } else {
+                    meetSearchCriteria = this.iterateObject(workshop, lookup)
+                }
 
 
-                if (workshop.images.length>0 && (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))) {
+
+
+                if (meetSearchCriteria) {
 
 
                     el.lng = lng;
@@ -712,9 +802,9 @@ export default class App extends React.PureComponent {
 
             const craftType = archive.craft_discipline_category;
             const {lng, lat} = archive.primary_location["geo"];
-            const indices = craftType.map((craft)=>{return this.props.filterSearchData['filteredCraftsParent'].indexOf(craft)});
-            const start = this.props.filterSearchData['startYearParent'];
-            const end = this.props.filterSearchData['endYearParent'];
+            const indices = craftType.map((craft)=>{return this.props.filteredCrafts.indexOf(craft)});
+            const start = this.props.startYear;
+            const end = this.props.endYear;
             let withinInterval = null;
 
             if (archive.primary_year) {
@@ -731,19 +821,28 @@ export default class App extends React.PureComponent {
 
 
 
-            const noCrafts = (((!archive.craft_discipline_category || archive.craft_discipline_category.length<1) && (this.props.filterSearchData['filteredCraftsParent'] && this.props.filterSearchData['filteredCraftsParent'].length<1)) || (this.props.filterSearchData['filteredCraftsParent'] && this.props.filterSearchData['filteredCraftsParent'].length===7))
+            const noCrafts = (((!archive.craft_discipline_category || archive.craft_discipline_category.length<1) && (this.props.filteredCrafts && this.props.filteredCrafts.length<1)) || (this.props.filteredCrafts && this.props.filteredCrafts.length===7))
             if (lng && lat && (indices[0]>-1 || (indices.length>1 && indices[1]>-1) || noCrafts) && withinInterval) {
-                if (this.props.filterSearchData['toggleStatusParent']) {
+                if (this.props.toggleStatus) {
                     continue;
                 }
 
-                let lookup = this.props.filterSearchData['search']
+                let lookup = this.props.search
                 let shopName = archive.shop_name['content']
                 let shopOrig = archive.shop_name['content_orig']
 
 
+                // const meetSearchCriteria = (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))
+                // TODO: edit meetSearchCriteria to accomodate other lookups
+                let meetSearchCriteria
+                if(!lookup) {
+                    meetSearchCriteria = true
+                } else {
+                    meetSearchCriteria = this.iterateObject(archive, lookup)
+                }
 
-                if (archive.images.length>0 && (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))) {
+                if (archive.images.length>0 && meetSearchCriteria) {
+                    console.log("search matched!")
                     el.lng = lng;
                     el.lat = lat;
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
