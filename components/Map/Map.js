@@ -57,7 +57,8 @@ export default class App extends React.PureComponent {
     }
 
     iterateObject = (object, searchValue) => {
-        const searchableKeys = ["shop_name", "content"]
+        const searchableKeys = ["shop_name", "content", "content_orig", "content_ar", "craft_discipline", "craft_discipline_category",
+      "craft_discipline_other", "location", "address", "adm1", "adm2", "adm3", "adm4"]
         let filteredObject = Object.fromEntries(Object.entries(object).filter(([key]) => searchableKeys.includes(key)));
         console.log("new object is ", filteredObject)
 
