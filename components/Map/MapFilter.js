@@ -29,8 +29,8 @@ const Default = ({ children }) => {
 
 
 
-const MapFilter = ({filteredCrafts, startYear, endYear, toggleStatus, search,
-                            updateCrafts, updateYears, updateToggle, closeFilter, triggerReset, reset, resetToggle}) => {
+const MapFilter = ({filteredCrafts, startYear, endYear, toggleWorkshopStatus, toggleArchiveStatus, search,
+                            updateCrafts, updateYears, updateWorkshopToggle, updateArchiveToggle, closeFilter, triggerReset, reset, toggleReset}) => {
 
 
     const { t } = useTranslation();
@@ -62,10 +62,17 @@ const MapFilter = ({filteredCrafts, startYear, endYear, toggleStatus, search,
                                 updateYears={updateYears}/>
                 </div>
                 <hr/>
-                <div className={'toggle-section'}>
-                    <p className={'card-section-labels'}>{t('Show only current craft workshops')}</p>
-                    <ActiveFilter toggleStatus={toggleStatus} updateToggle={updateToggle}
-                                  resetToggle={resetToggle}/>
+                <div>
+                    <div className={'toggle-section'}>
+                        <p className={'card-section-labels'}>{t('Show craft workshops')}</p>
+                    <ActiveFilter toggleStatus={toggleWorkshopStatus} updateToggle={updateWorkshopToggle}
+                                  resetToggle={toggleReset}/>
+                    </div>
+                    <div className={'toggle-section'}>
+                        <p className={'card-section-labels'}>{t('Show archival images')}</p>
+                    <ActiveFilter toggleStatus={toggleArchiveStatus} updateToggle={updateArchiveToggle}
+                                  resetToggle={toggleReset}/>
+                    </div>
                 </div>
                 <hr/>
                 <div className={'card-section-centered'}>

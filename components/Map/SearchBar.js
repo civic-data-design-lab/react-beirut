@@ -8,7 +8,6 @@ import {TRANSLATIONS} from "../../lib/utils";
 
 const SearchBar = ({callBack, placeHolder="Search", value=null, map=true}) => {
 
-    console.log("this is value in SearchBar ", value)
 
     const { t } = useTranslation();
 

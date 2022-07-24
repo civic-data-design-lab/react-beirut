@@ -62,7 +62,8 @@ const ArchiveSchema = new mongoose.Schema({
   primary_historic_map: String,
   thumb_img_id: String,
   images: [String],
-  consent: Boolean
+  consent: Boolean,
+  object: String
 });
 
 module.exports =

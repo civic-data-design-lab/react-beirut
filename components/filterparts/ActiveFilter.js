@@ -3,13 +3,19 @@ import React, {useEffect, useState} from "react";
 
 
 
-const ActiveFilter = ({toggleStatus, updateToggle, resetToggle}) => {
+const ActiveFilter = ({toggleStatus, updateToggle, resetToggle, forWorkshops=true}) => {
 
     // function changes state to match toggle
     const onToggle = (state) => {
         updateToggle(state)
-        if (navigator.cookieEnabled) {
-            sessionStorage.setItem("prevFilterToggle", JSON.stringify(state))
+        if (forWorkshops) {
+            if (navigator.cookieEnabled) {
+            sessionStorage.setItem("prevFilterWorkshopToggle", JSON.stringify(state))
+        }
+        } else {
+            if (navigator.cookieEnabled) {
+            sessionStorage.setItem("prevFilterArchiveToggle", JSON.stringify(state))
+        }
         }
     }
 
@@ -18,7 +24,8 @@ const ActiveFilter = ({toggleStatus, updateToggle, resetToggle}) => {
             <div className={'toggle-container'}>
                 <ToggleSlider
                     key={resetToggle}
-                    onToggle={(state) => onToggle(state)} active={toggleStatus}
+                    onToggle={(state) => onToggle(state)}
+                    active={toggleStatus}
                     draggable={false}
                     barBackgroundColorActive={"#9C6340"}
                     handleBackgroundColor={"#9C6340"}
