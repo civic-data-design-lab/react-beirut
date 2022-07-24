@@ -28,9 +28,7 @@ import {TRANSLATIONS} from "../../lib/utils";
 
 import { Trans, useTranslation, initReactI18next } from "react-i18next";
 import Info from "../Info";
-
-
-
+import SearchBar from "../Map/SearchBar";
 
 
 
