@@ -44,7 +44,10 @@ const ImageFilter = ({
                          reset,
                          resetToggle,
                          close,
-                         i18n}) => {
+                         i18n,
+                         searchValue,
+                         searchCallBack
+                     }) => {
 
     const { t } = useTranslation();
 
@@ -74,6 +77,15 @@ const ImageFilter = ({
                             <ActiveFilter toggleStatus={toggleStatus} updateToggle={updateToggle}
                                           resetToggle={resetToggle}/>
                         </div>
+
+
+
+                        <SearchBar callBack={searchCallBack}
+                                              placeHolder={"Search for Craft Workshops and Images"}
+                                              value={searchValue}
+                                              map={false}/>
+
+
 
                         <div >
                             <button className={'reset-btn card-labels'} onClick={reset}>{t('Reset Filters')}</button>
@@ -129,6 +141,10 @@ const ImageFilter = ({
                                        <ActiveFilter toggleStatus={toggleStatus} updateToggle={updateToggle}
                                           resetToggle={resetToggle}/>
                                    </div>
+                                   <SearchBar callBack={searchCallBack}
+                                              placeHolder={"Search for Craft Workshops and Images"}
+                                              value={searchValue}
+                                              map={false}/>
                                    <hr/>
                                    <div className={'card-section-centered'}>
                                        <button className={'reset-btn card-labels'} onClick={reset}>{t('Reset')}</button>

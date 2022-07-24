@@ -244,21 +244,7 @@ const Discover = ({ children, i18n}) => {
             </p>
           </div>
 
-          <SearchBar
-              callBack={(input)=>{
-                console.log(input)
-                if (navigator.cookieEnabled) {
-                  console.log("saving input as ", input)
-                  setSearch(input)
-                  storeSearch(input)
-                }
-                setSearch(input)}}
-              placeHolder={"Search for Craft Workshops and Images"}
-              // TODO: fix below
-              value={search}
-              map={false}
 
-          />
 
 
           <button
@@ -326,6 +312,16 @@ const Discover = ({ children, i18n}) => {
               resetToggle={resetToggleImage}
               close={handleClose}
               i18n={i18n}
+
+              searchValue={search}
+              searchCallBack={(input)=>{
+                console.log(input)
+                if (navigator.cookieEnabled) {
+                  console.log("saving input as ", input)
+                  setSearch(input)
+                  storeSearch(input)
+                }
+                setSearch(input)}}
             />
           ) : null}
 
