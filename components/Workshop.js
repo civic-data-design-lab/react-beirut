@@ -1,43 +1,41 @@
 import ImagePreview from './discover/ImagePreview';
 import MapCardSlider from './Map/MapCardSlider';
 import Slider from './Slider';
-import { Workshop as WorkshopType, ImageMeta } from '../models/Types';
+import {ImageMeta, Workshop as WorkshopType} from '../models/Types';
 import MiniMap from "./discover/MiniMap";
-import {useEffect, useRef, useState} from "react";
-import { useMediaQuery } from 'react-responsive';
+import {useEffect, useState} from "react";
+import {useMediaQuery} from 'react-responsive';
 
-import { Trans, useTranslation} from "react-i18next";
+import {useTranslation} from "react-i18next";
 import Info from "./Info";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope, faLink, faPhone} from "@fortawesome/free-solid-svg-icons";
-import {faFacebook, faInstagram, faInstagramSquare, faTwitter} from "@fortawesome/free-brands-svg-icons";
+import {faFacebook, faInstagramSquare, faTwitter} from "@fortawesome/free-brands-svg-icons";
 
 
-
-
-const Desktop = ({ children }) => {
-  const isDesktop = useMediaQuery({ minWidth: 992 })
-  return isDesktop ? children : null
+const Desktop = ({children}) => {
+    const isDesktop = useMediaQuery({minWidth: 992})
+    return isDesktop ? children : null
 }
-const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 651, maxWidth: 991 })
-  return isTablet ? children : null
+const Tablet = ({children}) => {
+    const isTablet = useMediaQuery({minWidth: 651, maxWidth: 991})
+    return isTablet ? children : null
 }
-const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 650 })
-  return isMobile ? children : null
+const Mobile = ({children}) => {
+    const isMobile = useMediaQuery({maxWidth: 650})
+    return isMobile ? children : null
 }
-const Default = ({ children }) => {
-  const isNotMobile = useMediaQuery({ minWidth: 768 })
-  return isNotMobile ? children : null
+const Default = ({children}) => {
+    const isNotMobile = useMediaQuery({minWidth: 768})
+    return isNotMobile ? children : null
 }
 
 const mainSliderStyle = {
-  sliderContainer: 'mapSlider-container',
-  buttonLabel: 'slider-btn-label',
-  prevButton: 'btn-prev',
-  nextButton: 'btn-next',
-  wrapperContainer: 'mapSlider-wrapper',
+    sliderContainer: 'mapSlider-container',
+    buttonLabel: 'slider-btn-label',
+    prevButton: 'btn-prev',
+    nextButton: 'btn-next',
+    wrapperContainer: 'mapSlider-wrapper',
 };
 
 /**
@@ -55,28 +53,28 @@ const mainSliderStyle = {
  *    display, provided in an array which may be empty or null.
  * @returns {JSX.Element}
  */
-const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang, i18n, preview=false}) => {
-  const {t} = useTranslation();
-  console.log("lang from workshop si ", lang)
-  console.log("getting lan using i18-n ", i18n.language)
-  const getImages = () => {
+const Workshop = ({workshop, imageMetas, imageSrc, similarWorkshops, handleClose, lang, i18n, preview = false}) => {
 
-      const thumbImage = imageMetas.filter(
-      (image) => image.img_id === workshop.thumb_img_id
+    console.log(workshop)
+
+    const {t} = useTranslation();
+    const getImages = () => {
+
+        const thumbImage = imageMetas.filter(
+            (image) => image.img_id === workshop.thumb_img_id
         );
-      const remainingImages = imageMetas.filter(
-          (image) => image.img_id !== workshop.thumb_img_id
+        const remainingImages = imageMetas.filter(
+            (image) => image.img_id !== workshop.thumb_img_id
         );
-      const orderedImages = [...thumbImage, ...remainingImages];
-      console.log("ordered images ", orderedImages)
-      return orderedImages
-  }
+        const orderedImages = [...thumbImage, ...remainingImages];
+        return orderedImages
+    }
 
-  const [index, setIndex] = useState(0)
-  const [images, setImages] = useState(getImages())
+    const [index, setIndex] = useState(0)
+    const [images, setImages] = useState(getImages())
 
 
-  const onScroll = () => {
+    const onScroll = () => {
         const slider = document.querySelector('.mapSlider-container')
         const firstImage = document.querySelector('.mapCard-img')
         const parentPos = slider.getBoundingClientRect()
@@ -84,21 +82,19 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
         const relativePos = parentPos.left - childPos.left;
         const parentWidth = parentPos.width;
         if (i18n.language === "en") {
-            setIndex(Math.round(relativePos/parentWidth));
+            setIndex(Math.round(relativePos / parentWidth));
         } else {
-            setIndex(-(Math.round(relativePos/parentWidth)));
-            // console.log(currentImageIndex)
+            setIndex(-(Math.round(relativePos / parentWidth)));
         }
     }
 
 
     useEffect(() => {
-      setIndex(0)
-      setImages(getImages())
-      console.log("images ", images)
+        setIndex(0)
+        setImages(getImages())
     }, [workshop]);
 
-  const getShopName = () => {
+    const getShopName = () => {
 
         if (workshop.shop_name['content']) {
             return workshop.shop_name['content']
@@ -110,15 +106,9 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
     }
 
 
-
-  const getCaption = () => {
-        console.log('current images image metadata ', images[index])
-        //return <p>{this.state.currentImageIndex}</p>
-        //let imageContainer = document.querySelector('.mafpSlider-wrapper');
-        //return (<p>{imageContainer.offsetWidth}</p>)
+    const getCaption = () => {
 
         const currentMetaData = images[index]
-        console.log('meta ', currentMetaData)
         const viewKeywords = ["storefront", "street", "interior", "indoor"];
         const interiorKeywords = ["interior", "inside", "indoor"]
         const viewSet = new Set(viewKeywords);
@@ -134,30 +124,33 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         return <p>{interpolated}</p>
                     }
 
-                    return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of ')} {getShopName()}</p>
+                    return <p
+                        className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of ')} {getShopName()}</p>
                 } else if (currentMetaData.type[0] === "crafts" || currentMetaData.type[0] === "craft") {
-                    return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' produced by ')} {getShopName()}</p>
+                    return <p
+                        className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' produced by ')} {getShopName()}</p>
                 } else if (currentMetaData.type[0] === "craftsperson") {
-                    return <p className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' of ')} {getShopName()}</p>
+                    return <p
+                        className={'object-caption'}>{t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' of ')} {getShopName()}</p>
                 }
             } else if (currentMetaData.type.length === 2) {
                 const craftspersonIndex = currentMetaData.type.indexOf("craftsperson")
 
                 const storefrontIndex = currentMetaData.type.indexOf("storefront")
-                const indoorMap = interiorKeywords.map((word)=> {
-                    return currentMetaData.type.indexOf(word)>-1
+                const indoorMap = interiorKeywords.map((word) => {
+                    return currentMetaData.type.indexOf(word) > -1
                 })
 
                 const craftMap = ["crafts", "craft"].map((word) => {
-                    return currentMetaData.type.indexOf(word)>-1
+                    return currentMetaData.type.indexOf(word) > -1
                 })
-                if (craftspersonIndex>-1 && storefrontIndex>-1) {
+                if (craftspersonIndex > -1 && storefrontIndex > -1) {
                     return <p className={'object-caption'}>{t('Craftsperson in front of ')} {getShopName()}</p>
-                } else if (craftspersonIndex>-1 && indoorMap.indexOf(true)>-1) {
+                } else if (craftspersonIndex > -1 && indoorMap.indexOf(true) > -1) {
                     return <p className={'object-caption'}> {t('Craftsperson inside ')} {getShopName()}</p>
-                } else if (craftMap.indexOf(true)>-1 && indoorMap.indexOf(true)>-1) {
+                } else if (craftMap.indexOf(true) > -1 && indoorMap.indexOf(true) > -1) {
                     return <p className={'object-caption'}>{t('Crafts produced in ')} {getShopName()}</p>
-                } else if (craftMap.indexOf(true)>-1 && currentMetaData.type.indexOf('storefront')>-1) {
+                } else if (craftMap.indexOf(true) > -1 && currentMetaData.type.indexOf('storefront') > -1) {
                     return <p className={'object-caption'}>{t('Crafts displayed in storefront of ')} {getShopName()}</p>
                 }
 
@@ -166,70 +159,88 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
     }
 
 
-  const getSubtitle = () => {
+    const getSubtitle = () => {
         let craftsList = []
         let otherList = []
-        workshop.craft_discipline.forEach(craft =>
-            {
-            if (craft.toUpperCase() === "OTHER") {
-                if (workshop.craft_discipline_other && workshop.craft_discipline_other.length>0) {
-                    workshop.craft_discipline_other.map((craftOther)=>{
-                        const other = craftOther.charAt(0).toUpperCase() + craftOther.slice(1).toLowerCase()
-                        if (craftsList.indexOf(other) < 0) {
-                            otherList.push(craftOther.toLowerCase())
-                        if (craftsList.length < 1) {
-                            craftsList.push(t(other))
-                        } else {
-                            craftsList.push(" | " + t(other))
+        workshop.craft_discipline.forEach(craft => {
+                if (craft.toUpperCase() === "OTHER") {
+                    if (workshop.craft_discipline_other && workshop.craft_discipline_other.length > 0) {
+                        workshop.craft_discipline_other.map((craftOther) => {
+                            const other = craftOther.charAt(0).toUpperCase() + craftOther.slice(1).toLowerCase()
+                            if (craftsList.indexOf(other) < 0) {
+                                otherList.push(craftOther.toLowerCase())
+                                if (craftsList.length < 1) {
+                                    craftsList.push(t(other))
+                                } else {
+                                    craftsList.push(" | " + t(other))
+                                }
+                            }
+                        })
+                    }
+                } else {
+                    const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase()
+                    if (craftsList.length < 1) {
+                        craftsList.push(t(craftStr));
+                    } else {
+                        if (otherList.indexOf(craft.toLowerCase()) < 0) {
+                            craftsList.push(" | " + t(craftStr))
                         }
                     }
-                    })
-                }
-            } else {
-                const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase()
-                if (craftsList.length<1) {
-                    craftsList.push(t(craftStr));
-                } else {
-                    //console.log("subtitle debug ", craftsList, otherList, craft.toLowerCase())
-                    //console.log(otherList.indexOf(craft.toLowerCase()))
-                    if (otherList.indexOf(craft.toLowerCase())<0){
-                    craftsList.push(" | " + t(craftStr))}
                 }
             }
-        }
         )
 
-      if (Array.isArray(workshop.craft_discipline_other) && workshop.craft_discipline_other.length>0){
-          console.log("other ", workshop.craft_discipline_other)
-          workshop.craft_discipline_other.forEach(craft=>{
-              const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase();
-          if (!craftsList) {
-              craftsList.push(t(craftStr));
-          } else if (otherList.indexOf(craft.toLowerCase())<0){
-              craftsList.push(" | " + t(craftStr))}
+        if (Array.isArray(workshop.craft_discipline_other) && workshop.craft_discipline_other.length > 0) {
+            workshop.craft_discipline_other.forEach(craft => {
+                const craftStr = craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase();
+                if (!craftsList) {
+                    craftsList.push(t(craftStr));
+                } else if (otherList.indexOf(craft.toLowerCase()) < 0) {
+                    craftsList.push(" | " + t(craftStr))
+                }
 
-      })}
-        if (craftsList.length>0) { return craftsList} else {return null}
+            })
+        }
+        if (craftsList.length > 0) {
+            return craftsList
+        } else {
+            return null
+        }
 
- }
+    }
 
- const getContactInfo = () => {
+
+    const getAddress = () => {
+        if (workshop.location) {
+            const streetName = `${workshop.location.address.content ? `${workshop.location.address.content}` : ""}`
+            const adm4 = `${workshop.location.adm4 ? `${workshop.location.adm4},` : ""}`
+            const adm3 = `${workshop.location.adm3 ? `${workshop.location.adm3},` : ""}`
+            const adm2 = `${workshop.location.adm2 ? `${workshop.location.adm2},` : ""}`
+            const adm1 = `${workshop.location.adm1 ? `${workshop.location.adm1},` : ""}`
+
+            let address = `${streetName} ${adm4} ${adm3} ${adm2} ${adm1}`
+            if (address.slice(-1) === ",") {
+                address = address.slice(0, -1)
+
+            }
+
+            return <p className={"object-caption"}>{address}</p>
+        }
+    }
+
+    const getContactInfo = () => {
         if (workshop.contact_info) {
-            console.log("has contact info")
             const contactInfo = []
             for (const [key, value] of Object.entries(workshop.contact_info)) {
-                console.log(`${key}: ${value}`);
                 if (key === "phone" && value) {
                     contactInfo.push(<div className={"contact-container"}>
                         <FontAwesomeIcon icon={faPhone} width={16}/> &thinsp;
                         <a className={"object-caption"} href={`tel:${value}`}>{value}</a></div>)
-                }
-                else if (key === "email" && value) {
+                } else if (key === "email" && value) {
                     contactInfo.push(<div className={"contact-container"}>
                         <FontAwesomeIcon icon={faEnvelope} width={16} color={"#471e10"}/>  &thinsp;
                         <a className={"object-caption"} href={`mailto:${value}`}>{value}</a></div>)
-                }
-                else if (key==="website" && value) {
+                } else if (key === "website" && value) {
                     // TODO: slice https out
                     contactInfo.push(<div className={"contact-container"}>
                         <FontAwesomeIcon icon={faLink} width={16} color={"#471e10"}/>  &thinsp;
@@ -239,268 +250,291 @@ const Workshop = ({ workshop, imageMetas, imageSrc, similarWorkshops, handleClos
                         <FontAwesomeIcon icon={faFacebook} width={16} color={"#471e10"} height={16}/>  &thinsp;
                         <a className={"object-caption"} target="_blank" href={`//www.${value}`}>{value}</a></div>)
                 } else if (key === "instagram" && value) {
-                    // TODO: slice "@"
                     contactInfo.push(<div className={"contact-container"}>
                         <FontAwesomeIcon icon={faInstagramSquare} width={16} color={"#471e10"}/>  &thinsp;
-                        <a className={"object-caption"} target="_blank" href={`//www.instagram.com/${value.slice(1)}`}>{value}</a>
+                        <a className={"object-caption"} target="_blank"
+                           href={`//www.instagram.com/${value.slice(1)}`}>{value}</a>
 
-                        </div>)
+                    </div>)
                 } else if (key === "twitter" && value) {
-                    // TODO: slice "@"
                     contactInfo.push(<div className={"contact-container"}>
                         <FontAwesomeIcon icon={faTwitter} width={16} color={"#471e10"}/>  &thinsp;
-                        <a className={"object-caption"} target="_blank" href={`//www.twitter.com/${value.slice(1)}`}>{value}</a>
+                        <a className={"object-caption"} target="_blank"
+                           href={`//www.twitter.com/${value.slice(1)}`}>{value}</a>
 
-                        </div>)
+                    </div>)
                 }
-                // else {
-                //    contactInfo.push(<p className={"shopSubtitle-text"}>{value}</p>)
-                // }
             }
             return contactInfo
         }
     }
 
- const getDecadeEstablished = () => {
+    const getDecadeEstablished = () => {
         if (!workshop.decade_established) {
             return null
         }
-        //console.log(this.props.type)
 
         if (workshop.decade_established[0]) {
-            return t('Established') +` ${workshop.decade_established[0]}`
+            return t('Established') + ` ${workshop.decade_established[0]}`
         } else {
-                return null
-            }
+            return null
         }
+    }
 
 
+    const showImages = () => {
+        return images.map((image) => {
+            return (
+                <img
+                    key={image.img_id}
+                    className="mapCard-img objectSlider-img"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        marginRight: '10px',
+                        objectFit: 'cover',
+                        scrollSnapAlign: 'center',
+                        borderRadius: '0px'
+                    }}
+                    src={imageSrc || image.src}
+                    alt=""
+                />
+            );
+        });
+    };
 
+    return (
+        <>
 
+            <Desktop>
 
+                <div className={'popup-section slider'}>
+                    <div className={!preview ? 'object-slider-section' : 'object-slider-section-preview'}>
+                        {imageMetas?.length > 0 && (
+                            <MapCardSlider
+                                handleScroll={onScroll}
+                                children={showImages()}
+                                sliderStyle={mainSliderStyle}
+                                currentIndex={index}
+                            />
+                        )}
+                    </div>
+                </div>
 
-  const showImages = () => {
-    return images.map((image) => {
-      return (
-        <img
-          key={image.img_id}
-          className="mapCard-img objectSlider-img"
-          style={{
-            width: '100%',
-            height: '100%',
-            marginRight: '10px',
-            objectFit: 'cover',
-            scrollSnapAlign: 'center',
-            borderRadius: '0px'
-          }}
-          src={imageSrc || image.src}
-          alt=""
-        />
-      );
-    });
-  };
+                <div className={'popup-section'}>
+                    <div style={{height: "100%"}}>
+                        <div className={'object-title-section section-margin'}>
 
-  return (
-    <>
-
-        <Desktop>
-
-            <div className={'popup-section slider'}>
-                <div className={!preview?'object-slider-section':'object-slider-section-preview'}>
-                {imageMetas?.length > 0 && (
-                    <MapCardSlider
-                        handleScroll={onScroll}
-                        children={showImages()}
-                        sliderStyle={mainSliderStyle}
-                        currentIndex={index}
-                    />
-                )}
-            </div>
-            </div>
-
-            <div className={'popup-section'}>
-                <div style={{height:"100%"}}>
-                    <div className={'object-title-section section-margin'}>
-
-                        <div className={'shop-title-verification'}>
-                                    <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
-                                        <span>
-                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
-                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This workshop was reviewed and verified.' : 'This workshop is still under review and is not verified yet.'}/>
+                            <div className={'shop-title-verification'}>
+                                <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                    <span>
+                                            <Info
+                                                icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                text={workshop.info_type !== 'workshop_contribution' ? 'This workshop was reviewed and verified.' : 'This workshop is still under review and is not verified yet.'}/>
                                         </span>
-                                    </p>
+                                </p>
 
+                            </div>
+
+
+                            <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished() ? ' | ' : ''} {getSubtitle()}</p>
+                        </div>
+
+                        {workshop.consent ? <div className={'section-margin'}>{getAddress()}</div> : null}
+
+                        {workshop.consent ? <div className={'section-margin'}>{getContactInfo()}</div> : null}
+
+                        <div className={"section-margin"}> {getCaption()}</div>
+
+
+                        <div className={'object-map-section'}>
+                            <p className={'object-caption'}>{t('Locate this craft workshop on the map')} </p>
+                            <div className={'miniMap-container'}>
+                                <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
+                            </div>
+                        </div>
+
+                        {similarWorkshops ?
+
+                            <div className={"object-suggestion-section"}>
+                                <p className={'object-caption'}>
+                                    {t('Discover similar craft workshops')}
+                                </p>
+                                <div className={'object-suggestion-container'}>
+                                    <div className={'object-suggestion-parent'}>
+                                        <Slider>
+                                            {similarWorkshops?.map((shop) => (
+                                                <div key={shop.ID} className="object-img">
+                                                    <ImagePreview workshop={shop} grayscale={true}
+                                                                  routeToAPI={'../api/imageMetaData/'}/>
+                                                </div>
+                                            ))}
+                                        </Slider>
+                                    </div>
                                 </div>
-
-
-                        <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
-                </div>
-
-                    {workshop.consent ? <div className={'section-margin'}>{getContactInfo()}</div> : null}
-
-                    <div className={"section-margin"}> {getCaption()}</div>
-
-
-
-                <div className={'object-map-section'}>
-                    <p className={'object-caption'}>{t('Locate this craft workshop on the map')} </p>
-                    <div className={'miniMap-container'}>
-                        <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
+                            </div> : null}
                     </div>
                 </div>
+            </Desktop>
 
-                {similarWorkshops ?
-
-                <div className={"object-suggestion-section"}>
-                    <p className={'object-caption'}>
-                        {t('Discover similar craft workshops')}
-                    </p>
-                    <div className={'object-suggestion-container'}>
-                    <div className={'object-suggestion-parent'}>
-                        <Slider>
-                      {similarWorkshops?.map((shop) => (
-                        <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
-                        </div>
-                      ))}
-                    </Slider>
-                    </div>
-                        </div>
-                </div> : null }
-                </div>
-            </div>
-        </Desktop>
-
-        <Tablet>
-            <div className={'popup-section'}>
-                <div style={{height:"100%", overflowY:"auto"}}>
-                <div className={'object-title-section section-margin'}>
-                <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
-                                        <span>
-                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
-                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+            <Tablet>
+                <div className={'popup-section'}>
+                    <div style={{height: "100%", overflowY: "auto"}}>
+                        <div className={'object-title-section section-margin'}>
+                            <p className={'object-name'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                <span>
+                                            <Info
+                                                icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
                                         </span>
-                                    </p>
+                            </p>
 
-                <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''}{getSubtitle()}</p>
+                            <p className={'object-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished() ? ' | ' : ''}{getSubtitle()}</p>
+                        </div>
+
+                        {workshop.consent ? <div className={'section-margin'}>{getAddress()}</div> : null}
+
+
+                        {workshop.consent ? <div className={'section-margin'}>{getContactInfo()}</div> : null}
+
+
+                        <div className={'section-margin'}>{getCaption()}</div>
+
+                        <div className={'object-slider-section-tablet'}>
+                            {imageMetas?.length > 0 && (
+                                <MapCardSlider
+                                    handleScroll={onScroll}
+                                    children={showImages()}
+                                    sliderStyle={mainSliderStyle}
+                                    currentIndex={index}
+                                />
+                            )}
+                        </div>
+                        <div className={'object-map-section section-margin'}>
+                            <p className={'object-caption'}>{t('Locate this craft workshop on the map')}</p>
+                            <div className={'miniMap-container'}>
+                                <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
+                            </div>
+                        </div>
+
+                        {similarWorkshops ?
+                            <div className={"object-suggestion-section"}>
+                                <p className={'object-caption'}>
+                                    {t('Discover similar craft workshops')}
+                                </p>
+                                <div className={'object-suggestion-container'}>
+                                    <div className={'object-suggestion-parent'}>
+                                        <Slider>
+                                            {similarWorkshops?.map((shop) => (
+                                                <div key={shop.ID} className="object-img">
+                                                    <ImagePreview workshop={shop} grayscale={true}
+                                                                  routeToAPI={'../api/imageMetaData/'}/>
+                                                </div>
+                                            ))}
+                                        </Slider>
+                                    </div>
+                                </div>
+                            </div> : null}
+                    </div>
                 </div>
+            </Tablet>
 
+            <Mobile>
+                <div className={'popup-section'}>
+                    <div style={{
+                        position: 'sticky',
+                        top: '0px',
+                        backgroundColor: '#faf8f6',
+                        zIndex: 300,
+                        direction: "ltr",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        height: "fit-content"
+                    }}>
+                        {handleClose ? <button className={'close-card-btn object-mobile-close'} onClick={handleClose}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z"
+                                    fill="#333333"/>
+                            </svg>
+                        </button> : null}
+                        <div className={!preview ? 'object-mobile-heading' : 'object-mobile-heading-preview'}>
+                            <div
+                                className={!preview ? 'object-mobile-heading-subcontainer' : 'object-mobile-heading-subcontainer-preview'}>
 
-                    {workshop.consent ? <div className={'section-margin'}>{getContactInfo()}</div> : null}
-
-
-
-                    <div className={'section-margin'}>{getCaption()}</div>
-
-                <div className={'object-slider-section-tablet'}>
-                {imageMetas?.length > 0 && (
-                    <MapCardSlider
-                        handleScroll={onScroll}
-                        children={showImages()}
-                        sliderStyle={mainSliderStyle}
-                        currentIndex={index}
-                    />
-                )}
-            </div>
-            <div className={'object-map-section section-margin'}>
-                    <p className={'object-caption'}>{t('Locate this craft workshop on the map')}</p>
-                    <div className={'miniMap-container'}>
-                        <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
-                        </div>
-            </div>
-
-                { similarWorkshops ?
-            <div className={"object-suggestion-section"}>
-                    <p className={'object-caption'}>
-                        {t('Discover similar craft workshops')}
-                    </p>
-                    <div className={'object-suggestion-container'}>
-                    <div className={'object-suggestion-parent'}>
-                        <Slider>
-                      {similarWorkshops?.map((shop) => (
-                        <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
-                        </div>
-                      ))}
-                    </Slider>
-                    </div>
-                        </div>
-                </div> : null }
-                    </div>
-            </div>
-        </Tablet>
-
-        <Mobile>
-            <div className={'popup-section'}>
-                <div style={{position:'sticky', top:'0px', backgroundColor:'#faf8f6', zIndex:300, direction:"ltr", display:"flex", flexDirection:"row", alignItems:"center", height:"fit-content"}}>
-                    {handleClose ? <button className={'close-card-btn object-mobile-close'} onClick={handleClose}>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z" fill="#333333"/>
-                    </svg>
-                </button> : null}
-                <div className={!preview?'object-mobile-heading':'object-mobile-heading-preview'}>
-                    <div className={!preview?'object-mobile-heading-subcontainer':'object-mobile-heading-subcontainer-preview'}>
-
-                        <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
-                                        <span>
-                                            <Info icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
-                                                  text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
+                                <p className={'object-mobile-title'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
+                                    <span>
+                                            <Info
+                                                icon={workshop.info_type !== 'workshop_contribution' ? 'check' : 'question'}
+                                                text={workshop.info_type !== 'workshop_contribution' ? 'This archive image was reviewed and verified.' : 'This archive image is still under review and is not verified yet.'}/>
                                         </span>
-                                    </p>
-                    <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished()?' | ':''} {getSubtitle()}</p>
+                                </p>
+                                <p className={'object-mobile-subtitle'}>{getDecadeEstablished()}{getSubtitle() && getDecadeEstablished() ? ' | ' : ''} {getSubtitle()}</p>
 
 
-                </div>
+                            </div>
 
-                    {workshop.consent ? <div className={'object-mobile-contact-info'}>{getContactInfo()}</div> : null}
+                            {workshop.consent ? <div className={'section-margin'}>{getAddress()}</div> : null}
 
-                </div>
+                            {workshop.consent ?
+                                <div className={'object-mobile-contact-info'}>{getContactInfo()}</div> : null}
 
-                </div>
-
-                <div style={{display:'flex', flexDirection:'column', justifyContent:"space-between", height:"100%"}}>
-
-                <div className={!preview?'object-slider-section-tablet':'object-slider-section-tablet-preview'}>
-                {imageMetas?.length > 0 && (
-                    <MapCardSlider
-                        handleScroll={onScroll}
-                        children={showImages()}
-                        sliderStyle={mainSliderStyle}
-                        currentIndex={index}
-                    />
-                )}
-            </div>
-                <div className={'object-mobile-section section-margin'}>
-                    {getCaption()}
-                </div>
-
-                <div className={'object-mobile-section object-map-section'}>
-                    <p className={'card-section-labels'}>{t('Locate this craft workshop on the map')} </p>
-                        <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
-                </div>
-
-                { similarWorkshops ?
-            <div className={"object-suggestion-section"} style={{"padding": "12px 24px"}}>
-                    <p className={'object-caption'}>
-                        {t('Discover similar craft workshops')}
-                    </p>
-                    <div className={'object-suggestion-container'}>
-                    <div className={'object-suggestion-parent'}>
-                        <Slider>
-                      {similarWorkshops?.map((shop) => (
-                        <div key={shop.ID} className="object-img">
-                          <ImagePreview workshop={shop} grayscale={true} routeToAPI={'../api/imageMetaData/'}/>
                         </div>
-                      ))}
-                    </Slider>
+
                     </div>
+
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: "space-between",
+                        height: "100%"
+                    }}>
+
+                        <div
+                            className={!preview ? 'object-slider-section-tablet' : 'object-slider-section-tablet-preview'}>
+                            {imageMetas?.length > 0 && (
+                                <MapCardSlider
+                                    handleScroll={onScroll}
+                                    children={showImages()}
+                                    sliderStyle={mainSliderStyle}
+                                    currentIndex={index}
+                                />
+                            )}
                         </div>
-                </div> : null }
-            </div>
+                        <div className={'object-mobile-section section-margin'}>
+                            {getCaption()}
+                        </div>
+
+                        <div className={'object-mobile-section object-map-section'}>
+                            <p className={'card-section-labels'}>{t('Locate this craft workshop on the map')} </p>
+                            <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
+                        </div>
+
+                        {similarWorkshops ?
+                            <div className={"object-suggestion-section"} style={{"padding": "12px 24px"}}>
+                                <p className={'object-caption'}>
+                                    {t('Discover similar craft workshops')}
+                                </p>
+                                <div className={'object-suggestion-container'}>
+                                    <div className={'object-suggestion-parent'}>
+                                        <Slider>
+                                            {similarWorkshops?.map((shop) => (
+                                                <div key={shop.ID} className="object-img">
+                                                    <ImagePreview workshop={shop} grayscale={true}
+                                                                  routeToAPI={'../api/imageMetaData/'}/>
+                                                </div>
+                                            ))}
+                                        </Slider>
+                                    </div>
+                                </div>
+                            </div> : null}
+                    </div>
                 </div>
-        </Mobile>
-    </>
-  );
+            </Mobile>
+        </>
+    );
 };
 
 export default Workshop;

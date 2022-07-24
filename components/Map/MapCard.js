@@ -376,6 +376,24 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         }
     }
 
+    const getAddress = () => {
+        if (workshop.location) {
+            const streetName = `${workshop.location.address.content ? `${workshop.location.address.content}` : ""}`
+            const adm4 = `${workshop.location.adm4 ? `${workshop.location.adm4},` : ""}`
+            const adm3 = `${workshop.location.adm3 ? `${workshop.location.adm3},` : ""}`
+            const adm2 = `${workshop.location.adm2 ? `${workshop.location.adm2},` : ""}`
+            const adm1 = `${workshop.location.adm1 ? `${workshop.location.adm1},` : ""}`
+
+            let address = `${streetName} ${adm4} ${adm3} ${adm2} ${adm1}`
+            if (address.slice(-1) === ",") {
+                address = address.slice(0, -1)
+
+            }
+
+            return <p className={"shopSubtitle-text"}>{address}</p>
+        }
+    }
+
     const handleOnError = (e) => {
 
         let el = e.target
@@ -466,7 +484,8 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                             </button>
                         </div>
 
-                    {workshop.consent ? <div>{getContactInfo()}</div> : null}
+
+                    {workshop.consent ? <div>{getAddress()} {getContactInfo()}</div> : null}
 
 
 
