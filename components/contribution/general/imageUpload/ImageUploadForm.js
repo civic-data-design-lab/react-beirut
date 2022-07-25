@@ -66,6 +66,30 @@ const ImageUploadForm = ({
         });
     };
 
+    const changeCaption = (e) => {
+        const caption = e.target.value
+
+        let newData = formData
+
+        if (!newData["caption"]) {
+            newData["caption"] = {}
+        }
+
+        newData["caption"][imageIndex] = {}
+        newData["caption"][imageIndex] = {caption}
+        onUpdate(newData)
+    }
+
+    const getCaption = () => {
+        if (!formData["caption"] || !formData["caption"][imageIndex]) {
+            console.log("no caption")
+            return ""
+        } else {
+            console.log("get caption")
+            return formData["caption"][imageIndex].caption
+        }
+    }
+
 
     return (
         <form className="ImageUploadForm ">
@@ -160,8 +184,8 @@ const ImageUploadForm = ({
                         <textarea
                             name="caption"
                             id="caption"
-                            value={formData.caption || ''}
-                            onChange={(e) => onUpdate({caption: e.target.value})}
+                            value={getCaption()}
+                            onChange={changeCaption}
                         />
                     </div>
 
