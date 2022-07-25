@@ -91,4 +91,65 @@
 
 .WorkshopImageForm {
   display: flex;
+  flex-direction: column;
+  //padding: 12px;
+
+  .ImageUploadForm {
+  height: 100%;
+  width: 100%;
+
+  .sections {
+    column-gap: 16px;
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: 650px) {
+    flex-direction: column;
+  }
+
+    .image-section {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      @media screen and (max-width: 650px) {
+          padding: 8px;
+        }
+      .subsection {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        row-gap: 8px;
+        width: 100%;
+        padding: 16px;
+        @media screen and (max-width: 650px) {
+          padding: 8px;
+        }
+      }
+    }
+  }
 }
+}
+
+
+  .archive-image-section {
+    padding: 16px;
+      display: flex;
+      flex-direction: row;
+      @media screen and (max-width: 650px) {
+          padding: 8px;
+        }
+
+    .subsection {
+        display: flex;
+        flex-direction: column;
+        //justify-content: space-between;
+        row-gap: 16px;
+        width: 100%;
+        padding: 16px;
+        @media screen and (max-width: 650px) {
+          padding: 8px;
+        }
+      }
+    }
+
+

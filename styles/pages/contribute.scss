@@ -14,7 +14,6 @@
   margin: 0px;
 
 
-
   @media screen and (min-width: 651px) and (max-width: 991px) {
     height: 60%;
   }
@@ -26,18 +25,18 @@
 }
 
 .Contribute-divider {
-    height: 50vh;
+  height: 50vh;
 
-    @media screen and (max-width: 991px) {
-      display: none;
-    }
+  @media screen and (max-width: 991px) {
+    display: none;
   }
+}
 
 .Contribute-hr {
-    @media screen and (min-width: 991px) {
-      display: none;
-    }
+  @media screen and (min-width: 991px) {
+    display: none;
   }
+}
 
 .Contribute-divider-container {
   padding: 0 3rem;
@@ -45,9 +44,8 @@
 }
 
 
-
-.Contribute-container{
-  margin:auto;
+.Contribute-container {
+  margin: auto;
   min-height: 100vh;
   width: 90vw;
   display: flex;
@@ -77,7 +75,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height:100%;
+  height: 100%;
   //gap: 1.5rem;
 }
 
@@ -159,6 +157,7 @@
 .boolean-button-form {
   //max-width: 700px;
   padding: 0;
+
   div {
     //display: inline-block;
   }
@@ -279,7 +278,7 @@
   justify-content: space-between;
   padding: 24px;
 
-  @media screen and (max-width: 650px){
+  @media screen and (max-width: 650px) {
     padding: 12px;
   }
 
@@ -306,23 +305,21 @@
       padding: 16px;
       flex: 1 1 0;
       //width: 30%;
-      @media screen and (max-width: 650px){
+      @media screen and (max-width: 650px) {
         padding: 8px;
-  }
-
+      }
 
 
       .subsection {
         padding: 16px;
-        @media screen and (max-width: 650px){
-    padding: 8px;
-  }
+        @media screen and (max-width: 650px) {
+          padding: 8px;
+        }
       }
 
     }
   }
 }
-
 
 
 .LocationForm,
@@ -332,7 +329,7 @@
   justify-content: space-between;
   padding: 24px;
 
-  @media screen and (max-width: 650px){
+  @media screen and (max-width: 650px) {
     padding: 12px;
   }
 
@@ -351,7 +348,6 @@
     }
 
 
-
     .section {
       display: flex;
       flex-direction: column;
@@ -362,13 +358,13 @@
       max-height: 100%;
 
       @media screen and (max-width: 991px) {
-      width: 100%;
+        width: 100%;
         @media screen and (max-width: 650px) {
-      padding: 0px;
+          padding: 0px;
 
-    }
+        }
 
-    }
+      }
 
       .subsection {
         padding: 16px;
@@ -379,7 +375,6 @@
     }
   }
 }
-
 
 
 @media (min-width: 768px) {
@@ -429,81 +424,82 @@
           aspect-ratio: 1/1;
         }
       }
+
       .subsection {
         padding: 16px;
 
         .preview-info-card {
           display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background-color: $c-white;
-        border-radius: 20px 20px 20px 20px;
-        box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
-        width: 100%;
-          padding: 16px;
-
-        @media screen and (max-width: 650px) {
-          border-radius: 0px 0px 0px 0px;
-        }
-        }
-
-
-      .preview-card {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        background-color: $c-white;
-        border-radius: 20px 20px 20px 20px;
-        box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
-        width: 100%;
-
-        @media screen and (max-width: 650px) {
-          border-radius: 0px 0px 0px 0px;
-        }
-
-
-        .popup-section {
-          height: 100%;
-          width: 100%;
-          // flex: 1 1 0;
-          // flex: 1;
-          padding: 2vw;
-          display: flex;
           flex-direction: column;
           justify-content: space-between;
-
-
-          -ms-overflow-style: none; /* IE and Edge */
-          scrollbar-width: none; /* Firefox */
-          @media screen and (min-width: 651px) and (max-width: 991px) {
-            width: 100%;
-            @media screen and (min-aspect-ratio: 1/1) {
-              justify-content: space-between;
-            }
-          }
-
-          @media screen and (min-width: 991px) {
-            width: 50%;
-          }
+          background-color: $c-white;
+          border-radius: 20px 20px 20px 20px;
+          box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
+          width: 100%;
+          padding: 16px;
 
           @media screen and (max-width: 650px) {
-            padding: 0px;
-            justify-content: flex-start;
-            font-size: 0px;
-            width: 100%;
+            border-radius: 0px 0px 0px 0px;
+          }
+        }
+
+
+        .preview-card {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          background-color: $c-white;
+          border-radius: 20px 20px 20px 20px;
+          box-shadow: 5px 10px 40px rgba(0, 0, 0, 0.2);
+          width: 100%;
+
+          @media screen and (max-width: 650px) {
+            border-radius: 0px 0px 0px 0px;
           }
 
-        }
 
-        .object-map-section {
-          height: 30vh;
-        }
+          .popup-section {
+            height: 100%;
+            width: 100%;
+            // flex: 1 1 0;
+            // flex: 1;
+            padding: 2vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
 
-        .object-slider-section-tablet {
-          width: 100%;
-          aspect-ratio: 1/1;
+
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+            @media screen and (min-width: 651px) and (max-width: 991px) {
+              width: 100%;
+              @media screen and (min-aspect-ratio: 1/1) {
+                justify-content: space-between;
+              }
+            }
+
+            @media screen and (min-width: 991px) {
+              width: 50%;
+            }
+
+            @media screen and (max-width: 650px) {
+              padding: 0px;
+              justify-content: flex-start;
+              font-size: 0px;
+              width: 100%;
+            }
+
+          }
+
+          .object-map-section {
+            height: 30vh;
+          }
+
+          .object-slider-section-tablet {
+            width: 100%;
+            aspect-ratio: 1/1;
+          }
         }
-      }
       }
     }
 
@@ -524,7 +520,6 @@
 }
 
 
-
 .UploadedImage {
   aspect-ratio: 1;
   background-color: $c-grey-light;
@@ -540,6 +535,7 @@
   font-size: small;
   border-radius: 5px;
   margin: 10px;
+
   :only-child {
     // background-color: black;
     padding: 5px;
@@ -563,7 +559,7 @@
 }
 
 .form-title {
-  padding: 0px 32px ;
+  padding: 0px 32px;
 
   @media screen and (max-width: 650px) {
     padding: 0px 16px;
@@ -589,25 +585,11 @@
   //padding: 8px;
 }
 
-.ImageUploadForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
 
-  .subsection {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    row-gap: 8px;
-  }
-}
 
 .image-upload-container {
   //padding: 48px;
 }
-
-
 
 
 .CraftTypeForm {
@@ -616,7 +598,7 @@
   justify-content: space-between;
   padding: 24px;
 
-  @media screen and (max-width: 650px){
+  @media screen and (max-width: 650px) {
     padding: 24px;
   }
 
@@ -643,24 +625,22 @@
       //width: 30%;
       //flex: 1 1 0;
       max-height: 100%;
-      @media screen and (max-width: 650px){
-    padding: 8px;
-  }
+      @media screen and (max-width: 650px) {
+        padding: 8px;
+      }
 
       .subsection {
         //width: 100%;
         padding: 16px;
-        @media screen and (max-width: 650px){
-    padding: 8px;
-  }
+        @media screen and (max-width: 650px) {
+          padding: 8px;
+        }
       }
-
 
 
     }
   }
 }
-
 
 
 .ArchivalImageForm, {
@@ -675,7 +655,7 @@
 
   .sections {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     height: 100%;
@@ -688,7 +668,7 @@
 
     .section {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: flex-start;
       padding: 16px;
       width: 100%;
