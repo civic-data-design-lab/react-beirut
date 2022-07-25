@@ -1,11 +1,9 @@
 import {
-  convertWorkshopContributionToSchema,
-  WORKSHOP_CONTRIBUTION_NAME,
   ARCHIVE_CONTRIBUTION_NAME,
   convertArchiveContributionToSchema,
+  convertWorkshopContributionToSchema,
+  WORKSHOP_CONTRIBUTION_NAME,
 } from '../../../lib/utils';
-import Archive from '../../Archive';
-import Workshop from '../../Workshop';
 import {useTranslation} from "next-i18next";
 import InputField from './InputField';
 import PreviewCard from "./PreviewCard";
@@ -19,7 +17,8 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) 
   const fields = page.fields;
   const { t } = useTranslation();
 
-  console.log("i18n from preview ", i18n)
+
+
 
   const getPreview = () => {
     // INFO: Return nothing if there is no form data. (Is this necessary?)
@@ -61,16 +60,19 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) 
 
     // INFO: If this form was for a workshop, show the workshop preview
     if (formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME) {
-      const { workshop, imageMeta, imageDataOriginal } =
+      const { workshop, imageMetas, imageDataOriginals } =
         convertWorkshopContributionToSchema(formData, formSchema);
-      console.log("preview after conversion ", workshop)
-      console.debug('Returning workshop to preview:', workshop);
-      console.debug('Returning image to preview:', imageDataOriginal);
+
+      let buffers={}
+      for (const [key, value] of Object.entries(formData.images)) {
+        buffers[parseInt(key)] = value.imageData
+      }
+
       return (
         <PreviewCard
             object={workshop}
-            imageMetas={imageMeta && [imageMeta]}
-            imageSrc={imageDataOriginal?.data}
+            imageMetas={imageMetas}
+            imageSrc={buffers}
             objType={'workshop'}
             lang={lang}
             i18n={i18n}
@@ -81,18 +83,27 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) 
 
     // INFO: If this form was for an archive, show the archive preview
     if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
-      const { archive, imageMeta, imageDataOriginal } =
+
+      console.log("formData in preview ", formData)
+      const { archive, imageMetas, imageDataOriginals } =
         convertArchiveContributionToSchema(formData, formSchema);
-      console.log("preview after conversion ", archive)
-      console.debug('Returning archive to preview:', archive);
-      console.debug('Returning image to preview:', imageDataOriginal);
+      console.log("imageMeta in Preview ", imageMetas)
+
+      let buffers={}
+      for (const [key, value] of Object.entries(formData.images)) {
+        buffers[parseInt(key)] = value.imageData
+      }
+
+
+
       return (
         <PreviewCard
             object={archive}
-            imageMetas={imageMeta && [imageMeta]}
-            imageSrc={imageDataOriginal?.data}
+            imageMetas={imageMetas}
+            imageSrc={buffers}
             objType={'archive'}
             i18n={i18n}
+
         />
       );
     }

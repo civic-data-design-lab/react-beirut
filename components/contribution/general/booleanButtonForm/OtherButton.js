@@ -76,7 +76,7 @@ const OtherButton = ({
                 return false;
             } else {
               if (formData[dataLocation][imageIndex]) {
-                if (formData[dataLocation][imageIndex].tags.includes(string)) {
+                if (formData[dataLocation][imageIndex].includes(string)) {
                     setErrorMessage(
                         'You have already selected this tag from the default tags.'
                     );
@@ -115,7 +115,7 @@ const OtherButton = ({
             } else {
                 let tags = [string]
                 newData[dataLocation] = {}
-                newData[dataLocation][imageIndex]={tags}
+                newData[dataLocation][imageIndex]=[string]
                 onUpdate(newData)
             }
         } else {
@@ -124,12 +124,12 @@ const OtherButton = ({
                 onUpdate(newData);
             } else {
                 if (newData[dataLocation][imageIndex]) {
-                    newData[dataLocation][imageIndex].tags.push(string)
+                    newData[dataLocation][imageIndex].push(string)
                     onUpdate(newData)
                 } else {
                     let tags = [string]
                     newData[dataLocation][imageIndex] = {}
-                    newData[dataLocation][imageIndex] = {tags}
+                    newData[dataLocation][imageIndex] = [string]
                     onUpdate(newData)
                 }
             }

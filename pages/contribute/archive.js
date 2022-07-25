@@ -41,7 +41,7 @@ import {
   ARCHIVE_CONTRIBUTION_NAME,
   convertArchiveContributionToSchema,
   isProperlyTruthy,
-  CRAFT_CATEGORIES, WORKSHOP_CONTRIBUTION_NAME,
+  CRAFT_CATEGORIES, WORKSHOP_CONTRIBUTION_NAME, convertWorkshopContributionToSchema,
 } from '../../lib/utils';
 import ArchiveAboutForm from '../../components/contribution/archive/ArchiveAboutForm';
 import Card from '../../components/Card';
@@ -315,6 +315,14 @@ const ArchiveContribution = ({i18n}) => {
             "save any more additions you make to this form for you to return to later. "  +
             "Please complete this submission within this session.")
       } }
+
+      try {
+        const convertedAS = convertArchiveContributionToSchema(updatedFormData, formSchema)
+        console.log("CONVERTED AS", convertedAS)
+      }
+      catch (e) {
+
+      }
 
       return updatedFormData;
     });

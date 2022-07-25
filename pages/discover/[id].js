@@ -16,8 +16,8 @@ const CardPage = ({ object, type, similarWorkshops, imageMetas, lang, i18n }) =>
     router.push('/discover', undefined, { shallow: true, scroll: false });
   };
 
- // console.log('checking what iamgeMetas is ', imageMetas)
-    console.log('lang  in id.js is ', lang)
+  console.log("imageMetas from a discover card ", imageMetas)
+
 
 
   return (

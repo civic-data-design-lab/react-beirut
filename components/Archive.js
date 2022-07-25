@@ -52,8 +52,9 @@ const mainSliderStyle = {
  */
 const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, lang, i18n, preview=false}) => {
   const {t} =useTranslation();
+
   const getImages = () => {
-      console.log("i18n ", i18n)
+
       const thumbImage = imageMetas.filter(
       (image) => image.img_id === archive.thumb_img_id
         );
@@ -61,7 +62,6 @@ const Archive = ({ archive, imageMetas, imageSrc, similarArchives, handleClose, 
           (image) => image.img_id !== archive.thumb_img_id
         );
       const orderedImages = [...thumbImage, ...remainingImages];
-      console.log("ordered images ", orderedImages)
       return orderedImages
   }
 
@@ -171,15 +171,20 @@ const getPrimaryDecade = () => {
 
 
   const getCaption = () => {
-        console.log('current images image metadata ', images[index])
-        //return <p>{this.state.currentImageIndex}</p>
-        //let imageContainer = document.querySelector('.mapSlider-wrapper');
-        //return (<p>{imageContainer.offsetWidth}</p>)
+
 
         const currentMetaData = images[index]
+
+        console.log("images ", images)
+        console.log("index ", index)
+        console.log("currentMetaData ", currentMetaData)
+
+
         const viewKeywords = ["storefront", "street", "interior", "indoor"];
         const interiorKeywords = ["interior", "inside", "indoor"]
         const viewSet = new Set(viewKeywords);
+
+
 
         if (currentMetaData) {
             if (currentMetaData.caption) {
@@ -227,7 +232,15 @@ const getPrimaryDecade = () => {
 
   const showImages = () => {
 
-    return images.map((image) => {
+
+
+    return images.map((image, index) => {
+        let source
+        if (preview) {
+            source = imageSrc[index+1]
+        } else {
+            source = imageSrc || image.src
+        }
       return (
         <img
           key={image.img_id}
@@ -239,7 +252,7 @@ const getPrimaryDecade = () => {
             objectFit: 'cover',
             scrollSnapAlign: 'center',
           }}
-          src={imageSrc || image.src}
+          src={source}
           alt=""
         />
       );

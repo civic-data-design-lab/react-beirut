@@ -76,17 +76,15 @@ const ImageUploadForm = ({
         }
 
         newData["caption"][imageIndex] = {}
-        newData["caption"][imageIndex] = {caption}
+        newData["caption"][imageIndex] = caption
         onUpdate(newData)
     }
 
     const getCaption = () => {
         if (!formData["caption"] || !formData["caption"][imageIndex]) {
-            console.log("no caption")
             return ""
         } else {
-            console.log("get caption")
-            return formData["caption"][imageIndex].caption
+            return formData["caption"][imageIndex]
         }
     }
 

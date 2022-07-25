@@ -229,7 +229,7 @@ const formSchema = {
         },
       },
       fields: {
-        image: {
+        images: {
           title: 'Craft Workshop Image Upload',
           field_name: 'image',
           //required: true, Need custom function to check for now.
@@ -406,9 +406,10 @@ const WorkshopContribution = ({lang, i18n}) => {
         setDialog("Because your browser has exceeded its storage, it can no longer save any more additions you make to this form for you to return to later. Please complete this submission within this session.")
       }}
       // INFO: Update the local storage
-
-
       // console.log("getting from local storage ", localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME))
+
+      const convertedWS = convertWorkshopContributionToSchema(updatedFormData, formSchema)
+      console.log("CONVERTED WS", convertedWS)
 
       return updatedFormData;
     });

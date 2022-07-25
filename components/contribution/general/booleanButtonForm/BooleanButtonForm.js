@@ -77,17 +77,17 @@ const BooleanButtonForm = ({
                 }
             } else {
                 if (newData[dataLocation][imageIndex]) {
-                    let isSelected = newData[dataLocation][imageIndex].tags.includes(tag);
+                    let isSelected = newData[dataLocation][imageIndex].includes(tag);
                     if (isSelected) {
-                        newData[dataLocation][imageIndex].tags = newData[dataLocation][imageIndex].tags.filter(
+                        newData[dataLocation][imageIndex] = newData[dataLocation][imageIndex].filter(
                             (element) => element !== tag
                         );
                     } else {
-                        newData[dataLocation][imageIndex].tags.push(tag);
+                        newData[dataLocation][imageIndex].push(tag);
                     }
                 } else {
                     const tags = [tag]
-                    newData[dataLocation][imageIndex] = {tags}
+                    newData[dataLocation][imageIndex] = [tag]
 
                 }
             }
@@ -98,7 +98,7 @@ const BooleanButtonForm = ({
                 const tags = [tag]
                 newData[dataLocation] = {}
                 newData[dataLocation][imageIndex] = {}
-                newData[dataLocation][imageIndex] = {tags}
+                newData[dataLocation][imageIndex] = [tag]
 
             }
         }
@@ -116,7 +116,7 @@ const BooleanButtonForm = ({
             );
             onUpdate(newData);
         } else {
-            newData[dataLocation][imageIndex].tags = newData[dataLocation][imageIndex].tags.filter(
+            newData[dataLocation][imageIndex] = newData[dataLocation][imageIndex].filter(
                 (element) => element !== tag
             )
             onUpdate(newData);
@@ -129,10 +129,8 @@ const BooleanButtonForm = ({
 
 
     const getDefaultTags = () => {
-        console.log("creating default tags")
         // INFO: Create a button for each default tag
         if (formData[dataLocation]) {
-            console.log("in dataLocation ", dataLocation)
             if (!imageIndex) {
                 return defaultTags.map((tag) => {
                     return formData[dataLocation].includes(tag) ? (
@@ -161,10 +159,8 @@ const BooleanButtonForm = ({
                 })
             } else {
                 if (formData[dataLocation][imageIndex]) {
-                    console.log("here ", imageIndex)
-                    console.log("trying to check inside array ", formData[dataLocation][imageIndex].tags)
                     return defaultTags.map((tag) => {
-                        return formData[dataLocation][imageIndex].tags.includes(tag) ? (
+                        return formData[dataLocation][imageIndex].includes(tag) ? (
                             <button
                                 id={`${tag}-boolean-button`}
                                 type="button"
@@ -240,7 +236,7 @@ const BooleanButtonForm = ({
                 })
             } else {
                 if (formData[dataLocation][imageIndex]) {
-                    return formData[dataLocation][imageIndex].tags.map((tag) => {
+                    return formData[dataLocation][imageIndex].map((tag) => {
                         return defaultTags.includes(tag) ? ('') : (
                             <button
                                 variable={tag}
@@ -274,7 +270,6 @@ const BooleanButtonForm = ({
         }
     }
 
-    console.log(formData)
 
 
     return (

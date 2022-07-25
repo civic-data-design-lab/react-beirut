@@ -284,6 +284,12 @@ const Workshop = ({workshop, imageMetas, imageSrc, similarWorkshops, handleClose
 
     const showImages = () => {
         return images.map((image) => {
+            let source
+        if (preview) {
+            source = imageSrc[index+1]
+        } else {
+            source = imageSrc || image.src
+        }
             return (
                 <img
                     key={image.img_id}
@@ -296,7 +302,7 @@ const Workshop = ({workshop, imageMetas, imageSrc, similarWorkshops, handleClose
                         scrollSnapAlign: 'center',
                         borderRadius: '0px'
                     }}
-                    src={imageSrc || image.src}
+                    src={source}
                     alt=""
                 />
             );
