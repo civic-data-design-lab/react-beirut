@@ -30,8 +30,10 @@ const Default = ({ children }) => {
 
 
 const MapFilter = ({filteredCrafts, startYear, endYear, toggleWorkshopStatus, toggleArchiveStatus, search,
-                            updateCrafts, updateYears, updateWorkshopToggle, updateArchiveToggle, closeFilter, triggerReset, reset, toggleReset}) => {
+                            updateCrafts, updateYears, updateWorkshopToggle, updateArchiveToggle, closeFilter, triggerReset, reset, toggleWorkshopReset, toggleArchiveReset}) => {
 
+    console.log("workshops filter ", toggleWorkshopStatus)
+    console.log("archive filter ", toggleArchiveStatus)
 
     const { t } = useTranslation();
     const filterCardContent = () => {
@@ -66,12 +68,12 @@ const MapFilter = ({filteredCrafts, startYear, endYear, toggleWorkshopStatus, to
                     <div className={'toggle-section'}>
                         <p className={'card-section-labels'}>{t('Show craft workshops')}</p>
                     <ActiveFilter toggleStatus={toggleWorkshopStatus} updateToggle={updateWorkshopToggle}
-                                  resetToggle={toggleReset}/>
+                                  resetToggle={toggleWorkshopReset}/>
                     </div>
                     <div className={'toggle-section'}>
                         <p className={'card-section-labels'}>{t('Show archival images')}</p>
                     <ActiveFilter toggleStatus={toggleArchiveStatus} updateToggle={updateArchiveToggle}
-                                  resetToggle={toggleReset}/>
+                                  resetToggle={toggleArchiveReset}/>
                     </div>
                 </div>
                 <hr/>

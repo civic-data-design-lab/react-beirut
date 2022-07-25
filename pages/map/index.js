@@ -53,7 +53,8 @@ export default class Explore extends React.Component {
                 5: ['1958', 'US Army Corps of Engineers. Army Map Service (1984). ', '28tahetd', [35.49966548072621, 33.890504692600885], 13.731385906406157, "Beirut", " (Trans.). Item Series K921 Sheet Beyrouth Editions 6-AMS. The Perry-Castañeda Library (PCL) Map Collection. The University of Texas. Austin (TX), USA."],
                 6: ['1984', 'Geoprojects (U.K.) Ltd. (1984). ', '1984', [35.50586102530747, 33.89044326579804], 13.709053598967705, "Beirut", " (Trans.). Item MAP G7474.B4P2 1984.G4, (51 x 73cm). Black and white reprint of the original map printed in Henley-on-Thames, England. MIT Rotch Library. Cambridge (MA), USA."]
             },
-            toggleReset:false,
+            toggleWorkshopReset:false,
+            toggleArchiveReset:false,
             filteredCraftsParent: ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
             startYearParent: 1890,
             endYearParent: 2030,
@@ -101,12 +102,27 @@ export default class Explore extends React.Component {
     }
 
     updateWorkshopToggle = (toggleData) => {
+        if (!this.state.toggleArchiveParent && !toggleData) {
+            this.setState({
+                toggleArchiveParent:true,
+                toggleArchiveReset: !this.state.toggleArchiveReset
+            })
+        }
+
         this.setState({
             toggleWorkshopParent: toggleData
         })
     }
 
     updateArchiveToggle = (toggleData) => {
+        if (!this.state.toggleWorkshopParent && !toggleData) {
+            this.setState({
+                toggleWorkshopParent: true,
+                toggleWorkshopReset: !this.state.toggleWorkshopReset
+            })
+
+        }
+
         this.setState({
             toggleArchiveParent: toggleData
         })
@@ -246,7 +262,8 @@ export default class Explore extends React.Component {
             endYearParent: 2030,
             toggleWorkshopParent: true,
             toggleArchiveParent: true,
-            toggleReset: !this.state.toggleReset
+            toggleWorkshopReset: !this.state.toggleWorkshopReset,
+            toggleArchiveReset: !this.state.toggleArchiveReset
         });
     }
 
@@ -308,7 +325,9 @@ export default class Explore extends React.Component {
     updateArchiveToggle={this.updateArchiveToggle}
     toggleWorkshopStatus={this.state.toggleWorkshopParent}
     toggleArchiveStatus={this.state.toggleArchiveParent}
-    toggleReset={this.state.toggleReset}/>
+    toggleWorkshopReset={this.state.toggleWorkshopReset}
+    toggleArchiveReset={this.state.toggleArchiveReset}
+                        />
                         : null}
                     {this.state.width > 688 ? <SearchBar callBack={this.searchMap}/> : null}
 

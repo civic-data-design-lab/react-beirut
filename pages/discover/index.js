@@ -200,10 +200,18 @@ const Discover = ({children, i18n}) => {
     };
 
     const updateWorkshopToggle = (toggleData) => {
+        if (!toggleArchiveImage && !toggleData) {
+            setArchiveToggle(true)
+            setResetArchiveToggle(!resetArchiveToggleImage)
+        }
         setWorkshopToggle(toggleData);
     };
 
     const updateArchiveToggle = (toggleData) => {
+        if (!toggleWorkshopImage && !toggleData) {
+            setWorkshopToggle(true)
+            setResetWorkshopToggle(!resetArchiveToggleImage)
+        }
         setArchiveToggle(toggleData);
     };
 

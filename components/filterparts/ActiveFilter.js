@@ -6,6 +6,8 @@ import React, {useEffect, useState} from "react";
 const ActiveFilter = ({toggleStatus, updateToggle, resetToggle, forWorkshops=true}) => {
 
     // function changes state to match toggle
+
+    console.log("resetToggle ", forWorkshops, resetToggle)
     const onToggle = (state) => {
         updateToggle(state)
         if (forWorkshops) {
