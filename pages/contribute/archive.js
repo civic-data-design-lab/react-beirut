@@ -63,7 +63,7 @@ let localStorageSize = function () {
 }
 
 const imageRequirement = (formData) => {
-  if (!formData.images || formData.images.length<1 || (!formData.images[0].imageData || !formData.images[0].imageExtension)) {
+  if (!formData.images || formData.images.length<1 || (Object.keys(formData.images).length<1)) {
      // console.log('no formdata image detenceted');
     return {
       requirementFulfilled: false,

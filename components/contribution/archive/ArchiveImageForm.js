@@ -50,6 +50,7 @@ const ArchiveImageForm = ({onUpdate, formData, formSchema, title, label}) => {
                             captionRequired={fields.caption.required}
                             fields={fields}
                             forWorkshop={false}
+                            imageIndex={'1'}
                         />
 
                         <ImageUploadForm
@@ -62,6 +63,7 @@ const ArchiveImageForm = ({onUpdate, formData, formSchema, title, label}) => {
                             captionRequired={fields.caption.required}
                             fields={fields}
                             forWorkshop={false}
+                            imageIndex={'2'}
                         />
 
                         <ImageUploadForm
@@ -74,6 +76,7 @@ const ArchiveImageForm = ({onUpdate, formData, formSchema, title, label}) => {
                             captionRequired={fields.caption.required}
                             fields={fields}
                             forWorkshop={false}
+                            imageIndex={'3'}
                         />
                     </div>
                     <div className="archive-image-section">
