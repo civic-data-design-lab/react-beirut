@@ -107,12 +107,20 @@ const BooleanButtonForm = ({
 
     const onCustomTagClick = (e) => {
         setErrorMessage('');
-        let bbfData = JSON.parse(JSON.stringify(formData));
+
+        let newData = formData
         let tag = e.target.getAttribute('variable');
-        bbfData[dataLocation] = bbfData[dataLocation].filter(
-            (element) => element != tag
-        );
-        onUpdate(bbfData);
+        if (!imageIndex) {
+            newData[dataLocation] = newData[dataLocation].filter(
+                (element) => element !== tag
+            );
+            onUpdate(newData);
+        } else {
+            newData[dataLocation][imageIndex].tags = newData[dataLocation][imageIndex].tags.filter(
+                (element) => element !== tag
+            )
+            onUpdate(newData);
+        }
     };
 
     const onKeyDown = (e) => {
@@ -231,39 +239,39 @@ const BooleanButtonForm = ({
                     );
                 })
             } else {
-               if (formData[dataLocation][imageIndex]) {
-                   return formData[dataLocation][imageIndex].tags.map((tag) => {
-                       return defaultTags.includes(tag) ? ('') : (
-                           <button
-                            variable={tag}
-                            key={tag}
-                            onClick={onCustomTagClick}
-                            className="hstg-btn-pill-small-selected"
-                        >
-                            ⓧ {tag}
-                        </button>
-                       )
-                   })
-               }
+                if (formData[dataLocation][imageIndex]) {
+                    return formData[dataLocation][imageIndex].tags.map((tag) => {
+                        return defaultTags.includes(tag) ? ('') : (
+                            <button
+                                variable={tag}
+                                key={tag}
+                                onClick={onCustomTagClick}
+                                className="hstg-btn-pill-small-selected"
+                            >
+                                ⓧ {tag}
+                            </button>
+                        )
+                    })
+                }
             }
         }
     }
 
 
-     const getOtherButton = () => {
+    const getOtherButton = () => {
         // INFO: Create button for adding additional tags
-         if (hasOtherField) {
-             return (
-                 <OtherButton
-                     onUpdate={onUpdate}
-                     setErrorMessage={setErrorMessage}
-                     formData={formData}
-                     dataLocation={dataLocation}
-                     defaultTags={defaultTags}
-                     imageIndex={imageIndex}
-    />
-             )
-         }
+        if (hasOtherField) {
+            return (
+                <OtherButton
+                    onUpdate={onUpdate}
+                    setErrorMessage={setErrorMessage}
+                    formData={formData}
+                    dataLocation={dataLocation}
+                    defaultTags={defaultTags}
+                    imageIndex={imageIndex}
+                />
+            )
+        }
     }
 
     console.log(formData)
@@ -288,7 +296,6 @@ const BooleanButtonForm = ({
                 {getCustomTags()}
 
                 {getOtherButton()}
-
 
 
             </div>

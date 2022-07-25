@@ -47,100 +47,94 @@ const OtherButton = ({
     };
 
     const validateData = (string) => {
-            console.log('validating data')
-            if (!/^[a-zA-Z\s]*$/.test(string)) {
-                setErrorMessage(
-                    'Your custom tag was invalid.\nPlease enter a tag that contains only letters.'
-                );
+        console.log('validating data')
+        if (!/^[a-zA-Z\s]*$/.test(string)) {
+            setErrorMessage(
+                'Your custom tag was invalid.\nPlease enter a tag that contains only letters.'
+            );
 
-                return false;
-            }
-            if (string == '') {
-                setErrorMessage(
-                    ''
-                );
-                return false;
-            }
-            if (defaultTags.includes(string)) {
-                if (!imageIndex) {
-                    if (formData[dataLocation].includes(string)) {
-                        setErrorMessage(
-                            'You have already selected this tag from the default tags.'
-                        );
-                        return false;
-                    } else {
-                        if (formData[dataLocation][imageIndex]) {
-                            {
-                                if (formData[dataLocation][imageIndex].tags.includes(string)) {
-                                    setErrorMessage(
-                                        'You have already selected this tag from the default tags.'
-                                    );
-                                    return false;
-                                }
-                            }
+            return false;
+        }
+        if (string == '') {
+            setErrorMessage(
+                ''
+            );
+            return false;
+        }
+        if (defaultTags.includes(string)) {
 
-                        }
-                    }
+            if (!imageIndex) {
+                if (formData[dataLocation].includes(string)) {
                     setErrorMessage(
-                        'Your custom tag is already in the set of default tags. Please select it from the default tags.'
+                        'You have already selected this tag from the default tags.'
                     );
                     return false;
                 }
-            }
-            console.log("string is ", string)
-                if (string.length >= 50) {
-                    setErrorMessage(
-                        'Your custom tag was invalid.\nPlease enter a tag that is less than 50 characters.'
-                    );
-                    return false;
-                }
-
-                return true;
-            }
-
-
-
-        const submitNewTag = (otherButton) => {
-            let txtbox = otherButton.getElementsByClassName('additional-tag-txtbox')[0];
-            let string = txtbox.value;
-            console.log("what is string here ", string)
-            txtbox.value = '';
-            string = string.trimStart().trimEnd()
-            string = string.charAt(0).toUpperCase() + string.slice(1)
-            console.log("is data valid ", validateData())
-            if (!validateData(string)) return;
-
-            //let bbfData = JSON.parse(JSON.stringify(formData));
-            let newData = formData
-
-            if (!newData[dataLocation]) {
-                if (!imageIndex) {
-                    newData[dataLocation] = [string]
-                    onUpdate(newData);
-                } else {
-                    const tags = [string]
-                    newData[dataLocation] = {}
-                    newData[dataLocation][imageIndex] = {}
-                    newData[dataLocation][imageIndex] = {tags}
-                }
+                setErrorMessage(
+                    'Your custom tag is already in the set of default tags. Please select it from the default tags.'
+                );
+                return false;
             } else {
-                if (!imageIndex) {
-                    newData[dataLocation].push(string);
-                    onUpdate(newData);
-                } else {
-                    if (newData[dataLocation][imageIndex]) {
-                        newData[dataLocation][imageIndex].tags.push(string)
-                    } else {
-                        newData[dataLocation][imageIndex]={}
-                        const tags = [string]
-                        newData[dataLocation][imageIndex]={tags}
-                    }
+              if (formData[dataLocation][imageIndex]) {
+                if (formData[dataLocation][imageIndex].tags.includes(string)) {
+                    setErrorMessage(
+                        'You have already selected this tag from the default tags.'
+                    );
+                    return false;
                 }
+                setErrorMessage(
+                    'Your custom tag is already in the set of default tags. Please select it from the default tags.'
+                );
+                return false;
+              }
             }
-
+        }
+        if (string.length >= 50) {
+            setErrorMessage(
+                'Your custom tag was invalid.\nPlease enter a tag that is less than 50 characters.'
+            );
+            return false;
         }
 
+        return true;
+    };
 
+    const submitNewTag = (otherButton) => {
+        let txtbox = otherButton.getElementsByClassName('additional-tag-txtbox')[0];
+        let string = txtbox.value;
+        txtbox.value = '';
+        string = string.trimStart().trimEnd()
+        string = string.charAt(0).toUpperCase() + string.slice(1)
+        if (!validateData(string)) return;
+
+        let newData = formData
+        if (!newData[dataLocation]) {
+            if (!imageIndex) {
+                newData[dataLocation] = [string]
+                onUpdate(newData);
+            } else {
+                let tags = [string]
+                newData[dataLocation] = {}
+                newData[dataLocation][imageIndex]={tags}
+                onUpdate(newData)
+            }
+        } else {
+            if (!imageIndex) {
+                newData[dataLocation].push(string);
+                onUpdate(newData);
+            } else {
+                if (newData[dataLocation][imageIndex]) {
+                    newData[dataLocation][imageIndex].tags.push(string)
+                    onUpdate(newData)
+                } else {
+                    let tags = [string]
+                    newData[dataLocation][imageIndex] = {}
+                    newData[dataLocation][imageIndex] = {tags}
+                    onUpdate(newData)
+                }
+            }
+        }
+    };
 
     const onClickInput = (e) => {
         console.log("clicked input")
