@@ -119,9 +119,9 @@ const Workshop = ({workshop, imageMetas, imageSrc, similarWorkshops, handleClose
             } else if (currentMetaData.type.length === 1) {
                 if (viewSet.has(currentMetaData.type[0])) {
                     if (currentMetaData.type[0] === 'street') {
-                        let arabic = t('Street view of ')
+                        let arabic = t(`Street view of ${getShopName()}`)
                         let interpolated = arabic.replace('X', t(getShopName()))
-                        return <p>{interpolated}</p>
+                        return <p className={'object-caption'}>{interpolated}</p>
                     }
 
                     return <p

@@ -103,6 +103,7 @@ const OtherButton = ({
         const submitNewTag = (otherButton) => {
             let txtbox = otherButton.getElementsByClassName('additional-tag-txtbox')[0];
             let string = txtbox.value;
+            console.log("what is string here ", string)
             txtbox.value = '';
             string = string.trimStart().trimEnd()
             string = string.charAt(0).toUpperCase() + string.slice(1)
