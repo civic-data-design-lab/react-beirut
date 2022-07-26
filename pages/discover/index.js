@@ -129,12 +129,16 @@ const Discover = ({children, i18n}) => {
                             if (prevScrollPos) {
                                 // $('#content').animate({ scrollTop: elementOffset }, 200);
                                 // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
-                                document.getElementById(prevScrollPos).scrollIntoView({
+                                try {
+                                    document.getElementById(prevScrollPos).scrollIntoView({
                                     behavior: "smooth",
                                     block: "center",
                                     inline: "nearest"
                                 });
                                 sessionStorage.removeItem("prevScrollPos")
+                                } catch (e) {
+                                    console.log("can't scroll here yet")
+                                }
                             }
                         }
 

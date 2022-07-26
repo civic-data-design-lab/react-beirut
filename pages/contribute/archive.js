@@ -331,12 +331,12 @@ const ArchiveContribution = ({i18n}) => {
 
   const onSubmit = () => {
     // INFO: Prepare the form data for submission
-    const { archive, imageMeta, imageDataOriginal } =
+    const { archive, imageMetas, imageDataOriginals } =
       convertArchiveContributionToSchema(form, formSchema);
 
-    const data = { archive, imageMetas: [imageMeta], imageDataOriginal: [imageDataOriginal] };
+    const data = { archive, imageMetas: imageMetas, imageDataOriginal: imageDataOriginals };
 
-    console.group('Database Submission');
+    /*console.group('Database Submission');
 
     console.info('Here is all the data being uploaded to the server:', data);
     console.info(
@@ -364,7 +364,7 @@ const ArchiveContribution = ({i18n}) => {
     );
     console.groupEnd();
 
-    console.groupEnd();
+    console.groupEnd();*/
 
     fetch('/api/archive', {
       method: 'POST',

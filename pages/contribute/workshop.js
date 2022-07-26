@@ -300,16 +300,20 @@ const WorkshopContribution = ({lang, i18n}) => {
 
   const onSubmit = () => {
     // Prepare the form data for submission
-    const { workshop, imageMeta, imageDataOriginal } =
+    const { workshop, imageMetas, imageDataOriginals } =
       convertWorkshopContributionToSchema(form, formSchema);
 
     const data = {
       workshop,
-      imageMetas: [imageMeta],
-      imageDataOriginal: [imageDataOriginal],
+      imageMetas: imageMetas,
+      imageDataOriginal: imageDataOriginals,
     };
 
-    console.group('Database Submission');
+    console.log(workshop)
+    console.log(imageMetas)
+    console.log(imageDataOriginals)
+
+    /*console.group('Database Submission');
 
     console.info('Here is all the data being uploaded to the server:', data);
     console.info(
@@ -344,7 +348,7 @@ const WorkshopContribution = ({lang, i18n}) => {
 
     console.log('stringifying data now ')
     console.log(JSON.stringify(data))
-    console.log('finished stringifying')
+    console.log('finished stringifying')*/
 
     fetch('/api/workshops', {
       method: 'POST',
@@ -408,8 +412,8 @@ const WorkshopContribution = ({lang, i18n}) => {
       // INFO: Update the local storage
       // console.log("getting from local storage ", localStorage.getItem(WORKSHOP_CONTRIBUTION_NAME))
 
-      const convertedWS = convertWorkshopContributionToSchema(updatedFormData, formSchema)
-      console.log("CONVERTED WS", convertedWS)
+      //const convertedWS = convertWorkshopContributionToSchema(updatedFormData, formSchema)
+      //console.log("CONVERTED WS", convertedWS)
 
       return updatedFormData;
     });
