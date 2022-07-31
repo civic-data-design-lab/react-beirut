@@ -487,6 +487,8 @@ export default class App extends React.PureComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
 
+
+
         const changedZoom = this.props.mapZoom !== prevProps.mapZoom;
         const changedCoords = this.props.coords !== prevProps.coords;
         if (changedZoom || changedCoords) {
@@ -592,6 +594,16 @@ export default class App extends React.PureComponent {
                 this.geoLocateMarker = marker;
             }
         }
+
+
+        if (this.props.search && (this.props.search !== prevProps.search)) {
+            if (this.activeMarker) {
+                console.log("old active marker ", document.querySelector(`.marker-${this.activeMarker}`))
+                document.querySelector(`.marker-${this.activeMarker}`).classList.remove("active-marker")
+                this.activeMarker = null
+            }
+        }
+
 
         if (this.props.id && (this.props.id !== prevProps.id)) {
             const mark = document.querySelector(`.marker-${this.props.id}`)
