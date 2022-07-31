@@ -14,10 +14,12 @@ export default async (req, res) => {
 
     // INFO: Get the actual image data from the database
     let [filename, fileExtension] = id.split('.')
-    if (fileExtension == 'jpg') fileExtension = 'jpeg';
+    if (fileExtension === 'jpg') fileExtension = 'jpeg';
     const response = await ImageData.findOne({
       filename: filename + '.' + fileExtension,
     });
+
+    console.log("reponse in image API ", response)
 
     if (!response) {
       res.status(StatusCodes.NOT_FOUND).send({ message: 'Image not found' });

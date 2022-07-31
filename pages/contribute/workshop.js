@@ -309,9 +309,6 @@ const WorkshopContribution = ({lang, i18n}) => {
       imageDataOriginal: imageDataOriginals,
     };
 
-    console.log(workshop)
-    console.log(imageMetas)
-    console.log(imageDataOriginals)
 
     /*console.group('Database Submission');
 
