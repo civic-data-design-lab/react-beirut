@@ -70,6 +70,7 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
             const imageBuffer = e.target.result;
             if (!ext) {
                 ext = file.name.split('.').pop();
+                if (ext === 'jpg') ext = 'jpeg';
             }
             console.log("image buffer and extension!!!")
             console.log(imageBuffer, ext)
