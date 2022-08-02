@@ -47,6 +47,7 @@ const DownloadPage = () => {
           </div>
           <div className="mb-5">
             <h3><b>{t('Images and Image Metadata')}</b></h3>
+            <a href="" download=""><button className="btn-pill">{t('Download Images')}</button></a>
             <p>{t('Images from Living Heritage Atlas | Beirut are not currently available for download, but we plan to make these available in the near future. Stay tuned for more information soon!')}</p>
           </div>
         </div>

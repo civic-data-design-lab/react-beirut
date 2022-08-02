@@ -329,7 +329,7 @@ export default class Explore extends React.Component {
     toggleArchiveReset={this.state.toggleArchiveReset}
                         />
                         : null}
-                    {this.state.width > 688 ? <SearchBar callBack={this.searchMap}/> : null}
+                    {/*{this.state.width > 688 ? <SearchBar callBack={this.searchMap}/> : null}*/}
 
                     <div className={'filterSection'}>
                         <button className={'filterButton filterSettingsButton btn-interactivity'}

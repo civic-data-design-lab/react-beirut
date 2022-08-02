@@ -265,18 +265,27 @@
   top: 3rem;
 }
 
-.image-filter-container {
-  width: 100%;
-  left:0px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+.image-filter {
+  width: 100vw;
   border: 0.25px solid $c-grey-mid;
   box-shadow: 5px 10px 20px rgba(166, 166, 166, 0.2);
   z-index: 10;
   background-color: $c-white-off;
+}
+
+.image-filter-container {
+  width: 100%;
+  padding: 2rem calc(2rem + ((100vw - 1298px) / 2));
+  left:0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @media screen and (min-width: 992px) and (max-width: 1298px) {
+    padding: calc(2rem);
+  }
+
 
 
   @media screen and (min-width: 688px) and (max-width: 992px) {

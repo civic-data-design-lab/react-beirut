@@ -97,8 +97,10 @@ const ImageFilter = ({
     return (
         <>
             <Desktop>
-                <div className={'image-filter-container detach'}>
-                    {getImageFilterContent()}
+                <div className={'image-filter detach'}>
+                    <div className={'image-filter-container'}>
+                        {getImageFilterContent()}
+                    </div>
                 </div>
 
             </Desktop>

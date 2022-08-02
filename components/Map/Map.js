@@ -3,6 +3,8 @@ import mapboxGl from "mapbox-gl";
 import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 import Dialogue from "../contribution/general/Dialogue";
 import * as ReactDOM from "react-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faShop, faImage} from "@fortawesome/free-solid-svg-icons";
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -238,7 +240,7 @@ export default class App extends React.PureComponent {
         const popupText = (
             <>
                 <p>{this.getShopName(obj)}</p>
-                <p>({lng}, {lat})</p>
+                {obj.object==="workshop" ? <FontAwesomeIcon icon={faShop} width={14}/> : <FontAwesomeIcon icon={faImage} width={14}/> }
             </>
         )
         popupContent.className = "marker-popup"

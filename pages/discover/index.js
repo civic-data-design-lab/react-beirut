@@ -214,7 +214,7 @@ const Discover = ({children, i18n}) => {
     const updateArchiveToggle = (toggleData) => {
         if (!toggleWorkshopImage && !toggleData) {
             setWorkshopToggle(true)
-            setResetWorkshopToggle(!resetArchiveToggleImage)
+            setResetWorkshopToggle(!resetWorkshopToggleImage)
         }
         setArchiveToggle(toggleData);
     };
