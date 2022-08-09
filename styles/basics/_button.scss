@@ -559,6 +559,55 @@ $icon-zindex: 1000;
   color: #9C6340;
 }
 
+.add-img-btn {
+
+    .hstg-btn-pill {
+    /* IsMobile=Off, IsActive=Off */
+
+    box-sizing: border-box;
+
+    /* Auto layout */
+
+    padding: 9px 19px;
+    margin: 1px;
+
+    /* grey-mid */
+
+    border: 0.5px solid #CFCFCF;
+    border-radius: 20px;
+
+    background: #FFFFFF;
+
+  }
+
+
+
+
+  .hstg-btn-pill:hover {
+    color: #9C6340;
+    box-sizing: border-box;
+    padding: 9px 19px;
+    margin: 1px;
+    background: #FFFFFF;
+    border: 0.5px solid #9C6340;
+    box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+    border-radius: 20px;
+  }
+
+  .hstg-btn-pill-selected {
+    color: #9C6340;
+    font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
+    box-sizing: border-box;
+    padding: 9px 19px;
+    margin: 1px;
+    background: #FFFFFF;
+    border: 0.5px solid #9C6340;
+    box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
+    border-radius: 20px;
+  }
+
+}
+
 
 
 

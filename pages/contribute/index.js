@@ -98,9 +98,13 @@ const Contribute = () => {
       switch (selection) {
         case 'workshop':
           localStorage.removeItem(WORKSHOP_CONTRIBUTION_NAME);
+          let storedNumWorkshop = localStorage.getItem("numImageFormWorkshop");
+          if (storedNumWorkshop) localStorage.removeItem("numImageFormWorkshop")  ;
           break;
         case 'archive':
           localStorage.removeItem(ARCHIVE_CONTRIBUTION_NAME);
+          let storedNumArchive = localStorage.getItem("numImageFormArchive");
+          if (storedNumArchive) localStorage.removeItem("numImageFormArchive");
           break;
         default:
           localStorage.removeItem(selection);

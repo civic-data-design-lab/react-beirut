@@ -4,6 +4,18 @@ import {useTranslation} from "next-i18next";
 
 const DownloadPage = () => {
   const {t} = useTranslation();
+
+  const [submitting, setSubmitting] = useState(false)
+
+  const getImages = async () =>{
+    setSubmitting(true)
+    await fetch('api/download/fileNames');
+    const elt = document.getElementById('download-images-btn');
+    elt.click();
+    setSubmitting(false)
+  }
+
+
   return (
     <>
       <Head>
@@ -21,7 +33,7 @@ const DownloadPage = () => {
         <div className="download-card">
           <div className="mb-5">
             <p>{t('Craftspeople have a historic role in perpetuating cultural practices in the city through their products and workshop spaces that are sites of socializing, learning, and commerce. However, they are marginalized in every reconstruction of the city and its subsequent gentrification. Our team believes that their movements and their workshops tell key stores on the urban development of Beirut that are worth uncovering.')}</p>
-            <p>{t('The Living Heritage Atlas | Beirut has conducted multiple data collection initiatives through interviews, desk-research, archivla research, and surveys in the field. The data collected by our team includes personal photos from craftspeople, visual material collected from libraries and private collections, and inputs received through our crowdsourcing platform, where users are invited to contribute to this database. The Living Heritage Atlas | Beirut is a unique dataset which includes:')}</p>
+            <p>{t('The Living Heritage Atlas | Beirut has conducted multiple data collection initiatives through interviews, desk-research, archival research, and surveys in the field. The data collected by our team includes personal photos from craftspeople, visual material collected from libraries and private collections, and inputs received through our crowdsourcing platform, where users are invited to contribute to this database. The Living Heritage Atlas | Beirut is a unique dataset which includes:')}</p>
             <ul>
               <li> {t('20+ interviews with local stakeholders, NGOs, government organizations, and international agencies who joined forces since the aftermath of the August 4th explosion in Beirut')}</li>
               <li>{t('100+ location points of 100+ craftspeoples\' workshops')}</li>
@@ -47,8 +59,14 @@ const DownloadPage = () => {
           </div>
           <div className="mb-5">
             <h3><b>{t('Images and Image Metadata')}</b></h3>
-            <a href="" download=""><button className="btn-pill">{t('Download Images')}</button></a>
-            <p>{t('Images from Living Heritage Atlas | Beirut are not currently available for download, but we plan to make these available in the near future. Stay tuned for more information soon!')}</p>
+            <div className={"d-flex flex-row align-items-center"}>
+              <a><button className="btn-pill"
+                       onClick={getImages}
+            >{t('Download Images')}</button></a>
+              {submitting && <div className="loader m-3"/>}
+            </div>
+            <a className={"h-0 w-0 opacity-0 d-none pe-none"} id={"download-images-btn"} href={"images.zip"} download="images.zip">HII</a>
+            {/*<p>{t('Images from Living Heritage Atlas | Beirut are not currently available for download, but we plan to make these available in the near future. Stay tuned for more information soon!')}</p>*/}
           </div>
         </div>
       </div>

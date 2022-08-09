@@ -207,6 +207,7 @@ const Discover = ({children, i18n}) => {
         if (!toggleArchiveImage && !toggleData) {
             setArchiveToggle(true)
             setResetArchiveToggle(!resetArchiveToggleImage)
+            sessionStorage.setItem("prevFilterArchiveToggle", "true")
         }
         setWorkshopToggle(toggleData);
     };
@@ -215,6 +216,7 @@ const Discover = ({children, i18n}) => {
         if (!toggleWorkshopImage && !toggleData) {
             setWorkshopToggle(true)
             setResetWorkshopToggle(!resetWorkshopToggleImage)
+            sessionStorage.setItem("prevFilterWorkshopToggle", "true")
         }
         setArchiveToggle(toggleData);
     };

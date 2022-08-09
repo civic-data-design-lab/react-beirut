@@ -141,7 +141,8 @@ const About = ({i18n}) => {
                 <h5 className="mb-0"><b>{t('Future Heritage Lab Team')}</b></h5>
                 {t("Azra Aksamija, Director")}<br/>
                 {t("Daniella Maamari, Lead Researcher")}<br/>
-                {t("Sarine Agopian, Ramzi Alieh, Ahmad Beydoun, Racha Doughman, Reem Farhat, Kamila El Khechen, Raafat Majzoub, Reem Obeid, Rasha Zayour")}
+                {t("Sarine Agopian, Ramzi Alieh, Ahmad Beydoun, Racha Doughman, Reem Farhat, Kamila El Khechen, " +
+                    "Raafat Majzoub, Reem Obeid, Rasha Zayour, Fatima Moussa")}
               </p>
             </div>
           </div>

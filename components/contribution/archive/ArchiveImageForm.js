@@ -4,6 +4,9 @@ import {CRAFT_CATEGORIES, CRAFT_TYPES, VALID_DECADES} from '../../../lib/utils';
 import BooleanButtonForm from '../general/booleanButtonForm/BooleanButtonForm';
 import {useMediaQuery} from 'react-responsive';
 import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus, faXmark} from "@fortawesome/free-solid-svg-icons";
 
 const Desktop = ({children}) => {
     const isDesktop = useMediaQuery({minWidth: 992})
@@ -28,6 +31,79 @@ const ArchiveImageForm = ({onUpdate, formData, formSchema, title, label}) => {
     const page = formSchema.pages.image_upload;
     const fields = page.fields;
 
+    const [numImageForm, setNumImageForm] = useState(1);
+    const [imageFormState, setImageFormState] = useState({});
+
+    useEffect(() => {
+        let storedNum = localStorage.getItem("numImageFormArchive")
+        if (storedNum) {
+            setNumImageForm(parseInt(storedNum))
+            console.log("num is ", storedNum)
+        }
+
+    }, [])
+
+    const updateImageFormState = (imageIndex, data) => {
+        let newData = formData
+        if (!newData.images) {
+            newData.images = {}
+        }
+        newData.images[imageIndex] = data
+        setImageFormState((prevForm) => {
+            const updatedFormData = {...prevForm, ...newData};
+            // console.log('setting ImageFormState to ', updatedFormData);
+            onUpdate(updatedFormData);
+            return updatedFormData;
+        });
+    };
+
+
+    const shiftImagesUp = (index) => {
+        let keys = Object.keys(formData.images)
+        let newData = formData
+        keys.map((key) => {
+            if (key > index) {
+                if (newData.images[key]) {
+                    updateImageFormState(key - 1, newData.images[key])
+                    updateImageFormState(key, {imageData: null, imageExtension: null})
+                }
+            }
+        })
+    }
+
+    const shiftCaptionsUp = (index) => {
+        let keys = Object.keys(formData.caption)
+        let newData = formData
+        keys.map((key) => {
+            if (key > index) {
+                if (newData.caption[key]) {
+                    newData.caption[key - 1] = newData.caption[key]
+                    newData.caption[key] = []
+                    console.log("newData is ", newData)
+                    onUpdate(newData)
+                }
+            }
+        })
+
+
+    }
+
+    const shiftTagsUp = (index) => {
+        let keys = Object.keys(formData.image_type)
+        let newData = formData
+        keys.map((key) => {
+            if (key > index) {
+                if (newData.image_type[key]) {
+                    newData.image_type[key - 1] = newData.image_type[key]
+                    newData.image_type[key] = []
+                    console.log("newData is ", newData)
+                    onUpdate(newData)
+                }
+            }
+        })
+    }
+
+
     return (
         <>
 
@@ -40,44 +116,66 @@ const ArchiveImageForm = ({onUpdate, formData, formSchema, title, label}) => {
 
                     <div className={"WorkshopImageForm"}>
 
-                        <ImageUploadForm
-                            onUpdate={onUpdate}
-                            formData={formData}
-                            dataLocation="images"
-                            title=""
-                            label={t("Upload an image related to craftsmanship in Beirut")}
-                            imageRequired={true}
-                            captionRequired={fields.caption.required}
-                            fields={fields}
-                            forWorkshop={false}
-                            imageIndex={'1'}
-                        />
 
-                        <ImageUploadForm
-                            onUpdate={onUpdate}
-                            formData={formData}
-                            dataLocation="images"
-                            title=""
-                            label={t("Upload an image related to craftsmanship in Beirut")}
-                            imageRequired={true}
-                            captionRequired={fields.caption.required}
-                            fields={fields}
-                            forWorkshop={false}
-                            imageIndex={'2'}
-                        />
+                        {[...Array(numImageForm).keys()].map((num) => {
+                            return <div>
+                                {numImageForm > 1 &&
+                                    <div className={"delete-img-btn"}>
+                                        <FontAwesomeIcon icon={faXmark} width={12}
+                                                         onClick={() => {
+                                                             if (!formData.images) {
+                                                                 // if there images is not defined in the formData
+                                                             } else {
+                                                                 // if images is defined in formData then shift data up
+                                                                 shiftImagesUp(num + 1)
+                                                             }
+                                                             setNumImageForm(numImageForm - 1)
 
-                        <ImageUploadForm
-                            onUpdate={onUpdate}
-                            formData={formData}
-                            dataLocation="images"
-                            title=""
-                            label={t("Upload an image related to craftsmanship in Beirut")}
-                            imageRequired={true}
-                            captionRequired={fields.caption.required}
-                            fields={fields}
-                            forWorkshop={false}
-                            imageIndex={'3'}
-                        />
+                                                             if (!formData.image_type) {
+                                                                 // if there are no tags at all
+                                                             } else {
+                                                                 // if there are some tags
+                                                                 shiftTagsUp(num + 1)
+                                                             }
+
+                                                             if (!formData.caption) {
+                                                                 // if there are no tags at all
+                                                             } else {
+                                                                 // if there are some tags
+                                                                 shiftCaptionsUp(num + 1)
+                                                             }
+
+
+                                                         }}
+                                        />
+                                    </div>}
+
+                                <ImageUploadForm
+                                    onUpdate={onUpdate}
+                                    formData={formData}
+                                    dataLocation="images"
+                                    title=""
+                                    label={t("Upload an image related to craftsmanship in Beirut")}
+                                    imageRequired={true}
+                                    captionRequired={fields.caption.required}
+                                    fields={fields}
+                                    forWorkshop={false}
+                                    imageIndex={parseInt(num + 1)}
+                                />
+                            </div>
+                        })
+
+                        }
+
+                        {numImageForm < 3 && <div
+                            className={"add-img-btn d-flex flex-row justify-content-center align-items-center w-100"}>
+                            <button className={"hstg-btn-pill"}
+                                    onClick={() => {
+                                        setNumImageForm(numImageForm + 1)
+                                        localStorage.setItem("numImageFormArchive", (numImageForm + 1).toString())
+                                    }}
+                            ><FontAwesomeIcon icon={faPlus} width={16}/></button>
+                        </div>}
                     </div>
                     <div className="archive-image-section">
                         <div className={'subsection'}>

@@ -378,7 +378,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
     const getAddress = () => {
         if (workshop.location) {
-            const streetName = `${workshop.location.address.content ? `${workshop.location.address.content}` : ""}`
+            const streetName = `${workshop.location.address.content ? `${workshop.location.address.content},` : ""}`
             const adm4 = `${workshop.location.adm4 ? `${workshop.location.adm4},` : ""}`
             const adm3 = `${workshop.location.adm3 ? `${workshop.location.adm3},` : ""}`
             const adm2 = `${workshop.location.adm2 ? `${workshop.location.adm2},` : ""}`

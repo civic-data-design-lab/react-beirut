@@ -38,7 +38,11 @@ const SingleImageUpload = ({currentImage, handleUpdateImage}) => {
         try {
 
             const file = e.target.files[0];
-
+            if (! (file instanceof Blob || file instanceof File)) {
+                setSubmitting(false)
+                handleUpdateImage(null, null);
+                return
+            }
             imageCompression(file, options)
                 .then(compressedFile => {
                     console.log("size ", compressedFile.size)

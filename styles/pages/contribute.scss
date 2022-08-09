@@ -708,3 +708,11 @@
 .prevent-pointer-events {
   pointer-events: none;
 }
+
+.delete-img-btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding: 0 16px;
+  color: $c-primary-dark;
+}

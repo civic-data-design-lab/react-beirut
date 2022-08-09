@@ -4,6 +4,7 @@ import UploadedImage from './UploadedImage';
 import dynamic from 'next/dynamic';
 import {useState} from 'react';
 
+
 import {useTranslation} from "react-i18next";
 
 const SingleImageUpload = dynamic(() => import('../imageUpload/SingleImageUpload'), {
