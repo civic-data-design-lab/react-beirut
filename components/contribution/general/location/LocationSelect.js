@@ -74,6 +74,8 @@ export default class LocationSelect extends React.Component {
     }
 
     marker.on('dragend', onDragEnd);
+
+    map.current.addControl(new mapboxGL.NavigationControl());
     }
 
    componentDidUpdate(prevProps, prevState, snapshot) {

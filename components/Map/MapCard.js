@@ -332,7 +332,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         if (workshop.contact_info) {
             console.log("has contact info")
             const contactInfo = []
-            for (const [key, value] of Object.entries(workshop.contact_info)) {
+            for (let [key, value] of Object.entries(workshop.contact_info)) {
                 console.log(`${key}: ${value}`);
                 if (key === "phone" && value) {
                     contactInfo.push(<div className={"contact-container"}>
@@ -346,6 +346,14 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                 }
                 else if (key==="website" && value) {
                     // TODO: slice https/http out
+                    const indexHTTPS = value.indexOf("https://");
+                    const indexHTTP = value.indexOf("http://");
+                    if (indexHTTPS > -1) {
+                        value = value.slice(indexHTTPS, indexHTTPS+8)
+                    } if (indexHTTP > -1) {
+                        value = value.slice(indexHTTPS, indexHTTPS+7)
+                    }
+
                     contactInfo.push(<div className={"contact-container"}>
                         <FontAwesomeIcon icon={faLink} width={16} color={"#AEAEAE"}/>  &thinsp;
                         <a className={"shopSubtitle-text"} target="_blank" href={`//www.${value}`}>{value}</a><br/></div>)
@@ -485,6 +493,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                         </div>
 
 
+
                     {workshop.consent ? <div>{getAddress()} {getContactInfo()}</div> : null}
 
 
@@ -509,6 +518,11 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                             : null}
 
                         <hr/>
+
+                    <div>
+                            <small className={'object-caption'}>If you would like to update any outdated or incorrect information listed about
+                                this craft workshop, please contact <span className={"object-caption"}><a href={"mailto:livingheritage@mit.edu"}> livingheritage@mit.edu</a></span>.</small>
+                    </div>
                     {similarObjects ? (getThumbnails().length>0 ? <>
                             <p className={'exploreShops-label'}>{t('Explore Similar Shops')}</p>
                             <div className={'exploreContainer'}>
@@ -560,6 +574,9 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                             : null}
 
                         <hr/>
+
+
+
                         {similarObjects ? (getThumbnails().length>0 ? <>
                             <p className={'exploreShops-label'}>{t('Explore Similar Images')}</p>
                             <div className={'exploreContainer'}>

@@ -125,9 +125,7 @@ const Preview = ({ formData, onUpdate, formSchema, missingFields, lang, i18n }) 
             onUpdate={onUpdate}
             required={fields.consent.required}
             label={
-              formData.survey_origin === WORKSHOP_CONTRIBUTION_NAME
-                ? t(`Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your craft workshop information, location, and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below. Checking this box indicates that you consent to sharing information and photo(s) about your craft workshop with the Living Heritage Atlas. Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`)
-                : t(`Data collected will be added to the Living Heritage Atlas database and will be available for public download and use in anonymized research and analysis. Your information and photo(s) submitted will be displayed on the Living Heritage Atlas website, as shown in the preview below. Checking this box indicates that you consent to sharing information and photo(s) with the Living Heritage Atlas. Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!`)
+                  t("Data collected will be added to the Living Heritage Atlas (LHA) database and will be available for public download and used in research and analysis that might include caption details and metadata. Metadata and photo(s) submitted will be displayed on the LHA website, as shown in the preview below. Checking this box indicates that you consent to sharing information and photo(s) with the LHA and third-party users who might use the data independently from the LHA. Thank you for taking the time to contribute data to the Living Heritage Atlas, we appreciate your input!")
             }
           />
               </div>

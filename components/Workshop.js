@@ -360,6 +360,11 @@ const Workshop = ({workshop, imageMetas, imageSrc, similarWorkshops, handleClose
                             </div>
                         </div>
 
+                        <div>
+                            <small className={'object-caption'}>If you would like to update any outdated or incorrect information listed about
+                                this craft workshop, please contact <span className={"object-caption"}><a href={"mailto:livingheritage@mit.edu"}> livingheritage@mit.edu</a></span>.</small>
+                        </div>
+
                         {similarWorkshops ?
 
                             <div className={"object-suggestion-section"}>
@@ -421,6 +426,11 @@ const Workshop = ({workshop, imageMetas, imageSrc, similarWorkshops, handleClose
                             <div className={'miniMap-container'}>
                                 <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
                             </div>
+                        </div>
+
+                        <div>
+                            <small className={'object-caption'}>If you would like to update any outdated or incorrect information listed about
+                                this craft workshop, please contact <span className={"object-caption"}><a href={"mailto:livingheritage@mit.edu"}> livingheritage@mit.edu</a></span>.</small>
                         </div>
 
                         {similarWorkshops ?
@@ -516,6 +526,12 @@ const Workshop = ({workshop, imageMetas, imageSrc, similarWorkshops, handleClose
                         <div className={'object-mobile-section object-map-section'}>
                             <p className={'card-section-labels'}>{t('Locate this craft workshop on the map')} </p>
                             <MiniMap workshop={workshop} type={'workshop'} lang={lang} i18n={i18n}/>
+                        </div>
+
+
+                        <div className={'object-mobile-section'}>
+                            <small className={'object-caption'}>If you would like to update any outdated or incorrect information listed about
+                                this craft workshop, please contact <span className={"object-caption"}><a href={"mailto:livingheritage@mit.edu"}> livingheritage@mit.edu</a></span>.</small>
                         </div>
 
                         {similarWorkshops ?
