@@ -7,7 +7,8 @@ import SearchBar from "../../components/Map/SearchBar";
 import Legend from "../../components/Map/Legend";
 import MapCard from "../../components/Map/MapCard";
 import LayersControl from "../../components/Map/LayersControl";
-import {useMediaQuery} from 'react-responsive'
+import {useMediaQuery} from 'react-responsive';
+
 
 
 const Desktop = ({children}) => {
@@ -329,7 +330,7 @@ export default class Explore extends React.Component {
     toggleArchiveReset={this.state.toggleArchiveReset}
                         />
                         : null}
-                    {/*{this.state.width > 688 ? <SearchBar callBack={this.searchMap}/> : null}*/}
+                    {this.state.width > 688 ? <SearchBar callBack={this.searchMap}/> : null}
 
                     <div className={'filterSection'}>
                         <button className={'filterButton filterSettingsButton btn-interactivity'}

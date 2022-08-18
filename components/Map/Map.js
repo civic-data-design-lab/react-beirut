@@ -6,6 +6,7 @@ import * as ReactDOM from "react-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faShop, faImage} from "@fortawesome/free-solid-svg-icons";
 
+
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const MAP_LABELS = ['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
@@ -62,20 +63,16 @@ export default class App extends React.PureComponent {
         const searchableKeys = ["shop_name", "content", "content_orig", "content_ar", "craft_discipline", "craft_discipline_category",
             "craft_discipline_other", "location", "address", "adm1", "adm2", "adm3", "adm4"]
         let filteredObject = Object.fromEntries(Object.entries(object).filter(([key]) => searchableKeys.includes(key)));
-        console.log("new object is ", filteredObject)
 
         return Object.values(filteredObject).some(val => {
             if (val) {
                 if (Array.isArray(val)) {
-                    console.log("its an array!")
                     return this.iterateArray(val, searchValue)
                 } else if (val && typeof (val) === "object") {
                     return this.iterateObject(val, searchValue)
                 } else {
                     if (typeof (val) === "string" || val instanceof String) {
-                        console.log("this is a string ", val)
                         if (val.toLowerCase().includes(searchValue.toLowerCase()) || searchValue.toLowerCase().includes(val.toLowerCase())) {
-                            console.log("this is a substring of that ", val)
                             return true
                         }
                     }
@@ -94,7 +91,6 @@ export default class App extends React.PureComponent {
                     return this.iterateObject(item, searchValue)
                 } else {
                     if (typeof (item) === "string" || item instanceof String) {
-                        console.log("this is a string ", item)
                         if (item.toLowerCase().includes(searchValue.toLowerCase()) || searchValue.toLowerCase().includes(item.toLowerCase())) {
                             return true
                         }
@@ -195,7 +191,6 @@ export default class App extends React.PureComponent {
     clickMarker(e) {
 
         this.setState({isAfterClick: true})
-        console.log("clocked marker")
         let el = e.target;
         this.props.openMapCard(el.id, el.type);
         const popups = document.querySelector(".mapboxgl-popup")
@@ -208,9 +203,7 @@ export default class App extends React.PureComponent {
     hoverMarker(e) {
 
         if (!this.state.isAfterClick) {
-            console.log("hovered marker")
             let el = e.target;
-            // console.log(el.craft)
             el.classList.add('hoverMarker');
             el.classList.add(`hoverMarker--${el.craft.toLowerCase()}`);
             this.showPopup(el.obj)
@@ -262,9 +255,6 @@ export default class App extends React.PureComponent {
     }
 
     getShopName = (obj) => {
-
-        //console.log(workshop)
-
         if (obj.shop_name['content']) {
             return obj.shop_name['content']
         } else if (obj.shop_name['content_orig']) {
@@ -467,7 +457,6 @@ export default class App extends React.PureComponent {
             el.obj = archive;
 
             if (archive.ID === "A397612231") {
-                console.warn(`${archive.ID} is ignored`);
                 return;
             }
             if (!archive.primary_location['geo']) {
@@ -505,8 +494,6 @@ export default class App extends React.PureComponent {
 
         }
 
-
-        // console.log("zoom diff ", prevState.readZoom, this.state.readZoom)
         MAP_LABELS.forEach((layer) => {
             try {
                 map.current.setLayoutProperty(layer, 'text-field', [
@@ -549,7 +536,6 @@ export default class App extends React.PureComponent {
                     map.current.setLayoutProperty(this.props.mapLayer, 'visibility', 'visible');
                     this.setState({activeLayer: this.props.mapLayer})
                 } else {
-                    // console.log('hi')
                     if (!this.props.showMapCard) {
                         let filtered = Object.fromEntries(Object.entries(this.props.allLayers).filter(([k, v]) => v[0] === this.props.mapLayer));
                         if (Object.values(filtered)[0][3]) {
@@ -570,7 +556,6 @@ export default class App extends React.PureComponent {
 
 
         // load workshop markers
-        //console.log(this.props);
         if (!this.props.workshops) {
             return;
         }
@@ -600,7 +585,6 @@ export default class App extends React.PureComponent {
 
         if (this.props.search && (this.props.search !== prevProps.search)) {
             if (this.activeMarker) {
-                console.log("old active marker ", document.querySelector(`.marker-${this.activeMarker}`))
                 document.querySelector(`.marker-${this.activeMarker}`).classList.remove("active-marker")
                 this.activeMarker = null
             }
@@ -610,9 +594,7 @@ export default class App extends React.PureComponent {
         if (this.props.id && (this.props.id !== prevProps.id)) {
             const mark = document.querySelector(`.marker-${this.props.id}`)
             mark.classList.add("active-marker")
-            console.log("new acrtive marker ", mark)
             if (this.activeMarker) {
-                console.log("old active marker ", document.querySelector(`.marker-${this.activeMarker}`))
                 document.querySelector(`.marker-${this.activeMarker}`).classList.remove("active-marker")
             }
             this.activeMarker = this.props.id
@@ -739,7 +721,6 @@ export default class App extends React.PureComponent {
                     el.lat = lat;
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);
                     this.mappedMarkers.push(marker);
-                    //console.log(shopName, shopOrig)
                 }
 
             }
@@ -843,7 +824,6 @@ export default class App extends React.PureComponent {
                 }
 
                 if (archive.images.length > 0 && meetSearchCriteria) {
-                    console.log("search matched!")
                     el.lng = lng;
                     el.lat = lat;
                     let marker = new mapboxGl.Marker(el).setLngLat([lng, lat]).addTo(map.current);

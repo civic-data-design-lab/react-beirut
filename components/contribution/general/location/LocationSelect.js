@@ -1,14 +1,11 @@
 import mapboxGl from 'mapbox-gl';
-import { useEffect, useRef } from 'react';
-import { MAPBOX_STYLE_URL } from '../../../../lib/utils';
-
-import { Trans, useTranslation } from "react-i18next";
-import React from "react";
+import React from 'react';
+import {MAPBOX_STYLE_URL} from '../../../../lib/utils';
 import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
 
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
-const MAP_LABELS =['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
+const MAP_LABELS = ['road-label', 'road-intersection', 'waterway-label', 'natural-line-label', 'natural-point-label',
     'water-line-label', 'water-point-label', 'poi-label', 'airport-label', 'settlement-subdivision-label',
     'settlement-minor-label', 'settlement-major-label', 'state-label', 'country-label']
 
@@ -21,35 +18,35 @@ export default class LocationSelect extends React.Component {
 
     componentDidMount() {
         console.log("printing props ", this.props)
-      let markerLocation
-      if (this.props.formData && this.props.formData.lat && this.props.formData.lng) {
-      markerLocation = [this.props.formData.lng, this.props.formData.lat]
-      } else {
-      markerLocation = [35.5, 33.893894]
-    }
+        let markerLocation
+        if (this.props.formData && this.props.formData.lat && this.props.formData.lng) {
+            markerLocation = [this.props.formData.lng, this.props.formData.lat]
+        } else {
+            markerLocation = [35.5, 33.893894]
+        }
 
-      mapboxGl.accessToken = ACCESS_TOKEN;
-      if (mapboxGL.getRTLTextPluginStatus() !== 'loaded' && mapboxGL.getRTLTextPluginStatus() !== 'deferred') {
+        mapboxGl.accessToken = ACCESS_TOKEN;
+        if (mapboxGL.getRTLTextPluginStatus() !== 'loaded' && mapboxGL.getRTLTextPluginStatus() !== 'deferred') {
             console.log('here')
-            if (mapboxGl.getRTLTextPluginStatus() === 'unavailable'){
+            if (mapboxGl.getRTLTextPluginStatus() === 'unavailable') {
                 console.log('here again')
                 mapboxGl.setRTLTextPlugin(
-                'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-                null,
-                true // Lazy load the plugin
-            );
+                    'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
+                    null,
+                    true // Lazy load the plugin
+                );
             }
         }
-      map.current = new mapboxGl.Map({
-      container: 'map', // container ID
-      style: MAPBOX_STYLE_URL, // style URL
-      center: markerLocation, // starting position [lng, lat]
-      zoom: 12, // starting zoom
-      // maxZoom: 15,
-      minZoom: 10,
-    });
+        map.current = new mapboxGl.Map({
+            container: 'map', // container ID
+            style: MAPBOX_STYLE_URL, // style URL
+            center: markerLocation, // starting position [lng, lat]
+            zoom: 12, // starting zoom
+            // maxZoom: 15,
+            minZoom: 10,
+        });
 
-     MAP_LABELS.forEach((layer) => {
+        MAP_LABELS.forEach((layer) => {
             try {
                 map.current.setLayoutProperty(layer, 'text-field', [
                     'get',
@@ -60,39 +57,41 @@ export default class LocationSelect extends React.Component {
             }
         });
 
-    const marker = new mapboxGl.Marker({
-      draggable: true,
-      color: '#85cbd4',
-    })
-      .setLngLat(markerLocation)
-      .addTo(map.current);
+        const marker = new mapboxGl.Marker({
+            draggable: true,
+            color: '#85cbd4',
+        })
+            .setLngLat(markerLocation)
+            .addTo(map.current);
 
-    const onDragEnd = () => {
-      const lngLat = marker.getLngLat();
-      // console.log(lngLat);
-      this.props.onUpdate(lngLat);
+        const onDragEnd = () => {
+            const lngLat = marker.getLngLat();
+            // console.log(lngLat);
+            this.props.onUpdate(lngLat);
+        }
+
+        marker.on('dragend', onDragEnd);
+
+        map.current.addControl(new mapboxGL.NavigationControl());
+        map.current.addControl(new mapboxGL.FullscreenControl());
+
     }
 
-    marker.on('dragend', onDragEnd);
-
-    map.current.addControl(new mapboxGL.NavigationControl());
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        map.current.getStyle().layers.forEach((layer) => {
+            if (layer.layout && layer.layout['text-field']) {
+                map.current.setLayoutProperty(layer.id, 'text-field', [
+                    'get',
+                    `name_${this.props.i18n.language}`
+                ]);
+            }
+        });
     }
 
-   componentDidUpdate(prevProps, prevState, snapshot) {
-       map.current.getStyle().layers.forEach((layer) => {
-           if (layer.layout && layer.layout['text-field']) {
-               map.current.setLayoutProperty(layer.id, 'text-field', [
-                   'get',
-                   `name_${this.props.i18n.language}`
-               ]);
-           }
-       });
-   }
 
-
-    render () {
-               return <div id="map" className={'contributeMap'}/>;
-           }
+    render() {
+        return <div id="map" className={'contributeMap'}/>;
+    }
 
 
 }
