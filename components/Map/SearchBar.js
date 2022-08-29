@@ -4,12 +4,12 @@ import {TRANSLATIONS} from "../../lib/utils";
 import axios from "axios";
 
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+const MAPTILER_KEY = process.env.NEXT_PUBLIC_MAPTILER_KEY;
 
-
-const SearchBar = ({callBack, placeHolder="Search", value=null, map=true}) => {
+const SearchBar = ({callBack, placeHolder="Search", value=null, map=true, flyTo=null}) => {
     const { t } = useTranslation();
-    const [searchEntry, setSearchEntry] = useState('')
     const [searchItems, setSearchItems] = useState([])
+    const [showItems, setShowItems] = useState(true)
 
     useEffect(()=>{
         forwardGeocoding();
@@ -29,8 +29,10 @@ const SearchBar = ({callBack, placeHolder="Search", value=null, map=true}) => {
     }
 
     const forwardGeocoding = (value) => {
-        const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${value}.json?autocomplete=false&access_token=${MAPBOX_ACCESS_TOKEN}`;
-        axios
+        const endpoint = `https://api.maptiler.com/geocoding/${value}.json?key=${MAPTILER_KEY}&bbox=35.462,33.861,35.547,33.9109`;
+        if (value) {
+            if (!showItems) setShowItems(true)
+            axios
             .get(endpoint, {
                 headers: {
                 "Content-Type": "application/json",
@@ -38,12 +40,18 @@ const SearchBar = ({callBack, placeHolder="Search", value=null, map=true}) => {
             })
             .then((res) => {
                 // console.log(res.data.features);
-                console.log(value, res.data.features)
                 let resItems = []
+                console.log(res)
                 for (const v of res.data.features) {
                     // console.log(v.center[0].toFixed(3) + " " + v.center[1].toFixed(3), v.place_name);
                     resItems.push(
                         <div key={v.id} className={"search-item"}
+                             onClick={()=>{
+                                 flyTo(v.center[0], v.center[1])
+                                 setShowItems(false)
+                                 let search = document.getElementById("mapSearch")
+                                 search.value = v.place_name
+                             }}
                              // TODO: fly to {v.center[0].toFixed(3) + " " + v.center[1].toFixed(3)}
                         >
                             {v.place_name}
@@ -59,6 +67,9 @@ const SearchBar = ({callBack, placeHolder="Search", value=null, map=true}) => {
             .finally(() => {
 
             });
+        } else {
+            setSearchItems(null)
+        }
     };
 
     return (
@@ -70,7 +81,7 @@ const SearchBar = ({callBack, placeHolder="Search", value=null, map=true}) => {
 
                 {map?
                 <div className={"search-items mt-2"}>
-                    {searchItems}
+                    {showItems && searchItems}
                 </div> :
                 null}
             </div>

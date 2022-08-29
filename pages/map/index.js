@@ -38,7 +38,6 @@ export default class Explore extends React.Component {
 
     constructor(props) {
         super(props);
-        this.searchMap = this.searchMap.bind(this);
         this.updateCrafts = this.updateCrafts.bind(this);
         this.updateYears = this.updateYears.bind(this);
         this.updateWorkshopToggle = this.updateWorkshopToggle.bind(this);
@@ -129,10 +128,6 @@ export default class Explore extends React.Component {
         })
     }
 
-
-    searchMap = (searchQuery) => {
-        this.setState({search: searchQuery})
-    }
 
     toggleFilterPanel = () => {
         this.setState({on: !this.state.on}, () => (this.state.on ? this.setState({showLayersControl: false}) : null))
@@ -330,7 +325,7 @@ export default class Explore extends React.Component {
     toggleArchiveReset={this.state.toggleArchiveReset}
                         />
                         : null}
-                    {this.state.width > 688 ? <SearchBar callBack={this.searchMap}/> : null}
+
 
                     <div className={'filterSection'}>
                         <button className={'filterButton filterSettingsButton btn-interactivity'}

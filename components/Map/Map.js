@@ -5,6 +5,7 @@ import Dialogue from "../contribution/general/Dialogue";
 import * as ReactDOM from "react-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faShop, faImage} from "@fortawesome/free-solid-svg-icons";
+import SearchBar from "./SearchBar";
 
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -56,8 +57,26 @@ export default class App extends React.PureComponent {
         this.leaveMarker = this.leaveMarker.bind(this)
         this.iterateObject = this.iterateObject.bind(this)
         this.iterateArray = this.iterateArray.bind(this)
+        this.searchMap = this.searchMap.bind(this);
+        this.toSearch = this.toSearch.bind(this);
 
     }
+
+    searchMap = (searchQuery) => {
+        this.setState({search: searchQuery})
+    }
+
+    toSearch = (lat, lon) => {
+        map.current.flyTo({
+                    center: [lat, lon],
+                    zoom: 16,
+                    speed: 0.5, // make the flying slow
+                    essential: true
+                })
+    }
+
+
+
 
     iterateObject = (object, searchValue) => {
         const searchableKeys = ["shop_name", "content", "content_orig", "content_ar", "craft_discipline", "craft_discipline_category",
@@ -101,6 +120,7 @@ export default class App extends React.PureComponent {
         })
 
     }
+
 
     getMarkerRadius = (currentZoom) => {
         let markerRadius
@@ -844,6 +864,7 @@ export default class App extends React.PureComponent {
 
         return (
             <>
+                <SearchBar callBack={this.searchMap} flyTo={this.toSearch}/>
                 {this.state.geoLocateDialog ? <Dialogue
                     title={this.state.geoLocateTitle}
                     content={this.state.geoLocateDialog}
