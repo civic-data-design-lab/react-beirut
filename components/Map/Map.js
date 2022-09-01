@@ -69,7 +69,7 @@ export default class App extends React.PureComponent {
     toSearch = (lat, lon) => {
         map.current.flyTo({
                     center: [lat, lon],
-                    zoom: 16,
+                    zoom: 15,
                     speed: 0.5, // make the flying slow
                     essential: true
                 })
