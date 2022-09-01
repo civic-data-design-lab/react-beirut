@@ -3,12 +3,10 @@ import dynamic from 'next/dynamic';
 import {getAllArchives, getAllWorkshops} from '../../lib/apiUtils';
 import MapFilter from "../../components/Map/MapFilter";
 import React from "react";
-import SearchBar from "../../components/Map/SearchBar";
 import Legend from "../../components/Map/Legend";
 import MapCard from "../../components/Map/MapCard";
 import LayersControl from "../../components/Map/LayersControl";
 import {useMediaQuery} from 'react-responsive';
-
 
 
 const Desktop = ({children}) => {
@@ -53,8 +51,8 @@ export default class Explore extends React.Component {
                 5: ['1958', 'US Army Corps of Engineers. Army Map Service (1984). ', '28tahetd', [35.49966548072621, 33.890504692600885], 13.731385906406157, "Beirut", " (Trans.). Item Series K921 Sheet Beyrouth Editions 6-AMS. The Perry-Castañeda Library (PCL) Map Collection. The University of Texas. Austin (TX), USA."],
                 6: ['1984', 'Geoprojects (U.K.) Ltd. (1984). ', '1984', [35.50586102530747, 33.89044326579804], 13.709053598967705, "Beirut", " (Trans.). Item MAP G7474.B4P2 1984.G4, (51 x 73cm). Black and white reprint of the original map printed in Henley-on-Thames, England. MIT Rotch Library. Cambridge (MA), USA."]
             },
-            toggleWorkshopReset:false,
-            toggleArchiveReset:false,
+            toggleWorkshopReset: false,
+            toggleArchiveReset: false,
             filteredCraftsParent: ["architectural", "cuisine", "decorative", "fashion", "functional", "furniture", "textiles"],
             startYearParent: 1890,
             endYearParent: 2030,
@@ -70,12 +68,18 @@ export default class Explore extends React.Component {
             // mapCenter : [0,0],
             mapZoom: 13.25,
             coords: [35.510, 33.893894], //[35.510, 33.893894],
-            width: null
+            width: null,
+            swiping: null,
+            setSwiping: false
         }
     }
 
     setCoords = (coords) => {
         this.setState({coords: coords})
+    }
+
+    setSwiping = (y) => {
+        this.setState({swiping: y})
     }
 
 
@@ -104,7 +108,7 @@ export default class Explore extends React.Component {
     updateWorkshopToggle = (toggleData) => {
         if (!this.state.toggleArchiveParent && !toggleData) {
             this.setState({
-                toggleArchiveParent:true,
+                toggleArchiveParent: true,
                 toggleArchiveReset: !this.state.toggleArchiveReset
             })
         }
@@ -295,7 +299,7 @@ export default class Explore extends React.Component {
                 </Head>
                 <div className={"explore-page-container"}>
                     <Map i18n={this.props.i18n} showMapCard={this.state.showMapCard} lang={this.props.lang}
-                         setMapLayerSettings={this.setMapLayerSettings}
+                         setMapLayerSettings={this.setMapLayerSettings} closeMapCard={this.closeMapCard}
                          setMapZoom={this.setMapZoom} mapZoom={this.state.mapZoom} handleResize={this.handleResize}
                          mapCenter={this.state.mapCenter} allLayers={this.state.allLayers}
                          mapLayer={this.state.mapLayer}
@@ -306,23 +310,23 @@ export default class Explore extends React.Component {
                          startYear={this.state.startYearParent} endYear={this.state.endYearParent}
                          filteredCrafts={this.state.filteredCraftsParent}
                          openMapCard={this.openMapCard} coords={this.state.coords} closeMapCard={this.closeMapCard}
-                         id={this.state.id}/>
+                         id={this.state.id} setSwiping={this.setSwiping}/>
                     {this.state.on ? <MapFilter
-    filteredCrafts={this.state.filteredCraftsParent}
-    startYear={this.state.startYearParent}
-    endYear={this.state.endYearParent}
-    search={this.state.search}
-    updateCrafts={this.updateCrafts}
-    updateYears={this.updateYears}
-    closeFilter={this.closeFilter}
-    triggerReset={this.triggerReset}
-    reset={this.onReset}
-    updateWorkshopToggle={this.updateWorkshopToggle}
-    updateArchiveToggle={this.updateArchiveToggle}
-    toggleWorkshopStatus={this.state.toggleWorkshopParent}
-    toggleArchiveStatus={this.state.toggleArchiveParent}
-    toggleWorkshopReset={this.state.toggleWorkshopReset}
-    toggleArchiveReset={this.state.toggleArchiveReset}
+                            filteredCrafts={this.state.filteredCraftsParent}
+                            startYear={this.state.startYearParent}
+                            endYear={this.state.endYearParent}
+                            search={this.state.search}
+                            updateCrafts={this.updateCrafts}
+                            updateYears={this.updateYears}
+                            closeFilter={this.closeFilter}
+                            triggerReset={this.triggerReset}
+                            reset={this.onReset}
+                            updateWorkshopToggle={this.updateWorkshopToggle}
+                            updateArchiveToggle={this.updateArchiveToggle}
+                            toggleWorkshopStatus={this.state.toggleWorkshopParent}
+                            toggleArchiveStatus={this.state.toggleArchiveParent}
+                            toggleWorkshopReset={this.state.toggleWorkshopReset}
+                            toggleArchiveReset={this.state.toggleArchiveReset}
                         />
                         : null}
 
@@ -353,8 +357,8 @@ export default class Explore extends React.Component {
 
                     {(this.state.showMapCard && this.state.workshop && this.state.workshop.images) ?
                         <MapCard id={this.state.id} type={this.state.type} workshop={this.state.workshop}
-                                 closeMapCard={this.closeMapCard} openMapCard={this.openMapCard}
-                                 i18n={this.props.i18n}/> : null}
+                                 closeMapCard={this.closeMapCard} openMapCard={this.openMapCard} closeMapCard={this.closeMapCard}
+                                 i18n={this.props.i18n} swiping={this.state.swiping} setSwiping={this.setSwiping}/> : null}
 
                     {this.state.showLayersControl ?
                         <LayersControl currentLayer={this.state.mapLayer} allLayers={this.state.allLayers}

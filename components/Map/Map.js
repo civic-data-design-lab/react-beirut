@@ -209,7 +209,8 @@ export default class App extends React.PureComponent {
 
 
     clickMarker(e) {
-
+        e.stopPropagation()
+        this.props.setSwiping(false)
         this.setState({isAfterClick: true})
         let el = e.target;
         this.props.openMapCard(el.id, el.type);
@@ -864,7 +865,7 @@ export default class App extends React.PureComponent {
 
         return (
             <>
-                <SearchBar callBack={this.searchMap} flyTo={this.toSearch}/>
+                <SearchBar callBack={this.searchMap} flyTo={this.toSearch} placeHolder={"Search for a quarter, sector, or street"}/>
                 {this.state.geoLocateDialog ? <Dialogue
                     title={this.state.geoLocateTitle}
                     content={this.state.geoLocateDialog}
@@ -879,7 +880,14 @@ export default class App extends React.PureComponent {
                             geoLocateLoader: false
                         })
                     }}/> : null}
-                <div ref={this.mapContainer} id="map" className={'exploreMap'}/>
+
+
+                <div ref={this.mapContainer} id="map" className={'exploreMap'}
+                     onClick={()=>{
+                         this.props.closeMapCard()
+                     }}
+
+                />
                 <div className={"nav-ctr-container"}>
                     <button className={"nav-ctr-btn zoom-in-btn btn-interactivity"} onClick={this.handleClickZoomIn}>
                         <svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">

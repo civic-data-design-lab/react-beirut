@@ -41,7 +41,7 @@ import Info from "../Info";
 
 
 // assumes workshop or archive is passed in as a prop
-const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
+const MapCard = ({workshop, type, id, openMapCard, i18n, swiping, setSwiping, closeMapCard}) => {
 
     const { t } = useTranslation();
 
@@ -471,8 +471,6 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         if (type === "workshop") {
             return (
                 <>
-
-
                         <div className={'close-btn-container'}>
                             <div>
                                  <p className={'shopName-text'}>{getShopName() || "Craft Shop (No name provided)"} &thinsp;
@@ -492,19 +490,7 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
                             </button>
                         </div>
 
-
-
                     {workshop.consent ? <div>{getAddress()} {getContactInfo()}</div> : null}
-
-
-
-
-
-
-
-
-
-
 
                         {(workshop.images.length !== 0) ?
                             <>
@@ -588,6 +574,10 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
         }
     }
 
+    const [dragging, setDragging] = useState(null)
+
+
+
 
 
     return (
@@ -611,9 +601,33 @@ const MapCard = ({workshop, type, id, closeMapCard, openMapCard, i18n}) => {
 
                                 <Draggable axis="y"
                                            bounds="parent"
+                                           // position={swiping?{x:0, y:window.innerHeight}:null}
                                            cancel={".mapCard-slider-container, .exploreContainer"}
-                                           handle={".mapCard-dragger"}>
-                                    <div className={'mapCard'} id={`mapCard${id}`}>
+                                           handle={".mapCard-dragger"}
+                                           /*onStart={(e)=> {
+                                               setDragging(e.clientY)
+
+                                           }
+                                }
+                                           onDrag={(e)=> {
+                                               if (e.clientY-dragging>100) {
+                                                   setSwiping(true)
+                                                   let div = document.getElementById(`mapCard${id}`)
+                                                   div.style.transform=`translate(0, ${window.innerHeight}`;
+                                                   //div.style.top=`${window.innerHeight}px`;
+                                                   div.style.transition=`transform 0.5s`;
+                                               }
+                                           }}
+                                           onStop={()=>{
+                                               console.log("ended draggin")
+                                           }*/
+
+
+                                >
+                                    <div className={'mapCard'} id={`mapCard${id}`}
+                                        /* style={{
+                                             transition: `${swiping?`transform 0.5s`:'transform 0.0s'}`}}*/
+                                    >
                                     <div className={'mapCard-dragger'}>
                                         <svg width="24" height="4" viewBox="0 0 24 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <line x1="1.5" y1="2.26367" x2="22.5" y2="2.26367" stroke="#CFCFCF" strokeWidth="3" strokeLinecap="round"/>

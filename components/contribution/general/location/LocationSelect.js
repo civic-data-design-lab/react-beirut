@@ -2,6 +2,7 @@ import mapboxGl from 'mapbox-gl';
 import React from 'react';
 import {MAPBOX_STYLE_URL} from '../../../../lib/utils';
 import mapboxGL from "mapbox-gl/dist/mapbox-gl-unminified";
+import SearchBar from "../../../Map/SearchBar";
 
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -14,10 +15,28 @@ export default class LocationSelect extends React.Component {
     constructor(props) {
         super(props);
         this.mapContainer = React.createRef();
+        this.searchMap = this.searchMap.bind(this);
+        this.toSearch = this.toSearch.bind(this);
+        this.state = {
+            search: "",
+        }
     }
 
+    searchMap = (searchQuery) => {
+        this.setState({search: searchQuery})
+    }
+
+    toSearch = (lat, lon) => {
+        map.current.flyTo({
+                    center: [lat, lon],
+                    zoom: 16,
+                    speed: 0.5, // make the flying slow
+                    essential: true
+                })
+    }
+
+
     componentDidMount() {
-        console.log("printing props ", this.props)
         let markerLocation
         if (this.props.formData && this.props.formData.lat && this.props.formData.lng) {
             markerLocation = [this.props.formData.lng, this.props.formData.lat]
@@ -90,7 +109,10 @@ export default class LocationSelect extends React.Component {
 
 
     render() {
-        return <div id="map" className={'contributeMap'}/>;
+        return <div className={"position-relative"}>
+                <div id="map" className={'contributeMap'}/>
+                <SearchBar callBack={this.searchMap} value={this.state.search} flyTo={this.toSearch} placeHolder={"Search for a quarter, sector, or street"}/>
+            </div>;
     }
 
 

@@ -129,13 +129,15 @@
 
 }
 
+.LocationForm .searchbar {
+  top: 2rem;
+}
 
 .searchbar {
-
   #display: flex;
   padding: 16px;
-  right: 4%;
-  position: fixed;
+  right: 2rem;
+  position: absolute;
   z-index: 5;
 
   @media screen and (max-width: 688px) {

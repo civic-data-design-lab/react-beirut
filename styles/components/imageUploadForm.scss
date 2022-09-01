@@ -135,9 +135,10 @@
   .archive-image-section {
     padding: 16px;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       @media screen and (max-width: 650px) {
           padding: 8px;
+
         }
 
     .subsection {
