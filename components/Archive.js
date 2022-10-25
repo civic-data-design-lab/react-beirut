@@ -167,6 +167,24 @@ const getPrimaryDecade = () => {
  }
 
 
+ const getCitation = () => {
+      return(
+          <>
+              {archive.reference.link?
+                                    <p className={'object-subtitle'}>
+                                        Reference: {archive.reference.name}, {<a href={archive.reference.link}>{archive.reference.citation}</a>}
+                                </p> :
+                                    <p className={'object-subtitle'}>
+                                    Reference: {archive.reference.name}, {archive.reference.citation}
+                                </p>
+                                }
+                                {archive.reference.location &&
+                                    <p className={'object-subtitle'}>Reference Location: {archive.reference.location}</p>}
+          </>
+      )
+ }
+
+
 
 
 
@@ -287,8 +305,11 @@ const getPrimaryDecade = () => {
                                     </p>
 
                         <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
+                    {getCitation()}
                         <br/>
                         {getCaption()}
+
+
                 </div>
                 { similarArchives ?
                 <div className={"object-suggestion-section"}>
@@ -324,7 +345,8 @@ const getPrimaryDecade = () => {
                                     </p>
 
                 <p className={'object-subtitle'}>{getPrimaryDecade()}{getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()}</p>
-                <br/>
+                {getCitation()}
+                    <br/>
                 {getCaption()}
                 </div>
 
@@ -393,6 +415,7 @@ const getPrimaryDecade = () => {
                             />
                         )}
                         <div className={'object-mobile-section'}>
+                            {getCitation()}
                         {getCaption()}
                         </div>
                     </div>

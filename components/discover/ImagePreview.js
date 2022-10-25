@@ -89,9 +89,18 @@ const ImagePreview = ({ workshop, thumbnailSrc, grayscale, routeToAPI, storeScro
 
             </Link>
 
-              {workshop.survey_origin?<div className={'shop-icon'}>
-                  <FontAwesomeIcon icon={faStore} width={24}></FontAwesomeIcon>
-              </div>:null}
+              {workshop.survey_origin ?
+                  workshop.shop_status==="closed_perm" ?
+                  <div className={'shop-icon'}>
+                      <img style={{height: 24}}
+                           src={"../../shop_closed.png"}/>
+                  </div>
+                  :
+                  <div className={'shop-icon'}>
+                      <FontAwesomeIcon icon={faStore} width={24}></FontAwesomeIcon>
+                  </div>
+                  :
+                  null}
             <div className="overlay">
               <div className="shop-info">
                 <p>{workshop.shop_name.content_orig}</p>

@@ -9,7 +9,6 @@ export default async (req, res) => {
     case 'GET':
       const workshops = await getAllWorkshops();
       workshops.forEach((obj) => {
-        delete obj.shop_name
         delete obj._id
         delete obj.shop_owner_name
         delete obj.survey_origin

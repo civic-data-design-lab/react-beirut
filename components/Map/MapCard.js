@@ -534,6 +534,16 @@ const MapCard = ({workshop, type, id, openMapCard, i18n, swiping, setSwiping, cl
                                 </div>
 
                                 <p className={'shopSubtitle-text'}>{getPrimaryDecade()} {getSubtitle() && getPrimaryDecade()?' | ':''} {getSubtitle()} </p>
+                                {workshop.reference.link?
+                                    <p className={'shopSubtitle-text'}>
+                                        Reference: {workshop.reference.name}, {<a href={workshop.reference.link}>{workshop.reference.citation}</a>}
+                                </p> :
+                                    <p className={'shopSubtitle-text'}>
+                                    Reference: {workshop.reference.name}, {workshop.reference.citation}
+                                </p>
+                                }
+                                {workshop.reference.location &&
+                                    <p className={'shopSubtitle-text'}>Reference Location: {workshop.reference.location}</p>}
                             </div>
 
 

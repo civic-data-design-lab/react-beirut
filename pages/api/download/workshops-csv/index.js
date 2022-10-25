@@ -10,7 +10,7 @@ export default async (req, res) => {
       const workshops = await getAllWorkshops();
       const { Parser } = require('json2csv');
 
-      const fields = ['ID', 'ID_craftspeople', 'decade_established', 'craft_discipline_category',
+      const fields = ['ID', 'shop_name', 'ID_craftspeople', 'decade_established', 'craft_discipline_category',
         'craft_discipline', 'craft_discipline_other', 'location', 'shop_status', 'produced_here',
         'images'];
       const opts = { fields };
