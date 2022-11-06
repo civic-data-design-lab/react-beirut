@@ -4,6 +4,7 @@ import {TRANSLATIONS} from "../../lib/utils";
 import axios from "axios";
 
 const MAPBOX_ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+// added to env
 const MAPTILER_KEY = process.env.NEXT_PUBLIC_MAPTILER_KEY;
 
 const SearchBar = ({callBack, placeHolder="Search", value=null, map=true, flyTo=null}) => {
