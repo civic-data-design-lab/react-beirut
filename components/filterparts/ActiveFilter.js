@@ -9,7 +9,6 @@ const ActiveFilter = ({
 }) => {
   // function changes state to match toggle
 
-  console.log('resetToggle ', forWorkshops, resetToggle);
   const onToggle = (state) => {
     updateToggle(state);
     if (forWorkshops) {
