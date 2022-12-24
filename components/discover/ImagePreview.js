@@ -19,7 +19,6 @@ const ImagePreview = ({
     if (workshop.thumb_img_id) {
       await fetch(`${routeToAPI}${workshop.thumb_img_id}`)
         .then((response) => {
-          // console.log("response ", response)
           return response.json();
         })
         .then((res) => {
@@ -75,7 +74,6 @@ const ImagePreview = ({
         className="img-preview"
         id={`preview-${workshop.ID.toString()}`}
         onClick={() => {
-          console.log('clicked iamge', window.scrollY);
           if (navigator.cookieEnabled && storeScrollPosition) {
             storeScrollPosition(`preview-${workshop.ID}`);
           }
@@ -88,9 +86,6 @@ const ImagePreview = ({
               as={`/discover/${workshop.ID}`}
               scroll={false}
             >
-              {/* <img src={imgSrc} alt={imgAlt} style={{filter: "url(#architectural)"}}/> */}
-              {/* <div className="img architectural" style={{backgroundImage: "url(" + imgSrc + ")"}}></div> */}
-
               {grayscale ? (
                 <ImageFilter image={imgSrc} filter={'grayscale'} />
               ) : (

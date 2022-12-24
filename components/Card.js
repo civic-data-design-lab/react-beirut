@@ -5,7 +5,7 @@ const Card = ({ children, handleClose }) => {
         <div className="card__wrapper">
           {children}
           <div className="container__btn">
-            <button className="btn-close" onClick={() => handleClose(false)}>
+            <button className="btn-close" onClick={() => handleClose()}>
               <span></span>
             </button>
           </div>

@@ -2,12 +2,15 @@ import { useState, useEffect, cloneElement } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import {faCircleXmark} from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import Card from '../../Card';
-import {isProperlyTruthy, WORKSHOP_CONTRIBUTION_NAME} from '../../../lib/utils';
-import Dialogue from "./Dialogue";
-import {useTranslation} from "next-i18next";
+import {
+  isProperlyTruthy,
+  WORKSHOP_CONTRIBUTION_NAME,
+} from '../../../lib/utils';
+import Dialogue from './Dialogue';
+import { useTranslation } from 'next-i18next';
 
 /**
  * Component handling mulitpage forms.
@@ -55,13 +58,12 @@ const MultipageForm = ({
   handleRedirect,
   setSubmitting,
   submitting,
-  cookiesEnabled
+  cookiesEnabled,
 }) => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const router = useRouter();
   const [dialog, setDialog] = useState(null);
   const [page, setPage] = useState(0);
-
 
   // INFO: Use the short_titles if available otherwise use titles.
   const pageTitles = Object.keys(formSchema.pages).map((p) => {
@@ -106,11 +108,14 @@ const MultipageForm = ({
   useEffect(() => {
     if (cookiesEnabled) {
       console.info('Fetching existing form data from local storage');
-    const formData = JSON.parse(localStorage.getItem(name)); // If cookies are disabled, this throws an error "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
-    console.log("getting form data from local storage on multipage form mount ", formData)
-    if (formData) {
-      onUpdate(formData);
-    }
+      const formData = JSON.parse(localStorage.getItem(name)); // If cookies are disabled, this throws an error "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
+      console.log(
+        'getting form data from local storage on multipage form mount ',
+        formData
+      );
+      if (formData) {
+        onUpdate(formData);
+      }
     }
   }, []);
 
@@ -214,9 +219,8 @@ const MultipageForm = ({
       if (missingFields.length > 0) {
         // TODO: Show a more helpful error message if the user is missing fields
         alert(
-          t(`Please fill in the following fields: `) + `${missingFields
-            .map((field) => field.title)
-            .join(', ')}`
+          t(`Please fill in the following fields: `) +
+            `${missingFields.map((field) => field.title).join(', ')}`
         );
         return;
       }
@@ -244,21 +248,18 @@ const MultipageForm = ({
   };
 
   const getLinkBack = (destination) => {
-
-    if (destination === "home"){
-      return "/"
-    } else if (destination === "contribute") {
-      return "/contribute"
-    } else if (destination === "form") {
-      if (name===WORKSHOP_CONTRIBUTION_NAME) {
-      return '/contribute/workshop?page=0'
-    } else {
-      return '/contribute/archive?page=0'
+    if (destination === 'home') {
+      return '/';
+    } else if (destination === 'contribute') {
+      return '/contribute';
+    } else if (destination === 'form') {
+      if (name === WORKSHOP_CONTRIBUTION_NAME) {
+        return '/contribute/workshop?page=0';
+      } else {
+        return '/contribute/archive?page=0';
+      }
     }
-    }
-
-
-  }
+  };
 
   const handleCloseDialog = () => {
     setDialog(null);
@@ -278,33 +279,35 @@ const MultipageForm = ({
       // Shows the missing fields dialog content for each page
       const missingFields = getMissingFields(page).map((field) => field.title);
       return (
-
-          <Dialogue
-            title={'Missing Required Fields'}
-            content={
-                <>
-                  <p>{t('You are missing the following fields (marked with *):')}</p>
-                  <ul className={'missing-fields-list'}>
-                    <p>{missingFields.map((field) => (
-                        <li key={field}>{t(field)}</li>
-                    ))}</p>
-            </ul>
-                </>
-            }
-
-            handleClose={handleCloseDialog}
-            cancel={true}
-            accept={true}
-            cancelText={t('Go Back')}
-            acceptText={t('Continue Anyways')}
-            handleCancel={handleCloseDialog}
-            handleAccept={() => {
-                router.push(`${router.basePath}?page=${page + 1}`, undefined, {
-                  shallow: true,
-                });
-                handleCloseDialog();
-              }} />
-
+        <Dialogue
+          title={'Missing Required Fields'}
+          content={
+            <>
+              <p>
+                {t('You are missing the following fields (marked with *):')}
+              </p>
+              <ul className={'missing-fields-list'}>
+                <p>
+                  {missingFields.map((field) => (
+                    <li key={field}>{t(field)}</li>
+                  ))}
+                </p>
+              </ul>
+            </>
+          }
+          handleClose={handleCloseDialog}
+          cancel={true}
+          accept={true}
+          cancelText={t('Go Back')}
+          acceptText={t('Continue Anyways')}
+          handleCancel={handleCloseDialog}
+          handleAccept={() => {
+            router.push(`${router.basePath}?page=${page + 1}`, undefined, {
+              shallow: true,
+            });
+            handleCloseDialog();
+          }}
+        />
       );
     }
 
@@ -315,8 +318,6 @@ const MultipageForm = ({
   return (
     <>
       {dialog && showDialogContent()}
-
-
 
       <div className="MultipageForm">
         {!(submitted || submitting) && (
@@ -337,40 +338,47 @@ const MultipageForm = ({
               {!submitted ? (
                 <div className="loading">
                   <div className="loader"></div>
-                  <h2>{t("Submitting...")}</h2>
+                  <h2>{t('Submitting...')}</h2>
                 </div>
               ) : (
                 <div className="success">
-                  {submitSuccess ?
-                  <>
-                    <FontAwesomeIcon icon={faCheckCircle} />
-                  <h1>{t('Upload success!')}</h1>
-                  <h2>{t('Your response has been recorded.')}</h2>
-                  <p>
-                    {t('Click')+' '}
-                    <Link href="/contribute" >
-                      <a className="link" >{t('here')}</a>
-                    </Link>{' '}
-                    {t('to make another contribution, or click')+ ' ' }
-                    <Link href="/" >
-                      <a  className="link">{t('here')}</a>
-                    </Link>{' '}
-                    {t('to return to the main site.')}
-                  </p>
-                  </> :
-                  <>
-                    <FontAwesomeIcon icon={faCircleXmark} />
-                  <h1>{t('Upload Failed!')}</h1>
-                  <h2>{t('We could not process your response. Please try decreasing the size of your image, submitting in .png or .jpeg file, or improving your internet connection.')}</h2>
-                  <p>
-                    {t('Click')+' '}
-                    <Link href={getLinkBack("form")}>
-                      <a onClick={handleRedirect} className="link">{t('here')}</a>
-                    </Link>{' '}
-                    {t('to return to your form.')}
-                  </p>
-
-                  </>}
+                  {submitSuccess ? (
+                    <>
+                      <FontAwesomeIcon icon={faCheckCircle} />
+                      <h1>{t('Upload success!')}</h1>
+                      <h2>{t('Your response has been recorded.')}</h2>
+                      <p>
+                        {t('Click') + ' '}
+                        <Link href="/contribute">
+                          <a className="link">{t('here')}</a>
+                        </Link>{' '}
+                        {t('to make another contribution, or click') + ' '}
+                        <Link href="/">
+                          <a className="link">{t('here')}</a>
+                        </Link>{' '}
+                        {t('to return to the main site.')}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <FontAwesomeIcon icon={faCircleXmark} />
+                      <h1>{t('Upload Failed!')}</h1>
+                      <h2>
+                        {t(
+                          'We could not process your response. Please try decreasing the size of your image, submitting in .png or .jpeg file, or improving your internet connection.'
+                        )}
+                      </h2>
+                      <p>
+                        {t('Click') + ' '}
+                        <Link href={getLinkBack('form')}>
+                          <a onClick={handleRedirect} className="link">
+                            {t('here')}
+                          </a>
+                        </Link>{' '}
+                        {t('to return to your form.')}
+                      </p>
+                    </>
+                  )}
                 </div>
               )}
             </div>
@@ -410,7 +418,6 @@ const MultipageForm = ({
           )}
         </div>
       </div>
-
     </>
   );
 };

@@ -6,7 +6,6 @@ const ArchivePreview = ({
   requiredFields,
   missingFields,
 }) => {
-
   return (
     <>
       <p>ARCHIVE PREVIEW</p>

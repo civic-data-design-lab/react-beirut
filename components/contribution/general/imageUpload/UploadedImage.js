@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Trans, useTranslation } from "react-i18next";
+import { Trans, useTranslation } from 'react-i18next';
 
 const UploadedImage = ({ onUpdate, formData, dataLocation, imageId }) => {
-    const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <div className="UploadedImage">
       <div>

@@ -20,44 +20,45 @@ const CraftDisciplineForm = ({
   pageName,
   requiredFields = [],
 }) => {
-  
   const page = formSchema.pages.about_the_craft;
   const fields = page.fields;
 
   return (
     <form className="CraftTypeForm">
-        <div className={'form-title'}><h2>{page.title}</h2></div>
+      <div className={'form-title'}>
+        <h2>{page.title}</h2>
+      </div>
 
       <div className={'sections'}>
-          <div className={'section'}>
-              <div className={'subsection'}>
-        <BooleanButtonForm
-          onUpdate={onUpdate}
-          formData={formData}
-          title={fields.craft_category.title}
-          dataLocation={fields.craft_category.field_name}
-          label="What category of crafts are produced in this workshop?"
-          selectionsAllowed="2"
-          defaultTags={CRAFT_CATEGORIES}
-          required={fields.craft_category.required ? true : false}
-        />
-                  </div>
-      </div>
-          <div className={'section'}>
-              <div className={'subsection'}>
-        <BooleanButtonForm
-          onUpdate={onUpdate}
-          formData={formData}
-          title={fields.type_of_craft.title}
-          dataLocation={fields.type_of_craft.field_name}
-          label="What type of crafts are produced in this workshop? If entering a custom type, English is preferred."
-          defaultTags={CRAFT_TYPES}
-          required={fields.type_of_craft.required ? true : false}
-          hasOtherField={true}
-        />
-      </div>
+        <div className={'section'}>
+          <div className={'subsection'}>
+            <BooleanButtonForm
+              onUpdate={onUpdate}
+              formData={formData}
+              title={fields.craft_category.title}
+              dataLocation={fields.craft_category.field_name}
+              label="What category of crafts are produced in this workshop?"
+              selectionsAllowed="2"
+              defaultTags={CRAFT_CATEGORIES}
+              required={fields.craft_category.required ? true : false}
+            />
           </div>
+        </div>
+        <div className={'section'}>
+          <div className={'subsection'}>
+            <BooleanButtonForm
+              onUpdate={onUpdate}
+              formData={formData}
+              title={fields.type_of_craft.title}
+              dataLocation={fields.type_of_craft.field_name}
+              label="What type of crafts are produced in this workshop? If entering a custom type, English is preferred."
+              defaultTags={CRAFT_TYPES}
+              required={fields.type_of_craft.required ? true : false}
+              hasOtherField={true}
+            />
           </div>
+        </div>
+      </div>
     </form>
   );
 };

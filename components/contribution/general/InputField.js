@@ -3,10 +3,7 @@ import { REGEX_VALIDATION, VALID_DECADES } from '../../../lib/utils';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-import { Trans, useTranslation } from "react-i18next";
-
-
-
+import { Trans, useTranslation } from 'react-i18next';
 
 /**
  * Component handling inputs for the contribution page. It is used to handle a
@@ -46,10 +43,10 @@ const InputField = (props) => {
     ...rest
   } = props;
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   // Only a single child was given. Convert to array.
   if (children != undefined) {
-    if (children[0] == undefined) children = [children]
+    if (children[0] == undefined) children = [children];
   }
 
   let validationPattern;
@@ -81,8 +78,9 @@ const InputField = (props) => {
                 required={required}
                 defaultChecked={value || false}
                 onClick={(e) => {
-                  console.log("checked? ", e.target.checked)
-                  onUpdate({ [fieldName]: e.target.checked })}}
+                  console.log('checked? ', e.target.checked);
+                  onUpdate({ [fieldName]: e.target.checked });
+                }}
                 {...rest}
               />
               <label style={{ margin: '10px' }} htmlFor={fieldName}>
@@ -137,7 +135,11 @@ const InputField = (props) => {
               .map((i) => i + startYear)
               .reverse()
               .map((year) => {
-                return <option key={year} value={year}>{year}</option>;
+                return (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                );
               })}
 
             {/* {children} */}
@@ -171,7 +173,7 @@ const InputField = (props) => {
         return (
           <>
             <select
-               //value={'null'}
+              //value={'null'}
               name={title}
               id={fieldName}
               value={value}
@@ -198,12 +200,9 @@ const InputField = (props) => {
               }}
               {...rest}
             >
-              <option  value="null">
-                {`--${t('Select')} ${title}--`}
-              </option>
+              <option value="null">{`--${t('Select')} ${title}--`}</option>
               {children}
               <option value="OTHER"> ＋ {t('Other')}</option>
-
             </select>
             {otherExists && (
               <input
@@ -214,7 +213,7 @@ const InputField = (props) => {
                 placeholder={t(`Enter Other`) + t(title)}
                 onChange={(e) => {
                   // console.log('valueee ', e.target.value)
-                  onUpdate({ [fieldName]: e.target.value })
+                  onUpdate({ [fieldName]: e.target.value });
                 }}
                 {...rest}
               />
@@ -235,12 +234,12 @@ const InputField = (props) => {
         validationPattern = REGEX_VALIDATION.instagram_handle;
         errorString = t('* Please enter a valid instagram handle');
 
-        break
+        break;
       case 'twitter_handle':
         validationPattern = REGEX_VALIDATION.twitter_handle;
         errorString = t('* Please enter a valid twitter handle');
 
-        break
+        break;
       case 'url':
         validationPattern = REGEX_VALIDATION.url;
         errorString = t('* Please enter a valid url');
@@ -259,10 +258,13 @@ const InputField = (props) => {
           onFocus={onFocus}
           onBlur={onBlur}
           onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
-          placeholder={inputType === "instagram_handle" || inputType === "twitter_handle" ? "@user_name" : ""}
+          placeholder={
+            inputType === 'instagram_handle' || inputType === 'twitter_handle'
+              ? '@user_name'
+              : ''
+          }
           {...rest}
         />
-
       </>
     );
   };
