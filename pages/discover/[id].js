@@ -20,9 +20,7 @@ const CardPage = ({
   const router = useRouter();
 
   const handleClose = () => {
-    console.log('router push');
     router.push('/discover', undefined, { shallow: false, scroll: false });
-    console.log(router.pathname);
   };
 
   return (

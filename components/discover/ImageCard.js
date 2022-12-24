@@ -42,8 +42,8 @@ export default class ImageCard extends React.Component {
   }
 
   componentWillUnmount() {
-    document.body.style.overflow = 'auto';
-    document.body.style.height = 'auto';
+    document.body.style.overflow = '';
+    document.body.style.height = '';
     document.body.style.position = 'static';
   }
 
