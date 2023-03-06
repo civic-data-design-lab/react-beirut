@@ -112,6 +112,13 @@ const CraftFilter = ({ filteredCrafts, updateCrafts }) => {
           >
             {t('Textiles')}
           </button>
+          <button
+            id={'textiles-btn'}
+            className={determineCraftButtonClass('all')}
+            onClick={() => selectedCraft('all')}
+          >
+            {t('Select All')}
+          </button>
         </div>
       </div>
     </>

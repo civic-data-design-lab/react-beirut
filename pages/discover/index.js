@@ -6,19 +6,12 @@ import ImageFeed from '../../components/discover/ImageFeed';
 import ImageFilter from '../../components/discover/ImageFilter';
 import { useMediaQuery } from 'react-responsive';
 
-<<<<<<< HEAD
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import { useTranslation } from 'react-i18next';
-
-=======
 import { getAllWorkshops, getAllArchives } from '../../lib/apiUtils';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 
->>>>>>> 13b4b14c1af381265d9f84a35eeeefbc7e088c73
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });
   return isDesktop ? children : null;
@@ -66,10 +59,7 @@ const Discover = ({ children, i18n }) => {
   const [search, setSearch] = useState('');
 
   const storeScrollPosition = (scrollPos) => {
-<<<<<<< HEAD
     // console.log("saved ", scrollPos)
-=======
->>>>>>> 13b4b14c1af381265d9f84a35eeeefbc7e088c73
     sessionStorage.setItem('prevScrollPos', scrollPos);
   };
 
@@ -85,7 +75,6 @@ const Discover = ({ children, i18n }) => {
   };
 
   useEffect(() => {
-<<<<<<< HEAD
     console.log(toggleWorkshopImage);
     console.log(toggleArchiveImage);
   });
@@ -143,56 +132,6 @@ const Discover = ({ children, i18n }) => {
               if (prevScrollPos) {
                 // $('#content').animate({ scrollTop: elementOffset }, 200);
                 // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
-=======
-    Promise.all([fetch('/api/workshops'), fetch('/api/archive')]).then(
-      ([workshopsResponse, archiveResponse]) => {
-        Promise.all([workshopsResponse.json(), archiveResponse.json()])
-          .then(([workshopsData, archiveData]) => {
-            setWorkshops(workshopsData.response);
-            setArchive(archiveData.response);
-          })
-          .then(() => {
-            if (navigator.cookieEnabled) {
-              const prevFilterCrafts =
-                sessionStorage.getItem('prevFilterCrafts');
-              const prevFilterStartYear = sessionStorage.getItem(
-                'prevFilterStartYear'
-              );
-              const prevFilterEndYear =
-                sessionStorage.getItem('prevFilterEndYear');
-              const prevFilterWorkshopToggle = sessionStorage.getItem(
-                'prevFilterWorkshopToggle'
-              );
-              const prevFilterArchiveToggle = sessionStorage.getItem(
-                'prevFilterArchiveToggle'
-              );
-              if (prevFilterCrafts) {
-                setCrafts(JSON.parse(prevFilterCrafts));
-              }
-              if (prevFilterStartYear) {
-                setStartYear(JSON.parse(prevFilterStartYear));
-              }
-              if (prevFilterEndYear) {
-                setEndYear(JSON.parse(prevFilterEndYear));
-              }
-              if (prevFilterWorkshopToggle) {
-                setWorkshopToggle(JSON.parse(prevFilterWorkshopToggle));
-              }
-
-              if (prevFilterArchiveToggle) {
-                setArchiveToggle(JSON.parse(prevFilterArchiveToggle));
-              }
-
-              const filterShow = sessionStorage.getItem('showFilter');
-              if (filterShow) {
-                console.log('toggle ', JSON.parse(filterShow));
-                setFilter(JSON.parse(filterShow));
-              }
-
-              const prevScrollPos = sessionStorage.getItem('prevScrollPos');
-              console.log('prev scroll pos ', prevScrollPos);
-              if (prevScrollPos) {
->>>>>>> 13b4b14c1af381265d9f84a35eeeefbc7e088c73
                 try {
                   document.getElementById(prevScrollPos).scrollIntoView({
                     behavior: 'smooth',
@@ -216,15 +155,12 @@ const Discover = ({ children, i18n }) => {
     );
 
     console.log('done fetching');
-<<<<<<< HEAD
 
     //window.addEventListener("scroll", stopScroll)
 
     //return () => {
     //  window.removeEventListener('scroll', stopScroll);
     //};
-=======
->>>>>>> 13b4b14c1af381265d9f84a35eeeefbc7e088c73
   }, []);
 
   useEffect(() => {
@@ -288,11 +224,8 @@ const Discover = ({ children, i18n }) => {
   };
 
   const handleReset = () => {
-<<<<<<< HEAD
     console.log('RESET');
 
-=======
->>>>>>> 13b4b14c1af381265d9f84a35eeeefbc7e088c73
     setResetWorkshopToggle(!resetWorkshopToggleImage);
     setResetArchiveToggle(!resetArchiveToggleImage);
     setCrafts([
@@ -348,11 +281,7 @@ const Discover = ({ children, i18n }) => {
       <div className="container">
         <div className="title-card">
           <div className="text-container">
-<<<<<<< HEAD
             {/* <h1 className={'discover-text'}>{t('Discover')}</h1> */}
-=======
-            <h1 className={'discover-text'}>{t('Discover')}</h1>
->>>>>>> 13b4b14c1af381265d9f84a35eeeefbc7e088c73
             <p className={'discover-text'}>
               {t(
                 'Discover local workshops and archival images of craftsmanship in the Living Heritage Atlas | Beirut database'
