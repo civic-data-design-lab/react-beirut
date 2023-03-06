@@ -300,6 +300,8 @@ const Workshop = ({
     if (workshop.contact_info) {
       const contactInfo = [];
       for (const [key, value] of Object.entries(workshop.contact_info)) {
+        value = value.replace('https', '');
+        value = value.replace('http', '');
         if (key === 'phone' && value) {
           contactInfo.push(
             <div className={'contact-container'}>
@@ -320,7 +322,6 @@ const Workshop = ({
             </div>
           );
         } else if (key === 'website' && value) {
-          // TODO: slice https out
           contactInfo.push(
             <div className={'contact-container'}>
               <FontAwesomeIcon icon={faLink} width={16} color={'#471e10'} />{' '}

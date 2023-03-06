@@ -59,7 +59,6 @@ const Discover = ({ children, i18n }) => {
   const [search, setSearch] = useState('');
 
   const storeScrollPosition = (scrollPos) => {
-    // console.log("saved ", scrollPos)
     sessionStorage.setItem('prevScrollPos', scrollPos);
   };
 
@@ -155,12 +154,6 @@ const Discover = ({ children, i18n }) => {
     );
 
     console.log('done fetching');
-
-    //window.addEventListener("scroll", stopScroll)
-
-    //return () => {
-    //  window.removeEventListener('scroll', stopScroll);
-    //};
   }, []);
 
   useEffect(() => {
@@ -224,8 +217,6 @@ const Discover = ({ children, i18n }) => {
   };
 
   const handleReset = () => {
-    console.log('RESET');
-
     setResetWorkshopToggle(!resetWorkshopToggleImage);
     setResetArchiveToggle(!resetArchiveToggleImage);
     setCrafts([
