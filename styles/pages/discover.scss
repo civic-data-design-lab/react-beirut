@@ -11,7 +11,7 @@
   direction: ltr;
 
   @media screen and (min-width: 400px) and (max-width: 500px) {
-    padding:0px;
+    padding: 0px;
     width: 100%;
     display: grid;
     grid-template-columns: 180px 180px;
@@ -21,8 +21,8 @@
     grid-gap: 0.5rem;
   }
 
-  @media screen and (max-width: 400px){
-    padding:0px;
+  @media screen and (max-width: 400px) {
+    padding: 0px;
     width: 100%;
     display: grid;
     grid-template-columns: 150px 150px;
@@ -32,8 +32,6 @@
     grid-gap: 0.5rem;
   }
 
-
-
   // &:hover {
   //   .img-preview:not(:hover) {
   //     transition: all 0.2s ease-in-out;
@@ -41,42 +39,38 @@
   //   }
 }
 
-  .image-container {
-    height: 200px;
-    width: 200px;
+.image-container {
+  height: 200px;
+  width: 200px;
 
-    @media screen and (min-width:400px) and (max-width: 500px) {
-      height: 180px;
-      width: 180px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
-    @media screen and (max-width:400px)  {
-      height: 150px;
-      width: 150px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
+  @media screen and (min-width: 400px) and (max-width: 500px) {
+    height: 180px;
+    width: 180px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
-
-
-  .filter-section {
-    padding: 4px;
+  @media screen and (max-width: 400px) {
+    height: 150px;
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
+}
+
+.filter-section {
+  padding: 4px;
+}
 
 .image-filter-btn {
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   column-gap: 10px;
-  ;
-
   @media screen and (max-width: 688px) {
     position: fixed;
     z-index: 3;
@@ -102,8 +96,6 @@
   flex-direction: column;
   justify-content: space-evenly;
   row-gap: 24px;
-
-
 }
 
 .img-preview {
@@ -125,9 +117,9 @@
     height: 100%;
 
     & svg image {
-    display: block;
-    width: 100%;
-    object-fit: cover;
+      display: block;
+      width: 100%;
+      object-fit: cover;
     }
   }
 
@@ -162,8 +154,8 @@
 }
 
 .shop-icon {
-  right:0px;
-  top:0px;
+  right: 0px;
+  top: 0px;
   position: absolute;
   padding: 6px;
   color: white;
@@ -276,7 +268,7 @@
 .image-filter-container {
   width: 100%;
   padding: 2rem calc(2rem + ((100vw - 1298px) / 2));
-  left:0px;
+  left: 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -286,34 +278,27 @@
     padding: calc(2rem);
   }
 
-
-
   @media screen and (min-width: 688px) and (max-width: 992px) {
     flex-wrap: wrap;
-
   }
 
   @media screen and (max-width: 688px) {
-
-      border-radius: 10px 10px 0px 0px;
-      background-color: $c-white-off;
-      position: fixed;
-      margin: 0px;
-      padding: 24px;
-      max-height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      bottom: 0px;
-      left: 0px;
-      width: 100%;
-      height: 70%;
-      z-index: 3;
-
+    border-radius: 10px 10px 0px 0px;
+    background-color: $c-white-off;
+    position: fixed;
+    margin: 0px;
+    padding: 24px;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 70%;
+    z-index: 3;
   }
 }
-
-
 
 .image-filter-section {
   flex: 1 1 0px;
@@ -326,7 +311,6 @@
   @media screen and (max-width: 688px) {
     padding: 0px;
   }
-
 }
 
 .image-filter-section-reset {
@@ -352,11 +336,9 @@
   height: 100%;
 }
 
-
 .discover-text {
   color: $c-primary-dark;
 }
-
 
 .discover-card {
   padding: 2rem 2rem;
@@ -366,18 +348,11 @@
   align-items: center;
 }
 
-
 .image-searchbar {
   position: static;
 }
 
-
-
-
-
-
-
-
-
-
-
+.image-searchbar > :first-child > #mapSearch {
+  border: 1px solid $c-primary-dark;
+  border-radius: 20px;
+}
