@@ -154,7 +154,6 @@ const MapCard = ({
             let interpolated = arabic.replace('X', getShopName());
             return <p className={'object-caption'}>{interpolated}</p>;
           }
-
           return (
             <p className={'object-caption'}>
               {t(

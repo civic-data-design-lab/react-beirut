@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import i18n from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import { TRANSLATIONS } from '../../lib/utils';
-import { filter } from 'jszip';
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -112,13 +111,6 @@ const CraftFilter = ({ filteredCrafts, updateCrafts }) => {
             onClick={() => selectedCraft('textiles')}
           >
             {t('Textiles')}
-          </button>
-          <button
-            id={'textiles-btn'}
-            className={determineCraftButtonClass('all')}
-            onClick={() => selectedCraft('all')}
-          >
-            {t('Select All')}
           </button>
         </div>
       </div>
