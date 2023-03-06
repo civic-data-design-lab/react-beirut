@@ -78,9 +78,9 @@ $icon-zindex: 1000;
 
 .btn-pill {
   margin: 10px 5px;
-  background-color: $c-primary-dark;
+  background-color: $c-primary-mid;
   text-decoration: none;
-  border: 1px solid $c-primary-dark;
+  border: 1px solid $c-primary-mid;
   border-radius: 50px;
   padding: 0.75rem 3rem;
   color: $c-white-off;
@@ -99,8 +99,8 @@ $icon-zindex: 1000;
 
 .btn-pill.secondary {
   background-color: $c-white-off;
-  color: $c-primary-dark;
-  border: 1px solid $c-primary-dark;
+  color: $c-primary-mid;
+  border: 1px solid $c-primary-mid;
 
   &:hover {
     background-color: $c-primary-mid;
@@ -109,7 +109,6 @@ $icon-zindex: 1000;
 }
 
 .hstg-btn-pill {
-
   /* IsMobile=On, IsActive=Off */
 
   /* Auto layout */
@@ -118,12 +117,12 @@ $icon-zindex: 1000;
 
   /* white */
 
-  background: #FFFFFF;
+  background: #ffffff;
   /* Drop Shadow Black */
 
   box-shadow: 4px 4px 10px 2px rgba(51, 51, 51, 0.1);
   border-radius: 30px;
-  border-color: #FFFFFF; // For some reason, setting border color to white leaves a weird white line on the bottom edge.
+  border-color: #ffffff; // For some reason, setting border color to white leaves a weird white line on the bottom edge.
 
   // font-family: 'FreightSans Pro';
   font-style: normal;
@@ -137,22 +136,21 @@ $icon-zindex: 1000;
   /* black */
 
   color: #333333;
-
 }
 
-.hstg-btn-pill:hover, .hstg-btn-pill-selected {
-
-  color: #9C6340;
+.hstg-btn-pill:hover,
+.hstg-btn-pill-selected {
+  color: #9c6340;
   align-items: flex-start;
   padding: 9px 18px;
   margin: 1px;
 
   /* white */
 
-  background: #FFFFFF;
+  background: #ffffff;
   /* orange */
 
-  border: 2px solid #9C6340;
+  border: 2px solid #9c6340;
   box-shadow: inset 1px 1px 1px 2px rgba(156, 99, 64, 0.5);
   border-radius: 30px;
 
@@ -174,20 +172,13 @@ $icon-zindex: 1000;
 
   /* grey-mid */
 
-  border: 0.5px solid #CFCFCF;
+  border: 0.5px solid #cfcfcf;
   border-radius: 10px;
 
-  background: #FFFFFF;
-
+  background: #ffffff;
 }
 
-
-
-
-
-
 .hstg-btn-pill-small:hover {
-
   /* IsMobile=Off, IsActive=On */
 
   //color: #9C6340;
@@ -201,7 +192,7 @@ $icon-zindex: 1000;
 
   /* white */
 
-  background: #FFFFFF;
+  background: #ffffff;
   /* orange */
 
   //border: 0.5px solid #9C6340;
@@ -212,56 +203,53 @@ $icon-zindex: 1000;
 }
 
 .MultipageForm {
-
-
   .hstg-btn-pill-small {
     /* IsMobile=Off, IsActive=Off */
 
     box-sizing: border-box;
-  
+
     /* Auto layout */
-  
+
     padding: 1px 11px;
     margin: 3px;
-  
-    /* grey-mid */
-  
-    border: 0.5px solid #CFCFCF;
-    border-radius: 10px;
-  
-    background: #FFFFFF;
 
+    /* grey-mid */
+
+    border: 0.5px solid #cfcfcf;
+    border-radius: 10px;
+
+    background: #ffffff;
   }
-  
-  
-  
-  
+
   .hstg-btn-pill-small:hover {
-    color: #9C6340;
+    color: #9c6340;
     box-sizing: border-box;
     padding: 1px 11px;
     margin: 3px;
-    background: #FFFFFF;
-    border: 0.5px solid #9C6340;
+    background: #ffffff;
+    border: 0.5px solid #9c6340;
     box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
     border-radius: 10px;
   }
 
   .hstg-btn-pill-small-selected {
-    color: #9C6340;
+    color: #9c6340;
     font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
     box-sizing: border-box;
     padding: 1px 11px;
     margin: 3px;
-    background: #FFFFFF;
-    border: 0.5px solid #9C6340;
+    background: #ffffff;
+    border: 0.5px solid #9c6340;
     box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
     border-radius: 10px;
   }
 }
 
-
-
+// .hstg-btn-pill-small--all:hover {
+//   color: $c-primary-mid;
+//   border: 0.5px solid $c-primary-mid;
+//   box-shadow: 0px 0px 30px 1px $c-primary-mid;
+// }
 
 .hstg-btn-pill-small--architectural:hover {
   color: $c-architectural;
@@ -305,16 +293,22 @@ $icon-zindex: 1000;
   box-shadow: 0px 0px 30px 1px $c-textiles;
 }
 
-
-
 .hstg-btn-pill-small-selected {
   //color: #9C6340;
   font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
   box-sizing: border-box;
   padding: 1px 11px;
   margin: 3px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 10px;
+}
+
+.hstg-btn-pill-small-selected--all {
+  color: $c-white;
+  border: 0px solid $c-primary-mid;
+  background-color: $c-primary-mid;
+  transition: color 0.5s ease;
+  transition: background-color 0.5s ease;
 }
 
 .hstg-btn-pill-small-selected--architectural {
@@ -323,7 +317,6 @@ $icon-zindex: 1000;
   background-color: $c-architectural;
   transition: color 0.5s ease;
   transition: background-color 0.5s ease;
-
 }
 
 .hstg-btn-pill-small-selected--cuisine {
@@ -374,7 +367,13 @@ $icon-zindex: 1000;
   transition: background-color 0.5s ease;
 }
 
-
+.hstg-btn-pill-small--all {
+  color: $c-primary-mid;
+  border: 1px solid $c-primary-mid;
+  transition: color 0.5s ease;
+  transition: background-color 0.5s ease;
+  //box-shadow: 0px 0px 30px 1px $c-architectural;
+}
 
 .hstg-btn-pill-small--architectural {
   color: $c-architectural;
@@ -432,10 +431,6 @@ $icon-zindex: 1000;
   //box-shadow: 0px 0px 30px 1px $c-textiles;
 }
 
-
-
-
-
 .other-btn {
   .additional-tag-tooltip {
     background-color: #333;
@@ -444,7 +439,7 @@ $icon-zindex: 1000;
     //visibility: hidden;
     display: none;
   }
-  
+
   .additional-tag-tooltip-shown {
     background-color: #333;
     color: white;
@@ -453,7 +448,6 @@ $icon-zindex: 1000;
     display: inline;
   }
 }
-
 
 .other-btn-selected {
   .additional-tag-tooltip {
@@ -472,7 +466,7 @@ $icon-zindex: 1000;
     .additional-tag-txtbox {
       border: none;
       border-radius: 5px;
-      background-color: rgba(0,0,0,0);
+      background-color: rgba(0, 0, 0, 0);
       margin: 5px 4px;
     }
     .submit-new-tag-btn {
@@ -486,7 +480,7 @@ $icon-zindex: 1000;
 
       /* white */
 
-      background: #FFFFFF;
+      background: #ffffff;
       /* orange */
 
       border: 0.5px solid #333;
@@ -498,23 +492,22 @@ $icon-zindex: 1000;
     }
     /* IsMobile=Off, IsActive=On */
 
-    color: #9C6340;
+    color: #9c6340;
 
     box-sizing: border-box;
 
-
     /* white */
 
-    background: #FFFFFF;
+    background: #ffffff;
     /* orange */
 
-    border: 0.5px solid #9C6340;
+    border: 0.5px solid #9c6340;
     /* Btn Shadow Red */
 
     box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
     border-radius: 10px;
   }
-  
+
   .additional-tag-tooltip-shown {
     background-color: #333;
     color: white;
@@ -527,7 +520,7 @@ $icon-zindex: 1000;
   border-radius: 10px;
   height: 1em;
   width: 1em;
-  
+
   margin: 0;
   /* IsMobile=Off, IsActive=On */
 
@@ -537,7 +530,7 @@ $icon-zindex: 1000;
 
   /* white */
 
-  background: #FFFFFF;
+  background: #ffffff;
   /* orange */
 
   border: 0.5px solid #333;
@@ -548,20 +541,18 @@ $icon-zindex: 1000;
   display: inline-block;
 
   text-align: center;
-
 }
 
 .remove-tag-btn:only-child {
   margin: 0;
   padding: 0;
   text-align: center;
-  border: 0.5px solid #9C6340;
-  color: #9C6340;
+  border: 0.5px solid #9c6340;
+  color: #9c6340;
 }
 
 .add-img-btn {
-
-    .hstg-btn-pill {
+  .hstg-btn-pill {
     /* IsMobile=Off, IsActive=Off */
 
     box-sizing: border-box;
@@ -573,44 +564,32 @@ $icon-zindex: 1000;
 
     /* grey-mid */
 
-    border: 0.5px solid #CFCFCF;
+    border: 0.5px solid #cfcfcf;
     border-radius: 20px;
 
-    background: #FFFFFF;
-
+    background: #ffffff;
   }
 
-
-
-
   .hstg-btn-pill:hover {
-    color: #9C6340;
+    color: #9c6340;
     box-sizing: border-box;
     padding: 9px 19px;
     margin: 1px;
-    background: #FFFFFF;
-    border: 0.5px solid #9C6340;
+    background: #ffffff;
+    border: 0.5px solid #9c6340;
     box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
     border-radius: 20px;
   }
 
   .hstg-btn-pill-selected {
-    color: #9C6340;
+    color: #9c6340;
     font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
     box-sizing: border-box;
     padding: 9px 19px;
     margin: 1px;
-    background: #FFFFFF;
-    border: 0.5px solid #9C6340;
+    background: #ffffff;
+    border: 0.5px solid #9c6340;
     box-shadow: 0px 0px 30px 1px rgba(200, 135, 105, 0.15);
     border-radius: 20px;
   }
-
 }
-
-
-
-
-
-
-

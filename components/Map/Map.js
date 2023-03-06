@@ -331,7 +331,10 @@ export default class App extends React.PureComponent {
       center: this.props.coords, // [35.510, 33.893894], // starting position [lng, lat]
       zoom: this.props.mapZoom, //13.25, // starting zoom
 
-      //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
+      maxBounds: [
+        [35.450896, 33.860897],
+        [35.574654, 33.916889],
+      ],
     });
 
     // add all potential layers as a source

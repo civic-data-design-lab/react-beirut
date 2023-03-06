@@ -91,7 +91,7 @@ const MapFilter = ({
           />
         </div>
         <hr />
-        <div>
+        <div className="toggle-section-container">
           <div className={'toggle-section'}>
             <p className={'card-section-labels'}>{t('Show craft workshops')}</p>
             <ActiveFilter
