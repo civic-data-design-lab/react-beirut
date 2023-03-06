@@ -41,9 +41,6 @@ const MapFilter = ({
   toggleWorkshopReset,
   toggleArchiveReset,
 }) => {
-  console.log('workshops filter ', toggleWorkshopStatus);
-  console.log('archive filter ', toggleArchiveStatus);
-
   const { t } = useTranslation();
   const filterCardContent = () => {
     return (
@@ -94,7 +91,7 @@ const MapFilter = ({
           />
         </div>
         <hr />
-        <div>
+        <div className="toggle-section-container">
           <div className={'toggle-section'}>
             <p className={'card-section-labels'}>{t('Show craft workshops')}</p>
             <ActiveFilter

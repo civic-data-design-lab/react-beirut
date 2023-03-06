@@ -44,7 +44,6 @@ export default class App extends React.PureComponent {
       markerRadius: this.getMarkerRadius(this.props.mapZoom),
       geoLocateCoords: null,
       isAfterClick: false,
-      //mapZoom: this.props.mapZoom
     };
 
     this.mapContainer = React.createRef();
@@ -261,29 +260,32 @@ export default class App extends React.PureComponent {
     });
     let lng;
     let lat;
-    try {
-      lng = obj.location.geo.lng;
-      lat = obj.location.geo.lat;
-    } catch {
-      lng = obj.primary_location.geo.lng;
-      lat = obj.primary_location.geo.lat;
+
+    const geoLocation = obj?.location?.geo;
+    const geoPrimaryLocation = obj?.primary_location?.geo;
+    lng = geoLocation?.lng || geoPrimaryLocation?.lng;
+    lat = geoLocation?.lat || geoPrimaryLocation?.lat;
+
+    if (lat && lng) {
+      const popupContent = document.createElement('div');
+      const popupText = (
+        <>
+          <p>{this.getShopName(obj)}</p>
+          {obj.object === 'workshop' ? (
+            <FontAwesomeIcon icon={faShop} width={14} />
+          ) : (
+            <FontAwesomeIcon icon={faImage} width={14} />
+          )}
+        </>
+      );
+      popupContent.className = 'marker-popup';
+      ReactDOM.render(popupText, popupContent);
+
+      popup
+        .setLngLat([lng, lat])
+        .setDOMContent(popupContent)
+        .addTo(map.current);
     }
-
-    const popupContent = document.createElement('div');
-    const popupText = (
-      <>
-        <p>{this.getShopName(obj)}</p>
-        {obj.object === 'workshop' ? (
-          <FontAwesomeIcon icon={faShop} width={14} />
-        ) : (
-          <FontAwesomeIcon icon={faImage} width={14} />
-        )}
-      </>
-    );
-    popupContent.className = 'marker-popup';
-    ReactDOM.render(popupText, popupContent);
-
-    popup.setLngLat([lng, lat]).setDOMContent(popupContent).addTo(map.current);
   };
 
   leaveMarker(e) {
@@ -329,7 +331,10 @@ export default class App extends React.PureComponent {
       center: this.props.coords, // [35.510, 33.893894], // starting position [lng, lat]
       zoom: this.props.mapZoom, //13.25, // starting zoom
 
-      //maxBounds: [[35.383297650238326, 33.83527318407196], [35.629842811007315, 33.928357422091395]]
+      maxBounds: [
+        [35.450896, 33.860897],
+        [35.574654, 33.916889],
+      ],
     });
 
     // add all potential layers as a source
@@ -664,9 +669,11 @@ export default class App extends React.PureComponent {
 
     if (this.props.search && this.props.search !== prevProps.search) {
       if (this.activeMarker) {
-        document
-          .querySelector(`.marker-${this.activeMarker}`)
-          .classList.remove('active-marker');
+        const selectedMarker = document.querySelector(
+          `.marker-${this.activeMarker}`
+        );
+
+        if (selectedMarker) selectedMarker.classList.remove('active-marker');
         this.activeMarker = null;
       }
     }
@@ -675,9 +682,11 @@ export default class App extends React.PureComponent {
       const mark = document.querySelector(`.marker-${this.props.id}`);
       mark.classList.add('active-marker');
       if (this.activeMarker) {
-        document
-          .querySelector(`.marker-${this.activeMarker}`)
-          .classList.remove('active-marker');
+        const selectedMarker = document.querySelector(
+          `.marker-${this.activeMarker}`
+        );
+
+        if (selectedMarker) selectedMarker.classList.remove('active-marker');
       }
       this.activeMarker = this.props.id;
     }

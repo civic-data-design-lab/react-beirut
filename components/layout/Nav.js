@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
  * TODO: update dual language
  */
 
-const Nav = ({ changeLanguage }) => {
+const Nav = ({ changeLanguage, i18n }) => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -142,15 +142,19 @@ const Nav = ({ changeLanguage }) => {
               }
             >
               <button
-                className="btn-language"
+                className={`btn-language ${
+                  i18n.language === 'en' ? 'selected' : ''
+                }`}
                 onClick={() => {
                   changeLanguage('en');
                 }}
               >
-                En
+                EN
               </button>
               <button
-                className="btn-language"
+                className={`btn-language ${
+                  i18n.language === 'ar' ? 'selected' : ''
+                }`}
                 onClick={() => {
                   changeLanguage('ar');
                 }}
@@ -311,6 +315,20 @@ const Nav = ({ changeLanguage }) => {
                 &copy;{' '}
                 {t('2022 Living Heritage Atlas 2022. All rights reserved.')}
               </small>
+              {/* <ul>
+              <li>
+                <a href="#">
+                  <i className="fa fa-twitter fa-fw"></i>
+                  Twitter
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <i className="fa fa-envelope fa-fw"></i>
+                  Subscribe
+                </a>
+              </li>
+            </ul> */}
             </div>
           </nav>
         </footer>

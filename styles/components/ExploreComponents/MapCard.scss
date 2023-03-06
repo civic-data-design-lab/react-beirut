@@ -14,74 +14,67 @@
   pointer-events: auto;
   overflow: scroll;
   bottom: 10vh;
-  margin:0px;
+  margin: 0px;
   z-index: 7;
 
   -webkit-overflow-scrolling: touch;
 
-
   @media screen and (min-width: 688px) and (max-width: 991px) {
-      border-radius: 10px 10px 10px 10px;
-      position: fixed;
-      top: 45%;
-      //left: 25vw;
-      right: 25vw;
-      transform: translate(0%, -50%);
-      width: 50vw;
-      height: 60vh;
-    }
+    border-radius: 10px 10px 10px 10px;
+    position: fixed;
+    top: 45%;
+    //left: 25vw;
+    right: 25vw;
+    transform: translate(0%, -50%);
+    width: 50vw;
+    height: 60vh;
+  }
 
   @media screen and (max-width: 688px) {
-      position: absolute;
-      //position: fixed;
-      border-radius: 10px 10px 0px 0px;
-      right: 0px;
-      left: 0px;
-      width: 100%;
-      height: calc(100vh - 80px);
-      //bottom: 0%;
-      z-index: 20;
+    position: absolute;
+    //position: fixed;
+    border-radius: 10px 10px 0px 0px;
+    right: 0px;
+    left: 0px;
+    width: 100%;
+    height: calc(100vh - 80px);
+    //bottom: 0%;
+    z-index: 20;
     overflow-y: scroll;
     // display: block;
     --safe-area-inset-top: env(safe-area-inset-top);
     --safe-area-inset-bottom: env(safe-area-inset-bottom);
     padding: 2vw 2vw calc(1em + var(--safe-area-inset-bottom));
-      -webkit-animation: slideIn 2s forwards;
-      -moz-animation: slideIn 2s forwards;
-      animation: slideIn 2s forwards;
+    -webkit-animation: slideIn 2s forwards;
+    -moz-animation: slideIn 2s forwards;
+    animation: slideIn 2s forwards;
 
-        @-webkit-keyframes slideIn {
-        0% {
-          top: 100%;
-        }
-        100% {
-          top: 10%;
-        }
+    @-webkit-keyframes slideIn {
+      0% {
+        top: 100%;
       }
-      @-moz-keyframes slideIn {
-        0% {
-          top: 100%;
-        }
-        100% {
-          top: 10%;
-        }
+      100% {
+        top: 10%;
       }
-      @keyframes slideIn {
-        0% {
-          top: 100%;
-        }
-        100% {
-          top: 10%;
-        }
+    }
+    @-moz-keyframes slideIn {
+      0% {
+        top: 100%;
       }
-
-
+      100% {
+        top: 10%;
       }
+    }
+    @keyframes slideIn {
+      0% {
+        top: 100%;
+      }
+      100% {
+        top: 10%;
+      }
+    }
+  }
 }
-
-
-
-
 
 .mapCard-drag-container {
   overflow: hidden;
@@ -100,11 +93,7 @@
     // display: none;
     padding: 0 2vw;
   }
-
 }
-
-
-
 
 .mapCard-dragger {
   display: flex;
@@ -115,9 +104,6 @@
   min-height: 5%;
 }
 
-
-
-
 .shopName-text {
   font-family: $font-title;
   font-style: normal;
@@ -126,8 +112,7 @@
   line-height: 18px;
   margin-bottom: 0px;
 
-  display:inline;
-
+  display: inline;
 }
 
 .shopSubtitle-text {
@@ -136,14 +121,13 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
-  color: #AEAEAE;
+  color: #aeaeae;
   margin: 0;
-  }
-
-.broken-img {
-    visibility: hidden;
 }
 
+.broken-img {
+  visibility: hidden;
+}
 
 .mapCard-slider-container {
   height: calc(30vw - 48px);
@@ -154,18 +138,15 @@
   align-items: center;
 
   @media screen and (min-width: 688px) and (max-width: 991px) {
-      height: calc(50vw - 48px);
-      min-height: calc(50vw - 48px);;
-    }
+    height: calc(50vw - 48px);
+    min-height: calc(50vw - 48px);
+  }
 
   @media screen and (max-width: 688px) {
-      height: calc(100vw - 48px);
-      min-height: calc(100vw - 48px);
-    }
-
-
+    height: calc(100vw - 48px);
+    min-height: calc(100vw - 48px);
+  }
 }
-
 
 .exploreContainer {
   position: relative;
@@ -200,14 +181,11 @@ exploreShops-div {
   justify-content: center;
 }
 
-
-
 .exploreShop-div {
-
   position: relative;
-    width: 20%;
-    height: 0;
-    padding-bottom: 20%;
+  width: 20%;
+  height: 0;
+  padding-bottom: 20%;
 
   //width: 33%;
   margin: 0px;
@@ -238,13 +216,8 @@ exploreShops-div {
 
 .shop-title-verification {
   //position: relative;
-
 }
 
 .noscroll {
   overflow: hidden;
 }
-
-
-
-

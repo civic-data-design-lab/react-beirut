@@ -1,6 +1,5 @@
 @import '../setup/variables';
 
-
 .scroll-lock {
   // pointer-events: none !important;
   // touch-action: none !important;
@@ -10,6 +9,7 @@
 
 #header {
   //position: fixed !important;
+  pointer-events: none;
   width: 100vw;
   height: $header-height;
   padding: 2rem;
@@ -82,7 +82,7 @@
   // left: 120px;
   top: 45px;
   text-transform: capitalize;
-  @media screen and (max-width:589px) {
+  @media screen and (max-width: 589px) {
     font-size: 16px;
   }
 }
@@ -116,6 +116,7 @@
     border: none;
     cursor: pointer;
     margin-right: 15px;
+    pointer-events: initial;
 
     &.active {
       text-decoration: underline;
@@ -124,6 +125,10 @@
     // @media (max-width: 600px) {
     //  display: none;
     // }
+
+    &.selected {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -176,14 +181,11 @@ $hamburger-zindex: $menu-zindex + 10;
     }
   }
 
-
-
   ul {
     // width: 400px;
     width: min(360px, 100%);
     //margin: 0 auto;
     //left: 50%;
-
 
     &:hover {
       a {
@@ -200,15 +202,12 @@ $hamburger-zindex: $menu-zindex + 10;
         opacity: 1;
       }
     }
-    
   }
 
   .main-nav {
     position: relative;
     //top: 50%;
     //transform: translateY(-50%);
-
-
 
     ul {
       list-style: none;
@@ -248,11 +247,11 @@ $hamburger-zindex: $menu-zindex + 10;
     @media (max-width: 600px) {
       // display: none;
     }
-    
+
     img {
       height: 25px;
       margin-right: 40px;
-     // mix-blend-mode: multiply;
+      // mix-blend-mode: multiply;
       filter: opacity(0.6);
     }
     #FHL-Logo {
@@ -307,9 +306,9 @@ $hamburger-zindex: $menu-zindex + 10;
 
   .item-line {
     grid-column-start: 1;
-    grid-column-end:  2;
-    grid-row-start:  1;
-    grid-row-end:  3;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
     background: white;
     display: none;
     transition: 0.3s;
@@ -317,41 +316,38 @@ $hamburger-zindex: $menu-zindex + 10;
 
   .item-text-1 {
     grid-column-start: 2;
-    grid-column-end:  3;
-    grid-row-start:  1;
-    grid-row-end:  2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
     //font-size:  1rem;
     //font-size: 56px;
     line-height: 10px;
     @media (max-height: 750px) {
-        line-height: 2px;
-      }
+      line-height: 2px;
+    }
   }
 
   .item-text-2 {
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 2;
-    grid-row-end:  3;
+    grid-row-end: 3;
     display: none;
     font-size: 1rem;
     color: white;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
-    top:1.5rem;
+    top: 1.5rem;
 
     @media (max-height: 659px) {
-        font-size: 1rem;
-      }
+      font-size: 1rem;
+    }
 
     @media (max-height: 670px) {
       font-size: 0.75rem;
     }
   }
-
-
-
 }
 
 // Hamburger menu toggler stuff below
@@ -434,8 +430,6 @@ $hamburger-zindex: $menu-zindex + 10;
   padding: 2rem;
 }
 
-
-
 .nav-parent-container {
   display: flex;
   flex-direction: row;
@@ -445,31 +439,28 @@ $hamburger-zindex: $menu-zindex + 10;
   max-width: 100%;
 
   .nav-left-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  max-width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 50%;
+    pointer-events: initial;
 
-  .nav-divider {
-    margin-right: 12px;
-    width: 1.5px;
-    color: $c-primary-mid;
-    opacity: 1;
-    min-height: 0.5em;
-    height: 1.5em;
-    align-self: center;
-    z-index: 3;
-    transition: all 0.3s ease-in-out;
+    .nav-divider {
+      margin-right: 12px;
+      width: 1.5px;
+      color: $c-primary-mid;
+      opacity: 1;
+      min-height: 0.5em;
+      height: 1.5em;
+      align-self: center;
+      z-index: 3;
+      transition: all 0.3s ease-in-out;
 
-    &.hide-background {
-    background-color: transparent;
+      &.hide-background {
+        background-color: transparent;
+      }
+    }
   }
-
-
-
-
-}
-}
 }
 
 .footer-logos {
@@ -480,7 +471,6 @@ $hamburger-zindex: $menu-zindex + 10;
     flex-wrap: wrap;
     row-gap: 8px;
     align-items: center;
-
   }
 }
 
@@ -490,20 +480,19 @@ $hamburger-zindex: $menu-zindex + 10;
   @media (max-height: 850px) {
     margin-bottom: 30px !important;
   }
-
 }
 
-.nav-list-item{
-  padding-bottom:1.5rem !important;
+.nav-list-item {
+  padding-bottom: 1.5rem !important;
   @media (max-height: 670px) {
-        padding-bottom:8px !important;
-      }
+    padding-bottom: 8px !important;
+  }
 }
 
 .footer-contact {
   @media (max-height: 850px) {
-        font-size: smaller;
-      }
+    font-size: smaller;
+  }
 }
 
 .footer-nav {
@@ -511,6 +500,3 @@ $hamburger-zindex: $menu-zindex + 10;
   flex-direction: column;
   justify-content: space-between;
 }
-
-
-

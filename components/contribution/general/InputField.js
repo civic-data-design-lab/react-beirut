@@ -260,7 +260,7 @@ const InputField = (props) => {
           onChange={(e) => onUpdate({ [fieldName]: e.target.value })}
           placeholder={
             inputType === 'instagram_handle' || inputType === 'twitter_handle'
-              ? '@user_name'
+              ? '@username'
               : ''
           }
           {...rest}

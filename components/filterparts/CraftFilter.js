@@ -16,15 +16,28 @@ const CraftFilter = ({ filteredCrafts, updateCrafts }) => {
   const selectedCraft = (craftType) => {
     let craftsList = filteredCrafts;
     let selectedAlready = craftsList.indexOf(craftType);
-    if (selectedAlready > -1) {
-      craftsList.splice(selectedAlready, 1);
-      let button = document.getElementById(`${craftType}-btn`);
-      button.className = `hstg-btn-pill-small--${craftType}`;
+    if (craftType === 'all') {
+      craftsList = [
+        'architectural',
+        'cuisine',
+        'decorative',
+        'fashion',
+        'functional',
+        'furniture',
+        'textiles',
+      ];
     } else {
-      craftsList.push(craftType);
-      let button = document.getElementById(`${craftType}-btn`);
-      button.className = `hstg-btn-pill-small-selected--${craftType}`;
+      if (selectedAlready > -1) {
+        craftsList.splice(selectedAlready, 1);
+        let button = document.getElementById(`${craftType}-btn`);
+        button.className = `hstg-btn-pill-small--${craftType}`;
+      } else {
+        craftsList.push(craftType);
+        let button = document.getElementById(`${craftType}-btn`);
+        button.className = `hstg-btn-pill-small-selected--${craftType}`;
+      }
     }
+
     if (navigator.cookieEnabled) {
       sessionStorage.setItem('prevFilterCrafts', JSON.stringify(craftsList));
     }
@@ -34,11 +47,15 @@ const CraftFilter = ({ filteredCrafts, updateCrafts }) => {
   };
 
   const determineCraftButtonClass = (craftName) => {
-    let index = filteredCrafts.indexOf(craftName);
-    if (index > -1) {
-      return `hstg-btn-pill-small-selected hstg-btn-pill-small-selected--${craftName}`;
-    } else {
+    if (craftName === 'all') {
       return `hstg-btn-pill-small hstg-btn-pill-small--${craftName}`;
+    } else {
+      let index = filteredCrafts.indexOf(craftName);
+      if (index > -1) {
+        return `hstg-btn-pill-small-selected hstg-btn-pill-small-selected--${craftName}`;
+      } else {
+        return `hstg-btn-pill-small hstg-btn-pill-small--${craftName}`;
+      }
     }
   };
 

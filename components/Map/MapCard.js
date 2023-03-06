@@ -136,24 +136,10 @@ const MapCard = ({
     setImageMetaData(metaData);
     setValidImages(validImages);
     console.log('metadata ', metaData);
-    //this.setState({imageMetaData:metaData, validImages:validImages})
-    //console.log("metadata ", this.state.imageMetaData)
   };
 
   const getCaption = () => {
-    //console.log('current images image metadata ', this.state.imageMetaData[this.state.currentImageIndex])
-    //return <p>{this.state.currentImageIndex}</p>
-    //let imageContainer = document.querySelector('.mapSlider-wrapper');
-    //return (<p>{imageContainer.offsetWidth}</p>)
-
-    //if (this.state.invalidImages.indexOf(this.state.currentImageIndex)>-1) {
-    //    return <p>Image unavailable</p>
-    //}
-
     const currentMetaData = imageMetaData[currentImageIndex];
-
-    // console.log('image metaData ', imageMetaData[currentImageIndex])
-
     const viewKeywords = ['storefront', 'street', 'interior', 'indoor'];
     const interiorKeywords = ['interior', 'inside', 'indoor'];
     const viewSet = new Set(viewKeywords);
@@ -168,8 +154,6 @@ const MapCard = ({
             let interpolated = arabic.replace('X', getShopName());
             return <p className={'object-caption'}>{interpolated}</p>;
           }
-          // console.log('currentMetaData ', currentMetaData.type[0])
-          // console.log('translation ', t(currentMetaData.type[0].charAt(0).toUpperCase() + currentMetaData.type[0].slice(1).toLowerCase() + ' view of '))
           return (
             <p className={'object-caption'}>
               {t(
@@ -304,7 +288,6 @@ const MapCard = ({
     if (!workshop.decade_established) {
       return null;
     }
-    //console.log(this.props.type)
 
     if (workshop.decade_established[0]) {
       return t('Established ') + `${workshop.decade_established[0]}`;
@@ -555,7 +538,12 @@ const MapCard = ({
   };
 
   const getThumbnails = () => {
+    // console.log("getting similar thumbnails, ", similarObjects)
     return similarObjects.map((object) => {
+      //console.log(object.thumb_img_id)
+      //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]
+      //return <div className={'exploreShop-div'}><img src={`/api/images/${workshop.thumb_img_id}.jpg`} className={'exploreShops-img'} key={workshop.thumb_img_id}/></div>
+
       if (object.thumb_img_id) {
         return (
           <img
@@ -574,6 +562,37 @@ const MapCard = ({
         return null;
       }
     });
+  };
+
+  const getReferences = () => {
+    let reference;
+
+    if (!workshop.reference) return;
+    else reference = workshop.reference;
+
+    const referenceName = reference?.name;
+    const referenceLink = reference?.link;
+    const referenceCitation = reference?.citation;
+    const referenceLocation = reference?.location;
+
+    return (
+      <React.Fragment>
+        {referenceName && (
+          <p className={'shopSubtitle-text'}>
+            Reference: {referenceName},{' '}
+            {referenceCitation && (
+              <a href={referenceLink}>{referenceCitation}</a>
+            )}
+          </p>
+        )}
+
+        {referenceLocation && (
+          <p className={'shopSubtitle-text'}>
+            Reference Location: {referenceLocation}
+          </p>
+        )}
+      </React.Fragment>
+    );
   };
 
   const createMapCardContent = () => {
@@ -713,26 +732,7 @@ const MapCard = ({
                 {getSubtitle() && getPrimaryDecade() ? ' | ' : ''}{' '}
                 {getSubtitle()}{' '}
               </p>
-              {workshop.reference.link ? (
-                <p className={'shopSubtitle-text'}>
-                  Reference: {workshop.reference.name},{' '}
-                  {
-                    <a href={workshop.reference.link}>
-                      {workshop.reference.citation}
-                    </a>
-                  }
-                </p>
-              ) : (
-                <p className={'shopSubtitle-text'}>
-                  Reference: {workshop.reference.name},{' '}
-                  {workshop.reference.citation}
-                </p>
-              )}
-              {workshop.reference.location && (
-                <p className={'shopSubtitle-text'}>
-                  Reference Location: {workshop.reference.location}
-                </p>
-              )}
+              {getReferences()}
             </div>
 
             <button
@@ -814,8 +814,30 @@ const MapCard = ({
             // position={swiping?{x:0, y:window.innerHeight}:null}
             cancel={'.mapCard-slider-container, .exploreContainer'}
             handle={'.mapCard-dragger'}
+            /*onStart={(e)=> {
+                                               setDragging(e.clientY)
+
+                                           }
+                                }
+                                           onDrag={(e)=> {
+                                               if (e.clientY-dragging>100) {
+                                                   setSwiping(true)
+                                                   let div = document.getElementById(`mapCard${id}`)
+                                                   div.style.transform=`translate(0, ${window.innerHeight}`;
+                                                   //div.style.top=`${window.innerHeight}px`;
+                                                   div.style.transition=`transform 0.5s`;
+                                               }
+                                           }}
+                                           onStop={()=>{
+                                               console.log("ended draggin")
+                                           }*/
           >
-            <div className={'mapCard'} id={`mapCard${id}`}>
+            <div
+              className={'mapCard'}
+              id={`mapCard${id}`}
+              /* style={{
+                                             transition: `${swiping?`transform 0.5s`:'transform 0.0s'}`}}*/
+            >
               <div className={'mapCard-dragger'}>
                 <svg
                   width="24"
