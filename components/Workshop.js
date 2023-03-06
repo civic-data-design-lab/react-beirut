@@ -300,8 +300,10 @@ const Workshop = ({
     if (workshop.contact_info) {
       const contactInfo = [];
       for (const [key, value] of Object.entries(workshop.contact_info)) {
-        value = value.replace('https', '');
-        value = value.replace('http', '');
+        if (value) {
+          value = value.replace('https', '');
+          value = value.replace('http', '');
+        }
         if (key === 'phone' && value) {
           contactInfo.push(
             <div className={'contact-container'}>
