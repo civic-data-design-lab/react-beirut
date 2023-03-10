@@ -12,7 +12,7 @@
   justify-content: space-between;
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 10;
-  overflow: scroll;
+  overflow: auto;
 
   @media screen and (min-width: 688px) and (max-width: 991px) {
     width: 50%;
