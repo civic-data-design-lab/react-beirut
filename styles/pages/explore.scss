@@ -1,14 +1,12 @@
-
 .explore-page-container #map {
-
   position: absolute;
   left: 0;
-  right:0;
+  right: 0;
   top: 0;
   bottom: 0;
   width: 100%;
   height: 100%;
-  zIndex: -1;
+  zindex: -1;
   overflow-y: hidden;
 }
 
@@ -28,46 +26,52 @@
 }
 
 .hoverMarker--white {
-  box-shadow: 0 0 0 5px $c-white
+  box-shadow: 0 0 0 5px $c-white;
 }
 
 .hoverMarker--architectural {
-  box-shadow: 0 0 0 7px $c-architectural
+  box-shadow: 0 0 0 7px $c-architectural;
 }
 
 .hoverMarker--fashion {
-  box-shadow: 0 0 0 7px $c-fashion
+  box-shadow: 0 0 0 7px $c-fashion;
 }
 
 .hoverMarker--decorative {
-  box-shadow: 0 0 0 7px $c-decorative
+  box-shadow: 0 0 0 7px $c-decorative;
 }
 
 .hoverMarker--functional {
-  box-shadow: 0 0 0 7px $c-functional
+  box-shadow: 0 0 0 7px $c-functional;
 }
 
 .hoverMarker--furniture {
-  box-shadow: 0 0 0 7px $c-furniture
+  box-shadow: 0 0 0 7px $c-furniture;
 }
 
 .hoverMarker--textiles {
-  box-shadow: 0 0 0 7px $c-textiles
+  box-shadow: 0 0 0 7px $c-textiles;
 }
 
 .hoverMarker--cuisine {
-  box-shadow: 0 0 0 7px $c-cuisine
+  box-shadow: 0 0 0 7px $c-cuisine;
 }
 
 .hoverMarker--none {
-  box-shadow: 0 0 0 5px $c-none
+  box-shadow: 0 0 0 5px $c-none;
 }
-
 
 .active-marker {
-  box-shadow: 0 0 0 5px $c-white
+  box-shadow: 0 0 0 5px $c-primary-mid;
 }
 
+.inactive-marker {
+  opacity: 0.5;
+}
+
+.default-marker {
+  opacity: 1;
+}
 
 .marker-popup {
   text-align: center;
@@ -76,10 +80,6 @@
     margin: 0px;
   }
 }
-
-
-
-
 
 .filterButton {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -94,16 +94,13 @@
   align-items: center;
 }
 
-
-.filterSettingsButton{
+.filterSettingsButton {
   background-color: $c-primary-mid;
 }
 
-.layerControlButton{
-  background-color: #FFFFFF;
+.layerControlButton {
+  background-color: #ffffff;
 }
-
-
 
 .layerIcon {
   color: $c-grey-mid;
@@ -123,10 +120,9 @@
     display: flex;
     flex-direction: column;
     //left: 18rem;
-    left:80%;
+    left: 80%;
     //right: 2rem ;
   }
-
 }
 
 .LocationForm .searchbar {
@@ -141,7 +137,7 @@
   z-index: 5;
 
   @media screen and (max-width: 688px) {
-    right:0px;
+    right: 0px;
     width: 100%;
     #display: flex;
     #flex-direction: row;
@@ -161,13 +157,9 @@
   background-color: $c-grey-light;
 }
 
-
-
 .search-item {
   padding: 0.75rem 0.5rem;
 }
-
-
 
 #mapSearch {
   background-color: $c-white-off;
@@ -182,9 +174,6 @@
   background-position: 8px 5px;
   //background-size: 18px 18px;
   //background-size: cover;
-
-
-
 }
 
 #mapSearch:active {
@@ -202,24 +191,20 @@
   background-size: 20px 20px;
 }
 
-
 .card-labels {
   font-family: $font-main;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
+  color: $c-primary-dark;
   //line-height: 18px;
-  color: #333333;
 }
 
 .card-section-labels {
-
   font-family: $font-main;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
-  color: #333333;
-
 }
 
 .view-map-btn {
@@ -246,10 +231,10 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #FAF8F6;
-  }
+  color: #faf8f6;
+}
 
-.nav-ctr-container{
+.nav-ctr-container {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -259,12 +244,9 @@
   right: 2rem;
 
   @media screen and (max-width: 688px) {
-    right: calc(100vw - 48px - 2rem)
+    right: calc(100vw - 48px - 2rem);
   }
-
 }
-
-
 
 .nav-ctr-btn {
   margin: 8px;
@@ -279,42 +261,37 @@
 
 .btn-interactivity:active {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
-  transform: translate(.5px, .5px);
+  // transform: translate(0.5px, 0.5px);
 }
 
 .btn-interactivity:hover {
   box-shadow: 3px 3px 3px 2px rgba(0, 0, 0, 0.3);
-  transform: translate(1px, 1px);
+  // transform: translate(1px, 1px);
 }
 
-
 .geolocate-btn {
-
 }
 
 .zoom-out-btn {
-      @media screen and (max-width: 688px) {
+  @media screen and (max-width: 688px) {
     // visibility: hidden;
   }
 }
 
 .zoom-in-btn {
-      @media screen and (max-width: 688px) {
+  @media screen and (max-width: 688px) {
     //visibility: hidden;
   }
 }
 
-
-
 .slidingCard-container {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
 
 .slidingCard-container::-webkit-scrollbar {
-    display: none;  /* Safari and Chrome */
+  display: none; /* Safari and Chrome */
 }
-
 
 .map-legend {
   background-color: $c-white-off;
@@ -331,7 +308,7 @@
   z-index: 10;
 
   @media screen and (max-width: 688px) {
-      display: none;
+    display: none;
   }
 
   .legend-content {
@@ -343,14 +320,10 @@
       grid-template-columns: 100%;
     }
 
-
-
-
     .legend-section {
       display: flex;
       flex-direction: row;
       align-items: center;
-
 
       .legend-label {
         font-size: 12px;
@@ -395,17 +368,14 @@
         &.none {
           background-color: $c-none;
         }
-
-
       }
-
     }
-
-
   }
-
-
 }
 
-
-
+.map-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $c-primary-dark;
+}

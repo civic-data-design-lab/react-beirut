@@ -1,5 +1,6 @@
 import React from 'react';
 import CraftFilter from '../filterparts/CraftFilter';
+import ContentFilter from '../filterparts/ContentFilter';
 import YearFilter from '../filterparts/YearFilter';
 import ActiveFilter from '../filterparts/ActiveFilter';
 import { useMediaQuery } from 'react-responsive';
@@ -32,6 +33,8 @@ const ImageFilter = ({
   toggleArchiveStatus,
   updateWorkshopToggle,
   updateArchiveToggle,
+  filteredContent,
+  updateContent,
 
   resetWorkshopToggle,
   resetArchiveToggle /**/,
@@ -48,13 +51,31 @@ const ImageFilter = ({
   const getImageFilterContent = () => {
     return (
       <>
-        <div className={'image-filter-section'} style={{ flexBasis: '35%' }}>
-          <p>{t('Craft Type')}</p>
-          <hr />
-          <CraftFilter
-            filteredCrafts={filteredCrafts}
-            updateCrafts={updateCrafts}
-          />
+        <div
+          className={'image-filter-section'}
+          style={{
+            flexBasis: '35%',
+            display: 'flex',
+            flexDirection: 'column',
+            rowGap: '1rem',
+          }}
+        >
+          <div>
+            <p>{t('Craft Type')}</p>
+            <hr />
+            <CraftFilter
+              filteredCrafts={filteredCrafts}
+              updateCrafts={updateCrafts}
+            />
+          </div>
+          <div>
+            <p>{t('Image Content')}</p>
+            <hr />
+            <ContentFilter
+              filteredContent={filteredContent}
+              updateContent={updateContent}
+            />
+          </div>
         </div>
         <div className={'image-filter-section'} style={{ flexBasis: '35%' }}>
           <p>
@@ -86,6 +107,7 @@ const ImageFilter = ({
                 toggleStatus={toggleWorkshopStatus}
                 updateToggle={updateWorkshopToggle}
                 resetToggle={resetWorkshopToggle}
+                forWorkshops={true}
               />
             </div>
 
@@ -168,6 +190,14 @@ const ImageFilter = ({
                 </div>
                 <hr />
                 <div className={'card-section'}>
+                  <p className={'card-section-labels'}>{t('Image Content')}</p>
+                  <ContentFilter
+                    filteredContent={filteredContent}
+                    updateContent={updateContent}
+                  />
+                </div>
+                <hr />
+                <div className={'card-section'}>
                   <p className={'card-section-labels'}>{t('Time Range')}</p>
                   <YearFilter
                     startYear={startYear}
@@ -176,13 +206,17 @@ const ImageFilter = ({
                   />
                 </div>
                 <hr />
-                <div className={'d-flex flex-column w-100'}>
+                <div
+                  className={'d-flex flex-column w-100'}
+                  style={{ rowGap: '.25rem' }}
+                >
                   <div className={`image-filter-toggle-section`}>
                     <p>{t('Show Crafts Workshops')}</p>
                     <ActiveFilter
                       toggleStatus={toggleWorkshopStatus}
                       updateToggle={updateWorkshopToggle}
                       resetToggle={resetWorkshopToggle}
+                      forWorkshops={true}
                     />
                   </div>
 

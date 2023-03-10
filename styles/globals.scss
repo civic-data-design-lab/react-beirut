@@ -76,3 +76,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
+
+p,
+ul,
+li {
+  color: $c-primary-dark;
+}
+
+button {
+  color: $c-primary-dark;
+}

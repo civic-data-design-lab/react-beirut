@@ -1,6 +1,10 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import { getAllArchives, getAllWorkshops } from '../../lib/apiUtils';
+import {
+  getAllArchives,
+  getAllImageMetas,
+  getAllWorkshops,
+} from '../../lib/apiUtils';
 import MapFilter from '../../components/Map/MapFilter';
 import React from 'react';
 import Legend from '../../components/Map/Legend';
@@ -37,6 +41,7 @@ export default class Explore extends React.Component {
     this.updateYears = this.updateYears.bind(this);
     this.updateWorkshopToggle = this.updateWorkshopToggle.bind(this);
     this.updateArchiveToggle = this.updateArchiveToggle.bind(this);
+    this.updateContent = this.updateContent.bind(this);
 
     this.state = {
       mapLayer: null,
@@ -124,6 +129,7 @@ export default class Explore extends React.Component {
       width: null,
       swiping: null,
       setSwiping: false,
+      filteredContent: ['person', 'craft', 'indoor', 'outdoor'],
     };
   }
 
@@ -133,6 +139,12 @@ export default class Explore extends React.Component {
 
   setSwiping = (y) => {
     this.setState({ swiping: y });
+  };
+
+  updateContent = (contentData) => {
+    this.setState({
+      filteredContent: contentData,
+    });
   };
 
   updateMapLayer = (mapLayer) => {
@@ -364,7 +376,9 @@ export default class Explore extends React.Component {
     window.addEventListener('resize', this.handleResize);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {}
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('id ', this.state.id);
+  }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
@@ -414,6 +428,8 @@ export default class Explore extends React.Component {
             coords={this.state.coords}
             id={this.state.id}
             setSwiping={this.setSwiping}
+            filteredContent={this.state.filteredContent}
+            imageMetas={this.props.imageMetas}
           />
           {this.state.on ? (
             <MapFilter
@@ -432,6 +448,8 @@ export default class Explore extends React.Component {
               toggleArchiveStatus={this.state.toggleArchiveParent}
               toggleWorkshopReset={this.state.toggleWorkshopReset}
               toggleArchiveReset={this.state.toggleArchiveReset}
+              updateContent={this.updateContent}
+              filteredContent={this.state.filteredContent}
             />
           ) : null}
 
@@ -516,5 +534,7 @@ export default class Explore extends React.Component {
 export async function getServerSideProps() {
   const workshops = await getAllWorkshops();
   const archives = await getAllArchives();
-  return { props: { workshops, archives } };
+  const imageMetas = await getAllImageMetas();
+
+  return { props: { workshops, archives, imageMetas } };
 }

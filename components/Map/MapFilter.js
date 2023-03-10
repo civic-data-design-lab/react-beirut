@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CraftFilter from '../filterparts/CraftFilter';
 import YearFilter from '../filterparts/YearFilter';
+import ContentFilter from '../filterparts/ContentFilter';
 import ActiveFilter from '../filterparts/ActiveFilter';
 import Card from '../Card';
 import { useMediaQuery } from 'react-responsive';
@@ -40,6 +41,8 @@ const MapFilter = ({
   reset,
   toggleWorkshopReset,
   toggleArchiveReset,
+  updateContent,
+  filteredContent,
 }) => {
   const { t } = useTranslation();
   const filterCardContent = () => {
@@ -72,6 +75,14 @@ const MapFilter = ({
         </div>
         <hr />
         <div className={'card-section'}>
+          <p className={'card-section-labels'}>{t('Image Content')}</p>
+          <ContentFilter
+            filteredContent={filteredContent}
+            updateContent={updateContent}
+          />
+        </div>
+        <hr />
+        <div className={'card-section'}>
           <p className={'card-section-labels'}>
             {t('Time Range')} &thinsp;
             <span>
@@ -98,6 +109,7 @@ const MapFilter = ({
               toggleStatus={toggleWorkshopStatus}
               updateToggle={updateWorkshopToggle}
               resetToggle={toggleWorkshopReset}
+              forWorkshops={true}
             />
           </div>
           <div className={'toggle-section'}>
@@ -106,6 +118,7 @@ const MapFilter = ({
               toggleStatus={toggleArchiveStatus}
               updateToggle={updateArchiveToggle}
               resetToggle={toggleArchiveReset}
+              forWorkshops={false}
             />
           </div>
         </div>

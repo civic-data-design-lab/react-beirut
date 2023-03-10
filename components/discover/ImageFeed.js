@@ -7,7 +7,10 @@ const ImageFeed = ({
   storeScrollPosition,
   i18n,
   imageSearchData,
+  imageMetas,
 }) => {
+  console.log('imageFilterData ', imageFilterData);
+
   const searchableKeys = [
     'shop_name',
     'content',
@@ -108,6 +111,7 @@ const ImageFeed = ({
           withinInterval = true;
         } else {
           withinInterval = false;
+          return false;
         }
       } else {
         if (
@@ -117,6 +121,7 @@ const ImageFeed = ({
           withinInterval = true;
         } else {
           withinInterval = false;
+          return false;
         }
       }
     } else {
@@ -131,7 +136,48 @@ const ImageFeed = ({
       (imageFilterData['filteredCrafts'] &&
         imageFilterData['filteredCrafts'].length === 7);
 
+    const objImageIds = [...object.images];
+    const objContent = new Set();
+    const getContent = imageMetas.map((meta) => {
+      if (objImageIds.includes(meta.img_id)) {
+        for (const type of meta.type) {
+          if (type) objContent.add(type.toLowerCase());
+        }
+      }
+    });
+
+    let containsContent = false;
+    const filteredContent = imageFilterData.filteredContent;
+    if (filteredContent.length === 0) {
+      containsContent = true;
+    } else {
+      if (filteredContent.includes('indoor')) {
+        if (objContent.has('indoor')) containsContent = true;
+      }
+      if (filteredContent.includes('outdoor')) {
+        if (
+          objContent.has('street') ||
+          objContent.has('storefront') ||
+          objContent.has('other outdoor space') ||
+          objContent.has('streetview') ||
+          objContent.has('public realm')
+        )
+          containsContent = true;
+      }
+      if (filteredContent.includes('person')) {
+        if (objContent.has('craftperson') || objContent.has('craftsperson'))
+          containsContent = true;
+      }
+      if (filteredContent.includes('craft')) {
+        if (objContent.has('craft object') || objContent.has('craft'))
+          containsContent = true;
+      }
+    }
+
+    if (!containsContent) return false;
+
     if (
+      containsContent &&
       (indices[0] > -1 ||
         (indices.length > 1 && indices[1] > -1) ||
         noCrafts) &&

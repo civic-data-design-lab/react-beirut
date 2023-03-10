@@ -29,12 +29,8 @@ const CraftFilter = ({ filteredCrafts, updateCrafts }) => {
     } else {
       if (selectedAlready > -1) {
         craftsList.splice(selectedAlready, 1);
-        let button = document.getElementById(`${craftType}-btn`);
-        button.className = `hstg-btn-pill-small--${craftType}`;
       } else {
         craftsList.push(craftType);
-        let button = document.getElementById(`${craftType}-btn`);
-        button.className = `hstg-btn-pill-small-selected--${craftType}`;
       }
     }
 

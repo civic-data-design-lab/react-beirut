@@ -236,6 +236,7 @@ export default class App extends React.PureComponent {
     if (popups) {
       popups.parentNode.removeChild(popups);
     }
+    this.showPopup(e, el.obj);
   }
 
   hoverMarker(e) {
@@ -243,15 +244,18 @@ export default class App extends React.PureComponent {
       let el = e.target;
       el.classList.add('hoverMarker');
       el.classList.add(`hoverMarker--${el.craft.toLowerCase()}`);
-      this.showPopup(el.obj);
+      this.showPopup(e, el.obj);
     }
     this.setState({ isAfterClick: false });
   }
 
-  showPopup = (obj) => {
+  showPopup = (e, obj) => {
     const popups = document.querySelector('.mapboxgl-popup');
+    console.log('pipups ', popups);
     if (popups) {
-      popups.parentNode.removeChild(popups);
+      if (e?.fromElement?.obj?.ID !== this.props.id) {
+        popups.parentNode.removeChild(popups);
+      }
     }
 
     const popup = new mapboxGL.Popup({
@@ -269,16 +273,23 @@ export default class App extends React.PureComponent {
     if (lat && lng) {
       const popupContent = document.createElement('div');
       const popupText = (
-        <>
+        <div className="map-popup">
           <p>{this.getShopName(obj)}</p>
           {obj.object === 'workshop' ? (
-            <FontAwesomeIcon icon={faShop} width={14} />
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <p>Craft Workshop</p> &nbsp;
+              <FontAwesomeIcon icon={faShop} width={14} />
+            </div>
           ) : (
-            <FontAwesomeIcon icon={faImage} width={14} />
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <p>Archival Image</p> &nbsp;
+              <FontAwesomeIcon icon={faImage} width={14} />
+            </div>
           )}
-        </>
+        </div>
       );
       popupContent.className = 'marker-popup';
+
       ReactDOM.render(popupText, popupContent);
 
       popup
@@ -294,7 +305,9 @@ export default class App extends React.PureComponent {
     el.classList.remove(`hoverMarker--${el.craft.toLowerCase()}`);
     const popups = document.querySelector('.mapboxgl-popup');
     if (popups) {
-      popups.parentNode.removeChild(popups);
+      if (e.fromElement.obj.ID !== this.props.id) {
+        popups.parentNode.removeChild(popups);
+      }
     }
   }
 
@@ -424,8 +437,16 @@ export default class App extends React.PureComponent {
       }
 
       el.className = `marker marker-${workshop.ID} ${
-        workshop.ID === this.props.id ? 'active-marker' : ''
-      }`;
+        this.props.id === null
+          ? 'default-marker'
+          : workshop.ID === this.props.id
+          ? 'active-marker'
+          : 'inactive-marker'
+      }
+      `;
+
+      el.type = 'workshop';
+      el.obj = workshop;
       el.style.width = `${this.state.markerRadius * 2}px`;
       el.style.height = `${this.state.markerRadius * 2}px`;
       el.style.borderRadius = '50%';
@@ -434,8 +455,6 @@ export default class App extends React.PureComponent {
       el.onclick = this.clickMarker;
       el.onmouseenter = this.hoverMarker;
       el.onmouseleave = this.leaveMarker;
-      el.type = 'workshop';
-      el.obj = workshop;
 
       if (!workshop.location.geo) {
         console.warn(`${workshop.ID} has no geo location`);
@@ -489,8 +508,15 @@ export default class App extends React.PureComponent {
       }
 
       el.className = `marker marker-${archive.ID} ${
-        archive.ID === this.props.id ? 'active-marker' : ''
-      }`;
+        this.props.id === null
+          ? 'default-marker'
+          : archive.ID === this.props.id
+          ? 'active-marker'
+          : 'inactive-marker'
+      }
+      `;
+      el.type = 'archive';
+      el.obj = archive;
       el.style.width = `${this.state.markerRadius * 2}px`;
       el.style.height = `${this.state.markerRadius * 2}px`;
       // el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
@@ -501,8 +527,6 @@ export default class App extends React.PureComponent {
       el.onClick = () => this.clickMarker(el);
       el.onmouseenter = this.hoverMarker;
       el.onmouseleave = this.leaveMarker;
-      el.type = 'archive';
-      el.obj = archive;
 
       if (archive.ID === 'A397612231') {
         return;
@@ -667,31 +691,33 @@ export default class App extends React.PureComponent {
       }
     }
 
-    if (this.props.search && this.props.search !== prevProps.search) {
-      if (this.activeMarker) {
-        const selectedMarker = document.querySelector(
-          `.marker-${this.activeMarker}`
-        );
+    // if (this.props.search && this.props.search !== prevProps.search) {
+    //   if (this.activeMarker) {
+    //     const selectedMarker = document.querySelector(
+    //       `.marker-${this.activeMarker}`
+    //     );
 
-        if (selectedMarker) selectedMarker.classList.remove('active-marker');
-        this.activeMarker = null;
-      }
-    }
+    //     if (selectedMarker) selectedMarker.classList.remove('active-marker');
+    //     this.activeMarker = null;
+    //   }
+    // }
 
-    if (this.props.id && this.props.id !== prevProps.id) {
-      const mark = document.querySelector(`.marker-${this.props.id}`);
-      mark.classList.add('active-marker');
-      if (this.activeMarker) {
-        const selectedMarker = document.querySelector(
-          `.marker-${this.activeMarker}`
-        );
+    // if (this.props.id && this.props.id !== prevProps.id) {
+    //   const mark = document.querySelector(`.marker-${this.props.id}`);
+    //   mark.classList.add('active-marker');
+    //   if (this.activeMarker) {
+    //     const selectedMarker = document.querySelector(
+    //       `.marker-${this.activeMarker}`
+    //     );
 
-        if (selectedMarker) selectedMarker.classList.remove('active-marker');
-      }
-      this.activeMarker = this.props.id;
-    }
+    //     if (selectedMarker) selectedMarker.classList.remove('active-marker');
+    //   }
+    //   this.activeMarker = this.props.id;
+    // }
 
     const sameCrafts = prevProps.numberCrafts === this.props.numberCrafts;
+    const sameContent =
+      prevProps.filteredContent === this.props.filteredContent;
     const sameStartYear = prevProps.startYear === this.props.startYear;
     const sameEndYear = prevProps.endYear === this.props.endYear;
     const sameWorkshopToggle =
@@ -700,6 +726,7 @@ export default class App extends React.PureComponent {
       prevProps.toggleArchiveStatus === this.props.toggleArchiveStatus;
     const sameSearch = prevProps.search === this.props.search;
     const sameMarkerRadius = prevState.markerRadius === this.state.markerRadius;
+    const sameId = prevProps.id === this.props.id;
 
     if (
       sameCrafts &&
@@ -708,7 +735,9 @@ export default class App extends React.PureComponent {
       sameWorkshopToggle &&
       sameArchiveToggle &&
       sameSearch &&
-      sameMarkerRadius
+      sameMarkerRadius &&
+      sameContent &&
+      sameId
     ) {
       return;
     }
@@ -751,9 +780,18 @@ export default class App extends React.PureComponent {
         }
       }
 
-      el.className = `marker marker-${workshop.ID} ${
-        workshop.ID === this.props.id ? 'active-marker' : ''
-      }`;
+      el.className = `marker marker-${workshop.ID} 
+      ${
+        this.props.id === null
+          ? 'default-marker'
+          : workshop.ID === this.props.id
+          ? 'active-marker'
+          : 'inactive-marker'
+      }
+      `;
+
+      el.type = 'workshop';
+      el.obj = workshop;
       el.style.width = `${this.state.markerRadius * 2}px`;
       el.style.height = `${this.state.markerRadius * 2}px`;
       el.style.borderRadius = '50%';
@@ -762,8 +800,6 @@ export default class App extends React.PureComponent {
       el.craft = workshop.craft_discipline_category[0] || 'none';
       el.onmouseenter = this.hoverMarker;
       el.onmouseleave = this.leaveMarker;
-      el.type = 'workshop';
-      el.obj = workshop;
 
       if (!workshop.location.geo) {
         console.warn(`${workshop.ID} has no geo location`);
@@ -784,6 +820,7 @@ export default class App extends React.PureComponent {
           withinInterval = true;
         } else {
           withinInterval = false;
+          continue;
         }
       } else {
         if (
@@ -793,6 +830,7 @@ export default class App extends React.PureComponent {
           withinInterval = true;
         } else {
           withinInterval = false;
+          continue;
         }
       }
 
@@ -818,6 +856,45 @@ export default class App extends React.PureComponent {
         if (!workshop.images || workshop.images.length < 1) {
           continue;
         }
+
+        const objImageIds = [...workshop.images];
+        const objContent = new Set();
+        const getContent = this.props.imageMetas.map((meta) => {
+          if (objImageIds.includes(meta.img_id)) {
+            for (const type of meta.type) {
+              if (type) objContent.add(type.toLowerCase());
+            }
+          }
+        });
+
+        let containsContent = false;
+        if (this.props.filteredContent.length === 0) {
+          containsContent = true;
+        } else {
+          if (this.props.filteredContent.includes('indoor')) {
+            if (objContent.has('indoor')) containsContent = true;
+          }
+          if (this.props.filteredContent.includes('outdoor')) {
+            if (
+              objContent.has('street') ||
+              objContent.has('storefront') ||
+              objContent.has('other outdoor space') ||
+              objContent.has('streetview') ||
+              objContent.has('public realm')
+            )
+              containsContent = true;
+          }
+          if (this.props.filteredContent.includes('person')) {
+            if (objContent.has('craftperson') || objContent.has('craftsperson'))
+              containsContent = true;
+          }
+          if (this.props.filteredContent.includes('craft')) {
+            if (objContent.has('craft object') || objContent.has('craft'))
+              containsContent = true;
+          }
+        }
+
+        if (!containsContent) continue;
 
         let lookup = this.props.search;
         // const meetSearchCriteria = (lookup === "" || (shopName && (shopName.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())) || (shopOrig && (shopOrig.slice(0, lookup.length).toUpperCase() === lookup.toUpperCase())))
@@ -876,8 +953,15 @@ export default class App extends React.PureComponent {
       }
 
       el.className = `marker marker-${archive.ID} ${
-        archive.ID === this.props.id ? 'active-marker' : ''
-      }`;
+        this.props.id === null
+          ? 'default-marker'
+          : archive.ID === this.props.id
+          ? 'active-marker'
+          : 'inactive-marker'
+      }
+      `;
+      el.type = 'archive';
+      el.obj = archive;
       el.style.width = `${this.state.markerRadius * 2}px`;
       el.style.height = `${this.state.markerRadius * 2}px`;
       el.style.borderRadius = '50%';
@@ -886,8 +970,6 @@ export default class App extends React.PureComponent {
       el.craft = archive.craft_discipline_category[0] || 'none';
       el.onmouseenter = this.hoverMarker;
       el.onmouseleave = this.leaveMarker;
-      el.type = 'archive';
-      el.obj = archive;
 
       if (archive.ID === 'A397612231') {
         console.warn(`${archive.ID} is ignored`);
@@ -920,6 +1002,7 @@ export default class App extends React.PureComponent {
         }
       } else {
         withinInterval = false;
+        continue;
       }
 
       const noCrafts =
@@ -939,6 +1022,45 @@ export default class App extends React.PureComponent {
         if (!this.props.toggleArchiveStatus) {
           break;
         }
+
+        const objImageIds = [...archive.images];
+        const objContent = new Set();
+        const getContent = this.props.imageMetas.map((meta) => {
+          if (objImageIds.includes(meta.img_id)) {
+            for (const type of meta.type) {
+              if (type) objContent.add(type.toLowerCase());
+            }
+          }
+        });
+
+        let containsContent = false;
+        if (this.props.filteredContent.length === 0) {
+          containsContent = true;
+        } else {
+          if (this.props.filteredContent.includes('indoor')) {
+            if (objContent.has('indoor')) containsContent = true;
+          }
+          if (this.props.filteredContent.includes('outdoor')) {
+            if (
+              objContent.has('street') ||
+              objContent.has('storefront') ||
+              objContent.has('other outdoor space') ||
+              objContent.has('streetview') ||
+              objContent.has('public realm')
+            )
+              containsContent = true;
+          }
+          if (this.props.filteredContent.includes('person')) {
+            if (objContent.has('craftperson') || objContent.has('craftsperson'))
+              containsContent = true;
+          }
+          if (this.props.filteredContent.includes('craft')) {
+            if (objContent.has('craft object') || objContent.has('craft'))
+              containsContent = true;
+          }
+        }
+
+        if (!containsContent) continue;
 
         let lookup = this.props.search;
         let shopName = archive.shop_name['content'];

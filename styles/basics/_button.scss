@@ -167,7 +167,7 @@ $icon-zindex: 1000;
 
   /* Auto layout */
 
-  padding: 1px 11px;
+  padding: 3px 13px;
   margin: 3px;
 
   /* grey-mid */
@@ -179,17 +179,6 @@ $icon-zindex: 1000;
 }
 
 .hstg-btn-pill-small:hover {
-  /* IsMobile=Off, IsActive=On */
-
-  //color: #9C6340;
-
-  box-sizing: border-box;
-
-  /* Auto layout */
-
-  padding: 1px 11px;
-  margin: 3px;
-
   /* white */
 
   background: #ffffff;
@@ -210,7 +199,7 @@ $icon-zindex: 1000;
 
     /* Auto layout */
 
-    padding: 1px 11px;
+    padding: 3px 13px;
     margin: 3px;
 
     /* grey-mid */
@@ -224,7 +213,7 @@ $icon-zindex: 1000;
   .hstg-btn-pill-small:hover {
     color: #9c6340;
     box-sizing: border-box;
-    padding: 1px 11px;
+    padding: 3px 13px;
     margin: 3px;
     background: #ffffff;
     border: 0.5px solid #9c6340;
@@ -236,7 +225,7 @@ $icon-zindex: 1000;
     color: #9c6340;
     font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
     box-sizing: border-box;
-    padding: 1px 11px;
+    padding: 3px 13px;
     margin: 3px;
     background: #ffffff;
     border: 0.5px solid #9c6340;
@@ -245,11 +234,11 @@ $icon-zindex: 1000;
   }
 }
 
-// .hstg-btn-pill-small--all:hover {
-//   color: $c-primary-mid;
-//   border: 0.5px solid $c-primary-mid;
-//   box-shadow: 0px 0px 30px 1px $c-primary-mid;
-// }
+.hstg-btn-pill-small:hover {
+  color: $c-primary-mid;
+  border: 0.5px solid $c-primary-mid;
+  box-shadow: 0px 0px 30px 1px $c-primary-mid;
+}
 
 .hstg-btn-pill-small--architectural:hover {
   color: $c-architectural;
@@ -297,13 +286,14 @@ $icon-zindex: 1000;
   //color: #9C6340;
   font-weight: 500; // Wasn't in the original but I decided to add a bolder font weight when selected
   box-sizing: border-box;
-  padding: 1px 11px;
+  padding: 3px 13px;
   margin: 3px;
   background: #ffffff;
   border-radius: 10px;
 }
 
-.hstg-btn-pill-small-selected--all {
+.hstg-btn-pill-small-selected--all,
+.hstg-btn-pill-small-selected {
   color: $c-white;
   border: 0px solid $c-primary-mid;
   background-color: $c-primary-mid;
@@ -367,7 +357,8 @@ $icon-zindex: 1000;
   transition: background-color 0.5s ease;
 }
 
-.hstg-btn-pill-small--all {
+.hstg-btn-pill-small--all,
+.hstg-btn-pill-small {
   color: $c-primary-mid;
   border: 1px solid $c-primary-mid;
   transition: color 0.5s ease;

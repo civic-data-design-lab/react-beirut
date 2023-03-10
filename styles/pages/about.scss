@@ -2,10 +2,11 @@
   padding: 2rem 2rem;
   display: flex;
   flex-direction: column;
+  color: $c-primary-dark;
 }
 
 a {
-  color: $c-black;
+  color: $c-primary-dark;
   transition: all 0.1s ease-in-out;
 
   &:hover {
@@ -30,7 +31,8 @@ a {
 .t-7 {
   color: $c-white;
 
-  p, ol {
+  p,
+  ol {
     font-size: 0.8rem;
     line-height: 1rem;
     margin-bottom: 0.5rem;
@@ -42,7 +44,7 @@ a {
   }
 
   .border-right {
-    border-right: solid 0.5px rgba(255,255,255,0.25);
+    border-right: solid 0.5px rgba(255, 255, 255, 0.25);
   }
 }
 .t-1 {
@@ -80,7 +82,7 @@ a {
 }
 
 ol.groups li::marker {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #logo-fhl {
@@ -98,12 +100,12 @@ ol.ar {
 }
 
 div.en {
-    padding-left: 1rem;
+  padding-left: 1rem;
 }
 
-div.ar{
-    padding-left: 0;
-    padding-right: 1rem;
+div.ar {
+  padding-left: 0;
+  padding-right: 1rem;
 }
 
 // RESPONSIVE DESIGN

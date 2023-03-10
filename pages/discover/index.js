@@ -6,7 +6,11 @@ import ImageFeed from '../../components/discover/ImageFeed';
 import ImageFilter from '../../components/discover/ImageFilter';
 import { useMediaQuery } from 'react-responsive';
 
-import { getAllWorkshops, getAllArchives } from '../../lib/apiUtils';
+import {
+  getAllWorkshops,
+  getAllArchives,
+  getAllImageMetas,
+} from '../../lib/apiUtils';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
@@ -29,7 +33,7 @@ const Default = ({ children }) => {
   return isNotMobile ? children : null;
 };
 
-const Discover = ({ children, i18n }) => {
+const Discover = ({ children, i18n, imageMetas }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const [workshops, setWorkshops] = useState([]);
@@ -58,6 +62,13 @@ const Discover = ({ children, i18n }) => {
 
   const [search, setSearch] = useState('');
 
+  const [filteredContent, setContent] = useState([
+    'indoor',
+    'outdoor',
+    'person',
+    'craft',
+  ]);
+
   const storeScrollPosition = (scrollPos) => {
     sessionStorage.setItem('prevScrollPos', scrollPos);
   };
@@ -72,11 +83,6 @@ const Discover = ({ children, i18n }) => {
       sessionStorage.removeItem('prevScrollPos');
     }
   };
-
-  useEffect(() => {
-    console.log(toggleWorkshopImage);
-    console.log(toggleArchiveImage);
-  });
 
   useEffect(() => {
     console.log('fetching');
@@ -103,8 +109,15 @@ const Discover = ({ children, i18n }) => {
               const prevFilterArchiveToggle = sessionStorage.getItem(
                 'prevFilterArchiveToggle'
               );
+
+              const prevFilterContent =
+                sessionStorage.getItem('prevFilterContent');
+
               if (prevFilterCrafts) {
                 setCrafts(JSON.parse(prevFilterCrafts));
+              }
+              if (prevFilterContent) {
+                setContent(JSON.parse(prevFilterContent));
               }
               if (prevFilterStartYear) {
                 setStartYear(JSON.parse(prevFilterStartYear));
@@ -127,7 +140,6 @@ const Discover = ({ children, i18n }) => {
               }
 
               const prevScrollPos = sessionStorage.getItem('prevScrollPos');
-              console.log('prev scroll pos ', prevScrollPos);
               if (prevScrollPos) {
                 // $('#content').animate({ scrollTop: elementOffset }, 200);
                 // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
@@ -138,22 +150,17 @@ const Discover = ({ children, i18n }) => {
                     inline: 'nearest',
                   });
                   sessionStorage.removeItem('prevScrollPos');
-                } catch (e) {
-                  console.log("can't scroll here yet");
-                }
+                } catch (e) {}
               }
             }
 
             const prevSearch = sessionStorage.getItem('prevSearch');
-            console.log('prevSearch Exists! ', prevSearch);
             if (prevSearch) {
               setSearch(prevSearch);
             }
           });
       }
     );
-
-    console.log('done fetching');
   }, []);
 
   useEffect(() => {
@@ -196,6 +203,10 @@ const Discover = ({ children, i18n }) => {
   const updateYears = (yearData) => {
     setStartYear(yearData[0]);
     setEndYear(yearData[1]);
+  };
+
+  const updateContent = (contentData) => {
+    setContent(contentData);
   };
 
   const updateWorkshopToggle = (toggleData) => {
@@ -258,6 +269,7 @@ const Discover = ({ children, i18n }) => {
     filteredEndYear: endYearImage,
     filteredToggleWorkshopStatus: toggleWorkshopImage,
     filteredToggleArchiveStatus: toggleArchiveImage,
+    filteredContent: filteredContent,
   };
 
   return (
@@ -334,6 +346,8 @@ const Discover = ({ children, i18n }) => {
         <div className={'discover-card'}>
           {showFilter ? (
             <ImageFilter
+              filteredContent={filteredContent}
+              updateContent={updateContent}
               filteredCrafts={filteredCraftsImage}
               startYear={startYearImage}
               endYear={endYearImage}
@@ -364,12 +378,10 @@ const Discover = ({ children, i18n }) => {
           {workshops[0] ? (
             <ImageFeed
               objects={workshops.concat(archive)}
-              // selectedCard={selectedCard}
-              // onCloseCard={resetSelected}
-              // onExpandCard={handleExpand}
               imageFilterData={filterData}
               imageSearchData={search}
               storeScrollPosition={storeScrollPosition}
+              imageMetas={imageMetas}
             />
           ) : (
             <>
@@ -386,10 +398,11 @@ const Discover = ({ children, i18n }) => {
 };
 
 /* Retrieves workshops data from mongodb database */
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const workshops = await getAllWorkshops({ lean: true });
   const archive = await getAllArchives({ lean: true, visualOnly: true });
-  return { props: { workshops, archive } };
+  const imageMetas = await getAllImageMetas();
+  return { props: { imageMetas } };
 }
 
 export default Discover;

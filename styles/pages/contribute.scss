@@ -13,15 +13,12 @@
   padding: 0px;
   margin: 0px;
 
-
   @media screen and (min-width: 651px) and (max-width: 991px) {
     height: 60%;
   }
   @media screen and (max-width: 991px) {
     flex-direction: column;
   }
-
-
 }
 
 .Contribute-divider {
@@ -42,7 +39,6 @@
   padding: 0 3rem;
   width: 90%;
 }
-
 
 .Contribute-container {
   margin: auto;
@@ -66,7 +62,6 @@
 }
 
 .Contribute-about {
-
 }
 
 .Contribute-index {
@@ -97,9 +92,7 @@
   flex-direction: column;
   justify-content: space-between;
   line-height: 40px;
-
 }
-
 
 .Contribute-landing-title {
   font-family: $font-main;
@@ -272,7 +265,7 @@
 }
 
 .WorkshopAboutForm,
-.ArchiveAboutForm, {
+.ArchiveAboutForm {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -294,9 +287,7 @@
 
     @media screen and (max-width: 991px) {
       flex-direction: column;
-
     }
-
 
     .section {
       display: flex;
@@ -309,18 +300,15 @@
         padding: 8px;
       }
 
-
       .subsection {
         padding: 16px;
         @media screen and (max-width: 650px) {
           padding: 8px;
         }
       }
-
     }
   }
 }
-
 
 .LocationForm,
 .form {
@@ -344,9 +332,7 @@
     max-height: 100%;
     @media screen and (max-width: 991px) {
       flex-direction: column;
-
     }
-
 
     .section {
       display: flex;
@@ -361,9 +347,7 @@
         width: 100%;
         @media screen and (max-width: 650px) {
           padding: 0px;
-
         }
-
       }
 
       .subsection {
@@ -371,12 +355,9 @@
         height: 100%;
         //width: 100%;
       }
-
-
     }
   }
 }
-
 
 @media (min-width: 768px) {
   .Contribute-index {
@@ -398,7 +379,6 @@
     }
   }
 }
-
 
 .previewForm {
   display: flex;
@@ -439,11 +419,12 @@
           width: 100%;
           padding: 16px;
 
+          color: $c-primary-dark;
+
           @media screen and (max-width: 650px) {
             border-radius: 0px 0px 0px 0px;
           }
         }
-
 
         .preview-card {
           display: flex;
@@ -458,7 +439,6 @@
             border-radius: 0px 0px 0px 0px;
           }
 
-
           .popup-section {
             height: 100%;
             width: 100%;
@@ -468,7 +448,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-
 
             -ms-overflow-style: none; /* IE and Edge */
             scrollbar-width: none; /* Firefox */
@@ -489,7 +468,6 @@
               font-size: 0px;
               width: 100%;
             }
-
           }
 
           .object-map-section {
@@ -503,7 +481,6 @@
         }
       }
     }
-
 
     .section {
       //display: flex;
@@ -519,7 +496,6 @@
     }
   }
 }
-
 
 .UploadedImage {
   aspect-ratio: 1;
@@ -549,7 +525,7 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
-  color: #AEAEAE;
+  color: #aeaeae;
   text-transform: uppercase;
 }
 
@@ -568,7 +544,7 @@
 }
 
 .vr {
-  color: #AEAEAE;
+  color: #aeaeae;
 }
 
 .Image-tags-container {
@@ -579,19 +555,15 @@
   align-items: flex-start;
   //padding: 16px;
   margin: 24px 0px;
-
 }
 
 .sm-padding {
   //padding: 8px;
 }
 
-
-
 .image-upload-container {
   //padding: 48px;
 }
-
 
 .CraftTypeForm {
   display: flex;
@@ -617,7 +589,6 @@
       flex-direction: column;
     }
 
-
     .section {
       display: flex;
       flex-direction: column;
@@ -637,14 +608,11 @@
           padding: 8px;
         }
       }
-
-
     }
   }
 }
 
-
-.ArchivalImageForm, {
+.ArchivalImageForm {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -663,9 +631,7 @@
     width: 100%;
     @media screen and (max-width: 990px) {
       flex-direction: column;
-
     }
-
 
     .section {
       display: flex;
