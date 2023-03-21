@@ -112,7 +112,9 @@ const ImagePreview = ({
             ) : null}
             <div className="overlay">
               <div className="shop-info">
-                <p>{workshop.shop_name.content_orig}</p>
+                <p className="discover-preview-label">
+                  {workshop.shop_name.content_orig}
+                </p>
               </div>
             </div>
             <div className="overlay fill"></div>

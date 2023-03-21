@@ -525,7 +525,7 @@
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
-  color: #aeaeae;
+  color: $c-primary-mid;
   text-transform: uppercase;
 }
 
@@ -537,6 +537,7 @@
 
 .form-title {
   padding: 0px 32px;
+  color: $c-primary-dark;
 
   @media screen and (max-width: 650px) {
     padding: 0px 16px;
@@ -683,4 +684,12 @@
   justify-content: end;
   padding: 0 16px;
   color: $c-primary-dark;
+}
+
+#consent {
+  border: 0.15em solid $c-primary-light;
+}
+
+#consent::before {
+  background-color: $c-primary-dark;
 }

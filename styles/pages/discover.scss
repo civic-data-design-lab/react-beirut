@@ -333,7 +333,12 @@
 .image-filter-toggle-section {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  column-gap: 1rem;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
 }
 
 .image-filter-section-col {
@@ -342,6 +347,9 @@
   justify-content: space-between;
   gap: 24px;
   height: 100%;
+  p {
+    margin: 0;
+  }
 }
 
 .discover-text {
@@ -349,7 +357,6 @@
 }
 
 .discover-card {
-  padding: 2rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -363,4 +370,8 @@
 .image-searchbar > :first-child > #mapSearch {
   border: 1px solid $c-primary-dark;
   border-radius: 20px;
+}
+
+.discover-preview-label {
+  color: $c-white;
 }

@@ -144,12 +144,12 @@ const Discover = ({ children, i18n, imageMetas }) => {
                 // $('#content').animate({ scrollTop: elementOffset }, 200);
                 // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
                 try {
+                  console.log('prevScrollPos ', prevScrollPos);
                   document.getElementById(prevScrollPos).scrollIntoView({
                     behavior: 'smooth',
                     block: 'center',
                     inline: 'nearest',
                   });
-                  sessionStorage.removeItem('prevScrollPos');
                 } catch (e) {}
               }
             }

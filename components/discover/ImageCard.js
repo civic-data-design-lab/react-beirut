@@ -93,6 +93,7 @@ export default class ImageCard extends React.Component {
                   includeSuggestion={true}
                   lang={this.props.lang}
                   i18n={this.props.i18n}
+                  preserveAspect={true}
                 />
               </div>
             ) : (
@@ -103,6 +104,7 @@ export default class ImageCard extends React.Component {
                   similarArchives={this.props.similarWorkshops}
                   handleClose={this.props.onClose}
                   i18n={this.props.i18n}
+                  preserveAspect={true}
                 />
               </div>
             )}

@@ -32,7 +32,6 @@ const ActiveFilter = ({
 
   return (
     <div className="active-filter-container">
-      <FontAwesomeIcon icon={forWorkshops ? faShop : faImage} width={20} />
       <div className={'toggle-container'}>
         <ToggleSlider
           key={resetToggle}
@@ -55,6 +54,7 @@ const ActiveFilter = ({
           }}
         />
       </div>
+      <FontAwesomeIcon icon={forWorkshops ? faShop : faImage} width={20} />
     </div>
   );
 };

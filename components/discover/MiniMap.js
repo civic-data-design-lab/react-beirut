@@ -119,7 +119,7 @@ export default class MiniMap extends React.Component {
       el.appendChild(secondCraft);
     } else {
       const craft = this.props.workshop.craft_discipline_category[0];
-      el.style.backgroundColor = this.colorMap[craft.toLowerCase()];
+      el.style.backgroundColor = this.colorMap[craft?.toLowerCase()];
     }
     el.className = 'marker';
     el.style.width = '10px';

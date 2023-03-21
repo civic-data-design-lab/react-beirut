@@ -10,7 +10,13 @@ import {
   faInstagramSquare,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faLink, faPhone } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEnvelope,
+  faLink,
+  faPhone,
+  faXmark,
+  faXmarkCircle,
+} from '@fortawesome/free-solid-svg-icons';
 
 import Link from 'next/link';
 
@@ -270,12 +276,33 @@ const MapCard = ({
     openMapCard(e.target.id, type);
   };
 
-  const getShopName = () => {
+  const getShopName = (archive = false) => {
     if (workshop.shop_name['content']) {
-      return workshop.shop_name['content'];
+      return (
+        <a
+          // onClick={() => {
+          //   window.open(`/discover/${workshop.ID}`, '_blank').focus();
+          // }}
+          href={`/discover/${workshop.ID}`}
+        >
+          {workshop.shop_name['content']}
+        </a>
+      );
     } else if (workshop.shop_name['content_orig']) {
-      return workshop.shop_name['content_orig'];
+      return (
+        <a
+          // onClick={() => {
+          //   window.open(`/discover/${workshop.ID}`, '_blank').focus();
+          // }}
+          href={`/discover/${workshop.ID}`}
+        >
+          {workshop.shop_name['content_orig']}
+        </a>
+      );
     } else {
+      if (archive) {
+        return t('Archival Image (No name provided)');
+      }
       return t('Craft Shop (No name provided)');
     }
   };
@@ -601,26 +628,23 @@ const MapCard = ({
         <>
           <div className={'close-btn-container'}>
             <div>
-              <p className={'shopName-text'}>
-                {getShopName() || 'Craft Shop (No name provided)'} &thinsp;
-                <span>
-                  <Info
-                    icon={
-                      workshop.survey_origin !== 'workshop_contribution'
-                        ? 'check'
-                        : 'question'
-                    }
-                    text={
-                      workshop.survey_origin !== 'workshop_contribution'
-                        ? t(
-                            'This crafts workshop has been reviewed and verified'
-                          )
-                        : t('This workshop has not been reviewed and verified.')
-                    }
-                  />
-                </span>
-              </p>
-
+              <div className="shopName-section">
+                <p className={'shopName-text'}>
+                  {getShopName() || 'Craft Shop (No name provided)'}
+                </p>
+                <Info
+                  icon={
+                    workshop.survey_origin !== 'workshop_contribution'
+                      ? 'check'
+                      : 'question'
+                  }
+                  text={
+                    workshop.survey_origin !== 'workshop_contribution'
+                      ? t('This crafts workshop has been reviewed and verified')
+                      : t('This workshop has not been reviewed and verified.')
+                  }
+                />
+              </div>
               <p className={'shopSubtitle-text'}>
                 {getDecadeEstablished()}{' '}
                 {getSubtitle() && getDecadeEstablished() ? ' | ' : ''}{' '}
@@ -632,18 +656,7 @@ const MapCard = ({
               className={'close-card-btn close-mapcard'}
               onClick={closeMapCard}
             >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-                  fill="#404044"
-                />
-              </svg>
+              <FontAwesomeIcon icon={faXmark} size={'sm'} />
             </button>
           </div>
 
@@ -704,27 +717,27 @@ const MapCard = ({
           <div className={'close-btn-container'}>
             <div>
               <div className={'shop-title-verification'}>
-                <p className={'shopName-text'}>
-                  {getShopName() || 'Craft Shop (No name provided)'} &thinsp;
-                  <span>
-                    <Info
-                      icon={
-                        workshop.info_type !== 'archive_contribution'
-                          ? 'check'
-                          : 'question'
-                      }
-                      text={
-                        workshop.info_type !== 'archive_contribution'
-                          ? t(
-                              'This archive image has been reviewed and verified.'
-                            )
-                          : t(
-                              'This archive image has not been reviewed and verified.'
-                            )
-                      }
-                    />
-                  </span>
-                </p>
+                <div className="shopName-section">
+                  <p className={'shopName-text'}>
+                    {getShopName(true) || 'Craft Shop (No name provided)'}{' '}
+                  </p>
+                  <Info
+                    icon={
+                      workshop.info_type !== 'archive_contribution'
+                        ? 'check'
+                        : 'question'
+                    }
+                    text={
+                      workshop.info_type !== 'archive_contribution'
+                        ? t(
+                            'This archive image has been reviewed and verified.'
+                          )
+                        : t(
+                            'This archive image has not been reviewed and verified.'
+                          )
+                    }
+                  />
+                </div>
               </div>
 
               <p className={'shopSubtitle-text'}>
@@ -739,18 +752,7 @@ const MapCard = ({
               className={'close-card-btn close-mapcard'}
               onClick={closeMapCard}
             >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-                  fill="#404044"
-                />
-              </svg>
+              <FontAwesomeIcon icon={faXmark} size={'sm'} />
             </button>
           </div>
 

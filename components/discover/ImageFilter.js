@@ -7,6 +7,8 @@ import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
 import Info from '../Info';
 import SearchBar from '../Map/SearchBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });
@@ -100,25 +102,32 @@ const ImageFilter = ({
           className={'image-filter-section image-filter-section-col'}
           style={{ flexBasis: '30%' }}
         >
-          <div>
+          <div
+            style={{
+              display: 'flex',
+              rowGap: '0.5rem',
+              flexDirection: 'column',
+            }}
+          >
+            <p>{t('Data Type')}</p>
             <div className={`image-filter-toggle-section`}>
-              <p>{t('Show Crafts Workshops')}</p>
               <ActiveFilter
                 toggleStatus={toggleWorkshopStatus}
                 updateToggle={updateWorkshopToggle}
                 resetToggle={resetWorkshopToggle}
                 forWorkshops={true}
               />
+              <p>{t('Show Crafts Workshops')}</p>
             </div>
 
             <div className={`image-filter-toggle-section`}>
-              <p>{t('Show Archival Images')}</p>
               <ActiveFilter
                 toggleStatus={toggleArchiveStatus}
                 updateToggle={updateArchiveToggle}
                 resetToggle={resetArchiveToggle}
                 forWorkshops={false}
               />
+              <p>{t('Show Archival Images')}</p>
             </div>
           </div>
           <SearchBar
@@ -166,18 +175,7 @@ const ImageFilter = ({
                     {t('Filter By')}
                   </p>
                   <button className={'close-card-btn'} onClick={close}>
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z"
-                        fill="#404044"
-                      />
-                    </svg>
+                    <FontAwesomeIcon icon={faXmark} size={'sm'} />
                   </button>
                 </div>
                 <hr />

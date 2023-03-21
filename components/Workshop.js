@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import Info from './Info';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLink, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebook,
   faInstagramSquare,
@@ -65,6 +66,7 @@ const Workshop = ({
   lang,
   i18n,
   preview = false,
+  preserveAspect = false,
 }) => {
   const { t } = useTranslation();
   const getImages = () => {
@@ -417,12 +419,13 @@ const Workshop = ({
       return (
         <img
           key={image.img_id}
-          className="mapCard-img objectSlider-img"
+          className={`${
+            preserveAspect ? 'preserveRatio' : 'cropRatio'
+          } mapCard-img objectSlider-img`}
           style={{
             width: '100%',
             height: '100%',
             marginRight: '10px',
-            objectFit: 'cover',
             scrollSnapAlign: 'center',
             borderRadius: '0px',
           }}
@@ -674,18 +677,7 @@ const Workshop = ({
                   handleClose;
                 }}
               >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z"
-                    fill="#333333"
-                  />
-                </svg>
+                <FontAwesomeIcon icon={faXmark} size={'sm'} />
               </button>
             ) : null}
             <div

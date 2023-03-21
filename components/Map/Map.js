@@ -274,15 +274,29 @@ export default class App extends React.PureComponent {
       const popupContent = document.createElement('div');
       const popupText = (
         <div className="map-popup">
-          <p>{this.getShopName(obj)}</p>
+          <b>{this.getShopName(obj)}</b>
           {obj.object === 'workshop' ? (
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                columnGap: '0.25rem',
+                alignItems: 'center',
+              }}
+            >
               <p>Craft Workshop</p> &nbsp;
               <FontAwesomeIcon icon={faShop} width={14} />
             </div>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <p>Archival Image</p> &nbsp;
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                columnGap: '0.25rem',
+                alignItems: 'center',
+              }}
+            >
+              <p style={{ margin: 0 }}>Archival Image</p> &nbsp;
               <FontAwesomeIcon icon={faImage} width={14} />
             </div>
           )}

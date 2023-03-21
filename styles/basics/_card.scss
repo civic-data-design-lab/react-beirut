@@ -1,15 +1,14 @@
-
 .card__cover {
   position: fixed;
-    overflow-y: auto;
-    z-index: 19;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.0);
-    // backdrop-filter: blur(10px);
-    // transition: opacity 0.3s ease;
+  overflow-y: auto;
+  z-index: 19;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  // backdrop-filter: blur(10px);
+  // transition: opacity 0.3s ease;
 
   .card__wrapper {
     z-index: 10000000;
@@ -17,19 +16,12 @@
   }
 }
 
-
-
-
 .card {
   // text-align: left;
   text-decoration: none;
 
   position: absolute;
   transition: color 0.15s ease, border-color 0.15s ease;
-
-
-
-
 
   .card__cover {
     position: fixed;
@@ -48,9 +40,8 @@
     transition: opacity 0.3s ease;
 
     &.cover_all {
-      height:100vh;
+      height: 100vh;
     }
-
   }
 
   .card__wrapper {
@@ -78,7 +69,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
 
     @media (max-width: 820px) {
       height: auto;
@@ -112,19 +102,13 @@
   }
 }
 
-
-
-
-
-
-
-
-
 .close-card-btn :focus {
   outline: none;
 }
 
 .close-card-btn {
+  width: 1rem;
+  height: 1rem;
   border: none;
   background-color: Transparent;
 }
@@ -157,36 +141,32 @@
   color: $c-black;
 }
 
-
-.slide-up{
+.slide-up {
   -webkit-animation: slide-up 1s forwards;
-    -moz-animation: slide-up 1s forwards;
-    animation: slide-up 1s forwards;
-    @-webkit-keyframes slide-up {
-      0% {
-        top: 100vh;
-      }
-      100% {
-        top: 10vh;
-      }
+  -moz-animation: slide-up 1s forwards;
+  animation: slide-up 1s forwards;
+  @-webkit-keyframes slide-up {
+    0% {
+      top: 100vh;
     }
-    @-moz-keyframes slide-up {
-      0% {
-        top:100vh;
-      }
-      100% {
-        top: 10vh;
-      }
+    100% {
+      top: 10vh;
     }
-    @keyframes slide-up {
-      0% {
-        top:100vh;
-      }
-      100% {
-        top: 10vh;
-      }
+  }
+  @-moz-keyframes slide-up {
+    0% {
+      top: 100vh;
     }
+    100% {
+      top: 10vh;
+    }
+  }
+  @keyframes slide-up {
+    0% {
+      top: 100vh;
+    }
+    100% {
+      top: 10vh;
+    }
+  }
 }
-
-
-

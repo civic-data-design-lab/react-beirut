@@ -12,7 +12,8 @@
   row-gap: 16px;
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
   pointer-events: auto;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   bottom: 10vh;
   margin: 0px;
   z-index: 7;
@@ -104,6 +105,13 @@
   min-height: 5%;
 }
 
+.shopName-section {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+  color: $c-primary-dark;
+}
+
 .shopName-text {
   font-family: $font-title;
   font-style: normal;
@@ -121,7 +129,7 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
-  color: #aeaeae;
+  color: $c-primary-mid;
   margin: 0;
 }
 

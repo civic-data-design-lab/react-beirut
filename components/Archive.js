@@ -5,6 +5,8 @@ import MiniMap from './discover/MiniMap';
 import ImagePreview from './discover/ImagePreview';
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });
@@ -58,6 +60,7 @@ const Archive = ({
   lang,
   i18n,
   preview = false,
+  preserveAspect = false,
 }) => {
   const { t } = useTranslation();
 
@@ -102,7 +105,7 @@ const Archive = ({
     } else if (archive.shop_name['content_orig']) {
       return archive.shop_name['content_orig'];
     } else {
-      return t('Craft Shop (No name provided)');
+      return t('Archival Image (No name provided)');
     }
   };
 
@@ -318,12 +321,13 @@ const Archive = ({
       return (
         <img
           key={image.img_id}
-          className="mapCard-img objectSlider-img"
+          className={`${
+            preserveAspect ? 'preserveRatio' : 'cropRatio'
+          } mapCard-img objectSlider-img`}
           style={{
             width: '100%',
             height: '100%',
             marginRight: '10px',
-            objectFit: 'cover',
             scrollSnapAlign: 'center',
           }}
           src={source}
@@ -382,6 +386,14 @@ const Archive = ({
             {getCitation()}
             <br />
             {getCaption()}
+          </div>
+          <div className={'miniMap-container'}>
+            <MiniMap
+              workshop={archive}
+              type={'archive'}
+              lang={lang}
+              i18n={i18n}
+            />
           </div>
           {similarArchives ? (
             <div className={'object-suggestion-section'}>
@@ -456,6 +468,15 @@ const Archive = ({
             )}
           </div>
 
+          <div className={'miniMap-container'}>
+            <MiniMap
+              workshop={archive}
+              type={'archive'}
+              lang={lang}
+              i18n={i18n}
+            />
+          </div>
+
           {similarArchives ? (
             <div className={'object-suggestion-section'}>
               <p className={'object-caption'}>
@@ -499,18 +520,7 @@ const Archive = ({
                   handleClose;
                 }}
               >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M17.5098 3.86961L15.7298 2.09961L5.83984 11.9996L15.7398 21.8996L17.5098 20.1296L9.37984 11.9996L17.5098 3.86961Z"
-                    fill="#333333"
-                  />
-                </svg>
+                <FontAwesomeIcon icon={faXmark} size={'xs'} />
               </button>
             ) : null}
             <div
@@ -581,6 +591,15 @@ const Archive = ({
                 {getCitation()}
                 {getCaption()}
               </div>
+            </div>
+
+            <div className={'miniMap-container'}>
+              <MiniMap
+                workshop={archive}
+                type={'archive'}
+                lang={lang}
+                i18n={i18n}
+              />
             </div>
 
             {similarArchives ? (

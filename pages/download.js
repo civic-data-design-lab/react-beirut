@@ -32,6 +32,11 @@ const DownloadPage = () => {
         trackingId: 'G-8WP8TMP9M0',
       },
     ]);
+    ReactGA.event({
+      category: 'PageView',
+      action: 'Init View',
+      label: 'View',
+    });
   }, []);
 
   return (
