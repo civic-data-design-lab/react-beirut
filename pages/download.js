@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
+import ReactGA from 'react-ga4';
 
 const DownloadPage = () => {
   const { t } = useTranslation();
@@ -13,7 +14,25 @@ const DownloadPage = () => {
     const elt = document.getElementById('download-images-btn');
     elt.click();
     setSubmitting(false);
+    sendAnalytics('Download Images');
   };
+
+  function sendAnalytics(action) {
+    console.log('send analytics ', action);
+    ReactGA.event({
+      category: 'Function',
+      action: action,
+      label: action,
+    });
+  }
+
+  useEffect(() => {
+    ReactGA.initialize([
+      {
+        trackingId: 'G-8WP8TMP9M0',
+      },
+    ]);
+  }, []);
 
   return (
     <>
@@ -80,10 +99,24 @@ const DownloadPage = () => {
               Massachusetts Institute of Technology, 2022.
             </p>
             <a href="/api/download/workshops-csv" download="workshops.csv">
-              <button className="btn-pill">{t('Download CSV')}</button>
+              <button
+                className="btn-pill"
+                onClick={() => {
+                  sendAnalytics('Download Workshops CSV');
+                }}
+              >
+                {t('Download CSV')}
+              </button>
             </a>
             <a href="/api/download/workshops-json" download="workshops.json">
-              <button className="btn-pill">{t('Download JSON')}</button>
+              <button
+                className="btn-pill"
+                onClick={() => {
+                  sendAnalytics('Download Workshops JSON');
+                }}
+              >
+                {t('Download JSON')}
+              </button>
             </a>
           </div>
           <div className="mb-5">
@@ -103,10 +136,24 @@ const DownloadPage = () => {
               Massachusetts Institute of Technology, 2022.
             </p>
             <a href="/api/download/archives-csv" download="archives.csv">
-              <button className="btn-pill">{t('Download CSV')}</button>
+              <button
+                className="btn-pill"
+                onClick={() => {
+                  sendAnalytics('Download Archives CSV');
+                }}
+              >
+                {t('Download CSV')}
+              </button>
             </a>
             <a href="/api/download/archives-json" download="archives.json">
-              <button className="btn-pill">{t('Download JSON')}</button>
+              <button
+                className="btn-pill"
+                onClick={() => {
+                  sendAnalytics('Download Archives JSON');
+                }}
+              >
+                {t('Download JSON')}
+              </button>
             </a>
           </div>
           <div className="mb-5">
