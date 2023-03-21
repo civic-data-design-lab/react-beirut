@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 });
