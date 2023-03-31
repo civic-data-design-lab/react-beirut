@@ -9,8 +9,6 @@ const ImageFeed = ({
   imageSearchData,
   imageMetas,
 }) => {
-  console.log('imageFilterData ', imageFilterData);
-
   const searchableKeys = [
     'shop_name',
     'content',
@@ -61,7 +59,6 @@ const ImageFeed = ({
           return iterateObject(item, searchValue);
         } else {
           if (typeof item === 'string' || item instanceof String) {
-            // console.log("this is a string ", item)
             if (
               item.toLowerCase().includes(searchValue.toLowerCase()) ||
               searchValue.toLowerCase().includes(item.toLowerCase())

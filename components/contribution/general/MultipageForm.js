@@ -109,10 +109,6 @@ const MultipageForm = ({
     if (cookiesEnabled) {
       console.info('Fetching existing form data from local storage');
       const formData = JSON.parse(localStorage.getItem(name)); // If cookies are disabled, this throws an error "SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document."
-      console.log(
-        'getting form data from local storage on multipage form mount ',
-        formData
-      );
       if (formData) {
         onUpdate(formData);
       }
@@ -129,7 +125,6 @@ const MultipageForm = ({
       return;
     }
     const pageIdx = parseInt(router.query.page);
-    // console.log('Switched to page', pageIdx);
     if (!pageIdx || pageIdx >= children.length || pageIdx < 0) {
       router.push(`${router.basePath}?page=0`, undefined, { shallow: true });
     }

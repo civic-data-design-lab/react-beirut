@@ -80,10 +80,8 @@ const MapCard = ({
 
     if (i18n.language === 'en') {
       setCurrentImageIndex(Math.round(relativePos / parentWidth));
-      console.log(Math.round(relativePos / parentWidth));
     } else {
       setCurrentImageIndex(-Math.round(relativePos / parentWidth));
-      console.log(-Math.round(relativePos / parentWidth));
     }
   };
 
@@ -141,7 +139,6 @@ const MapCard = ({
     }
     setImageMetaData(metaData);
     setValidImages(validImages);
-    console.log('metadata ', metaData);
   };
 
   const getCaption = () => {
@@ -244,7 +241,6 @@ const MapCard = ({
   };
 
   useEffect(() => {
-    console.log(workshop);
     setInvalidImages([]);
     if (type === 'workshop') {
       fetchSimilarWorkshops();
@@ -258,10 +254,8 @@ const MapCard = ({
   }, []);
 
   useEffect(() => {
-    console.log(type);
     setInvalidImages([]);
     if (type === 'workshop') {
-      console.log('here');
       fetchSimilarWorkshops();
     } else {
       fetchSimilarArchives();
@@ -387,10 +381,8 @@ const MapCard = ({
 
   const getContactInfo = () => {
     if (workshop.contact_info) {
-      console.log('has contact info');
       const contactInfo = [];
       for (let [key, value] of Object.entries(workshop.contact_info)) {
-        console.log(`${key}: ${value}`);
         if (key === 'phone' && value) {
           contactInfo.push(
             <div className={'contact-container'}>
@@ -528,11 +520,9 @@ const MapCard = ({
 
   const handleOnError = (e) => {
     let el = e.target;
-    console.log('key ', el.id);
     //let newInvImgs = this.state.invalidImages
     //newInvImgs.push(el.id)
     //this.setState({invalidImages: newInvImgs})
-    //console.log("invalidImages ", this.state.invalidImages)
     //el.parentNode.removeChild(el)
     //el.src = '';
     el.classList.add('broken-img');
@@ -540,15 +530,12 @@ const MapCard = ({
     el.onerror = null;
     el.alt = 'Image Unavailable';
     el.title = 'Image Unavailable';
-    //console.log("metadata ", this.state.imageMetaData)
   };
 
   const getImages = () => {
     if (!imageMetaData || imageMetaData.size < 1) {
       return;
     }
-
-    // console.log(imageMetaData)
 
     return imageMetaData.map((image, index) => {
       return (
@@ -565,9 +552,7 @@ const MapCard = ({
   };
 
   const getThumbnails = () => {
-    // console.log("getting similar thumbnails, ", similarObjects)
     return similarObjects.map((object) => {
-      //console.log(object.thumb_img_id)
       //const coords = [workshop.location.geo['lng'], workshop.location.geo['lat']]
       //return <div className={'exploreShop-div'}><img src={`/api/images/${workshop.thumb_img_id}.jpg`} className={'exploreShops-img'} key={workshop.thumb_img_id}/></div>
 
@@ -831,7 +816,6 @@ const MapCard = ({
                                                }
                                            }}
                                            onStop={()=>{
-                                               console.log("ended draggin")
                                            }*/
           >
             <div

@@ -1,4 +1,4 @@
-const ArchiveSchema = require('../../models/Archive')
+const ArchiveSchema = require('../../models/Archive');
 const mongoose = require('mongoose');
 
-console.log(ArchiveSchema);
+// console.log(ArchiveSchema);

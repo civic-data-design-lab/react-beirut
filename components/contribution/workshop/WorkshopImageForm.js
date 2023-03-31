@@ -43,7 +43,6 @@ const WorkshopImageForm = ({
     let storedNum = localStorage.getItem('numImageFormWorkshop');
     if (storedNum) {
       setNumImageForm(parseInt(storedNum));
-      console.log('num is ', storedNum);
     }
   }, []);
 
@@ -57,7 +56,6 @@ const WorkshopImageForm = ({
     newData.images[imageIndex] = data;
     setImageFormState((prevForm) => {
       const updatedFormData = { ...prevForm, ...newData };
-      // console.log('setting ImageFormState to ', updatedFormData);
       onUpdate(updatedFormData);
       return updatedFormData;
     });
@@ -84,7 +82,6 @@ const WorkshopImageForm = ({
         if (newData.caption[key]) {
           newData.caption[key - 1] = newData.caption[key];
           newData.caption[key] = [];
-          console.log('newData is ', newData);
           onUpdate(newData);
         }
       }
@@ -99,7 +96,6 @@ const WorkshopImageForm = ({
         if (newData.image_content[key]) {
           newData.image_content[key - 1] = newData.image_content[key];
           newData.image_content[key] = [];
-          console.log('newData is ', newData);
           onUpdate(newData);
         }
       }

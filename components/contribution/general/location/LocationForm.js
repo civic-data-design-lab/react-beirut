@@ -75,7 +75,6 @@ const LocationForm = ({
       }
     } else if (field === 'sector') {
       if (formData.quarter) {
-        //console.log('case 1')
         let filteredSectors = BEIRUT_ZONES.quarters
           .filter((quarter) => quarter.EN === formData.quarter)
           .map((quarter) => quarter.sectors)
@@ -84,16 +83,12 @@ const LocationForm = ({
             return t(sector.EN);
           });
 
-        //console.log('filtered sectors ', filteredSectors)
-
         if (formData.sector && !filteredSectors.includes(formData.sector)) {
-          //console.log("chech case 1 ", formData.sector, filteredSectors)
           return true;
         } else {
           return false;
         }
       } else if (!formData.quarter) {
-        //console.log('case 2')
         let allSectors = BEIRUT_ZONES.quarters.map((obj) => {
           obj.sectors.map((sector) => {
             return t(sector);

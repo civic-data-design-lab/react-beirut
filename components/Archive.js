@@ -89,14 +89,12 @@ const Archive = ({
       setIndex(Math.round(relativePos / parentWidth));
     } else {
       setIndex(-Math.round(relativePos / parentWidth));
-      // console.log(currentImageIndex)
     }
   };
 
   useEffect(() => {
     setIndex(0);
     setImages(getImages());
-    console.log('images ', images);
   }, [archive]);
 
   const getShopName = () => {
@@ -154,8 +152,6 @@ const Archive = ({
         if (craftsList.length < 1) {
           craftsList.push(t(craftStr));
         } else {
-          //console.log("subtitle debug ", craftsList, otherList, craft.toLowerCase())
-          //console.log(otherList.indexOf(craft.toLowerCase()))
           if (otherList.indexOf(craft.toLowerCase()) < 0)
             craftsList.push(' | ' + t(craftStr));
         }
@@ -166,7 +162,6 @@ const Archive = ({
       Array.isArray(archive.craft_discipline_other) &&
       archive.craft_discipline_other.length > 0
     ) {
-      console.log('other ', archive.craft_discipline_other);
       archive.craft_discipline_other.forEach((craft) => {
         const craftStr =
           craft.charAt(0).toUpperCase() + craft.slice(1).toLowerCase();
@@ -208,10 +203,6 @@ const Archive = ({
 
   const getCaption = () => {
     const currentMetaData = images[index];
-
-    console.log('images ', images);
-    console.log('index ', index);
-    console.log('currentMetaData ', currentMetaData);
 
     const viewKeywords = ['storefront', 'street', 'interior', 'indoor'];
     const interiorKeywords = ['interior', 'inside', 'indoor'];

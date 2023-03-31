@@ -25,14 +25,13 @@ const compressImageToThumbnail = async (input) => {
   return image.jpeg().toBuffer();
 };
 
-const getImageCompressions = async (input, saveFiles=false) => {
+const getImageCompressions = async (input, saveFiles = false) => {
   // Get all versions of the image
   const imageBufferOriginal = input;
   const imageBuffer = await compressImage(imageBufferOriginal);
   const imageBufferThumbnail = await compressImageToThumbnail(
     imageBufferOriginal
   );
-
 
   // Save all newly compressed images
   if (saveFiles) {
@@ -53,9 +52,9 @@ const main = async () => {
   let { imageBufferOriginal, imageBuffer, imageBufferThumbnail } =
     await getImageCompressions(testImageBuffer);
 
-  console.log({ imageBufferOriginal, imageBuffer, imageBufferThumbnail });
+  // console.log({ imageBufferOriginal, imageBuffer, imageBufferThumbnail });
 };
 
 if (require.main == module) main();
 
-module.exports = getImageCompressions
+module.exports = getImageCompressions;

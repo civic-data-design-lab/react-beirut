@@ -85,8 +85,6 @@ const Discover = ({ children, i18n, imageMetas }) => {
   };
 
   useEffect(() => {
-    console.log('fetching');
-
     Promise.all([fetch('/api/workshops'), fetch('/api/archive')]).then(
       ([workshopsResponse, archiveResponse]) => {
         Promise.all([workshopsResponse.json(), archiveResponse.json()])
@@ -135,7 +133,6 @@ const Discover = ({ children, i18n, imageMetas }) => {
 
               const filterShow = sessionStorage.getItem('showFilter');
               if (filterShow) {
-                console.log('toggle ', JSON.parse(filterShow));
                 setFilter(JSON.parse(filterShow));
               }
 
@@ -144,7 +141,6 @@ const Discover = ({ children, i18n, imageMetas }) => {
                 // $('#content').animate({ scrollTop: elementOffset }, 200);
                 // window.scrollTo({ top: parseFloat(prevScrollPos), behavior: 'smooth' })
                 try {
-                  console.log('prevScrollPos ', prevScrollPos);
                   document.getElementById(prevScrollPos).scrollIntoView({
                     behavior: 'smooth',
                     block: 'center',
@@ -364,9 +360,7 @@ const Discover = ({ children, i18n, imageMetas }) => {
               i18n={i18n}
               searchValue={search}
               searchCallBack={(input) => {
-                console.log(input);
                 if (navigator.cookieEnabled) {
-                  console.log('saving input as ', input);
                   setSearch(input);
                   storeSearch(input);
                 }

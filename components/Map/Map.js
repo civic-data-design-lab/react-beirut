@@ -6,6 +6,7 @@ import * as ReactDOM from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShop, faImage } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
+import MapSearchBar from '../MapSearchBar';
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
@@ -74,10 +75,11 @@ export default class App extends React.PureComponent {
   };
 
   toSearch = (lat, lon) => {
+    console.log('clicked');
     map.current.flyTo({
       center: [lat, lon],
-      zoom: 15,
-      speed: 0.5, // make the flying slow
+      zoom: 16,
+      speed: 0.5, // make the flying slow//
       essential: true,
     });
   };
@@ -251,7 +253,6 @@ export default class App extends React.PureComponent {
 
   showPopup = (e, obj) => {
     const popups = document.querySelector('.mapboxgl-popup');
-    console.log('pipups ', popups);
     if (popups) {
       if (e?.fromElement?.obj?.ID !== this.props.id) {
         popups.parentNode.removeChild(popups);
@@ -1108,11 +1109,9 @@ export default class App extends React.PureComponent {
   render() {
     return (
       <>
-        <SearchBar
-          callBack={this.searchMap}
-          flyTo={this.toSearch}
-          placeHolder={'Search for a quarter, sector, or street'}
-        />
+        <div className="mapSearchContainer">
+          <MapSearchBar callback={this.toSearch} />
+        </div>
         {this.state.geoLocateDialog ? (
           <Dialogue
             title={this.state.geoLocateTitle}

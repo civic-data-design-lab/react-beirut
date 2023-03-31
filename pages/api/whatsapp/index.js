@@ -65,12 +65,11 @@ export default async (req, res) => {
       //   code.slice(0, 2),
       //   code.slice(2, 4).toLowerCase(),
       // ];
-      const split_code = code.match(/[a-zA-Z]+|[0-9]+/g)
-      const sticker_id = split_code[0].length == 1 ? '0' + split_code[0] : split_code[0];
+      const split_code = code.match(/[a-zA-Z]+|[0-9]+/g);
+      const sticker_id =
+        split_code[0].length == 1 ? '0' + split_code[0] : split_code[0];
       const language = split_code[1] ? split_code[1].toLowerCase() : undefined;
 
-      console.log(sticker_id);
-      
       if (isNaN(sticker_id) || split_code.length > 2 || language == undefined) {
         sendMessage(
           req,
@@ -80,7 +79,9 @@ export default async (req, res) => {
         return;
       }
 
-      const { stickerData, message } = await getStickerData(sticker_id + language);
+      const { stickerData, message } = await getStickerData(
+        sticker_id + language
+      );
 
       // INFO: Get sticker data using code or return error if getting sticker data fails.
       if (!stickerData) {

@@ -23,16 +23,12 @@ const test = () => {
             <SingleImageUpload
               handleUpdateImage={(imageBuffer, extension) => {
                 setImage(imageBuffer);
-                console.log(imageBuffer);
                 // debugger
               }}
               currentImage={image}
             />
           </div>
-          {image ? (
-          <img src={image} alt="Uploaded image" />
-        ) : ( <></>
-        )}
+          {image ? <img src={image} alt="Uploaded image" /> : <></>}
         </div>
       </div>
     </>
@@ -50,8 +46,7 @@ export default test;
 
 // };
 
-// newImg.src = 'http://x0.org.ua/test/p/29/1.jpg'; 
-
+// newImg.src = 'http://x0.org.ua/test/p/29/1.jpg';
 
 // function getImageSizeInBytes(imgURL) {
 // var request = new XMLHttpRequest();
@@ -63,11 +58,9 @@ export default test;
 // return parseInt(RegExp.$1);
 // }
 
-
 //  var height = newImg.height;
-//   var width = newImg.width;		
-  
+//   var width = newImg.width;
 
 // var size_image = getImageSizeInBytes('http://x0.org.ua/test/p/29/1.jpg');
 
-// size_image = size_image / 1000; 
+// size_image = size_image / 1000;

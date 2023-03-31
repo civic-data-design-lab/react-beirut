@@ -50,8 +50,6 @@ const DiscoverLayout = ({ children }) => {
   const [resetToggleImage, setResetToggle] = useState(false);
 
   useEffect(() => {
-    console.log('fetching');
-
     Promise.all([fetch('/api/workshops'), fetch('/api/archive')]).then(
       ([workshopsResponse, archiveResponse]) => {
         Promise.all([workshopsResponse.json(), archiveResponse.json()]).then(
@@ -108,8 +106,6 @@ const DiscoverLayout = ({ children }) => {
   };
 
   const handleReset = () => {
-    console.log('RESET');
-
     setResetToggle(!resetToggleImage);
     setCrafts([
       'architectural',

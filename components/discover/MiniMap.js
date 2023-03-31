@@ -83,9 +83,7 @@ export default class MiniMap extends React.Component {
           'get',
           `name_${this.props.i18n.language}`,
         ]);
-      } catch (e) {
-        console.log('layer is not a valid layer on this map');
-      }
+      } catch (e) {}
     });
 
     const el = document.createElement('div');

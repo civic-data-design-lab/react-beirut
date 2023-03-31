@@ -38,7 +38,6 @@ const LayersControl = ({
 
   const clickLayerButton = (e) => {
     let layerName = e.target.id;
-    console.log(layerName);
     updateMapLayer(layerName);
   };
 

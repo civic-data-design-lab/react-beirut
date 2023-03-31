@@ -26,7 +26,6 @@ const Nav = ({ changeLanguage, i18n }) => {
 
   useEffect(() => {
     if (isMenuOpen) {
-      console.log(`-${window.scrollY}px`);
       const scrollPos = -window.scrollY;
 
       // document.body.style.position = 'fixed';

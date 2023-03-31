@@ -19,7 +19,6 @@ const OtherButton = ({
 
   //             let otherButton = window.document.getElementsByClassName("other-btn-selected")[0];
   //             if (otherButton == undefined) return;
-  //             console.log(otherButton);
   //             submitNewTag(otherButton);
   //             disableButton(otherButton);
   //     }
@@ -47,7 +46,6 @@ const OtherButton = ({
   };
 
   const validateData = (string) => {
-    console.log('validating data');
     if (!/^[a-zA-Z\s]*$/.test(string)) {
       setErrorMessage(
         'Your custom tag was invalid.\nPlease enter a tag that contains only letters.'
@@ -134,18 +132,11 @@ const OtherButton = ({
   };
 
   const onClickInput = (e) => {
-    console.log('clicked input');
     e.stopPropagation();
   };
 
   const onClick = (e) => {
     setErrorMessage('');
-    console.log('clicking add other button');
-    console.log('printing onclick ', e.target);
-
-    if (e.target !== document.getElementById('otherButton')) {
-      console.log('not clicked on button!');
-    }
 
     if (e.target.classList.contains('other-btn')) {
       enableButton(e.target);
@@ -173,7 +164,6 @@ const OtherButton = ({
     // if (e.keyCode != 32) return
     //!! Again, this may break if there are multiple of these on the screen at once.
     // let otherButton = window.document.getElementsByClassName("other-btn-selected")[0]
-    // console.log("otherButton =", otherButton)
     // if (otherButton == undefined) return
     // submitNewTag(otherButton);
     // disableButton(otherButton);
@@ -181,7 +171,6 @@ const OtherButton = ({
 
   const onChange = (e) => {
     setErrorMessage('');
-    // console.log("printing on change ", e.target.value)
     let otherButton = e.target.parentElement.parentElement;
     console.assert(otherButton != undefined, 'otherButton is undefined');
     //if (e.target.value.includes(' ')) {
@@ -193,7 +182,6 @@ const OtherButton = ({
     //if(e.keyCode === 13)
     //{
     //    e.preventDefault()
-    //    console.log("pressed enter ", e.target.parentElement.parentElement);
     //    disableButton(e.target.parentElement.parentElement);
     //    submitNewTag(e.target.parentElement.parentElement);
 

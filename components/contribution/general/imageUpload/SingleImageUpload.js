@@ -39,17 +39,14 @@ const SingleImageUpload = ({ currentImage, handleUpdateImage }) => {
         return;
       }
       imageCompression(file, options).then((compressedFile) => {
-        console.log('size ', compressedFile.size);
         let ext = file.name.toLowerCase().split('.').pop();
         if (ext === 'jpg') ext = 'jpeg';
         if (ext === 'heic' || ext === 'heif') {
-          console.log('heic detected');
           heic2any({
             blob: compressedFile,
             toType: 'image/jpeg',
             quality: 0.5,
           }).then((img) => {
-            console.log('img', img);
             readFile(img, 'jpeg');
           });
         } else {
@@ -70,8 +67,6 @@ const SingleImageUpload = ({ currentImage, handleUpdateImage }) => {
         ext = file.name.split('.').pop();
         if (ext === 'jpg') ext = 'jpeg';
       }
-      console.log('image buffer and extension!!!');
-      console.log(imageBuffer, ext);
       handleUpdateImage(imageBuffer, ext);
       setSubmitting(false);
     };

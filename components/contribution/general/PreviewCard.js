@@ -10,7 +10,6 @@ const PreviewCard = ({
   lang,
   i18n,
 }) => {
-  console.log('i18n from prev card ', i18n);
   const getObjectPreview = () => {
     if (objType === 'workshop') {
       return (

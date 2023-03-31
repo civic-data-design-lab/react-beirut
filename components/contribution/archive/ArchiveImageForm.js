@@ -41,7 +41,6 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
     let storedNum = localStorage.getItem('numImageFormArchive');
     if (storedNum) {
       setNumImageForm(parseInt(storedNum));
-      console.log('num is ', storedNum);
     }
   }, []);
 
@@ -53,7 +52,6 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
     newData.images[imageIndex] = data;
     setImageFormState((prevForm) => {
       const updatedFormData = { ...prevForm, ...newData };
-      // console.log('setting ImageFormState to ', updatedFormData);
       onUpdate(updatedFormData);
       return updatedFormData;
     });
@@ -80,7 +78,6 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
         if (newData.caption[key]) {
           newData.caption[key - 1] = newData.caption[key];
           newData.caption[key] = [];
-          console.log('newData is ', newData);
           onUpdate(newData);
         }
       }
@@ -95,7 +92,6 @@ const ArchiveImageForm = ({ onUpdate, formData, formSchema, title, label }) => {
         if (newData.image_type[key]) {
           newData.image_type[key - 1] = newData.image_type[key];
           newData.image_type[key] = [];
-          console.log('newData is ', newData);
           onUpdate(newData);
         }
       }

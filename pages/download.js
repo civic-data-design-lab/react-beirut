@@ -18,7 +18,6 @@ const DownloadPage = () => {
   };
 
   function sendAnalytics(action) {
-    console.log('send analytics ', action);
     ReactGA.event({
       category: 'Function',
       action: action,

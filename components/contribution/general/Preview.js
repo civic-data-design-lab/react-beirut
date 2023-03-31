@@ -93,10 +93,8 @@ const Preview = ({
 
     // INFO: If this form was for an archive, show the archive preview
     if (formData.survey_origin === ARCHIVE_CONTRIBUTION_NAME) {
-      console.log('formData in preview ', formData);
       const { archive, imageMetas, imageDataOriginals } =
         convertArchiveContributionToSchema(formData, formSchema);
-      console.log('imageMeta in Preview ', imageMetas);
 
       let buffers = {};
       for (const [key, value] of Object.entries(formData.images)) {

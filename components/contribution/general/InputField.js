@@ -78,7 +78,6 @@ const InputField = (props) => {
                 required={required}
                 defaultChecked={value || false}
                 onClick={(e) => {
-                  console.log('checked? ', e.target.checked);
                   onUpdate({ [fieldName]: e.target.checked });
                 }}
                 {...rest}
@@ -167,9 +166,6 @@ const InputField = (props) => {
           </select>
         );
       case 'select-with-other':
-        // onUpdate({ [fieldName]: null }); TODO: Learn how to make the null option the default. Enabling this line makes the page not load.
-        // console.log('check if other exists ', otherExists)
-        // console.log("value ", value)
         return (
           <>
             <select
@@ -212,7 +208,6 @@ const InputField = (props) => {
                 value={value}
                 placeholder={t(`Enter Other`) + t(title)}
                 onChange={(e) => {
-                  // console.log('valueee ', e.target.value)
                   onUpdate({ [fieldName]: e.target.value });
                 }}
                 {...rest}

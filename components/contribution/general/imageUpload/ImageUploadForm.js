@@ -59,7 +59,6 @@ const ImageUploadForm = ({
 
     setImageFormState((prevForm) => {
       const updatedFormData = { ...prevForm, ...newData };
-      // console.log('setting ImageFormState to ', updatedFormData);
       onUpdate(updatedFormData);
       return updatedFormData;
     });
