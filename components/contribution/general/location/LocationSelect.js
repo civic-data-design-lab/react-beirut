@@ -49,12 +49,14 @@ export default class LocationSelect extends React.Component {
     this.mapContainer = React.createRef();
     this.searchMap = this.searchMap.bind(this);
     this.toSearch = this.toSearch.bind(this);
-    this.geolocate = this.geolocate(this);
+    this.geolocate = this.geolocate.bind(this);
     this.state = {
       search: '',
       geoLocateDialog: null,
       geoLocateTitle: null,
       geoLocateLoader: false,
+      lat: '',
+      lng: '',
     };
   }
 
@@ -67,6 +69,7 @@ export default class LocationSelect extends React.Component {
       if (markerRef) {
         markerRef.setLngLat([lat, lon]);
         this.props.onUpdate({ lng: lat, lat: lon });
+        this.setState({ lat: lat, lng: lon });
       }
       map.current.flyTo({
         center: [lat, lon],
@@ -134,7 +137,7 @@ export default class LocationSelect extends React.Component {
     const onDragEnd = () => {
       const lngLat = marker.getLngLat();
       this.props.onUpdate(lngLat);
-      console.log(lngLat);
+      this.setState({ lat: lngLat.lat, lng: lngLat.lng });
     };
 
     marker.on('dragend', onDragEnd);
@@ -156,21 +159,49 @@ export default class LocationSelect extends React.Component {
         }
       });
     }
+
+    // if (prevState.lat !== this.state.lat || prevState.lng !== this.state.lng) {
+    //   if (this.state.lat && this.state.lng && markerRef) {
+    //     try {
+    //       markerRef.setLngLat([
+    //         parseFloat(this.state.lng),
+    //         parseFloat(this.state.lat),
+    //       ]);
+    //     } catch (e) {
+    //       console.log(e);
+    //     }
+    //   }
+    // }
   }
 
   geolocate = () => {
     console.log('CLICKED GEOLOCATE');
     const success = (position) => {
       console.log('CLICKED GEOLOCATE');
-      this.setState({
-        geoLocateDialog: null,
-        geoLocateTitle: null,
-        geoLocateLoader: false,
-      });
-      this.toSearch(position.coords.latitude, position.coords.longitude);
+
+      if (
+        !checkInLebanon({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        })
+      ) {
+        this.setState({
+          geoLocateDialog: 'You are not located in Beirut!',
+          geoLocateTitle: 'Geolocation Failed',
+          geoLocateLoader: false,
+        });
+      } else {
+        this.setState({
+          geoLocateDialog: null,
+          geoLocateTitle: null,
+          geoLocateLoader: false,
+        });
+        this.toSearch(position.coords.latitude, position.coords.longitude);
+      }
     };
 
     const error = () => {
+      console.log('FAILED GEOLOCATE');
       this.setState({
         geoLocateTitle: "We couldn't find you!",
         geoLocateDialog:
@@ -203,11 +234,53 @@ export default class LocationSelect extends React.Component {
 
         <div className="locationSearchContainer">
           <MapSearchBar callback={this.toSearch} />
+          <div className="coordinateInputContainer">
+            <input
+              className="coordinateInput"
+              placeholder="latitude"
+              value={this.state.lat}
+              onChange={(e) => {
+                this.setState({ lat: e.target.value });
+                try {
+                  if (markerRef) {
+                    markerRef.setLngLat([
+                      parseFloat(e.target.value),
+                      parseFloat(this.state.lng),
+                    ]);
+                  }
+                } catch (e) {
+                  console.log(e);
+                }
+              }}
+            ></input>
+            <input
+              className="coordinateInput"
+              placeholder="longitude"
+              value={this.state.lng}
+              onChange={(e) => {
+                this.setState({ lng: e.target.value });
+                try {
+                  if (markerRef) {
+                    markerRef.setLngLat([
+                      parseFloat(this.state.lat),
+                      parseFloat(e.target.value),
+                    ]);
+                  }
+                } catch (e) {
+                  console.log(e);
+                }
+              }}
+            ></input>
+          </div>
         </div>
         <button
           type="button"
           className={'nav-ctr-btn geolocate-btn btn-interactivity'}
-          onClick={this.geolocate}
+          onClick={(e) => {
+            e.preventDefault();
+            console.log('clicked button');
+            this.geolocate();
+          }}
         >
           <svg
             width="24"

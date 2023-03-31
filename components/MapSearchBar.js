@@ -30,10 +30,14 @@ const MapSearchBar = ({ callback }) => {
         west: 35.437629,
       },
 
-      componentRestrictions: ['lb'],
+      // componentRestrictions: ['lb'],
     },
     debounce: 300,
   });
+
+  if (status !== ' OK') {
+    console.log(status);
+  }
 
   const handleSelect =
     ({ description }) =>

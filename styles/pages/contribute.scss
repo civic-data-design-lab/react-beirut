@@ -699,7 +699,25 @@
   top: 1rem;
   right: 1rem;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
 
+  .coordinateInputContainer {
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.5rem;
+    justify-content: flex-end;
+    .coordinateInput {
+      background-color: $c-white;
+      padding: 8px;
+      border-width: 0px;
+      width: 120px;
+      outline: none;
+      background-repeat: no-repeat;
+      background-position: 8px 5px;
+    }
+  }
   .locationSearchBar {
     background-color: $c-white;
     padding: 8px 8px 8px 40px;

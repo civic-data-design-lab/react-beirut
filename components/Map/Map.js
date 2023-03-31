@@ -8,6 +8,24 @@ import { faShop, faImage } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from './SearchBar';
 import MapSearchBar from '../MapSearchBar';
 
+import { booleanWithin } from '@turf/turf';
+import { point, polygon } from '@turf/helpers';
+const lebanon = polygon([
+  [
+    [33.860897, 35.450896],
+    [33.916889, 35.450896],
+    [33.916889, 35.574654],
+    [33.860897, 35.574654],
+    [33.860897, 35.450896],
+  ],
+]);
+
+function checkInLebanon(coord) {
+  console.log('coord ', coord);
+  const p = point([coord.longitude, coord.latitude]);
+  return booleanWithin(p, lebanon);
+}
+
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
 
 const MAP_LABELS = [
@@ -76,12 +94,15 @@ export default class App extends React.PureComponent {
 
   toSearch = (lat, lon) => {
     console.log('clicked');
-    map.current.flyTo({
-      center: [lat, lon],
-      zoom: 16,
-      speed: 0.5, // make the flying slow//
-      essential: true,
-    });
+    if (checkInLebanon({ latitude: lat, longitude: lon })) {
+      console.log('TRUE');
+      map.current.flyTo({
+        center: [lat, lon],
+        zoom: 16,
+        speed: 0.5, // make the flying slow//
+        essential: true,
+      });
+    }
   };
 
   iterateObject = (object, searchValue) => {
