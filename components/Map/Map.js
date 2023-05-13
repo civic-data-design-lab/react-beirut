@@ -274,6 +274,7 @@ export default class App extends React.PureComponent {
 
   showPopup = (e, obj) => {
     const popups = document.querySelector('.mapboxgl-popup');
+    console.log('popups in showpopup ', popups);
     if (popups) {
       if (e?.fromElement?.obj?.ID !== this.props.id) {
         popups.parentNode.removeChild(popups);
@@ -340,6 +341,7 @@ export default class App extends React.PureComponent {
     el.classList.remove('hoverMarker');
     el.classList.remove(`hoverMarker--${el.craft.toLowerCase()}`);
     const popups = document.querySelector('.mapboxgl-popup');
+    console.log('popups in leaveMarker ', popups);
     if (popups) {
       if (e.fromElement.obj.ID !== this.props.id) {
         popups.parentNode.removeChild(popups);

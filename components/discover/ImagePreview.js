@@ -102,7 +102,7 @@ const ImagePreview = ({
             {workshop.survey_origin ? (
               workshop.shop_status === 'closed_perm' ? (
                 <div className={'shop-icon'}>
-                  <img style={{ height: 24 }} src={'../../shop-closed.png'} />
+                  <img style={{ height: 24 }} src={'../../shop-closed.svg'} />
                 </div>
               ) : (
                 <div className={'shop-icon'}>
