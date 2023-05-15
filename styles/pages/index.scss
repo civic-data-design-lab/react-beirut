@@ -8,12 +8,14 @@
   }
 
   .subcontainer__landing {
-    height: calc(100vh - 80px);
+    min-height: calc(100vh - 80px);
+    max-height: calc(100vh - 80px);
     display: flex;
     flex-direction: row;
     padding: 0 2rem 1rem;
 
     @media (max-width: 770px) {
+      max-height: calc(200vh);
       flex-direction: column-reverse;
       row-gap: 1rem;
       justify-content: space-evenly;

@@ -30,10 +30,18 @@ const duotoneCraft = {
 
 const data = {
   video: {
-    link: '',
+    link: false,
+    onclick: () => {
+      const video = document.getElementsByClassName('video__landing')[0];
+      console.log('video ', video);
+      if (video !== undefined) {
+        video.scrollIntoView({ behavior: 'smooth' });
+      }
+      console.log('clicked');
+    },
     static: './landing/video.png',
     filepath: './landing/video.gif',
-    heading: '',
+    heading: 'Introduction to Living Heritage Atlas | Beirut',
     subheading: '',
     body: [],
     style: { height: '27%', width: '35%', top: '61%', left: '17.6%' },
@@ -105,9 +113,12 @@ const data = {
   donikian: {
     link: '/discover/148266688',
     filepath: './landing/donikian.jpeg',
-    heading: '',
-    subheading: '',
-    body: [],
+    heading: 'Donikian Leather',
+    subheading:
+      'Donikian Leather | 2014 · Leather · Badguèr, Der Melkonian Street, Bourj Hammoud',
+    body: [
+      'Sarkis Donikian, craftsperson and owner of Donikian Leather, in his shop. This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
+    ],
     style: {
       width: '13.021%',
       height: '12.0081%',
@@ -175,9 +186,11 @@ const data = {
   naser: {
     link: '/discover/145875023',
     filepath: './landing/naser.jpg',
-    heading: '',
-    subheading: '',
-    body: [],
+    heading: 'Abu Al-Nasr Market',
+    subheading: 'Abu Al-Nasr Market | 1900 · Wickerwork · Beirut',
+    body: [
+      'Straw chairs and household supplies at a souk in Abu Al-Nasr Market. This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
+    ],
     style: { width: '4.846%', height: '9.12%', left: '69.81%', top: '69.61%' },
   },
   tannery: {
@@ -199,17 +212,22 @@ const data = {
   upholstery: {
     link: '/discover/151673966',
     filepath: './landing/upholstery.jpg',
-    heading: '',
-    subheading: '',
-    body: [],
+    heading: "Upholsterer's Souk",
+    subheading:
+      'Upholsterer’s Souk | 1950 · Upholstery · Serail, Zoukak el-Blatt, Beirut',
+    body: [
+      'Upholsterer’s souk near Riad as-Solh square. This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
+    ],
     style: { width: '13.722%', height: '19.066%', left: '12%', top: '39.269%' },
   },
   street: {
     link: '/about',
     filepath: './landing/street.jpg',
-    heading: '',
-    subheading: '',
-    body: [],
+    heading: 'Bourj Hammoud',
+    subheading: 'Site of ',
+    body: [
+      'This Bourj Hammoud tour allowed participants to meet many craft workshops due to the cluster of craftspeople in the area of Bourj Hammoud; the tour started with meeting Hagop Keshishian, known as Jackson, a local craftsperson who makes and repairs shoes, and moved to meet his next-door neighbor Bedros Keshishian who works in woodworks and carpentry. The tour then resumed with meeting Gregor Ichkerian, a metal sculptor who works with his son, and then Peter Khatcherian, the only pipe maker in the Arab Region. The tour ended with meeting Noubar Eskidjian, who specializes in copper work.',
+    ],
     style: {
       width: '9.78%',
       height: '9.046%',
@@ -249,9 +267,11 @@ const data = {
   mappathon: {
     link: '/about',
     filepath: './landing/mappathon.jpg',
-    heading: '',
+    heading: 'Mappathon',
     subheading: '',
-    body: [],
+    body: [
+      'Participants were invited to contribute to the digital archive through a mapathon, a community mapping event,in which participants brought along a living heritage item (such as photos, maps, and fabric) to be scanned and returned to them.',
+    ],
     style: {
       width: '19.5036%',
       height: '18.0933%',
@@ -329,9 +349,57 @@ const Index = ({ i18n }) => {
   function renderGrid() {
     const grid = [];
     for (const [key, value] of Object.entries(data)) {
-      grid.push(
-        <Link href={value.link}>
+      if (value.link) {
+        grid.push(
+          <Link href={value.link ? value.link : {}}>
+            <div
+              onMouseEnter={() => {
+                setText(data[key]);
+
+                const cover = document.getElementById(`${key}-cover`);
+                const image = document.getElementById(`${key}-img`);
+                const stat = document.getElementById(`${key}-static`);
+                cover.classList.add('active');
+                image.classList.add('active');
+                if (stat !== undefined) stat?.classList?.add('active');
+              }}
+              onMouseLeave={() => {
+                setText(default_text);
+                const cover = document.getElementById(`${key}-cover`);
+                const image = document.getElementById(`${key}-img`);
+                const stat = document.getElementById(`${key}-static`);
+
+                cover.classList.remove('active');
+                image.classList.remove('active');
+                if (stat !== undefined) stat?.classList?.remove('active');
+              }}
+            >
+              <img
+                id={`${key}-img`}
+                className="landing_window"
+                src={value.filepath}
+                style={value.style}
+              />
+              {value?.static && (
+                <img
+                  src={value.static}
+                  id={`${key}-static`}
+                  className="static_cover"
+                  style={value.style}
+                />
+              )}
+              <div
+                id={`${key}-cover`}
+                className="image_cover"
+                style={value.style}
+              />
+            </div>
+          </Link>
+        );
+      } else {
+        grid.push(
           <div
+            onClick={value?.onclick}
             onMouseEnter={() => {
               setText(data[key]);
 
@@ -373,8 +441,8 @@ const Index = ({ i18n }) => {
               style={value.style}
             />
           </div>
-        </Link>
-      );
+        );
+      }
     }
 
     return grid;
