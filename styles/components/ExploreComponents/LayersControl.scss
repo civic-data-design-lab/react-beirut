@@ -6,14 +6,14 @@
   max-height: 60%;
   width: 30%;
   bottom: 20%;
-  left: 4%;
+  left: 3.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 5px 10px 20px rgba(0, 0, 0, 0.2);
   z-index: 10;
 
-  @media screen and (min-width: 688px) and (max-width: 991px)  {
+  @media screen and (min-width: 688px) and (max-width: 991px) {
     width: 50%;
   }
 
@@ -26,7 +26,6 @@
     z-index: 3;
   }
 }
-
 
 .lc-section {
   flex: 1 1 0;
@@ -42,20 +41,18 @@
   overflow-y: scroll;
 }
 
-
 .mapLayerButtons {
   height: 100%;
   width: 100%;
   margin: 0px;
   padding: 0px;
-  border:none;
+  border: none;
   background-color: Transparent;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
   color: $c-black;
-
 }
 
 .lc-button-labels-wrapper {
@@ -63,11 +60,11 @@
 }
 
 .lc-button-labels-wrapper-selected {
-  color: #9C6340;
+  color: #9c6340;
   background-color: rgba(196, 161, 140, 0.3);
 
   .map-name-reference {
-    color: #C9BBA6 ;
+    color: #c9bba6;
   }
 }
 
@@ -76,40 +73,37 @@
   width: 100%;
   margin: 0px;
   padding: 0px;
-  border:none;
+  border: none;
   background-color: $c-primary-light;
 }
 
 .mapLayerButtons:hover {
   @media screen and (min-width: 688px) {
-  height: 100%;
-  width: 100%;
-  margin: 0px;
-  padding: 0px;
-  border:none;
-  color: #9C6340;
-  background-color: rgba(196, 161, 140, 0.3);
-  .map-name-reference {
-    text-align:left !important;
-  }
-
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    color: #9c6340;
+    background-color: rgba(196, 161, 140, 0.3);
+    .map-name-reference {
+      text-align: left !important;
+    }
   }
 }
 
 .lc-button-year {
   padding-left: 24px;
-  padding-top:12px;
-  padding-bottom:12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   padding-right: 12px;
-
 }
 
 .lc-button-ref {
   padding-right: 24px;
-  padding-top:12px;
-  padding-bottom:12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   padding-left: 12px;
-
 }
 
 .lc-showMap-btn {
@@ -128,10 +122,9 @@
   //font-weight: 400;
   //font-size: 16px;
   //line-height: 18px;
-  text-align:left !important;
+  text-align: left !important;
 }
 
 .map-name-reference {
- //color: #AEAEAE;
+  //color: #AEAEAE;
 }
-

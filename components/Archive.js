@@ -102,8 +102,10 @@ const Archive = ({
       return archive.shop_name['content'];
     } else if (archive.shop_name['content_orig']) {
       return archive.shop_name['content_orig'];
+    } else if (archive.owner_name.content) {
+      return archive.owner_name.content;
     } else {
-      return t('Archival Image (No name provided)');
+      return t('Archival Image');
     }
   };
 
@@ -185,7 +187,11 @@ const Archive = ({
         {archive.reference.link ? (
           <p className={'object-subtitle'}>
             Reference: {archive.reference.name},{' '}
-            {<a href={archive.reference.link}>{archive.reference.citation}</a>}
+            {
+              <a href={archive.reference.link} target="_blank">
+                {archive.reference.citation}
+              </a>
+            }
           </p>
         ) : (
           <p className={'object-subtitle'}>
@@ -353,7 +359,7 @@ const Archive = ({
         <div className={'popup-section archival-card-section'}>
           <div className={'object-title-section'}>
             <p className={'object-name'}>
-              {getShopName() || 'Craft Shop (No name provided)'} &thinsp;
+              {getShopName() || 'Archival Image'} &thinsp;
               <span>
                 <Info
                   icon={
@@ -416,7 +422,7 @@ const Archive = ({
         <div className={'popup-section'}>
           <div className={'object-title-section'}>
             <p className={'object-name'}>
-              {getShopName() || 'Craft Shop (No name provided)'} &thinsp;
+              {getShopName() || 'Archival Image'} &thinsp;
               <span>
                 <Info
                   icon={
@@ -529,7 +535,7 @@ const Archive = ({
                 }
               >
                 <p className={'object-mobile-title'}>
-                  {getShopName() || 'Craft Shop (No name provided)'} &thinsp;
+                  {getShopName() || 'Archival Image'} &thinsp;
                   <span>
                     <Info
                       icon={

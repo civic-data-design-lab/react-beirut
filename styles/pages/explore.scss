@@ -86,7 +86,6 @@
   height: 48px;
   width: 48px;
   border-radius: 50%;
-  margin: 8px;
   border-width: 0px;
   display: flex;
   flex-direction: row;
@@ -110,11 +109,12 @@
 .filterSection {
   position: fixed;
   bottom: 5%;
-  left: 2rem;
+  left: 3.5rem;
   border: none;
   display: flex;
   flex-direction: row;
   direction: ltr;
+  column-gap: 16px;
 
   @media screen and (max-width: 688px) {
     display: flex;
@@ -130,7 +130,7 @@
 }
 
 .mapSearchContainer {
-  right: 2rem;
+  right: 3.5rem;
   position: absolute;
   z-index: 5;
 
@@ -267,7 +267,7 @@
   justify-content: space-around;
   align-items: center;
   bottom: 5%;
-  right: 2rem;
+  right: 3.5rem;
 
   @media screen and (max-width: 688px) {
     right: calc(100vw - 48px - 2rem);
@@ -275,7 +275,7 @@
 }
 
 .nav-ctr-btn {
-  margin: 8px;
+  margin: 8px 0 8px 0;
   height: 42px;
   width: 42px;
   background-color: $c-white-off;
@@ -326,7 +326,7 @@
   padding: 12px;
   width: 18vw;
   bottom: 20%;
-  left: 4%;
+  left: 3.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

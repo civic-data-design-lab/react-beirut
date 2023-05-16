@@ -41,6 +41,7 @@ import { TRANSLATIONS } from '../../lib/utils';
 
 import { Trans, useTranslation } from 'react-i18next';
 import Info from '../Info';
+import { object } from 'prop-types';
 
 // assumes workshop or archive is passed in as a prop
 const MapCard = ({
@@ -273,31 +274,22 @@ const MapCard = ({
   const getShopName = (archive = false) => {
     if (workshop.shop_name['content']) {
       return (
-        <a
-          // onClick={() => {
-          //   window.open(`/discover/${workshop.ID}`, '_blank').focus();
-          // }}
-          href={`/discover/${workshop.ID}`}
-        >
-          {workshop.shop_name['content']}
-        </a>
+        <a href={`/discover/${workshop.ID}`}>{workshop.shop_name['content']}</a>
       );
     } else if (workshop.shop_name['content_orig']) {
       return (
-        <a
-          // onClick={() => {
-          //   window.open(`/discover/${workshop.ID}`, '_blank').focus();
-          // }}
-          href={`/discover/${workshop.ID}`}
-        >
+        <a href={`/discover/${workshop.ID}`}>
           {workshop.shop_name['content_orig']}
         </a>
       );
+    } else if (workshop.shop_owner_name) {
+      return;
+      <a href={`/discover/${workshop.ID}`}>{workshop.shop_owner_name}</a>;
     } else {
       if (archive) {
-        return t('Archival Image (No name provided)');
+        return t('Archival Image');
       }
-      return t('Craft Shop (No name provided)');
+      return t('Craft Shop');
     }
   };
 
@@ -593,7 +585,9 @@ const MapCard = ({
           <p className={'shopSubtitle-text'}>
             Reference: {referenceName},{' '}
             {referenceCitation && (
-              <a href={referenceLink}>{referenceCitation}</a>
+              <a href={referenceLink} target="_blank">
+                {referenceCitation}
+              </a>
             )}
           </p>
         )}
@@ -615,7 +609,7 @@ const MapCard = ({
             <div>
               <div className="shopName-section">
                 <p className={'shopName-text'}>
-                  {getShopName() || 'Craft Shop (No name provided)'}
+                  {getShopName() || 'Craft Workshop'}
                 </p>
                 <Info
                   icon={
@@ -635,6 +629,13 @@ const MapCard = ({
                 {getSubtitle() && getDecadeEstablished() ? ' | ' : ''}{' '}
                 {getSubtitle()}{' '}
               </p>
+
+              <div className="shopSubtitle-text">{object.shop_status}</div>
+              {workshop.consent ? (
+                <div>
+                  {getAddress()} {getContactInfo()}
+                </div>
+              ) : null}
             </div>
 
             <button
@@ -644,12 +645,6 @@ const MapCard = ({
               <FontAwesomeIcon icon={faXmark} size={'sm'} />
             </button>
           </div>
-
-          {workshop.consent ? (
-            <div>
-              {getAddress()} {getContactInfo()}
-            </div>
-          ) : null}
 
           {workshop.images.length !== 0 ? (
             <>
@@ -704,7 +699,7 @@ const MapCard = ({
               <div className={'shop-title-verification'}>
                 <div className="shopName-section">
                   <p className={'shopName-text'}>
-                    {getShopName(true) || 'Craft Shop (No name provided)'}{' '}
+                    {getShopName(true) || 'Archival Image'}{' '}
                   </p>
                   <Info
                     icon={
