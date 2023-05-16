@@ -1,128 +1,147 @@
-.about-card {
-  padding: 2rem 2rem;
+.about-container {
+  height: calc(100vh - 80px);
+  border: 1px solid black;
   display: flex;
-  flex-direction: column;
-  color: $c-primary-dark;
-}
-
-a {
-  color: $c-primary-dark;
-  transition: all 0.1s ease-in-out;
-
-  &:hover {
-    color: $c-primary-mid;
-    cursor: pointer;
-  }
-}
-
-.t-1,
-.t-2,
-.t-3,
-.t-4,
-.t-5,
-.t-6,
-.t-7 {
-  border: solid 2px #faf8f6;
-}
-.t-3,
-.t-4,
-.t-5,
-.t-6,
-.t-7 {
-  color: $c-white;
-
-  p,
-  ol {
-    font-size: 0.8rem;
-    line-height: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  hr {
-    border-color: $c-white;
-    margin: 0.5rem 0rem;
-  }
-
-  .border-right {
-    border-right: solid 0.5px rgba(255, 255, 255, 0.25);
-  }
-}
-.t-1 {
-  background-color: $c-orange-1;
-}
-.t-2 {
-  background-color: $c-orange-2;
-}
-.t-3 {
-  background-color: $c-orange-3;
-}
-.t-4 {
-  background-color: $c-orange-4;
-}
-.t-5 {
-  background-color: $c-orange-5;
-}
-.t-6 {
-  background-color: $c-orange-6;
-}
-.t-7 {
-  background-color: $c-orange-7;
-}
-
-.t-event {
+  flex-direction: row;
   color: $c-primary-dark;
 
-  a {
-    color: $c-primary-dark;
+  h3 {
+    font-weight: 700;
   }
 
-  .row:not(:last-child) {
-    border-bottom: solid 1px $c-primary-dark;
+  .text-container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 
-ol.groups li::marker {
-  font-weight: bold;
-}
+// .about-card {
+//   padding: 2rem 2rem;
+//   display: flex;
+//   flex-direction: column;
+//   color: $c-primary-dark;
+// }
 
-#logo-fhl {
-  width: 80%;
-}
+// a {
+//   color: $c-primary-dark;
+//   transition: all 0.1s ease-in-out;
 
-// STYLE FOR LANGUAGE SETTING RTL
-ol.en {
-  padding-left: 1rem;
-}
-ol.ar {
-  padding-left: 0;
-  padding-right: 1rem;
-  list-style: arabic-indic;
-}
-
-div.en {
-  padding-left: 1rem;
-}
-
-div.ar {
-  padding-left: 0;
-  padding-right: 1rem;
-}
-
-// RESPONSIVE DESIGN
-.col-lg-1 {
-  display: none;
-}
-
-/* Medium devices (large desktops, 1200px and up) */
-// @media (min-width: 651px) {
-//   .about-card p {
-//     max-width: 550px;
+//   &:hover {
+//     color: $c-primary-mid;
+//     cursor: pointer;
 //   }
 // }
 
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .col-lg-1 {
-    display: block;
-  }
-}
+// .t-1,
+// .t-2,
+// .t-3,
+// .t-4,
+// .t-5,
+// .t-6,
+// .t-7 {
+//   border: solid 2px #faf8f6;
+// }
+// .t-3,
+// .t-4,
+// .t-5,
+// .t-6,
+// .t-7 {
+//   color: $c-white;
+
+//   p,
+//   ol {
+//     font-size: 0.8rem;
+//     line-height: 1rem;
+//     margin-bottom: 0.5rem;
+//   }
+
+//   hr {
+//     border-color: $c-white;
+//     margin: 0.5rem 0rem;
+//   }
+
+//   .border-right {
+//     border-right: solid 0.5px rgba(255, 255, 255, 0.25);
+//   }
+// }
+// .t-1 {
+//   background-color: $c-orange-1;
+// }
+// .t-2 {
+//   background-color: $c-orange-2;
+// }
+// .t-3 {
+//   background-color: $c-orange-3;
+// }
+// .t-4 {
+//   background-color: $c-orange-4;
+// }
+// .t-5 {
+//   background-color: $c-orange-5;
+// }
+// .t-6 {
+//   background-color: $c-orange-6;
+// }
+// .t-7 {
+//   background-color: $c-orange-7;
+// }
+
+// .t-event {
+//   color: $c-primary-dark;
+
+//   a {
+//     color: $c-primary-dark;
+//   }
+
+//   .row:not(:last-child) {
+//     border-bottom: solid 1px $c-primary-dark;
+//   }
+// }
+
+// ol.groups li::marker {
+//   font-weight: bold;
+// }
+
+// #logo-fhl {
+//   width: 80%;
+// }
+
+// // STYLE FOR LANGUAGE SETTING RTL
+// ol.en {
+//   padding-left: 1rem;
+// }
+// ol.ar {
+//   padding-left: 0;
+//   padding-right: 1rem;
+//   list-style: arabic-indic;
+// }
+
+// div.en {
+//   padding-left: 1rem;
+// }
+
+// div.ar {
+//   padding-left: 0;
+//   padding-right: 1rem;
+// }
+
+// // RESPONSIVE DESIGN
+// .col-lg-1 {
+//   display: none;
+// }
+
+// /* Medium devices (large desktops, 1200px and up) */
+// // @media (min-width: 651px) {
+// //   .about-card p {
+// //     max-width: 550px;
+// //   }
+// // }
+
+// /* Large devices (desktops, 992px and up) */
+// @media (min-width: 992px) {
+//   .col-lg-1 {
+//     display: block;
+//   }
+// }

@@ -254,9 +254,11 @@ const data = {
   panel_2: {
     link: '/about',
     filepath: './landing/panel_2.jpg',
-    heading: '',
+    heading: 'Mappathon',
     subheading: '',
-    body: [],
+    body: [
+      'Wissam Houry, a third generation leather craftsperson, poses with his son and the tools he uses to create handmade horse saddles and other leather goods.',
+    ],
     style: {
       width: '17.4598%',
       height: '18.174%',
@@ -346,103 +348,84 @@ const Index = ({ i18n }) => {
   const { t } = useTranslation();
   const [text, setText] = useState(default_text);
 
+  function hover(key) {
+    setText(data[key]);
+
+    const cover = document.getElementById(`${key}-cover`);
+    const image = document.getElementById(`${key}-img`);
+    const stat = document.getElementById(`${key}-static`);
+    cover.classList.add('active');
+    image.classList.add('active');
+    if (stat !== undefined) stat?.classList?.add('active');
+  }
+
+  function unhover(key) {
+    setText(default_text);
+    const cover = document.getElementById(`${key}-cover`);
+    const image = document.getElementById(`${key}-img`);
+    const stat = document.getElementById(`${key}-static`);
+
+    cover.classList.remove('active');
+    image.classList.remove('active');
+    if (stat !== undefined) stat?.classList?.remove('active');
+  }
+
+  function renderText(key, value) {
+    return (
+      <div
+        onClick={() => {
+          if (window.matchMedia('(pointer: coarse)').matches) {
+            if (text === value) {
+              setText(default_text);
+            } else setText(data[key]);
+          } else {
+            if (value.link) {
+              window.location.href = value.link;
+            } else {
+              value?.onclick();
+            }
+          }
+        }}
+        onMouseEnter={() => {
+          hover(key);
+        }}
+        onMouseLeave={() => {
+          unhover(key);
+        }}
+        // onTouchStart={() => {
+        //   hover(key);
+        // }}
+        // onTouchEnd={() => {
+        //   unhover(key);
+        // }}
+      >
+        <img
+          id={`${key}-img`}
+          className="landing_window"
+          src={value.filepath}
+          style={value.style}
+        />
+        {value?.static && (
+          <img
+            src={value.static}
+            id={`${key}-static`}
+            className="static_cover"
+            style={value.style}
+          />
+        )}
+        <div id={`${key}-cover`} className="image_cover" style={value.style} />
+      </div>
+    );
+  }
+
   function renderGrid() {
     const grid = [];
     for (const [key, value] of Object.entries(data)) {
-      if (value.link) {
-        grid.push(
-          <Link href={value.link ? value.link : {}}>
-            <div
-              onMouseEnter={() => {
-                setText(data[key]);
-
-                const cover = document.getElementById(`${key}-cover`);
-                const image = document.getElementById(`${key}-img`);
-                const stat = document.getElementById(`${key}-static`);
-                cover.classList.add('active');
-                image.classList.add('active');
-                if (stat !== undefined) stat?.classList?.add('active');
-              }}
-              onMouseLeave={() => {
-                setText(default_text);
-                const cover = document.getElementById(`${key}-cover`);
-                const image = document.getElementById(`${key}-img`);
-                const stat = document.getElementById(`${key}-static`);
-
-                cover.classList.remove('active');
-                image.classList.remove('active');
-                if (stat !== undefined) stat?.classList?.remove('active');
-              }}
-            >
-              <img
-                id={`${key}-img`}
-                className="landing_window"
-                src={value.filepath}
-                style={value.style}
-              />
-              {value?.static && (
-                <img
-                  src={value.static}
-                  id={`${key}-static`}
-                  className="static_cover"
-                  style={value.style}
-                />
-              )}
-              <div
-                id={`${key}-cover`}
-                className="image_cover"
-                style={value.style}
-              />
-            </div>
-          </Link>
-        );
-      } else {
-        grid.push(
-          <div
-            onClick={value?.onclick}
-            onMouseEnter={() => {
-              setText(data[key]);
-
-              const cover = document.getElementById(`${key}-cover`);
-              const image = document.getElementById(`${key}-img`);
-              const stat = document.getElementById(`${key}-static`);
-              cover.classList.add('active');
-              image.classList.add('active');
-              if (stat !== undefined) stat?.classList?.add('active');
-            }}
-            onMouseLeave={() => {
-              setText(default_text);
-              const cover = document.getElementById(`${key}-cover`);
-              const image = document.getElementById(`${key}-img`);
-              const stat = document.getElementById(`${key}-static`);
-
-              cover.classList.remove('active');
-              image.classList.remove('active');
-              if (stat !== undefined) stat?.classList?.remove('active');
-            }}
-          >
-            <img
-              id={`${key}-img`}
-              className="landing_window"
-              src={value.filepath}
-              style={value.style}
-            />
-            {value?.static && (
-              <img
-                src={value.static}
-                id={`${key}-static`}
-                className="static_cover"
-                style={value.style}
-              />
-            )}
-            <div
-              id={`${key}-cover`}
-              className="image_cover"
-              style={value.style}
-            />
-          </div>
-        );
-      }
+      // if (value.link) {
+      // grid.push(<Link href={value.link}>{renderText(key, value)}</Link>);
+      // } else {
+      grid.push(<> {renderText(key, value)}</>);
+      // }
     }
 
     return grid;
@@ -461,6 +444,13 @@ const Index = ({ i18n }) => {
               return <p>{t}</p>;
             })}
           </div>
+          {window.matchMedia('(pointer: coarse)').matches && text.link && (
+            <div>
+              <p>
+                Click <a href={text.link}>here</a> to learn more
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="container col-md-8 col-sm-12 grid_container">
