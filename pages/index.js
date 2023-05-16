@@ -380,10 +380,10 @@ const Index = ({ i18n }) => {
       <div
         onClick={() => {
           if (touchscreen) {
-            const activeList = document.getElementsByClassName('active');
-            activeList.map((elt) => {
-              elt.classList.remove('active');
-            });
+            // const activeList = document.getElementsByClassName('active');
+            // activeList.map((elt) => {
+            //   elt.classList.remove('active');
+            // });
             if (text === value) {
               unhover(key);
             } else hover(key);
