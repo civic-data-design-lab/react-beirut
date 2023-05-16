@@ -380,11 +380,10 @@ const Index = ({ i18n }) => {
       <div
         onClick={() => {
           if (touchscreen) {
-            // const activeList = document.getElementsByClassName('active');
-            // activeList.map((elt) => {
-            //   elt.classList.remove('active');
-            // });
-            if (text === value) {
+            const cover = document.getElementById(`${key}-cover`);
+            const active = cover.classList.contains('active');
+
+            if (active) {
               unhover(key);
             } else hover(key);
           } else {
@@ -468,7 +467,7 @@ const Index = ({ i18n }) => {
           }}
         >
           <iframe
-            src="https://player.vimeo.com/video/783337873?h=8529ccc1f9&autoplay=1&title=0&byline=0&portrait=0"
+            src="https://player.vimeo.com/video/783337873?h=8529ccc1f9&autoplay=0&title=0&byline=0&portrait=0"
             style={{
               position: 'absolute',
               top: '50%',
