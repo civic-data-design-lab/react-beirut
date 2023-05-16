@@ -347,6 +347,11 @@ const Index = ({ i18n }) => {
   };
   const { t } = useTranslation();
   const [text, setText] = useState(default_text);
+  const [touchscreen, setTouchscreen] = useState(false);
+
+  useEffect(() => {
+    setTouchscreen(window.matchMedia('(pointer: coarse)').matches);
+  });
 
   function hover(key) {
     setText(data[key]);
@@ -374,7 +379,7 @@ const Index = ({ i18n }) => {
     return (
       <div
         onClick={() => {
-          if (window.matchMedia('(pointer: coarse)').matches) {
+          if (touchscreen) {
             if (text === value) {
               setText(default_text);
             } else setText(data[key]);
@@ -444,7 +449,7 @@ const Index = ({ i18n }) => {
               return <p>{t}</p>;
             })}
           </div>
-          {window.matchMedia('(pointer: coarse)').matches && text.link && (
+          {touchscreen && text.link && (
             <div>
               <p>
                 Click <a href={text.link}>here</a> to learn more
