@@ -366,6 +366,13 @@ const Index = ({ i18n }) => {
 
   function unhover(key) {
     setText(default_text);
+
+    const cover = document.getElementById(`${key}-cover`);
+    const image = document.getElementById(`${key}-img`);
+    const stat = document.getElementById(`${key}-static`);
+    cover.classList.add('active');
+    image.classList.add('active');
+    if (stat !== undefined) stat?.classList?.add('active');
   }
 
   function renderText(key, value) {
