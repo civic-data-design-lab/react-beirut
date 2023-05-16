@@ -370,9 +370,9 @@ const Index = ({ i18n }) => {
     const cover = document.getElementById(`${key}-cover`);
     const image = document.getElementById(`${key}-img`);
     const stat = document.getElementById(`${key}-static`);
-    cover.classList.add('active');
-    image.classList.add('active');
-    if (stat !== undefined) stat?.classList?.add('active');
+    cover.classList.remove('active');
+    image.classList.remove('active');
+    if (stat !== undefined) stat?.classList?.remove('active');
   }
 
   function renderText(key, value) {
@@ -402,9 +402,9 @@ const Index = ({ i18n }) => {
             const cover = document.getElementById(`${key}-cover`);
             const image = document.getElementById(`${key}-img`);
             const stat = document.getElementById(`${key}-static`);
-            cover.classList.add('active');
-            image.classList.add('active');
-            if (stat !== undefined) stat?.classList?.add('active');
+            cover.classList.remove('active');
+            image.classList.remove('active');
+            if (stat !== undefined) stat?.classList?.remove('active');
           }
         }}
       >
