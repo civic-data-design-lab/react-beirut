@@ -392,10 +392,10 @@ const Index = ({ i18n }) => {
           }
         }}
         onMouseEnter={() => {
-          hover(key);
+          if (!touchscreen) hover(key);
         }}
         onMouseLeave={() => {
-          unhover(key);
+          if (!touchscreen) unhover(key);
         }}
         // onTouchStart={() => {
         //   hover(key);
