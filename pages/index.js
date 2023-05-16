@@ -366,13 +366,6 @@ const Index = ({ i18n }) => {
 
   function unhover(key) {
     setText(default_text);
-    const cover = document.getElementById(`${key}-cover`);
-    const image = document.getElementById(`${key}-img`);
-    const stat = document.getElementById(`${key}-static`);
-
-    cover.classList.remove('active');
-    image.classList.remove('active');
-    if (stat !== undefined) stat?.classList?.remove('active');
   }
 
   function renderText(key, value) {
@@ -381,8 +374,8 @@ const Index = ({ i18n }) => {
         onClick={() => {
           if (touchscreen) {
             if (text === value) {
-              setText(default_text);
-            } else setText(data[key]);
+              unhover(key);
+            } else hover(key);
           } else {
             if (value.link) {
               window.location.href = value.link;
@@ -397,12 +390,6 @@ const Index = ({ i18n }) => {
         onMouseLeave={() => {
           if (!touchscreen) unhover(key);
         }}
-        // onTouchStart={() => {
-        //   hover(key);
-        // }}
-        // onTouchEnd={() => {
-        //   unhover(key);
-        // }}
       >
         <img
           id={`${key}-img`}
