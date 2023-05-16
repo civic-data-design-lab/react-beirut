@@ -390,6 +390,16 @@ const Index = ({ i18n }) => {
         onMouseLeave={() => {
           if (!touchscreen) unhover(key);
         }}
+        onTouchEnd={() => {
+          if (touchscreen) {
+            const cover = document.getElementById(`${key}-cover`);
+            const image = document.getElementById(`${key}-img`);
+            const stat = document.getElementById(`${key}-static`);
+            cover.classList.add('active');
+            image.classList.add('active');
+            if (stat !== undefined) stat?.classList?.add('active');
+          }
+        }}
       >
         <img
           id={`${key}-img`}
