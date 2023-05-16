@@ -380,6 +380,10 @@ const Index = ({ i18n }) => {
       <div
         onClick={() => {
           if (touchscreen) {
+            const activeList = document.getElementsByClassName('active');
+            activeList.map((elt) => {
+              elt.classList.remove('active');
+            });
             if (text === value) {
               unhover(key);
             } else hover(key);
@@ -396,16 +400,6 @@ const Index = ({ i18n }) => {
         }}
         onMouseLeave={() => {
           if (!touchscreen) unhover(key);
-        }}
-        onTouchEnd={() => {
-          if (touchscreen) {
-            const cover = document.getElementById(`${key}-cover`);
-            const image = document.getElementById(`${key}-img`);
-            const stat = document.getElementById(`${key}-static`);
-            cover.classList.remove('active');
-            image.classList.remove('active');
-            if (stat !== undefined) stat?.classList?.remove('active');
-          }
         }}
       >
         <img
