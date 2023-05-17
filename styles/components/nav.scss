@@ -18,7 +18,7 @@
   left: 0;
   right: 0;
   background-color: $c-white-off;
-  z-index: 1200;
+  z-index: 1100;
 
   transition: all 0.3s ease-in-out;
 
@@ -157,7 +157,7 @@ $hamburger-zindex: $menu-zindex + 10;
   // For some sweet fadez
   visibility: hidden;
   width: 100vw;
-  z-index: $menu-zindex;
+  z-index: 100;
 
   &.open {
     opacity: 1;
