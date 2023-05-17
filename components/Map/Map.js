@@ -297,31 +297,36 @@ export default class App extends React.PureComponent {
       const popupContent = document.createElement('div');
       const popupText = (
         <div className="map-popup">
-          <b>{this.getShopName(obj)}</b>
           {obj.object === 'workshop' ? (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                columnGap: '0.25rem',
-                alignItems: 'center',
-              }}
-            >
-              <p>Craft Workshop</p> &nbsp;
-              <FontAwesomeIcon icon={faShop} width={14} />
-            </div>
+            <>
+              <b>{this.getShopName(obj)}</b>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  columnGap: '0.25rem',
+                  alignItems: 'center',
+                }}
+              >
+                <p>Craft Workshop</p> &nbsp;
+                <FontAwesomeIcon icon={faShop} width={14} />
+              </div>
+            </>
           ) : (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                columnGap: '0.25rem',
-                alignItems: 'center',
-              }}
-            >
-              <p style={{ margin: 0 }}>Archival Image</p> &nbsp;
-              <FontAwesomeIcon icon={faImage} width={14} />
-            </div>
+            <>
+              <b>{this.getShopName(obj, true)}</b>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  columnGap: '0.25rem',
+                  alignItems: 'center',
+                }}
+              >
+                <p style={{ margin: 0 }}>Archival Image</p> &nbsp;
+                <FontAwesomeIcon icon={faImage} width={14} />
+              </div>
+            </>
           )}
         </div>
       );
@@ -349,13 +354,18 @@ export default class App extends React.PureComponent {
     }
   }
 
-  getShopName = (obj) => {
+  getShopName = (obj, archive = false) => {
     if (obj.shop_name['content']) {
       return obj.shop_name['content'];
     } else if (obj.shop_name['content_orig']) {
       return obj.shop_name['content_orig'];
+    } else if (obj.shop_owner_name) {
+      return obj.shop_owner_name;
+    } else if (obj.shop_owner_name) {
+      return obj.owner_name;
     } else {
-      return 'Craft Shop (No name provided)';
+      if (archive) return 'Archival Image';
+      else return 'Craft Shop';
     }
   };
 

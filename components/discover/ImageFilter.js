@@ -80,28 +80,25 @@ const ImageFilter = ({
           </div>
         </div>
         <div className={'image-filter-section'} style={{ flexBasis: '35%' }}>
-          <p>
-            {t('Time Range')} &thinsp;
-            <span>
-              <Info
-                icon={'info'}
-                text={
-                  'Archival images will be filtered by the year they were taken while craft workshops will be filtered by the year they were established.'
-                }
-              />
-            </span>
-          </p>
-          <hr />
-          <YearFilter
-            startYear={startYear}
-            endYear={endYear}
-            updateYears={updateYears}
-          />
-        </div>
-        <div
-          className={'image-filter-section image-filter-section-col'}
-          style={{ flexBasis: '30%' }}
-        >
+          <div>
+            <p>
+              {t('Time Range')} &thinsp;
+              <span>
+                <Info
+                  icon={'info'}
+                  text={
+                    'Archival images will be filtered by the year they were taken while craft workshops will be filtered by the year they were established.'
+                  }
+                />
+              </span>
+            </p>
+            <hr />
+            <YearFilter
+              startYear={startYear}
+              endYear={endYear}
+              updateYears={updateYears}
+            />
+          </div>
           <div
             style={{
               display: 'flex',
@@ -109,7 +106,9 @@ const ImageFilter = ({
               flexDirection: 'column',
             }}
           >
-            <p>{t('Data Type')}</p>
+            <p className="m-0">{t('Data Type')}</p>
+            <hr />
+
             <div className={`image-filter-toggle-section`}>
               <ActiveFilter
                 toggleStatus={toggleWorkshopStatus}
@@ -130,6 +129,11 @@ const ImageFilter = ({
               <p>{t('Show Archival Images')}</p>
             </div>
           </div>
+        </div>
+        <div
+          className={'image-filter-section image-filter-section-col'}
+          style={{ flexBasis: '30%' }}
+        >
           <SearchBar
             callBack={searchCallBack}
             placeHolder={'Search for Craft Workshops and Images'}
@@ -139,6 +143,9 @@ const ImageFilter = ({
           <div>
             <button className={'reset-btn card-labels'} onClick={reset}>
               {t('Reset Filters')}
+            </button>{' '}
+            <button className={'reset-btn card-labels'} onClick={close}>
+              {t('Hide Filters')}
             </button>
           </div>
         </div>

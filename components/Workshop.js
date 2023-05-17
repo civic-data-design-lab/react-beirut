@@ -107,8 +107,10 @@ const Workshop = ({
       return workshop.shop_name['content'];
     } else if (workshop.shop_name['content_orig']) {
       return workshop.shop_name['content_orig'];
+    } else if (workshop.shop_owner_name) {
+      return workshop.shop_owner_name;
     } else {
-      return t('Craft Shop (No name provided)');
+      return t('Craft Workhop');
     }
   };
 
@@ -463,7 +465,7 @@ const Workshop = ({
             <div className={'object-title-section section-margin'}>
               <div className={'shop-title-verification'}>
                 <p className={'object-name'}>
-                  {getShopName() || 'Craft Shop (No name provided)'} &thinsp;
+                  {getShopName() || 'Craft Workshop'} &thinsp;
                   <span>
                     <Info
                       icon={
@@ -557,7 +559,7 @@ const Workshop = ({
           <div style={{ height: '100%', overflowY: 'auto' }}>
             <div className={'object-title-section section-margin'}>
               <p className={'object-name'}>
-                {getShopName() || 'Craft Shop (No name provided)'} &thinsp;
+                {getShopName() || 'Craft Workshop'} &thinsp;
                 <span>
                   <Info
                     icon={
@@ -695,7 +697,7 @@ const Workshop = ({
                 }
               >
                 <p className={'object-mobile-title'}>
-                  {getShopName() || 'Craft Shop (No name provided)'} &thinsp;
+                  {getShopName() || 'Craft Workshop'} &thinsp;
                   <span>
                     <Info
                       icon={
