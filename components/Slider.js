@@ -96,6 +96,9 @@ export default class Slider extends React.Component {
             onClick={() => {
               this.scrollLeft();
             }}
+            onTouchStart={() => {
+              this.scrollLeft();
+            }}
           >
             <FontAwesomeIcon icon={faChevronLeft} width={8} />
           </button>
@@ -104,6 +107,9 @@ export default class Slider extends React.Component {
             disabled={this.state.nextDisable}
             ref={this.nextBtnRef}
             onClick={() => {
+              this.scrollRight();
+            }}
+            onTouchStart={() => {
               this.scrollRight();
             }}
           >
