@@ -140,7 +140,14 @@ const ImageFilter = ({
             value={searchValue}
             map={false}
           />
-          <div>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'start',
+              rowGap: '1rem',
+            }}
+          >
             <button className={'reset-btn card-labels'} onClick={reset}>
               {t('Reset Filters')}
             </button>{' '}
