@@ -676,10 +676,10 @@ const Workshop = ({
               <button
                 className={'close-card-btn object-mobile-close'}
                 onClick={() => {
-                  handleClose;
+                  handleClose();
                 }}
               >
-                <FontAwesomeIcon icon={faXmark} size={'sm'} />
+                <FontAwesomeIcon icon={faXmark} style={{ height: 24 }} />
               </button>
             ) : null}
             <div
