@@ -1,8 +1,12 @@
 .about-wrap {
   display: flex;
   flex-direction: column;
-  row-gap: 20vh;
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  row-gap: 30vh;
   .about-container {
+    scroll-snap-align: start;
     min-height: calc(100vh - 60px);
     max-height: calc(100vh - 60px);
     // border: 1px solid black;
@@ -100,6 +104,8 @@
     }
   }
   .about-container.bleed {
+    scroll-snap-align: start;
+
     padding: 0;
   }
 
@@ -133,133 +139,96 @@
   .archive-slide {
     filter: drop-shadow(8px 8px 4px rgba(0, 0, 0, 0.25));
   }
+}
 
-  // .about-card {
-  //   padding: 2rem 2rem;
-  //   display: flex;
-  //   flex-direction: column;
-  //   color: $c-primary-dark;
-  // }
+.about-menu-btn {
+  position: fixed;
+  height: 24px;
+  width: 24px;
+  top: 50%;
+  right: 1rem;
+  color: $c-primary-dark;
+}
 
-  // a {
-  //   color: $c-primary-dark;
-  //   transition: all 0.1s ease-in-out;
+.about-menu {
+  height: calc(100vh - 80px);
+  position: fixed;
+  bottom: 0px;
+  background: rgba(250, 248, 246, 0.7);
+  backdrop-filter: blur(10px);
+  width: min(600px, 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
 
-  //   &:hover {
-  //     color: $c-primary-mid;
-  //     cursor: pointer;
-  //   }
-  // }
+  .container {
+    display: grid;
+    grid-template-columns: 0.25rem auto;
+    grid-template-rows: auto auto;
+    //row-gap: 5px;
+    column-gap: 10px;
+    // height: 70px;
+    position: relative;
 
-  // .t-1,
-  // .t-2,
-  // .t-3,
-  // .t-4,
-  // .t-5,
-  // .t-6,
-  // .t-7 {
-  //   border: solid 2px #faf8f6;
-  // }
-  // .t-3,
-  // .t-4,
-  // .t-5,
-  // .t-6,
-  // .t-7 {
-  //   color: $c-white;
+    cursor: pointer;
+  }
 
-  //   p,
-  //   ol {
-  //     font-size: 0.8rem;
-  //     line-height: 1rem;
-  //     margin-bottom: 0.5rem;
-  //   }
+  .container:hover .item-line {
+    display: block;
+  }
 
-  //   hr {
-  //     border-color: $c-white;
-  //     margin: 0.5rem 0rem;
-  //   }
+  .container:hover .item-text-2 {
+    display: block;
+    padding: 0 1rem;
+    visibility: visible;
+    opacity: 1;
+  }
 
-  //   .border-right {
-  //     border-right: solid 0.5px rgba(255, 255, 255, 0.25);
-  //   }
-  // }
-  // .t-1 {
-  //   background-color: $c-orange-1;
-  // }
-  // .t-2 {
-  //   background-color: $c-orange-2;
-  // }
-  // .t-3 {
-  //   background-color: $c-orange-3;
-  // }
-  // .t-4 {
-  //   background-color: $c-orange-4;
-  // }
-  // .t-5 {
-  //   background-color: $c-orange-5;
-  // }
-  // .t-6 {
-  //   background-color: $c-orange-6;
-  // }
-  // .t-7 {
-  //   background-color: $c-orange-7;
-  // }
+  .item-line {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    background: $c-primary-dark;
+    display: none;
+    transition: 0.3s;
+  }
 
-  // .t-event {
-  //   color: $c-primary-dark;
+  .item-text-1 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    line-height: 10px;
+  }
 
-  //   a {
-  //     color: $c-primary-dark;
-  //   }
+  .about-item {
+    color: $c-primary-dark;
+    display: block;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 1rem 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+}
 
-  //   .row:not(:last-child) {
-  //     border-bottom: solid 1px $c-primary-dark;
-  //   }
-  // }
+.about-menu.inactive {
+  right: max(-600px, -100%);
+  transition: right 0.5s linear;
+}
 
-  // ol.groups li::marker {
-  //   font-weight: bold;
-  // }
+.about-menu.active {
+  right: 0;
+  transition: right 0.5s linear;
+}
 
-  // #logo-fhl {
-  //   width: 80%;
-  // }
-
-  // // STYLE FOR LANGUAGE SETTING RTL
-  // ol.en {
-  //   padding-left: 1rem;
-  // }
-  // ol.ar {
-  //   padding-left: 0;
-  //   padding-right: 1rem;
-  //   list-style: arabic-indic;
-  // }
-
-  // div.en {
-  //   padding-left: 1rem;
-  // }
-
-  // div.ar {
-  //   padding-left: 0;
-  //   padding-right: 1rem;
-  // }
-
-  // // RESPONSIVE DESIGN
-  // .col-lg-1 {
-  //   display: none;
-  // }
-
-  // /* Medium devices (large desktops, 1200px and up) */
-  // // @media (min-width: 651px) {
-  // //   .about-card p {
-  // //     max-width: 550px;
-  // //   }
-  // // }
-
-  // /* Large devices (desktops, 992px and up) */
-  // @media (min-width: 992px) {
-  //   .col-lg-1 {
-  //     display: block;
-  //   }
-  // }
+.close-about-menu {
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  top: 3.5rem;
+  right: 3.5rem;
+  color: $c-primary-dark;
 }

@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import Schedule from '../components/about/schedule';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const workshopData = {
   badguer: {
@@ -55,13 +57,19 @@ const About = ({ i18n }) => {
   const { t } = useTranslation();
 
   const [craftsPerson, setCraftsPerson] = useState(undefined);
+  const [menu, setMenu] = useState(false);
+  const [touchscreen, setTouchscreen] = useState(false);
+  useEffect(() => {
+    setTouchscreen(window.matchMedia('(pointer: coarse)').matches);
+  });
+
   return (
     <>
       <Head>
         <title>About | Living Heritage Atlas</title>
       </Head>
       <div className="about-wrap">
-        <div className={'about-container'}>
+        <div className={'about-container'} id={'about-section'}>
           <div className={' text-container'}>
             <h3>Living Heritage Atlas</h3>
             <p>
@@ -80,7 +88,10 @@ const About = ({ i18n }) => {
             <img src="./about/about_1.jpg" />
           </div>
         </div>
-        <div className={'about-container bleed'}>
+        <div
+          className={'about-container bleed'}
+          id={'venice exhibit 2023-section'}
+        >
           <div className={'about-image-container bleed'}>
             <img src="./about/about_2.jpg" />
           </div>
@@ -103,7 +114,7 @@ const About = ({ i18n }) => {
             </p>
           </div>
         </div>
-        <div className={'about-container'}>
+        <div className={'about-container'} id={'community engagement-section'}>
           <div className={'text-container'}>
             <h3>Community Engagement</h3>
             <p>
@@ -383,7 +394,7 @@ const About = ({ i18n }) => {
             <img src="./about/mappathon.jpg" />
           </div>
         </div>
-        <div className={'about-container'}>
+        <div className={'about-container'} id={'credits-section'}>
           <div className={'about-image-container'}>
             <h3>Credits</h3>
             <p>
@@ -453,6 +464,57 @@ const About = ({ i18n }) => {
             </div>
           </div>
         </div>
+      </div>
+
+      <FontAwesomeIcon
+        onClick={() => {
+          if (touchscreen) setMenu(true);
+        }}
+        onMouseEnter={() => {
+          console.log('enter');
+          setMenu(true);
+        }}
+        icon={faChevronLeft}
+        className={'about-menu-btn'}
+      />
+      <div
+        onMouseLeave={() => {
+          console.log('exit');
+
+          setMenu(false);
+        }}
+        className={`about-menu ${menu ? 'active' : 'inactive'}`}
+      >
+        {(touchscreen || window.innerWidth < 600) && (
+          <FontAwesomeIcon
+            className="close-about-menu"
+            icon={faXmark}
+            onClick={() => {
+              setMenu(false);
+            }}
+          />
+        )}
+        {[
+          'about',
+          'venice exhibit 2023',
+          'community engagement',
+          'credits',
+        ].map((chapter) => {
+          return (
+            <div
+              className="container"
+              onClick={() => {
+                const selected = document.getElementById(`${chapter}-section`);
+                if (selected) selected.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              <div className="item-line"></div>
+              <div className="item-text-1">
+                <p className="about-item">{chapter}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </>
   );
