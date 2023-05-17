@@ -59,7 +59,9 @@ const About = ({ i18n }) => {
   const [craftsPerson, setCraftsPerson] = useState(undefined);
   const [menu, setMenu] = useState(false);
   const [touchscreen, setTouchscreen] = useState(false);
+  const [width, setWidth] = useState(0);
   useEffect(() => {
+    setWidth(window.innerWidth);
     setTouchscreen(window.matchMedia('(pointer: coarse)').matches);
   });
 
@@ -485,7 +487,7 @@ const About = ({ i18n }) => {
         }}
         className={`about-menu ${menu ? 'active' : 'inactive'}`}
       >
-        {(touchscreen || window.innerWidth < 600) && (
+        {(touchscreen || width < 600) && (
           <FontAwesomeIcon
             className="close-about-menu"
             icon={faXmark}
