@@ -224,7 +224,7 @@ const data = {
     link: '/about',
     filepath: './landing/street.jpg',
     heading: 'Bourj Hammoud',
-    subheading: 'Site of ',
+    subheading: '',
     body: [
       'This Bourj Hammoud tour allowed participants to meet many craft workshops due to the cluster of craftspeople in the area of Bourj Hammoud; the tour started with meeting Hagop Keshishian, known as Jackson, a local craftsperson who makes and repairs shoes, and moved to meet his next-door neighbor Bedros Keshishian who works in woodworks and carpentry. The tour then resumed with meeting Gregor Ichkerian, a metal sculptor who works with his son, and then Peter Khatcherian, the only pipe maker in the Arab Region. The tour ended with meeting Noubar Eskidjian, who specializes in copper work.',
     ],
@@ -254,8 +254,8 @@ const data = {
   panel_2: {
     link: '/about',
     filepath: './landing/panel_2.jpg',
-    heading: 'Mappathon',
-    subheading: '',
+    heading: 'Community Engagement',
+    subheading: "Legitimizing craftspeople's presence",
     body: [
       'Wissam Houry, a third generation leather craftsperson, poses with his son and the tools he uses to create handmade horse saddles and other leather goods.',
     ],
