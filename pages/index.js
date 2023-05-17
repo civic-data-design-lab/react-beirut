@@ -347,6 +347,11 @@ const Index = ({ i18n }) => {
   };
   const { t } = useTranslation();
   const [text, setText] = useState(default_text);
+  const [touchscreen, setTouchscreen] = useState(false);
+
+  useEffect(() => {
+    setTouchscreen(window.matchMedia('(pointer: coarse)').matches);
+  });
 
   function hover(key) {
     setText(data[key]);
@@ -361,10 +366,10 @@ const Index = ({ i18n }) => {
 
   function unhover(key) {
     setText(default_text);
+
     const cover = document.getElementById(`${key}-cover`);
     const image = document.getElementById(`${key}-img`);
     const stat = document.getElementById(`${key}-static`);
-
     cover.classList.remove('active');
     image.classList.remove('active');
     if (stat !== undefined) stat?.classList?.remove('active');
@@ -374,10 +379,13 @@ const Index = ({ i18n }) => {
     return (
       <div
         onClick={() => {
-          if (window.matchMedia('(pointer: coarse)').matches) {
-            if (text === value) {
-              setText(default_text);
-            } else setText(data[key]);
+          if (touchscreen) {
+            const cover = document.getElementById(`${key}-cover`);
+            const active = cover.classList.contains('active');
+
+            if (active) {
+              unhover(key);
+            } else hover(key);
           } else {
             if (value.link) {
               window.location.href = value.link;
@@ -387,17 +395,11 @@ const Index = ({ i18n }) => {
           }
         }}
         onMouseEnter={() => {
-          hover(key);
+          if (!touchscreen) hover(key);
         }}
         onMouseLeave={() => {
-          unhover(key);
+          if (!touchscreen) unhover(key);
         }}
-        // onTouchStart={() => {
-        //   hover(key);
-        // }}
-        // onTouchEnd={() => {
-        //   unhover(key);
-        // }}
       >
         <img
           id={`${key}-img`}
@@ -444,7 +446,7 @@ const Index = ({ i18n }) => {
               return <p>{t}</p>;
             })}
           </div>
-          {window.matchMedia('(pointer: coarse)').matches && text.link && (
+          {touchscreen && text.link && (
             <div>
               <p>
                 Click <a href={text.link}>here</a> to learn more
@@ -465,7 +467,7 @@ const Index = ({ i18n }) => {
           }}
         >
           <iframe
-            src="https://player.vimeo.com/video/783337873?h=8529ccc1f9&autoplay=1&title=0&byline=0&portrait=0"
+            src="https://player.vimeo.com/video/783337873?h=8529ccc1f9&autoplay=0&title=0&byline=0&portrait=0"
             style={{
               position: 'absolute',
               top: '50%',
