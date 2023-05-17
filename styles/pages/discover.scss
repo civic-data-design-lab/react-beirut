@@ -273,6 +273,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+  background-color: $c-white-off;
+  z-index: 2;
 
   @media screen and (min-width: 992px) and (max-width: 1298px) {
     padding: calc(2rem);
@@ -315,6 +317,7 @@
   justify-content: space-around;
   padding: 1rem;
   position: relative;
+  row-gap: 1.5rem;
 
   @media screen and (max-width: 688px) {
     padding: 0px;

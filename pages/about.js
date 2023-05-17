@@ -1,383 +1,458 @@
 import Head from 'next/head';
 import Schedule from '../components/about/schedule';
 import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+
+const workshopData = {
+  badguer: {
+    title: 'Badguer',
+    description:
+      'Founded by Arpi Mangasserian, Badguèr is an arts incubator, cultural platform, and multipurpose space promoting Armenian heritage, cuisine, and customs.',
+  },
+  circus: {
+    title: 'The Circus Hub',
+    description:
+      'Paramaz Yepremiao, the owner of The Circus Hub, specializes in the manufacture of circus equipment.',
+  },
+  coin: {
+    title: "Coin d'Art",
+    description:
+      "Located in Remeil, Beirut, Coin D'Art specializes in framing, paintingm printing and woodwork",
+  },
+  doniguian: {
+    title: 'Doniguian Printing House',
+    description: 'Guy Doniguian is a printmaker at Doniguian Printing House',
+  },
+  studio: {
+    title: 'Studio Kunukku',
+    description:
+      'Craftspeople at Studio Kunukku print patterns onto fabric using engraved wooden blocks',
+  },
+  jackson: {
+    title: 'Hagop "Jackson" Keshishian',
+    description:
+      'Hagop “Jackson” Keshishian works on leather shoes in his workshop',
+  },
+  nobour: {
+    title: 'Noubar Eskidjian',
+    description:
+      'A craftsperson, Noubar Eskidjian, uses industrial machinery to carefully mold copper sculptures. Having practiced this craft for decades, Noubar owns and operates his craft workshop in Bourj Hammoud.',
+  },
+
+  piper: {
+    title: 'Peter Katcherian',
+    description: 'Peter Katcherian handcrafts wooden pipes.',
+  },
+  zakour: {
+    title: 'Wissam Houry',
+    description:
+      'Wissam Houry, a third generation leather craftsperson, poses with a handmade leather horse harness in his craft workshop.',
+  },
+};
 
 const About = ({ i18n }) => {
   const { t } = useTranslation();
+
+  const [craftsPerson, setCraftsPerson] = useState(undefined);
   return (
     <>
       <Head>
         <title>About | Living Heritage Atlas</title>
       </Head>
-      <div className="container">
-        <div className="title-card">
-          <div className="text-container">
-            {/* <h1>{t('About')}</h1> */}
-            <p>{t("Mapping and activating Beirut's crafts")}</p>
+      <div className="about-wrap">
+        <div className={'about-container'}>
+          <div className={' text-container'}>
+            <h3>Living Heritage Atlas</h3>
+            <p>
+              Living Heritage Atlas celebrates the past and present of local
+              artisanship in Beirut through archival data, interviews and
+              community workshops. By leveraging historical data and
+              interactions with craftspeople, the Living Heritage Atlas
+              advocates for a more equitable future for small local crafts
+              businesses. This project recognizes the enduring vulnerability of
+              Beirut-based craftspeople as they cope with the ongoing economic
+              crisis, post-disaster challenges and fierce global market
+              competition.{' '}
+            </p>
+          </div>
+          <div className={'about-image-container'}>
+            <img src="./about/about_1.jpg" />
           </div>
         </div>
-        <hr />
-        <div className="about-card col col-md-10 col-lg-8">
-          <p className="fs-5 lh-sm">
-            {t(
-              "Living Heritage Atlas\u2002|\u2002Beirut is a design-based research project that contributes to the urban planning discussion on Beirut's heritage by rendering visible the often unrecognized living heritage of craftsmanship \u2014 with its crafts, public spaces, and local knowledge.\r"
-            )}
-          </p>
-          <p className="fs-5 lh-sm">
-            {t(
-              `This project has been developed by the Massachusetts Institute of Technology (MIT) Civic Data Design Lab (CDDL) and Future Heritage Lab (FHL), and it is supported by Dar Group.`
-            )}{' '}
-            {t(
-              'Living Heritage Atlas\u2002|\u2002Beirut recognizes that craftspeople are an exponentially marginalized and vulnerable group of individuals, operating at the intersection of heritage, the infrastructure of making, and the local economy at different urban scales.'
-            )}
-          </p>
-          <p className={'fs-5 lh-sm'}>
-            {t(
-              'This project seemingly bridges the digital to the physical by advancing three key interventions:\r'
-            )}{' '}
-          </p>
-          <ol className={`group ${i18n.language}`}>
-            <li className="fs-5 lh-sm">
-              {t(
-                'It constructs a digital archive of geolocated historic data and images using visual and textual materials from local archives, residents, and craftspeople. Data is open-access and available to download at:'
-              )}{' '}
-              <a href="http://livingheritage.mit.edu/download">
-                http://livingheritage.mit.edu/download
-              </a>
-            </li>
-            <li className="fs-5 lh-sm">
-              {t(
-                'It implements a series of small neighborhood-wide interventions by disseminating site-specific street stickers and physical signages that connect physical spaces in contemporary Beirut to the historic images available on the Living Heritage Atlas | Beirut digital archive'
-              )}
-            </li>
-            <li className="fs-5 lh-sm">
-              {t(
-                'It connects stakeholders working on the topic of craftsmanship through community meetings, participatory mapping workshops, and share-your-story events on the spaces and history of craftsmanship in Beirut'
-              )}
-            </li>
-          </ol>
-        </div>
-        <div className="about-card">
-          <h3 className="mb-4">
-            <b>{t('Program Schedule')}</b>
-          </h3>
-          <p>
-            {t(
-              'Register to attend Living Heritage Atlas | Beirut events via the '
-            )}{' '}
-            <a href="https://ihjoz.com/companies/1887" target="_blank">
-              {t('Ihjoz event webpage')}
-            </a>
-          </p>
-          <Schedule i18n={i18n} />
-        </div>
-        <div className="about-card col col-md-10 col-lg-8">
-          <h3 className="mb-3">
-            <b>
-              {t(
-                'Living Heritage Atlas\u2002|  Mapping Beirut\u2019s Craftsmanship Event (July 7th) '
-              )}
-            </b>
-          </h3>
-          <p className="mb-0">
-            <b>{t('Featured Event:')}</b>&emsp;
-            {t('Two-hour roundtable discussion and mapping event')}
-          </p>
-          <p className="mb-0">
-            <b>{t('Date&#58;')}</b>&emsp;{t('Thursday, July 7, 2022')}
-          </p>
-          <p className="mb-0">
-            <b>{t('Time&#58;')}</b>&emsp;{t('600')}&ndash;{t('900pm')}
-          </p>
-          <p>
-            <b>{t('Location&#58;')}</b>&emsp;
-            {t('Abroyan Factor —Emile Eddeh Street, Bouj Hammoud, Beirut')}
-          </p>
-          <p>
-            {t(
-              'Register to attend Living Heritage Atlas | Beirut events via the'
-            )}{' '}
-            <a href="https://ihjoz.com/companies/1887" target="_blank">
-              Ijhoz event webpage
-            </a>
-          </p>
-          <p>
-            {t(
-              'Discussion during this event will primary be conducted in English; if you prefer to converse in Arabic, there will be a person at each table ready to help translate to and from Arabic and English as needed.'
-            )}
-          </p>
-          <div className="t-event container-fluid mt-4">
-            <div className="row mb-2">
-              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2">
-                <b>{t('Pre-Opening')}</b>
-              </div>
-              <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
-                <p>
-                  {t('The')}{' '}
-                  <a href="https://www.futureheritagelab.com/" target="blank">
-                    {t('MIT Future Heritage Lab')}
-                  </a>{' '}
-                  {t('(FHL)')} {t('and')}{' '}
-                  <a href="https://civicdatadesignlab.mit.edu/" target="blank">
-                    {t('MIT Civic Data Design Lab')}
-                  </a>{' '}
-                  {t('(CDDL)')} {t('will present the')}{' '}
-                  {t(
-                    'digital archive of geolocated historic data and images using visual and textual materials from local archives, residents and craftspeople.'
-                  )}
-                </p>
-                <p class="mb-1">
-                  <b>{t('Bring a living heritage item!')}</b>
-                </p>
-                <p>
-                  {t(
-                    'Invitees and guests are asked to bring with them a living heritage item to contribute to the living heritage atlas. We define this element as a photograph, plan, map, guidebook, newspaper clipping, or artefact related to the past, present of crafts and craftsmanship in the city. All items will be scanned by our data collectors and returned by the end of the event.'
-                  )}
-                </p>
-              </div>
+        <div className={'about-container bleed'}>
+          <div className={'about-image-container bleed'}>
+            <img src="./about/about_2.jpg" />
+          </div>
+          <div className={'text-container bleed'}>
+            <div>
+              <h3>Rebuilding Beirut</h3>
+              <p>Using Data to Co-Design a New Future</p>
+              <i>(2023 Exhibition in Venice)</i>
             </div>
-            <div className="row mb-2">
-              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2">
-                <b>{t('Opening Remarks')}</b>
-                <br />
-                {t('600')}&ndash;{t('630pm')}
-              </div>
-              <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
-                <p>
-                  {t(
-                    'We will begin with introductions; each participant will be given a tag based on their contribution to the event. Categories will include: expert, contributor, advocate, moderator, craftsperson, data collector.'
-                  )}
-                </p>
-                <p>
-                  {t(
-                    'MIT FHL & CDDL will kick-off the event with an opening presentation.'
-                  )}
-                </p>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2">
-                <b>{t('Mapping Methods Discussion')}</b>
-                <br />
-                {t('630')}&ndash;{t('745pm')}
-              </div>
-              <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
-                <p>
-                  {t(
-                    'Mapping Methods is an animated panel-discussion/workshop format that invites stakeholders to map their research and cooperation methods. The goal of the Mapping Methods sessions is to connect local stakeholders and investigate potential design and data-driven research methodologies that activate public space, create awareness, and inform policy-decisions.'
-                  )}
-                </p>
-                <p>
-                  {t(
-                    'Three back-to back round table discussions will take place consecutively with 25 minutes dedicated to each one. Each table will include 3-4 experts, 1 moderator, and 1-2 craftspeople'
-                  )}
-                </p>
-                <ol className={`${i18n.language}`}>
-                  <li>
-                    <b>
-                      {t(
-                        'Round Table Discussion 01 (25 min) Documenting Craftsmanship'
-                      )}
-                    </b>
-                    <br />
-                    <p className="mb-1">
-                      {t(
-                        'Exploring the potential of archiving and documentation as a means to stimulate a vibrant crafts culture.'
-                      )}
-                    </p>
-                  </li>
-                  <li>
-                    <b>
-                      {t(
-                        "Round Table Discussion 02 (25 min) Legitimizing Craftsmen's Presence"
-                      )}
-                    </b>
-                    <br />
-                    <p className="mb-1">
-                      {t(
-                        "Advocating for the regulatory laws, crafts people's legal rights, and articulating the economic value of the crafts sector."
-                      )}
-                    </p>
-                  </li>
-                  <li>
-                    <b>
-                      {t(
-                        'Round Table Discussion 03 (25 min) Mobilizing Crafts in Shared Spaces'
-                      )}
-                    </b>
-                    <br />
-                    <p className="mb-1">
-                      {t(
-                        'Leveraging the intersection of data, art, and shared space as a catalyst for craftsmanship in the city.'
-                      )}
-                    </p>
-                  </li>
-                </ol>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2 mb-sm-1">
-                <b>{t('Break')}</b>
-                <br />
-                {t('745')}&ndash;{t('800pm')}
-              </div>
-              <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
-                <p>
-                  {t(
-                    'Data collectors will collect and scan your living heritage items.'
-                  )}
-                </p>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2">
-                <b>{t('Mapathon Discussion')}</b>
-                <br />
-                {t('800')}&ndash;{t('900pm')}
-              </div>
-              <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
-                <p>
-                  {t(
-                    'Mapathons are workshops designed specifically to map new data on the existing database of craftsmanship in Beirut. The goal of the mapathon is to invite the public, as well as local photographers, craftsmen, elders, and others to grow the database of historical and current images and locations of craftsmen in Beirut. Every new finding and correction to the map will be projected and displayed in real-time.'
-                  )}
-                </p>
-                <ul className={i18n.language}>
-                  <li>
-                    <p>
-                      {t(
-                        'Experts and participants are asked to brainstorm effective ways to use the open database within their scope of work.'
-                      )}
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      {t(
-                        'Guests and participants are invited to contribute to the database with their \u201cliving heritage item.\u201d'
-                      )}
-                    </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="row mb-2">
-              <div className="col-12 col-sm-3 col-md-2 px-0 pb-2">
-                <b>{t('Closing Remarks')}</b>
-                <br />
-                {t('900pm')}&ndash;{t('915pm')}
-              </div>
-              <div className="col-12 col-sm-9 col-md-10 px-0 px-sm-3">
-                <p>
-                  {t(
-                    'MIT FHL & CDDL will conclude the event with closing remarks.'
-                  )}
-                </p>
-              </div>
-            </div>
+            <p>
+              In May 2023, the Venice Biennale will feature “Tools for
+              Rebuilding Beirut”, a showcase of three collaborative research and
+              design proposals led by faculty, researchers and students from
+              MIT’s School of Architecture and Planning. Each intervention
+              addresses a unique aspect of rebuilding Beirut’s urban fabric:
+              from the significance and vulnerability of cultural heritage in
+              Living Heritage Atlas; to the environmental impacts of the
+              explosion and the subsequent rebuilding efforts in City Scanner;
+              to the redesign of streets and public space in Community Streets.{' '}
+            </p>
           </div>
         </div>
-        <div className="about-card col col-md-10 col-lg-8 mb-5">
-          <h3 className="mb-3">
-            <b>{t('Credits')}</b>
-          </h3>
-          <p>
-            {t(
-              'This project has been developed by the Massachusetts Institute of Technology (MIT); more specifically by the Civic Data Design Lab and the Future Heritage Lab. The “Living Heritage Atlas | Beirut” is supported by “Dar Group” through a 2021 seed grant that has enabled MIT faculty members to conduct research on the challenges experienced in Beirut in the aftermath of the August 2020 port explosion.'
-            )}
-          </p>
-          <div className="row">
-            <div className="col-12 col-sm-6 order-1 order-sm-1">
-              <h5>
-                <b>{t('Civic Data Design Lab')}</b>
-              </h5>
-              <p>
-                {t(
-                  'The MIT Civic Data Design Lab works with data to understand it for public good. We seek to develop alternative practices which can make the work we do with data and images richer, smarter, more relevant, and more responsive to the needs and interests of citizens traditionally on the margins of policy development. In this practice we experiment with and develop data visualization and collection tools that allow us to highlight urban phenomena. Our methods borrow from the traditions of science and design by using spatial analytics to expose patterns and communicating those results, through design, to new audiences.'
-                )}
-              </p>
+        <div className={'about-container'}>
+          <div className={'text-container'}>
+            <h3>Community Engagement</h3>
+            <p>
+              In July 2022, Living Heritage Atlas held workshop walking tours, a
+              participatory mapping workshop, and a panel discussion on
+              documenting craftsmanship, legitimizing craftspeople's presence,
+              and mobilizing shared spaces to connect stakeholders working on
+              craftsmanship in Beirut.{' '}
+            </p>
+          </div>
+          <div className={'about-image-container'}>
+            <img src="./about/about_3.jpg" />
+          </div>
+        </div>
+
+        <div className={'about-container bleed'}>
+          <div className={'about-image-container bleed'}>
+            <img src="./about/craft_tour.jpg" />
+          </div>
+          <div className={'text-container bleed'}>
+            <div>
+              <h3>Craft Workshop Tours</h3>
             </div>
-            <div className="col-12 col-sm-6 order-3 order-sm-2">
-              <h5>
-                <b>{t('Future Heritage Lab')}</b>
-              </h5>
-              <p>
-                {t(
-                  'The MIT Future Heritage Lab invents creative responses to conflict and crisis. We develop and implement projects and alternative educational formats at the intersection of art, culture, and preservation technology to address the emotional, cultural, and practical needs of communities in threat. We believe that culture is an essential human need, and a powerful tool to address conflicts and injustice. We build on our experience in Art, Design, and Cultural Preservation and leverage the MIT expertise in new technologies to collaborate with a global and diverse network of partners and ensure the quality and a wide reach of our work. We build future heritage by creating cultural projects on a civic scale that translate traditional crafts into new technologies, advance  knowledge transfer across borders, and have a positive impact on threatened communities.'
-                )}
-              </p>
-            </div>
-            {/* </div>
-          <div className="row"> */}
-            <div className="col-12 col-sm-6 order-2 order-sm-3">
-              <p>
-                <h5 className="mb-0">
-                  <b>{t('Civic Data Design Lab Team')}</b>
-                </h5>
-                {t('Sarah Williams, Director')}
-                <br />
-                {t('Carmelo Ignaccolo, Lead Researcher & Project Manager')}
-                <br />
-                {t('Ashley Louie, Project Manager')}
-                <br />
-                {t(
-                  'Enrique Casillas, Gatlen Culp, Doris Duanmu, Kelly Fang, Huiwen Shi, Wesley Woo, Rasha Zayour, Sophia Zheng'
-                )}
-              </p>
-            </div>
-            <div className="col-12 col-sm-6 order-4 order-sm-4">
-              <p>
-                <h5 className="mb-0">
-                  <b>{t('Future Heritage Lab Team')}</b>
-                </h5>
-                {t('Azra Aksamija, Director')}
-                <br />
-                {t('Daniella Maamari, Lead Researcher')}
-                <br />
-                {t(
-                  'Sarine Agopian, Ramzi Alieh, Ahmad Beydoun, Racha Doughman, Reem Farhat, Kamila El Khechen, ' +
-                    'Raafat Majzoub, Reem Obeid, Rasha Zayour, Fatima Moussa'
-                )}
-              </p>
+            <p>
+              The Craft Workshop Tours were a result of extensive work to map as
+              many craftspeople and learn more about their crafts and stories.
+              In the Craft Workshop Tours, participants walked around the
+              streets of Gemmayze, Mar Mikhael, and Bourj Hammoud to meet local
+              endangered and unrecognized craftsmen at an intimate scale,
+              shedding light on this culture and enhancing its liveliness and
+              know-how. Participants were provided with a mobile mapping kit,
+              containing small neighborhood maps to mark workshops’ locations
+              and write down notes about craftspeople's stories throughout the
+              guided walks.The event hosted 15 individuals at the time to
+              maximize the learning experience and allow for connections to
+              build between the craftsmen and the participants. These tours
+              acted as a celebratory moment of the local ingenuity of
+              craftspeople. Flags and colorful tote bags–designed and produced
+              by Studio Kunukku through block printing techniques–were carried
+              by the team throughout the tours.
+            </p>
+          </div>
+        </div>
+
+        <div className="about-container">
+          <div
+            className={'about-subcontainer'}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignContent: 'center',
+              padding: '2rem',
+            }}
+          >
+            <div className={'workshop-grid'}>
+              {[
+                'badguer',
+                'circus',
+                'coin',
+                'doniguian',
+                'jackson',
+                'nobour',
+                'piper',
+                'studio',
+                'zakour',
+              ].map((name) => {
+                return (
+                  <div
+                    onClick={() => {
+                      if (craftsPerson !== name) {
+                        setCraftsPerson(name);
+
+                        document
+                          .getElementById(`${name}-thumbnail`)
+                          .classList.add('active');
+                      } else {
+                        setCraftsPerson(undefined);
+                      }
+                      document
+                        .getElementById(`${craftsPerson}-thumbnail`)
+                        ?.classList?.remove('active');
+                    }}
+                    className={'grid-space'}
+                  >
+                    <img
+                      className={'grid-img'}
+                      id={`${name}-thumbnail`}
+                      src={`./about/${name}_1.jpg`}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
-          <div className="row mt-5">
-            <div className="col-4">
-              <a
-                className="d-flex flex-column justify-content-center"
-                href="https://sap.mit.edu/"
-                target="blank"
-              >
+          <div
+            className={'about-subcontainer'}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignContent: 'center',
+              padding: '3.5rem',
+              rowGap: '1rem',
+            }}
+          >
+            {craftsPerson === undefined ? (
+              <>
+                <p>
+                  Throughout the Mar-Mikhael-Gemmayze Tour, the living heritage
+                  atlas team and participants toured several local craftsmen
+                  with different specialties and heard their stories: Mr.
+                  Doniguian, who runs a printing press on Armenia street, Studio
+                  Kunukku, a block-printing studio, The Circus Hub, one of the
+                  first manufacturers of circus equipment, and Coin d’Art, a
+                  painting, framing, and restoration family business.
+                </p>
+                <p>
+                  The Bourj Hammoud Tour allowed participants to meet more
+                  crafts workshops due to the cluster of craftsmen in the area;
+                  the tour started with meeting Hagop Keshishian, known as
+                  Jackson, a local who makes and repairs shoes, and moved to
+                  meet his next-door neighbor Bedros Keshishian who works in
+                  woodworks and carpentry. The tour then resumed with meeting
+                  Gregor Ichkerian, a metal sculptor who works with his son, and
+                  then Peter Khatcherian, the only pipemaker in the Arab Region.
+                  The tour ended with meeting Noubar Eskidjian who specializes
+                  in copper work.
+                </p>
+
+                <b>Click on a craftsperson to learn more</b>
+              </>
+            ) : (
+              <>
+                <h3>{workshopData[craftsPerson].title}</h3>
+                <div>
+                  <Carousel indicators={false}>
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100 archive-slide"
+                        src={`./about/${craftsPerson}_1.jpg`}
+                      />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100 archive-slide"
+                        src={`./about/${craftsPerson}_2.jpg`}
+                      />
+                    </Carousel.Item>
+                    <Carousel.Item>
+                      <img
+                        className="d-block w-100 archive-slide"
+                        src={`./about/${craftsPerson}_3.jpg`}
+                      />
+                    </Carousel.Item>
+                  </Carousel>
+                </div>
+                <p>{workshopData[craftsPerson].description}</p>
+              </>
+            )}
+          </div>
+        </div>
+        <div className={'about-container'}>
+          <div className={'text-container'}>
+            <h3>Archival Image Tours</h3>
+            <p>
+              The Archival Tours brought to the public realm months of archival
+              harvesting and research. By touring the streets of Al Balad and
+              Bourj Hammoud, participants were able to enrich their narrative on
+              craftsmanship in the city of Beirut while understanding the ways
+              in which craftspeople have been marginalized.{' '}
+            </p>
+          </div>
+          <div className={'about-image-container'}>
+            <img src="./about/archive_1.jpg" />
+          </div>
+        </div>
+        <div className={'about-container'}>
+          <div className={'text-container'}>
+            <p>
+              The team previously roamed these locations and placed geo-located
+              stickers to allow for the tours to happen. During the tours,
+              participants followed a map of where those stickers were, scanned
+              the QR code on them which led them to a Whatsapp Chat where they
+              sent an allocated code in order to get to view an archival
+              picture, and read a story about it. Unlike the crafts workshop
+              tours, the archival tours focused more on the past of
+              craftsmanship in the city, showing imagery of what was, rather
+              than what is.
+            </p>
+            <p>
+              These stickers remain posted throughout the city as a reminder to
+              people of what used to exist in those spaces. They act as digital
+              windows into the city’s past. Those interested in a self-guided
+              archival tour can look for the stickers around Al-Balad and
+              Bourj-Hammoud, for an archival digitally-powered experience of
+              craftsmanship in Beirut.
+            </p>
+          </div>
+          <div className={'about-image-container'}>
+            <Carousel indicators={false}>
+              {/* <Carousel.Item>
+                <img className="d-block w-100" src="./about/archive_1.jpg" />
+              </Carousel.Item> */}
+              <Carousel.Item>
                 <img
-                  className="logo w-100"
-                  src="./MIT SA+P Logo.png"
-                  alt="MIT School of Architecture and Planning logo"
+                  className="d-block w-100 archive-slide"
+                  src="./about/archive_2.jpg"
                 />
-              </a>
-            </div>
-            <div className="col-4">
-              <a
-                className="d-flex justify-content-center"
-                href="https://www.futureheritagelab.com/"
-                target="blank"
-              >
+              </Carousel.Item>
+              <Carousel.Item>
                 <img
-                  id="logo-fhl"
-                  src="./FHL Logo.png"
-                  alt="MIT Future Heritage Lab logo"
+                  className="d-block w-100 archive-slide"
+                  src="./about/archive_3.jpg"
                 />
-              </a>
-            </div>
-            <div className="col-4">
-              <a href="https://civicdatadesignlab.mit.edu/" target="blank">
+              </Carousel.Item>
+              <Carousel.Item>
                 <img
-                  className="logo w-100"
-                  src="./CDDL Logo.png"
-                  alt="MIT Civic Data Design Lab logo"
+                  className="d-block w-100 archive-slide"
+                  src="./about/archive_4.jpg"
                 />
-              </a>
+              </Carousel.Item>
+            </Carousel>
+          </div>
+        </div>
+
+        <div className={'about-container bleed'}>
+          <div className={'about-image-container bleed'}>
+            <img src="./about/panel.jpg" />
+          </div>
+          <div className={'text-container bleed'}>
+            <div>
+              <h3>Roundtable Discussionss</h3>
+            </div>
+            <p>
+              Diverse panelists were invited to sit around for 3 roundtable
+              events that discussed craftsmanship. The roundtable discussions
+              were moderated by Daniella Maamari (lead researcher & project
+              manager at FHL) and Racha Doughman (events coordinator). Ahmad
+              Khouja (Mashghal Initiative), Arpi Mangasserian (Badguer), Joy
+              Kanaan (Beirut Heritage Initiative) and Pascale Habis (The Ready
+              Hand) sat together for the first panel discussing the
+              documentation of craftsmanship and its importance. In the second
+              panel discussing the legitimizing of craftsmen’s presence, Camille
+              Tarazi (Maison Tarazi), Mohamad Ayoub (NAHNOO), Nicole Hamouche
+              and Roula Haidar (L’artisan du Liban) engaged in a fruitful
+              conversation to look at the different ways this legitimizing can
+              take place and how craftsman can benefit from a legal body to link
+              them to stakeholders. The final panel which discussed the
+              mobilizing of crafts in shared spaces featured Christina Abou
+              Rouphael (Public Works Studio), Elena Costantinou (UNESCO), Nanor
+              Karageozian (UN-Habitat) and Charbel Tawil (Nusaned), who
+              discussed the role of public space and data as art and crafts
+              catalysts.
+            </p>
+          </div>
+        </div>
+
+        <div className={'about-container'}>
+          <div className={'text-container'}>
+            <h3>Mappathon</h3>
+            <p>
+              Participants were invited to contribute to the digital archive
+              through a mapathon, a community mapping event,in which
+              participants brought along a living heritage item (such as photos,
+              maps, and fabric) to be scanned and returned to them. Over 70
+              participants were presented with detailed maps of Beirut in which
+              they could locate and name crafts workshops that haven’t been
+              previously located by the team. The points were added to the
+              online directory and archival database in real-time and the
+              attendees were provided with detailed instructions on how to
+              contribute their points to be reviewed, through the website
+              directly.
+            </p>
+          </div>
+          <div className={'about-image-container'}>
+            <img src="./about/mappathon.jpg" />
+          </div>
+        </div>
+        <div className={'about-container'}>
+          <div className={'about-image-container'}>
+            <h3>Credits</h3>
+            <p>
+              <i>Living Heritage Atlas </i>was developed by the Civic Data
+              Design Lab and the Future Heritage Lab at Massachusetts Institute
+              of Technology (MIT). Living Heritage Atlas is supported by the Dar
+              Group Urban Seed Grant Fund at MIT’s Norman B. Leventhal Center
+              for Advanced Urbanism.
+            </p>
+            <div className="credit-grid">
+              <div>
+                <h3>Civic Data Desgin Lab</h3>
+                <p>
+                  The Civic Data Design Lab at MIT works by using data for
+                  public good. Research methods in the lab employ an ethical
+                  approach to working with data. Collaboration within an
+                  interdisciplinary team of data scientists, policy experts,
+                  designers, and technologists catalyzes the development of
+                  alternative practices, which make data findings richer, more
+                  relevant, and more responsive to the needs and interests of
+                  citizens traditionally on the margins of policy development.
+                  Borrowing from the traditions of science and design, spatial
+                  analytics expose patterns and creative visualizations
+                  communicate results to reach new audiences.
+                </p>
+              </div>
+              <div>
+                <h3>Future Heritage Lab</h3>
+                <p>
+                  The Future Heritage Lab collaborates with communities affected
+                  by conflict and crisis to collect and preserve histories of
+                  transcultural exchange and histories of threatened monuments,
+                  artifacts, textiles, and crafts. Linking art, culture, and
+                  technology, the Future Heritage Lab regenerates relevance of
+                  cultural heritage for contemporary conditions and for the
+                  future. The team builds future heritage by implementing
+                  civic-scale participatory cultural projects that translate
+                  traditional crafts into new technologies, advance knowledge
+                  transfer across borders, and have a positive impact on
+                  threatened communities.
+                </p>
+              </div>
+              <div>
+                <h3>Civic Data Desgin Lab Team</h3>
+                <p>
+                  Sarah Williams (Director), Carmelo Ignaccolo (Lead Researcher
+                  & Project Manager), Ashley Louie (Exhibition Lead & Project
+                  Manager), Niko McGlashan, Kelly Fang, Enrique Casillas, Gatlen
+                  Culp, Huiwen Shi, Sophia Zheng
+                </p>
+              </div>
+              <div>
+                <h3>Future Heritage Lab Team</h3>
+                <p>
+                  Azra Aksamija (Director), Daniella Maamari (Lead Researcher &
+                  Project Manager), Sarine Agopian, Ramzi Alieh, Ahmad Beydoun,
+                  Racha Doughman, Reem Farhat, Kamila El Khechen, Raafat
+                  Majzoub, Fatima Moussa, Moussa Shabandar, Reem Obeid, Rasha
+                  Zayour
+                </p>
+              </div>
+            </div>
+            <div className="logos">
+              <img src={'./MIT SA+P Logo.png'} />
+              <img src={'./FHL Logo.png'} />
+              <img src={'./CDDL Logo.png'} />
             </div>
           </div>
         </div>
-        {/* close about card */}
       </div>
     </>
   );
