@@ -95,7 +95,10 @@ const About = ({ i18n }) => {
           id={'venice exhibit 2023-section'}
         >
           <div className={'about-image-container bleed'}>
-            <img src="./about/about_2.jpg" />
+            <img
+              src="./about/about_2.jpg"
+              style={{ mixBlendMode: 'multiply' }}
+            />
           </div>
           <div className={'text-container bleed'}>
             <div>
