@@ -434,54 +434,56 @@ const Index = ({ i18n }) => {
   }
 
   return (
-    <div className="container__landing">
-      <div className="subcontainer__landing">
-        <div className="container col-md-4 col-sm-12 landing_text">
-          <div>
-            <h3>{text.heading}</h3>
-            <p>{text.subheading}</p>
-          </div>
-          <div>
-            {text.body.map((t) => {
-              return <p>{t}</p>;
-            })}
-          </div>
-          {touchscreen && text.link && (
+    <div>
+      <div className="container__landing">
+        <div className="subcontainer__landing">
+          <div className="container col-md-4 col-sm-12 landing_text">
             <div>
-              <p>
-                Click <a href={text.link}>here</a> to learn more
-              </p>
+              <h3>{text.heading}</h3>
+              <p>{text.subheading}</p>
             </div>
-          )}
-        </div>
+            <div>
+              {text.body.map((t) => {
+                return <p>{t}</p>;
+              })}
+            </div>
+            {touchscreen && text.link && (
+              <div>
+                <p>
+                  Click <a href={text.link}>here</a> to learn more
+                </p>
+              </div>
+            )}
+          </div>
 
-        <div className="container col-md-8 col-sm-12 grid_container">
-          <div className="window_grid">{renderGrid()}</div>
+          <div className="container col-md-8 col-sm-12 grid_container">
+            <div className="window_grid">{renderGrid()}</div>
+          </div>
         </div>
-      </div>
-      <div className="video__landing">
-        <div
-          style={{
-            padding: '0 0 0 0',
-            position: 'relative',
-          }}
-        >
-          <iframe
-            src="https://player.vimeo.com/video/783337873?h=8529ccc1f9&autoplay=0&title=0&byline=0&portrait=0"
+        <div className="video__landing">
+          <div
             style={{
-              position: 'absolute',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              left: 0,
-              width: '100vw',
-              height: '100%',
+              padding: '0 0 0 0',
+              position: 'relative',
             }}
-            frameborder="0"
-            allow="fullscreen; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+          >
+            <iframe
+              src="https://player.vimeo.com/video/783337873?h=8529ccc1f9&autoplay=0&title=0&byline=0&portrait=0"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                left: 0,
+                width: '100vw',
+                height: '100%',
+              }}
+              frameborder="0"
+              allow="fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <script src="https://player.vimeo.com/api/player.js"></script>
         </div>
-        <script src="https://player.vimeo.com/api/player.js"></script>
       </div>
     </div>
   );

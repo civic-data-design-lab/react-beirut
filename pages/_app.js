@@ -30,6 +30,15 @@ function MyApp({ Component, pageProps }) {
         setLanguage(language);
       }
     }
+
+    // window.addEventListener('contextmenu', (event) => event.preventDefault());
+
+    // // cleanup this component
+    // return () => {
+    //   window.removeEventListener('contextmenu', (event) =>
+    //     event.preventDefault()
+    //   );
+    // };
   }, []);
 
   const [language, setLanguage] = useState(null);

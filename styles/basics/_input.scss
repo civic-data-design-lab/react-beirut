@@ -14,8 +14,6 @@ input[type='instagram_handle'] {
   max-width: 300px;
 }
 
-
-
 textarea {
   padding: 0.4rem;
   background-color: $c-white-off;
@@ -40,7 +38,7 @@ select {
   // font-size: 16px;
   display: flex;
   flex-direction: column;
-  
+
   span {
     display: inline-flex;
     font-weight: normal;
@@ -51,13 +49,12 @@ select {
     font-family: $font-main;
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
-    line-height: 18px;
+    // font-size: 12px;
+    // line-height: 18px;
     color: $c-primary-dark;
-
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     /* Add if not using autoprefixer */
     -webkit-appearance: none;
     /* Remove most all native input styles */
@@ -66,7 +63,7 @@ select {
     background-color: $c-white-off;
     /* Not removed via appearance */
     margin: 0;
-  
+
     font: inherit;
     color: $c-white-off;
     width: 1.15em;
@@ -74,15 +71,15 @@ select {
     border: 0.15em solid $c-grey-mid;
     border-radius: 0.15em;
     // transform: translateY(0.075em);
-  
+
     display: grid;
     place-content: center;
 
     transform: translateY(0.5em);
   }
-  
-  input[type="checkbox"]::before {
-    content: "";
+
+  input[type='checkbox']::before {
+    content: '';
     width: 0.65em;
     height: 0.65em;
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
@@ -93,15 +90,13 @@ select {
     background-color: $c-primary-dark;
   }
 
-
   // input[type="checkbox"]:checked {
   //   background-color: $c;
   // }
 
-  input[type="checkbox"]:checked::before {
+  input[type='checkbox']:checked::before {
     transform: scale(1);
   }
-  
 
   // background-color: $c-white-off;
   // border: 1px solid $c-grey-light;
@@ -119,6 +114,10 @@ select {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

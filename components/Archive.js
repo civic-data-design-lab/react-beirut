@@ -358,7 +358,7 @@ const Archive = ({
 
         <div className={'popup-section archival-card-section'}>
           <div className={'object-title-section'}>
-            <p className={'object-name'}>
+            <h6 className={'object-name'}>
               {getShopName() || 'Archival Image'} &thinsp;
               <span>
                 <Info
@@ -374,7 +374,7 @@ const Archive = ({
                   }
                 />
               </span>
-            </p>
+            </h6>
 
             <p className={'object-subtitle'}>
               {getPrimaryDecade()}
@@ -421,7 +421,7 @@ const Archive = ({
       <Tablet>
         <div className={'popup-section'}>
           <div className={'object-title-section'}>
-            <p className={'object-name'}>
+            <h6 className={'object-name'}>
               {getShopName() || 'Archival Image'} &thinsp;
               <span>
                 <Info
@@ -437,7 +437,7 @@ const Archive = ({
                   }
                 />
               </span>
-            </p>
+            </h6>
 
             <p className={'object-subtitle'}>
               {getPrimaryDecade()}

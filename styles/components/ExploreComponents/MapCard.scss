@@ -3,7 +3,7 @@
   border-radius: 10px 10px;
   position: fixed;
   padding: 24px;
-  height: 80vh;
+  height: calc(100vh - 130px);
   width: 30vw;
   right: 3.5rem;
   display: flex;
@@ -14,9 +14,8 @@
   pointer-events: auto;
   overflow-y: scroll;
   overflow-x: hidden;
-  bottom: 10vh;
   margin: 0px;
-  z-index: 7;
+  z-index: 90;
 
   -webkit-overflow-scrolling: touch;
 
@@ -116,7 +115,7 @@
   font-family: $font-title;
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
+  // font-size: 16px;
   line-height: 18px;
   margin-bottom: 0px;
 
@@ -125,9 +124,9 @@
 
 .shopSubtitle-text {
   font-family: $font-main;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
+  // font-style: normal;
+  // font-weight: 400;
+  // font-size: 12px;
   line-height: 18px;
   color: $c-primary-dark;
   margin: 0;
@@ -170,7 +169,7 @@
   font-family: $font-main;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  // font-size: 16px;
   line-height: 18px;
 }
 

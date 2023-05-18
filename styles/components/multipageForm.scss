@@ -1,15 +1,13 @@
-
-
-.MultipageForm-container{
-  margin:auto;
+.MultipageForm-container {
+  margin: auto;
   min-height: 90vh;
   width: 90vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-self: center;
-  padding: 0px; }
-
+  padding: 0px;
+}
 
 .MultipageForm {
   width: 100%;
@@ -22,7 +20,7 @@
 
   nav {
     display: none;
-    z-index: 400;
+    z-index: 80;
   }
 
   .content {
@@ -31,7 +29,7 @@
     justify-content: space-around;
     //max-width: 90%;
     margin: auto;
-    padding:24px 0px 24px;
+    padding: 24px 0px 24px;
     //padding: 24px;
     //gap: 1.5rem;
     //padding: 1.5rem;
@@ -40,7 +38,7 @@
       padding: 2rem 1rem;
       text-align: center;
       line-height: normal;
-      
+
       .success {
         display: flex;
         flex-direction: column;
@@ -57,7 +55,6 @@
   }
 
   @media (min-width: 600px) {
-
     nav {
       display: flex;
       justify-content: space-evenly;
@@ -91,7 +88,7 @@
       }
 
       a:hover .bubble {
-        background-color: $c-primary-mid; 
+        background-color: $c-primary-mid;
         color: $c-white-off;
       }
 

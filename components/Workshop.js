@@ -311,7 +311,8 @@ const Workshop = ({
         if (key === 'phone' && value) {
           contactInfo.push(
             <div className={'contact-container'}>
-              <FontAwesomeIcon icon={faPhone} width={16} /> &thinsp;
+              <FontAwesomeIcon icon={faPhone} width={16} color={'#471e10'} />{' '}
+              &thinsp;
               <a className={'object-caption'} href={`tel:${value}`}>
                 {value}
               </a>
@@ -464,7 +465,7 @@ const Workshop = ({
           <div style={{ height: '100%' }}>
             <div className={'object-title-section section-margin'}>
               <div className={'shop-title-verification'}>
-                <p className={'object-name'}>
+                <h6 className={'object-name'}>
                   {getShopName() || 'Craft Workshop'} &thinsp;
                   <span>
                     <Info
@@ -480,7 +481,7 @@ const Workshop = ({
                       }
                     />
                   </span>
-                </p>
+                </h6>
               </div>
 
               <p className={'object-subtitle'}>
@@ -558,7 +559,7 @@ const Workshop = ({
         <div className={'popup-section'}>
           <div style={{ height: '100%', overflowY: 'auto' }}>
             <div className={'object-title-section section-margin'}>
-              <p className={'object-name'}>
+              <h6 className={'object-name'}>
                 {getShopName() || 'Craft Workshop'} &thinsp;
                 <span>
                   <Info
@@ -574,7 +575,7 @@ const Workshop = ({
                     }
                   />
                 </span>
-              </p>
+              </h6>
 
               <p className={'object-subtitle'}>
                 {getDecadeEstablished()}
@@ -676,10 +677,10 @@ const Workshop = ({
               <button
                 className={'close-card-btn object-mobile-close'}
                 onClick={() => {
-                  handleClose;
+                  handleClose();
                 }}
               >
-                <FontAwesomeIcon icon={faXmark} size={'sm'} />
+                <FontAwesomeIcon icon={faXmark} style={{ height: 24 }} />
               </button>
             ) : null}
             <div

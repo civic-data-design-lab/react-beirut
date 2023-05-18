@@ -42,6 +42,13 @@ h3 {
   line-height: auto;
 }
 
+h6 {
+  @include heading;
+  font-size: 16px !important;
+  line-height: auto;
+  color: $c-primary-dark;
+}
+
 p,
 pre {
   @include body-regular;
@@ -63,12 +70,12 @@ ol {
 
 small {
   @include body-regular;
-  font-size: 12px;
+  font-size: 12px !important;
   line-height: 19px;
 }
 
-span {
-  // font-weight: bold; I'm not sure why this is here. Makes contribute form look weird.
+a {
+  color: $c-primary-dark;
 }
 
 // === MOBILE ===
@@ -78,7 +85,8 @@ span {
     line-height: 18px;
   }
   p,
-  pre {
+  pre,
+  label {
     @include body-regular;
     font-size: 12px;
     line-height: auto;
@@ -87,5 +95,58 @@ span {
     @include body-regular;
     font-size: 12px;
     line-height: 20px;
+  }
+}
+
+// === EXHIBIT SCREEN ===
+@media (min-width: 1500px) {
+  h1 {
+    @include heading;
+    font-size: calc(36px * 1.5);
+    line-height: 60px;
+  }
+
+  h2 {
+    @include heading;
+    font-size: calc(24px * 1.5);
+    line-height: 50px;
+  }
+
+  h3 {
+    @include heading;
+    font-size: calc(20px * 1.5);
+    line-height: 35px;
+  }
+
+  h6 {
+    @include heading;
+    font-size: calc(16px * 1.5) !important;
+    line-height: 28px;
+  }
+
+  p,
+  pre,
+  label {
+    @include body-regular;
+    font-size: calc(14px * 1.5);
+    line-height: 25px;
+  }
+
+  ul {
+    @include body-regular;
+    font-size: calc(14px * 1.5);
+    line-height: 25px;
+  }
+
+  ol {
+    @include body-regular;
+    font-size: calc(14px * 1.5);
+    line-height: 25px;
+  }
+
+  small {
+    @include body-regular;
+    font-size: calc(12px * 1.5) !important;
+    line-height: 21px;
   }
 }
