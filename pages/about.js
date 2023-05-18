@@ -62,7 +62,7 @@ const About = ({ i18n }) => {
   const [width, setWidth] = useState(0);
   useEffect(() => {
     setWidth(window.innerWidth);
-    setTouchscreen(window.matchMedia('(pointer: coarse)').matches);
+    setTouchscreen(window.matchMedia('(any-pointer: coarse)').matches);
   });
 
   return (

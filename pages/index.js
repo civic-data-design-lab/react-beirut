@@ -350,7 +350,7 @@ const Index = ({ i18n }) => {
   const [touchscreen, setTouchscreen] = useState(false);
 
   useEffect(() => {
-    setTouchscreen(window.matchMedia('(pointer: coarse)').matches);
+    setTouchscreen(window.matchMedia('(any-pointer: coarse)').matches);
   });
 
   function hover(key) {
