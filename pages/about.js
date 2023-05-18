@@ -101,7 +101,9 @@ const About = ({ i18n }) => {
             <div>
               <h3>Rebuilding Beirut</h3>
               <p>Using Data to Co-Design a New Future</p>
-              <i>(2023 Exhibition in Venice)</i>
+              <p>
+                <i>(2023 Exhibition in Venice)</i>
+              </p>
             </div>
             <p>
               In May 2023, the Venice Biennale will feature “Tools for
@@ -247,7 +249,10 @@ const About = ({ i18n }) => {
                   in copper work.
                 </p>
 
-                <b>Click on a craftsperson to learn more</b>
+                <p>
+                  {' '}
+                  <b>Click on a craftsperson to learn more</b>
+                </p>
               </>
             ) : (
               <>

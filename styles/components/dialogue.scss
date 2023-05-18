@@ -8,17 +8,17 @@
   align-items: center;
   padding: 24px;
   gap: 10px;
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid #404044;
   border-radius: 4px;
-  position:relative;
+  position: relative;
 }
 
 .dialogue-title {
   font-family: $font-main;
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
+  // font-size: 24px;
   line-height: 31px;
   width: 80%;
   display: flex;
@@ -27,15 +27,14 @@
   align-items: center;
   text-align: center;
   text-transform: uppercase;
-  color: #262626;
-
+  // color: #262626;
 }
 
 .dialogue-content {
   font-family: $font-main;
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  // font-size: 16px;
   line-height: 24px;
   display: flex;
   flex-direction: column;
@@ -46,38 +45,38 @@
 }
 
 .card-cover {
-    position: fixed;
-    overflow-y: auto;
-    z-index: 1000000;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.3s ease;
-  }
+  position: fixed;
+  overflow-y: auto;
+  z-index: 1000000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
 
 .card-cover-clear {
-    position: fixed;
-    overflow-y: auto;
-    z-index: 1000000;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    //background-color: rgba(0, 0, 0, 0.8);
-    //backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.3s ease;
-  }
+  position: fixed;
+  overflow-y: auto;
+  z-index: 1000000;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  //background-color: rgba(0, 0, 0, 0.8);
+  //backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
 
 .cancel-button {
   box-sizing: border-box;
@@ -88,12 +87,10 @@
   align-items: center;
   padding: 12px;
   /* off-white */
-  background: #FAF8F6;
+  background: #faf8f6;
   /* bronze */
-  border: 0.5px solid #471E10;
+  border: 0.5px solid #471e10;
   border-radius: 2px;
-
-
 }
 
 .cancel-label {
@@ -101,11 +98,9 @@
   font-family: $font-main;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
-  color: #471E10;
+  // font-size: 16px;
+  color: #471e10;
   margin: 0px;
-
-
 }
 
 .accept-button {
@@ -123,9 +118,8 @@
 
   /* bronze */
 
-  background: #471E10;
+  background: #471e10;
   border-radius: 4px;
-
 }
 
 .accept-label {
@@ -134,15 +128,13 @@
   font-family: $font-main;
   font-style: normal;
   font-weight: 500;
-  font-size: 16px;
+  // font-size: 16px;
   /* identical to box height, or 150% */
   margin: 0px;
 
-
-
   /* off-white */
 
-  color: #FAF8F6;
+  color: #faf8f6;
 }
 
 .dialogue-buttons {
@@ -159,4 +151,3 @@
   right: 24px;
   top: 24px;
 }
-

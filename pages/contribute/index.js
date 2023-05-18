@@ -114,7 +114,7 @@ const Contribute = () => {
           <div className={'card-cover'}>
             <div className={'dialogue-container'}>
               <div className={'dialogue-title'}>
-                {t('You have an unsubmitted workshop contribution')}
+                <h6> {t('You have an unsubmitted workshop contribution')}</h6>
               </div>
               <button
                 className={'close-card-btn dialogue-close-btn'}
@@ -159,7 +159,7 @@ const Contribute = () => {
           <div className={'card-cover'}>
             <div className={'dialogue-container'}>
               <div className={'dialogue-title'}>
-                {t('You have an unsubmitted archive contribution')}
+                <h6>{t('You have an unsubmitted archive contribution')}</h6>
               </div>
               <button
                 className={'close-card-btn dialogue-close-btn'}
@@ -214,7 +214,9 @@ const Contribute = () => {
           <>
             <div className={'card-cover'}>
               <div className={'dialogue-container'}>
-                <div className={'dialogue-title'}>Ongoing Data Collection</div>
+                <div className={'dialogue-title'}>
+                  <h6>Ongoing Data Collection</h6>
+                </div>
                 <button
                   className={'close-card-btn dialogue-close-btn'}
                   onClick={() => setModal(null)}

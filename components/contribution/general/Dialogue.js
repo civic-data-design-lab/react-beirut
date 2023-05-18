@@ -23,7 +23,9 @@ const Dialogue = (
     <>
       <div className={cardCover ? 'card-cover' : 'card-cover-clear'}>
         <div className={'dialogue-container'}>
-          <div className={'dialogue-title'}>{t(title)}</div>
+          <div className={'dialogue-title'}>
+            <h6>{t(title)}</h6>
+          </div>
           <button
             className={'close-card-btn dialogue-close-btn'}
             onClick={handleClose}

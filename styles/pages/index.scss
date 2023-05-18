@@ -1,13 +1,21 @@
 .container__landing {
   padding: 0 0;
 
+  height: calc(100vh - 80px);
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+
   .video__landing {
+    scroll-snap-align: start;
+
     height: calc(100vh - 60px) !important;
     display: flex;
     flex-direction: row;
   }
 
   .subcontainer__landing {
+    scroll-snap-align: start;
+
     min-height: calc(100vh - 80px);
     max-height: calc(100vh - 80px);
     display: flex;
