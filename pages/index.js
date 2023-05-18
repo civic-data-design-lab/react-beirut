@@ -383,12 +383,6 @@ const Index = ({ i18n }) => {
             const cover = document.getElementById(`${key}-cover`);
             const active = cover.classList.contains('active');
 
-            for (const key of Object.keys(data)) {
-              ['cover', 'img', 'static'].map((d) => {
-                document.getElementById(`${key}-d`).classList.remove('active');
-              });
-            }
-
             if (active) {
               unhover(key);
             } else hover(key);
