@@ -53,7 +53,8 @@ const data = {
     subheading:
       'Cirbus Hub | Est. 2010 · Circus Props · Qobaiyat, Remeil, Beirut',
     body: [
-      'Paramaz Yepremiao, the owner of Circus Hub, specializes in the manufacture of circus equipment. Yepremiao has shared his practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
+      'Paramaz Yepremiao, the owner of Circus Hub, specializes in the manufacture of circus equipment.',
+      'He/She has shared his/her practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '10.0145%',
@@ -68,8 +69,8 @@ const data = {
     heading: 'Badguer',
     subheading: 'Badguer · Embroidery · Bourj Hammoud, El Meten',
     body: [
-      'Arpi Mangasserian is the founder of Badguèr, an arts incubator, cultural platform, and multipurpose space promoting Armenian heritage, cuisine, and customs.' +
-        ' Arpi has shared her practice with the Living Heritage Atlas, and her business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
+      'Arpi Mangasserian is the founder of Badguèr, an arts incubator, cultural platform, and multipurpose space promoting Armenian heritage, cuisine, and customs.',
+      'He/She has shared his/her practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '8.729%',
@@ -85,7 +86,8 @@ const data = {
     subheading:
       "Coin d'Art | Est. 1990 · Framing, Painting, Printing, Woodwork · Rmeil, Beirut",
     body: [
-      "Located in Remeil, Beirut, Coin d'Art is a family run business that specializes in framing, paintingm printing and woodwork. Coin d'Art has shared their practice with the Living Heritage Atlas, and their business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.",
+      "Located in Remeil, Beirut, Coin d'Art is a family run business that specializes in framing, painting, printing and woodwork.",
+      'He/She has shared his/her practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '6.627737%',
@@ -101,7 +103,8 @@ const data = {
     subheading:
       'Doniguian Printing House | 2023 · Printing, Packaging · Mar Mikhael, Medawar, Beirut',
     body: [
-      'Guy Doniguian is a printmaker at Doniguian Printing House. Doniguian has shared his practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
+      'Guy Doniguian is a printmaker at Doniguian Printing House.',
+      'He/She has shared his/her practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '9.78102%',
@@ -117,7 +120,8 @@ const data = {
     subheading:
       'Donikian Leather | 2014 · Leather · Badguèr, Der Melkonian Street, Bourj Hammoud',
     body: [
-      'Sarkis Donikian, craftsperson and owner of Donikian Leather, in his shop. This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
+      'Sarkis Donikian, craftsperson and owner of Donikian Leather, in his shop.',
+      'This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '13.021%',
@@ -133,7 +137,8 @@ const data = {
     subheading:
       'Hagop “Jackson” Keshishian | 2023 · Shoemaker · Bourj Hammoud, El Meten',
     body: [
-      'Hagop “Jackson” Keshishian works on leather shoes in his workshop. Jackson has shared his practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
+      'Hagop “Jackson” Keshishian works on leather shoes in his workshop.',
+      'He/She has shared his/her practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '9.78%',
@@ -148,7 +153,9 @@ const data = {
     heading: 'Noubar Eskidjian',
     subheading: 'Noubar Eskidjian | 2023 · Copper · Bourj Hammoud, El Meten',
     body: [
-      'A craftsperson, Noubar Eskidjian, uses industrial machinery to carefully mold copper sculptures. Having practiced this craft for decades, Noubar owns and operates his craft workshop in Bourj Hammoud. Noubar has shared his practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database. ',
+      'A craftsperson, Noubar Eskidjian, uses industrial machinery to carefully mold copper sculptures.',
+      'Having practiced this craft for decades, Noubar owns and operates his craft workshop in Bourj Hammoud.',
+      'He/She has shared his/her practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '9.927%',
@@ -164,7 +171,8 @@ const data = {
     subheading:
       'Peter Khatcherian | 2022 · Pipe maker · Nor Marash, Bourj Hammoud, El Meten',
     body: [
-      'Peter Khatcherian hand crafts wooden pipes. Khatcherian has shared his practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
+      'Peter Khatcherian hand crafts wooden pipes.',
+      'He/She has shared his/her practice with the Living Heritage Atlas, and his business is one of over 110 current craft workshops that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '6.598%',
@@ -179,7 +187,7 @@ const data = {
     heading: 'Archival Image Tour',
     subheading: 'Uncovering the past through digital tools',
     body: [
-      'During the archival tours both residents and visitors explored the rich archival dataset of the Living Heritage Atlas through the stickers distributed around Beirut; people who joined these tours were encouraged to message a WhatsApp code written on the stickers, read out loud the stories delivered to their phones and collectively participate in a community exercise to acknowledge the historic presence (and often displacement) of workshops in Beirut.',
+      'During archival tours both residents and visitors explored the rich archival dataset of the Living Heritage Atlas through the stickers distributed around Beirut; people who joined these tours were encouraged to message a WhatsApp code written on the stickers, read out loud the stories delivered to their phones and collectively participate in a community exercise to acknowledge the historic presence (and often displacement) of workshops in Beirut.',
     ],
     style: { width: '13.6%', height: '18.9%', left: '54.7%', top: '69.7%' },
   },
@@ -189,7 +197,8 @@ const data = {
     heading: 'Abu Al-Nasr Market',
     subheading: 'Abu Al-Nasr Market | 1900 · Wickerwork · Beirut',
     body: [
-      'Straw chairs and household supplies at a souk in Abu Al-Nasr Market. This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
+      'Straw chairs and household supplies at a souk in Abu Al-Nasr Market.',
+      'This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: { width: '4.846%', height: '9.12%', left: '69.81%', top: '69.61%' },
   },
@@ -200,7 +209,8 @@ const data = {
     subheading:
       'The Tannery | 1972 · Leather · Beirut River, Bourj Hammoud, El Meten Hayek, J. Bourj Hammoud: l’évolution du site urbain. Institut français du Proche-Orient (1972). Courtesy of Institut français du Proche-Orient.',
     body: [
-      'In this 1972 photograph, children of Nor Marash proudly demonstrate their tanner skills and displayed tanned leather on a wooden cart. The art of leatherworking is historically rooted in Bourj Hammoud, a place of refuge for many asylum seekers. The craft of tannery represents the survival of an inherited skill that has been passed down over generations and connects to the collective identity of the resilient community in Bourj Hammoud. This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database. ',
+      'In this 1972 photograph, children of Nor Marash proudly demonstrate their tanner skills and displayed tanned leather on a wooden cart. The art of leather working is historically rooted in Bourj Hammoud, a place of refuge for many asylum seekers. The craft of tannery represents the survival of an inherited skill that has been passed down over generations and connects to the collective identity of the resilient community in Bourj Hammoud.',
+      'This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: {
       width: '9.8394160583%',
@@ -216,7 +226,8 @@ const data = {
     subheading:
       'Upholsterer’s Souk | 1950 · Upholstery · Serail, Zoukak el-Blatt, Beirut',
     body: [
-      'Upholsterer’s souk near Riad as-Solh square. This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
+      'Upholsterer’s souk near Riad as-Solh square.',
+      'This photo is one of over 800 archival images that have been mapped and documented in the Living Heritage Atlas database.',
     ],
     style: { width: '13.722%', height: '19.066%', left: '12%', top: '39.269%' },
   },
@@ -242,7 +253,7 @@ const data = {
     subheading:
       'Documenting Craftsmanship · Legitimizing Craftspeople’s Presence · Mobilizing Crafts in Shared Spaces',
     body: [
-      'In July 2022, the Future Heritage Lab and the Civic Data Design Lab at MIT, the research team that created the Living Heritage Atlas, organized a roundtable discussion focused on preserving the living heritage of craftsmanship in Beirut. Over a dozen prominent stakeholders involved in the craftsmanship community came together to discuss three main topics: documenting craftsmanship, valorizing craftpeoples’ presence, and mobilizing shared spaces. The event was held in the Abroyan Factory, a former textile factory and adapted event space in Bourj Hammoud.',
+      'In July 2022, the Future Heritage Lab and the Civic Data Design Lab at MIT, the research team that created the Living Heritage Atlas, organized a roundtable discussion focused on preserving the living heritage of craftsmanship in Beirut. Over a dozen prominent stakeholders involved in the craftsmanship community came together to discuss three main topics: documenting craftsmanship, legitimizing craftpeoples’ presence, and mobilizing shared spaces. The event was held in the Abroyan Factory, a former textile factory and adapted event space in Bourj Hammoud.',
     ],
     style: {
       width: '24.408%',
@@ -257,7 +268,7 @@ const data = {
     heading: 'Community Engagement',
     subheading: "Legitimizing craftspeople's presence",
     body: [
-      'Wissam Houry, a third generation leather craftsperson, poses with his son and the tools he uses to create handmade horse saddles and other leather goods.',
+      'In July 2022, Living Heritage Atlas  held workshop walking tours, a participatory mapping workshop, and a panel discussion on documenting craftsmanship, legitimizing craftpeoples’ presence, and mobilizing shared spaces to connect stakeholders working on the craftsmanship in Beirut.',
     ],
     style: {
       width: '17.4598%',
@@ -272,7 +283,7 @@ const data = {
     heading: 'Mappathon',
     subheading: '',
     body: [
-      'Participants were invited to contribute to the digital archive through a mapathon, a community mapping event,in which participants brought along a living heritage item (such as photos, maps, and fabric) to be scanned and returned to them.',
+      'Participants were invited to contribute to the digital archive through a mapathon, a community mapping event, in which participants brought along a living heritage item (such as photos, maps, and fabric) to be scanned and returned to them. Over 70 participants were presented with detailed maps of Beirut in which they could locate and name crafts workshops that haven’t been previously located by the team. The points were added to the online directory and archival database in real-time and the attendees were provided with detailed instructions on how to contribute their points to be reviewed, through the website directly.',
     ],
     style: {
       width: '19.5036%',
@@ -342,7 +353,7 @@ const Index = ({ i18n }) => {
         ' artisanship by mapping its craftspeople and cataloging its crafts through an open-source database,' +
         ' viewable through an interactive website. This project celebrates the past and present of local artisanship' +
         ' through archival data, interviews and community workshops.',
-      ' The goal of this atlas is to shed light on the intangible heritage of Beirut by highlighting craftspeople’s cultural significance, vulnerability, and potential role in crafting the future of Beirut.',
+      "The goal of this atlas is to shed light on the intangible heritage of Beirut by highlighting craftspeople's cultural significance, vulnerability, and potential role in crafting the future of Beirut.",
     ],
   };
   const { t } = useTranslation();
@@ -423,11 +434,7 @@ const Index = ({ i18n }) => {
   function renderGrid() {
     const grid = [];
     for (const [key, value] of Object.entries(data)) {
-      // if (value.link) {
-      // grid.push(<Link href={value.link}>{renderText(key, value)}</Link>);
-      // } else {
       grid.push(<> {renderText(key, value)}</>);
-      // }
     }
 
     return grid;
@@ -439,12 +446,12 @@ const Index = ({ i18n }) => {
         <div className="subcontainer__landing">
           <div className="container col-md-4 col-sm-12 landing_text">
             <div>
-              <h3>{text.heading}</h3>
-              <p>{text.subheading}</p>
+              <h3>{t(text.heading)}</h3>
+              <p>{t(text.subheading)}</p>
             </div>
             <div>
-              {text.body.map((t) => {
-                return <p>{t}</p>;
+              {text.body.map((x) => {
+                return <p>{t(x)}</p>;
               })}
             </div>
             {touchscreen && text.link && (
@@ -473,13 +480,13 @@ const Index = ({ i18n }) => {
                 position: 'absolute',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                left: 0,
+                // left: 0,
                 width: '100vw',
                 height: '100%',
               }}
               frameborder="0"
               allow="fullscreen; picture-in-picture"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
           <script src="https://player.vimeo.com/api/player.js"></script>
